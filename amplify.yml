@@ -1,0 +1,18 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - if [ "${AWS_BRANCH}" = "prod" ]; then npx vite build --mode production; fi
+        - if [ "${AWS_BRANCH}" = "main" ]; then npx vite build --mode development; fi
+        - if [ "${AWS_BRANCH}" = "story" ]; then npx storybook build -o dist ; fi
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
