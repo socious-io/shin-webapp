@@ -13,7 +13,6 @@ const VERSION = '7.0.0';
 init(VERSION);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  //   <React.StrictMode>
   <>
     <Helmet>
       <meta charSet="UTF-8" />
@@ -25,6 +24,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <App />
     </ErrorBoundary>
   </>,
-  //   </React.StrictMode>
 );
 defineCustomElements(window);
