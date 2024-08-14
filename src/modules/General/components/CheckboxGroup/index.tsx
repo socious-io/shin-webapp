@@ -4,8 +4,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import React from 'react';
 
+import { CheckboxGroupProps, Item } from './checkboxGroup.types';
 import css from './index.module.scss';
-import { CheckboxGroupProps, Item } from './index.types';
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   items,

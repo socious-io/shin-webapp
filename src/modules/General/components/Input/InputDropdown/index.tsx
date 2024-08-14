@@ -1,6 +1,6 @@
 import React from 'react';
 import Select, { components } from 'react-select';
-import { Icon } from 'src/modules/general/components/Icon';
+import Icon from 'src/modules/General/components/Icon';
 
 import css from './input-dropdown.module.scss';
 import { InputDropdownProps } from './InputDropdown.types';

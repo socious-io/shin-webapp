@@ -1,9 +1,9 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
-import { Icon } from 'src/modules/general/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './avatar.module.scss';
 import { AvatarProps } from './avatar.types';
+import Icon from '../Icon';
 
 export const Avatar: React.FC<AvatarProps> = props => {
   const {

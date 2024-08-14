@@ -4,7 +4,7 @@ import { printWhen } from 'src/core/utils';
 
 import css from './expandableText.module.scss';
 import { ExpandableTextProps } from './expandableText.types';
-import { TextClickableURLs } from '../textClickableUrls';
+import { TextClickableURLs } from '../TextClickableUrls';
 
 export const ExpandableText: React.FC<ExpandableTextProps> = ({
   text,
@@ -16,13 +16,13 @@ export const ExpandableText: React.FC<ExpandableTextProps> = ({
   customStyle = '',
 }) => {
   const initialText = text.length > expectedLength ? text.slice(0, expectedLength) + '...' : text;
-  const [maintext, setMainText] = useState(text);
+  const [mainText, setMainText] = useState(text);
   const expect = text.slice(0, expectedLength);
   const viewMoreCondition = expect.length < text.length;
   const [shouldViewMore, setShouldViewMore] = useState(viewMoreCondition);
 
   const toggleExpect = (): void => {
-    if (maintext !== text) {
+    if (mainText !== text) {
       setMainText(text);
     } else {
       setMainText(initialText);
@@ -43,11 +43,11 @@ export const ExpandableText: React.FC<ExpandableTextProps> = ({
 
   const renderText = () => {
     if (clickableUrls && !isMarkdown) {
-      return <TextClickableURLs text={maintext} />;
+      return <TextClickableURLs text={mainText} />;
     } else if (isMarkdown) {
-      return convertMarkdownToJSX(maintext);
+      return convertMarkdownToJSX(mainText);
     }
-    return maintext;
+    return mainText;
   };
 
   return (
