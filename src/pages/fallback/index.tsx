@@ -1,6 +1,6 @@
 import Button from 'src/modules/General/components/Button';
 
-import styles from './fallback.module.scss';
+import css from './fallback.module.scss';
 
 export const FallBack = () => {
   const flag = 'refreshed';
@@ -13,13 +13,13 @@ export const FallBack = () => {
   }
 
   return (
-    <div className={styles['container']}>
-      <div className={styles['error__code']}>500</div>
-      <div className={styles['error__msg']}>Internal Server Error</div>
-      <div className={styles['error__details']}>We apologize for the inconvenience. Please try again later</div>
-      <div className={styles['content']}>
-        <Button color="primary" variant="outlined" className={styles['content__button']}>
-          <a href="/" className={styles['content__link']}>
+    <div className={css['container']}>
+      <div className={css['error__code']}>500</div>
+      <div className={css['error__msg']}>Internal Server Error</div>
+      <div className={css['error__details']}>We apologize for the inconvenience. Please try again later</div>
+      <div className={css['content']}>
+        <Button color="primary" variant="outlined" className={css['content__button']}>
+          <a href="/" className={css['content__link']}>
             Home Page
           </a>
         </Button>
