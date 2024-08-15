@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './chip.module.scss';
-import { ChipProps } from './Chip.types';
+import { ChipProps } from './index.types';
 
 export const Chip: React.FC<ChipProps> = ({
   label,

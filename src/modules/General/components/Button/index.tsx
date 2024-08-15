@@ -1,7 +1,7 @@
 import { Button as MaterialButton } from '@mui/material';
 import * as React from 'react';
 
-import css from './button.module.scss';
+import css from './index.module.scss';
 import { ButtonProps } from './index.types';
 
 const Button: React.FC<ButtonProps> = ({

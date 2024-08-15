@@ -1,9 +1,10 @@
 import { RadioGroup } from '@mui/material';
+import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './cardRadioButton.module.scss';
-import { CardRadioButtonProps } from './cardRadioButton.types';
-import { CardRadioButtonIcon } from './cardRadioButtonIcon';
-import { Checkbox } from '../Checkbox/checkbox';
+import css from './index.module.scss';
+import { CardRadioButtonProps } from './index.types';
+import { Checkbox } from '../Checkbox';
+import Icon from '../Icon';
 
 export const CardRadioButton: React.FC<CardRadioButtonProps> = props => {
   const { items, selectedValue, setSelectedValue } = props;
@@ -22,7 +23,13 @@ export const CardRadioButton: React.FC<CardRadioButtonProps> = props => {
           {item.img ? (
             item.img
           ) : item.icon ? (
-            <CardRadioButtonIcon icon={item.icon} selected={selectedValue === item.value} />
+            <div className={css.iconDiv}>
+              <Icon
+                name={item.icon.name}
+                fontSize={item.icon.fontSize}
+                color={selectedValue === item.value ? variables.color_primary_600 : variables.color_primary_600}
+              />
+            </div>
           ) : (
             ''
           )}

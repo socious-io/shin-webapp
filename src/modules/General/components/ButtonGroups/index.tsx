@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import css from './buttonGroups.module.scss';
-import { ButtonGroupsProps } from './buttonGroups.types';
+import css from './index.module.scss';
+import { ButtonGroupsProps } from './index.types';
 
 export const ButtonGroups: React.FC<ButtonGroupsProps> = props => {
   const { buttons, activeIndex } = props;

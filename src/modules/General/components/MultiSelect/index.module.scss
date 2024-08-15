@@ -29,12 +29,14 @@
     line-height: 20px;
     letter-spacing: 0em;
 }
+
 .chipContainer {
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: flex-start;
 }
+
 .captionDiv {
     display: flex;
     flex-direction: row;
@@ -42,15 +44,18 @@
     margin-bottom: 20px;
     margin-top: 6px;
 }
+
 .popularDiv {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     margin-bottom: 20px;
 }
+
 .popularLabel {
     color: $color-grey-600;
 }
+
 .searchTitle {
     margin-bottom: 6px;
     font-size: 14px;
@@ -59,6 +64,7 @@
     letter-spacing: 0em;
     color: $color-grey-700;
 }
+
 .inputContainer {
     border: 1px solid $color-grey-300;
     border-radius: 8px;
@@ -67,6 +73,7 @@
     overflow-y: auto;
     box-shadow: 0px 1px 2px 0px #1018280d;
 }
+
 .inputContainer {
     input {
         &::placeholder {

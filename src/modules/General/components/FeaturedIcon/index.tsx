@@ -2,8 +2,8 @@ import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './featuredIcon.module.scss';
-import { FeaturedIconProps } from './FeaturedIcon.types';
+import css from './index.module.scss';
+import { FeaturedIconProps } from './index.types';
 
 export const FeaturedIcon: React.FC<FeaturedIconProps> = ({ type, theme, size, iconName }) => {
   const iconSize = size === 'xs' ? 10 : size === 'sm' ? 16 : size === 'md' ? 20 : size === 'lg' ? 24 : 28;

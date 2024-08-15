@@ -1,9 +1,9 @@
 import { Pagination as MUIPagination, PaginationItem, PaginationProps } from '@mui/material';
 import React from 'react';
-import { Icon } from 'src/modules/general/components/Icon';
+import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './pagination.module.scss';
+import css from './index.module.scss';
 
 export const Pagination: React.FC<PaginationProps> = props => {
   return (

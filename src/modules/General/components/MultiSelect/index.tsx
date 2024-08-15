@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from 'src/modules/General/components/Icon';
 
 import Chip from './chip';
-import css from './multiSelect.module.scss';
-import { MultiSelectItem, MultiSelectProps } from './multiSelect.types';
+import css from './index.module.scss';
+import { MultiSelectItem, MultiSelectProps } from './index.types';
 
 const MultiSelect: React.FC<MultiSelectProps> = props => {
   const {

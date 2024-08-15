@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import css from './horizontalTabs.module.scss';
-import { HorizontalTabsProps } from './horizontalTabs.types';
+import css from './index.module.scss';
+import { HorizontalTabsProps } from './index.types';
 
 export const HorizontalTabs: React.FC<HorizontalTabsProps> = ({
   tabs,

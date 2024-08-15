@@ -1,7 +1,7 @@
 import React from 'react';
 
-import css from './multiSelect.module.scss';
-import { CustomChipProps } from './multiSelect.types';
+import css from './index.module.scss';
+import { CustomChipProps } from './index.types';
 
 const Chip: React.FC<CustomChipProps> = props => {
   const { label, onClick, icon, bgColor, fontColor, borderColor, customStyle } = props;

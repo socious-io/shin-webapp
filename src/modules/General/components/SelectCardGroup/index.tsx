@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import css from './selectCardGroup.module.scss';
-import { SelectCardGroupProps } from './selectCardGroup.type';
+import css from './index.module.scss';
+import { SelectCardGroupProps } from './index.type';
 
 export const SelectCardGroup: React.FC<SelectCardGroupProps> = props => {
   const { items, value, setValue, defaultValue } = props;

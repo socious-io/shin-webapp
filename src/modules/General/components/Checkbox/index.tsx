@@ -2,8 +2,8 @@ import { Checkbox as MUICheckbox } from '@mui/material';
 import React from 'react';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './checkbox.module.scss';
-import { CheckboxProps } from './checkbox.types';
+import css from './index.module.scss';
+import { CheckboxProps } from './index.types';
 import Icon from '../Icon';
 
 interface IconProps {

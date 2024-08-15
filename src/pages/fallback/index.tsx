@@ -1,6 +1,6 @@
 import Button from 'src/modules/General/components/Button';
 
-import css from './fallback.module.scss';
+import css from './index.module.scss';
 
 export const FallBack = () => {
   const flag = 'refreshed';
