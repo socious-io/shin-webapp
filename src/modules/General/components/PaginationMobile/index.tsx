@@ -4,7 +4,7 @@ import Icon from 'src/modules/General/components/Icon';
 import css from './index.module.scss';
 import { PaginationMobileProps } from './index.types';
 
-export const PaginationMobile: React.FC<PaginationMobileProps> = ({ page, handleChange, count }) => {
+const PaginationMobile: React.FC<PaginationMobileProps> = ({ page, handleChange, count }) => {
   return (
     <div className="w-full flex flex-row items-center justify-center">
       <button className={`${css.mobileBtn} ml-0 mr-auto`} onClick={() => handleChange(page - 1)} disabled={page === 1}>
@@ -21,3 +21,5 @@ export const PaginationMobile: React.FC<PaginationMobileProps> = ({ page, handle
     </div>
   );
 };
+
+export default PaginationMobile;
