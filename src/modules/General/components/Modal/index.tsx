@@ -6,7 +6,7 @@ import variables from 'src/styles/constants/_exports.module.scss';
 import css from './index.module.scss';
 import { ModalProps } from './index.types';
 
-export const Modal: React.FC<ModalProps> = props => {
+const Modal: React.FC<ModalProps> = props => {
   const {
     open,
     handleClose,
@@ -67,3 +67,5 @@ export const Modal: React.FC<ModalProps> = props => {
     </>
   );
 };
+
+export default Modal;

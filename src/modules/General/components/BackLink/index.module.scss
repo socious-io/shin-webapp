@@ -1,6 +1,6 @@
 @import 'src/styles/constants/_primitives.scss';
 
-.textButton {
+.button {
     text-transform: none;
     display: flex;
     align-items: center;
@@ -10,9 +10,9 @@
     font-size: 14px;
     line-height: 20px;
     color: $color-grey-600;
-}
 
-.textButton:hover {
-    background-color: transparent;
-    box-shadow: none;
+    &:hover {
+        background-color: transparent;
+        box-shadow: none;
+    }
 }

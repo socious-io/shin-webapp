@@ -5,7 +5,7 @@ import css from './index.module.scss';
 import { IconButtonProps } from './index.types';
 import Icon from '../Icon';
 
-export const IconButton: React.FC<IconButtonProps> = ({
+const IconButton: React.FC<IconButtonProps> = ({
   size = 'medium',
   iconName,
   img,
@@ -28,3 +28,5 @@ export const IconButton: React.FC<IconButtonProps> = ({
     </MUIIconButton>
   );
 };
+
+export default IconButton;

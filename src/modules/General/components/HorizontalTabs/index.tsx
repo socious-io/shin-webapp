@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import css from './index.module.scss';
 import { HorizontalTabsProps } from './index.types';
 
-export const HorizontalTabs: React.FC<HorizontalTabsProps> = ({
+const HorizontalTabs: React.FC<HorizontalTabsProps> = ({
   tabs,
   leftAligned = true,
   containerCustomStyle = '',
@@ -41,3 +41,5 @@ export const HorizontalTabs: React.FC<HorizontalTabsProps> = ({
     </div>
   );
 };
+
+export default HorizontalTabs;
