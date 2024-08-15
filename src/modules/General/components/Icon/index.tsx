@@ -1,7 +1,7 @@
 // Use docs/icons-reference.html for icons reference
 import React from 'react';
 
-import css from './icon.module.scss';
+import css from './index.module.scss';
 import { IconProps } from './index.types';
 
 const Icon: React.FC<IconProps> = props => {

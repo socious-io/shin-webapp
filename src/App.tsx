@@ -5,8 +5,6 @@ import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import router from 'src/core/router';
 
-import { DeepLinks } from './core/helpers/deepLinks';
-import Spinner from './modules/General/components/Spinner';
 import store from './store';
 
 import 'src/core/translation/i18n';
@@ -18,8 +16,6 @@ function App() {
         <ThemeProvider theme={theme}>
           <RouterProvider router={router.routes} />
         </ThemeProvider>
-        <DeepLinks />
-        <Spinner />
       </Provider>
     </StyledEngineProvider>
   );
