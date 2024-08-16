@@ -2,8 +2,8 @@ import React from 'react';
 import Select, { components } from 'react-select';
 import Icon from 'src/modules/General/components/Icon';
 
-import css from './input-dropdown.module.scss';
-import { InputDropdownProps } from './InputDropdown.types';
+import css from './index.module.scss';
+import { InputDropdownProps } from './index.types';
 export const InputDropdown: React.FC<InputDropdownProps> = ({
   isAsync,
   hasDropdownIcon = true,

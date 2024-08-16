@@ -1,8 +1,8 @@
 import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 
-import css from './paginationMobile.module.scss';
-import { PaginationMobileProps } from './paginationMobile.types';
+import css from './index.module.scss';
+import { PaginationMobileProps } from './index.types';
 
 export const PaginationMobile: React.FC<PaginationMobileProps> = ({ page, handleChange, count }) => {
   return (

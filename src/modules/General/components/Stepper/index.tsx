@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './stepper.module.scss';
-import { StepperProps } from './stepper.types';
+import css from './index.module.scss';
+import { StepperProps } from './index.types';
 import { FeaturedIcon } from '../FeaturedIcon';
 
 export const Stepper: React.FC<StepperProps> = props => {

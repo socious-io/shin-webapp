@@ -2,8 +2,8 @@ import { Typography } from '@mui/material';
 import OtpInput from 'react-otp-input';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './otp.module.scss';
-import { OTPProps } from './otp.types';
+import css from './index.module.scss';
+import { OTPProps } from './index.types';
 
 const handlePaste: React.ClipboardEventHandler = event => {
   const data = event.clipboardData.getData('text');

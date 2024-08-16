@@ -4,8 +4,8 @@ import Icon from 'src/modules/General/components/Icon';
 import { InputDropdown } from 'src/modules/General/components/Input/InputDropdown';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './input.module.scss';
-import { InputProps, Option } from './input.types';
+import css from './index.module.scss';
+import { InputProps, Option } from './index.types';
 
 export const Input: React.FC<InputProps> = ({
   id,

@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import React from 'react';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import { AvatarLabelGroupProps } from './avatarLabelGroup.types';
+import { AvatarLabelGroupProps } from '.';
 import { Avatar } from '../Avatar';
 
 export const AvatarLabelGroup: React.FC<AvatarLabelGroupProps> = props => {

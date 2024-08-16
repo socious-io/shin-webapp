@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { TextClickableUrlsProps } from './textClickableUrls';
-import css from './textClickableUrls.module.scss';
+import { TextClickableUrlsProps } from '.';
+import css from './index.module.scss';
 
 export const TextClickableURLs: React.FC<TextClickableUrlsProps> = ({ text }) => {
   const detectURLs = (text: string) => {

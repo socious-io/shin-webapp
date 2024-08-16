@@ -1,7 +1,7 @@
 // Use docs/icons-reference.html for icons reference
 import React from 'react';
 
-import styles from './icon.module.scss';
+import css from './index.module.scss';
 import { IconProps } from './index.types';
 
 const Icon: React.FC<IconProps> = props => {
@@ -12,8 +12,8 @@ const Icon: React.FC<IconProps> = props => {
     cursor: cursor,
   };
   return (
-    <div className={`${styles['container']} ${containerClass}`} onClick={onClick}>
-      <span className={`icon-${name} ${styles['icon']} ${className}`} style={iconStyle} />
+    <div className={`${css['container']} ${containerClass}`} onClick={onClick}>
+      <span className={`icon-${name} ${css['icon']} ${className}`} style={iconStyle} />
     </div>
   );
 };

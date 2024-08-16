@@ -1,7 +1,7 @@
 import * as Flags from 'country-flag-icons/react/1x1';
 import React from 'react';
 
-import css from './countryFlag.module.scss';
+import css from './index.module.scss';
 
 interface CountryFlagProps {
   countryCode: string;

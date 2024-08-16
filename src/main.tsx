@@ -7,7 +7,7 @@ import { init } from 'src/core/helpers/datadog';
 import App from './App';
 import './styles/main.scss';
 import { FallBack } from './pages/fallback';
-import { logError } from './pages/fallback/fallback.services';
+import { logError } from './pages/fallback/index.services';
 
 const VERSION = '7.0.0';
 init(VERSION);

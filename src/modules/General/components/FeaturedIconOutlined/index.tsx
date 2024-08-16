@@ -1,7 +1,7 @@
 import React from 'react';
 
-import css from './featuredIconOutlined.module.scss';
-import { FeaturedIconOutlinedProps } from './featuredIconOutlined.type';
+import css from './index.module.scss';
+import { FeaturedIconOutlinedProps } from './index.type';
 import Icon from '../Icon';
 
 export const FeaturedIconOutlined: React.FC<FeaturedIconOutlinedProps> = ({ iconName, size, theme }) => {

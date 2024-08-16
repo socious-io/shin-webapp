@@ -3,8 +3,8 @@ import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './modal.module.scss';
-import { ModalProps } from './modal.types';
+import css from './index.module.scss';
+import { ModalProps } from './index.types';
 
 export const Modal: React.FC<ModalProps> = props => {
   const {

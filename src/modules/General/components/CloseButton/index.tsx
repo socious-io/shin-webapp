@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 
-import css from './closeButton.module.scss';
+import css from './index.module.scss';
 
 interface CloseButtonProps {
   handleClose: () => void;

@@ -4,8 +4,8 @@ import { BackLink } from 'src/modules/General/components/BackLink';
 import { CloseButton } from 'src/modules/General/components/CloseButton';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './overlay.module.scss';
-import { OverlayProps } from './overlay.types';
+import css from './index.module.scss';
+import { OverlayProps } from './index.types';
 
 export const Overlay: React.FC<OverlayProps> = ({ open, onClose, children, title, subtitle }) => {
   const headerStyle = `${css.header} ${title || subtitle ? css.headerOverwrite : ``}`;

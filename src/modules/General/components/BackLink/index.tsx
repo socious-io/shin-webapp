@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { BackLinkProps } from './backLink.types';
 import css from './index.module.scss';
+import { BackLinkProps } from './index.types';
 import Button from '../Button';
 
 export const BackLink: React.FC<BackLinkProps> = props => {

@@ -4,8 +4,8 @@ import AsyncSelect from 'react-select/async';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import Icon from 'src/modules/General/components/Icon';
 
-import css from './search-dropdown.module.scss';
-import { SelectProps } from './search-dropdown.types';
+import css from './index.module.scss';
+import { SelectProps } from './index.types';
 //TODO: Multi select chips not implemented
 const CustomControl = (props: any) => {
   const { icon, children } = props;
