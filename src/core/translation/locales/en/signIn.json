@@ -1,0 +1,14 @@
+{
+    "h1": "Sign in",
+    "h2": "Start issuing verifiable credentials",
+    "email-label": "Email*",
+    "email-placeholder": "Enter your email",
+    "primary-btn-label": "Continue",
+    "google-login": "Continue with Google",
+    "socious-login": "Continue with Socious",
+    "accept": "By continuing, you accept our ",
+    "terms-of-use": "Terms of Use",
+    "and": " and ",
+    "privacy-policy": "Privacy Policy.",
+    "picture-desc": "Implementing this identity solution has transformed our onboarding process. We've cut verification times by 70% while improving security and protecting our user privacy."
+}

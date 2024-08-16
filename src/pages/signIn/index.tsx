@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import { Input } from 'src/modules/General/components/Input';
@@ -8,6 +9,7 @@ import { useSignIn } from './useSignIn';
 
 export const SignIn = () => {
   const { register, errors, handleSubmit } = useSignIn();
+  const { t } = useTranslation();
 
   return (
     <div className={css['container']}>
@@ -16,25 +18,25 @@ export const SignIn = () => {
         <div className={css['formSection__form']}>
           <div className={`w-full lg:w-[360px] lg:min-w-[360px] ${css['formSection__form__content']}`}>
             <div className={css['formSection__form__title']}>
-              <div className={css['formSection__form__h1']}>Sign in</div>
-              <div className={css['formSection__form__h2']}>Start issuing verifiable credentials</div>
+              <div className={css['formSection__form__h1']}>{t('h1')}</div>
+              <div className={css['formSection__form__h2']}>{t('h2')}</div>
             </div>
 
             <div className="flex flex-col gap-6">
               <Input
                 id="email"
                 autoComplete="Email"
-                label="Email*"
+                label={t('email-label')}
                 name="email"
                 register={register}
-                placeholder="Enter your email"
+                placeholder={t('email-placeholder')}
                 errors={errors['email']?.message ? [errors['email']?.message.toString()] : undefined}
               />
               <div className="flex flex-col gap-4">
-                <Button color="primary">Continue</Button>
+                <Button color="primary">{t('primary-btn-label')}</Button>
                 <Button color="primary" variant="outlined" style={{ display: 'flex', gap: '12px' }}>
                   <img src={'/images/logo/socious-logo.svg'} alt="" />
-                  Continue with Socious
+                  {t('socious-login')}
                 </Button>
                 <Button
                   color="primary"
@@ -46,16 +48,16 @@ export const SignIn = () => {
                   style={{ display: 'flex', gap: '12px' }}
                 >
                   <img src={'/icons/google.svg'} alt="" />
-                  Continue with Google
+                  {t('google-login')}
                 </Button>
               </div>
             </div>
 
             <div className="text-center">
-              <span className={css['formSection__subtitle']}>{`By continuing, you accept our `}</span>
-              <Link href="/home" label="Terms of Use" target="_blank" />
-              <span className={css['formSection__subtitle']}>{` and `}</span>
-              <Link href="/home" label="Privacy Policy." target="_blank" />
+              <span className={css['formSection__subtitle']}>{t('accept')}</span>
+              <Link href="/home" label={t('terms-of-use')} target="_blank" />
+              <span className={css['formSection__subtitle']}>{t('and')}</span>
+              <Link href="/home" label={t('privacy-policy')} target="_blank" />
             </div>
           </div>
         </div>
@@ -69,10 +71,7 @@ export const SignIn = () => {
       </div>
       <div className={`hidden lg:flex ${css['section']}`}>
         <div className="pr-16">
-          <div className={css['section__title']}>
-            Implementing this identity solution has transformed our onboarding process. We&apos;ve cut verification
-            times by 70% while improving security and protecting our user privacy.
-          </div>
+          <div className={css['section__title']}>{t('picture-desc')}</div>
           <div className={css['section__stars']}>
             {[...Array(5).map(i => <Icon key={i} name="Star" fontSize={20} className="text-Gray-light-mode-900" />)]}
           </div>
