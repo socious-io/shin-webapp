@@ -20,6 +20,15 @@ export const blueprint: RouteObject[] = [
           },
         ],
       },
+      {
+        path: 'sign-in',
+        async lazy() {
+          const { SignIn } = await import('src/pages/signIn');
+          return {
+            Component: SignIn,
+          };
+        },
+      },
     ],
     errorElement: <ErrorBoundary />,
   },

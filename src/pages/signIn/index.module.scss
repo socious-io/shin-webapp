@@ -1,0 +1,84 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.section {
+    flex-direction: column;
+    gap: 6rem;
+    padding-top: 6rem;
+    padding-left: 5rem;
+    background-color: $color-grey-100;
+    max-width: 800px;
+
+    &__title {
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 38px;
+        color: $color-grey-900;
+    }
+
+    &__stars {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 2px;
+    }
+
+    &__image {
+        width: 100%;
+        flex: 1;
+        background-image: url('/images/signIn.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+.formSection {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+
+    &__form {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        &__title {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        &__h1 {
+            font-weight: 600;
+            font-size: 2.25rem;
+            line-height: 2.75rem;
+            color: $color-grey-900;
+        }
+
+        &__h2 {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+            color: $color-grey-600;
+        }
+    }
+
+    &__subtitle {
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.25rem;
+        color: $color-grey-600;
+    }
+}
