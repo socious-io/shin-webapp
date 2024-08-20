@@ -1,0 +1,23 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @media (min-width: 640px) {
+        max-width: 480px;
+    }
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+}

@@ -1,5 +1,4 @@
 import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react-router-dom';
-import { EmptyLayout } from 'src/modules/EmptyLayout';
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
@@ -40,21 +39,25 @@ export const blueprint: RouteObject[] = [
         },
       },
       {
-        element: <EmptyLayout />,
+        path: 'sign-up',
         children: [
           {
-            path: 'sign-up',
-            children: [
-              {
-                path: 'verification',
-                async lazy() {
-                  const { Verification } = await import('src/pages/signUp/verification');
-                  return {
-                    Component: Verification,
-                  };
-                },
-              },
-            ],
+            path: 'verification',
+            async lazy() {
+              const { Verification } = await import('src/pages/signUp/verification');
+              return {
+                Component: Verification,
+              };
+            },
+          },
+          {
+            path: 'detail',
+            async lazy() {
+              const { Detail } = await import('src/pages/signUp/detail');
+              return {
+                Component: Detail,
+              };
+            },
           },
         ],
       },

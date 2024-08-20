@@ -1,0 +1,36 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    width: fit-content;
+    border-radius: 0.25rem;
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.indicator {
+    border-radius: 0.25rem;
+    background-color: $color-grey-200;
+
+    &--sm {
+        height: 0.5rem;
+    }
+
+    &--lg {
+        height: 0.625rem;
+    }
+
+    &--circle {
+        aspect-ratio: 1;
+    }
+
+    &--oval {
+        width: 2.75rem;
+    }
+
+    &--active {
+        background-color: $color-primary-600;
+    }
+}
