@@ -1,8 +1,11 @@
+import { useTranslation } from 'react-i18next';
+
 export const useStepperLayout = () => {
+  const { t } = useTranslation();
   const steps = [
-    { title: 'Your details', desc: 'Help us customize your experience.', icon: 'user-01' },
-    { title: 'Your organization profile', desc: 'A few details about your organization', icon: 'flag-05' },
-    { title: 'Get started', desc: 'Start issuing credentials', icon: 'stars-02' },
+    { title: t('step-0-title'), desc: t('step-0-desc'), icon: 'user-01' },
+    { title: t('step-1-title'), desc: t('step-1-desc'), icon: 'flag-05' },
+    { title: t('step-2-title'), desc: t('step-2-desc'), icon: 'stars-02' },
   ];
 
   return { steps };

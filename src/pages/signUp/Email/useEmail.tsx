@@ -6,14 +6,17 @@ import * as yup from 'yup';
 const schema = yup
   .object()
   .shape({
-    name: yup.string().trim().required('Required'),
-    lastName: yup.string().trim().required('Required'),
-    jobTitle: yup.string(),
-    password: yup.string().required('Required'),
+    email: yup
+      .string()
+      .trim()
+      .email('Enter a correct email')
+      .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i, 'Enter a correct email')
+      .required('Enter a correct email'),
+    password: yup.string().required('Enter a correct password'),
   })
   .required();
 
-export const useDetail = () => {
+export const useEmail = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -26,16 +29,17 @@ export const useDetail = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async () => {
-    // TODO: Apply API call
-    navigate('/sign-up/profile');
+  const handleContinue = () => {
+    // TODO: add api call
+    navigate('/sign-up/verification');
   };
+
   return {
     register,
     handleSubmit,
     errors,
     isValid,
     getValues,
-    onSubmit,
+    handleContinue,
   };
 };

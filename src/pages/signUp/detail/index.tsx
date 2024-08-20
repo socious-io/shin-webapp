@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
 import { Input } from 'src/modules/General/components/Input';
 import FormHeader from 'src/modules/SignUp/FormHeader';
@@ -8,32 +9,30 @@ import css from './index.module.scss';
 import { useDetail } from './useDetail';
 
 export const Detail = () => {
-  const { register, errors } = useDetail();
+  const { t } = useTranslation();
+  const { register, errors, onSubmit } = useDetail();
   return (
     <StepperLayout activeStep={0}>
       <div className={css['container']}>
-        <FormHeader
-          title="Your details"
-          subtitle="Help us customize your experience. Your data stays private and secure."
-        />
+        <FormHeader title={t('det-h1')} subtitle={t('det-h2')} />
         <div className={css['form']}>
           <div className={css['form__content']}>
             <div className="flex gap-5">
               <Input
                 id="name"
-                label="First name*"
+                label={t('det-name-label')}
                 name="name"
                 register={register}
-                placeholder="Your first name"
+                placeholder={t('det-name-placeholder')}
                 errors={errors['name']?.message ? [errors['name']?.message.toString()] : undefined}
               />
 
               <Input
                 id="lastName"
-                label="Last name*"
+                label={t('det-last-name-label')}
                 name="lastName"
                 register={register}
-                placeholder="Your last name"
+                placeholder={t('det-last-name-placeholder')}
                 errors={errors['lastName']?.message ? [errors['lastName']?.message.toString()] : undefined}
               />
             </div>
@@ -41,37 +40,37 @@ export const Detail = () => {
               id="email"
               // TODO: get email from server
               value="test@socious.com"
-              label="Email*"
+              label={t('det-email-label')}
               name="email"
               disabled
             />
             <Input
               id="jobTitle"
-              label="Job title"
+              label={t('det-job-label')}
               name="jobTitle"
               register={register}
-              placeholder="Your job title"
+              placeholder={t('det-job-placeholder')}
               errors={errors['jobTitle']?.message ? [errors['jobTitle']?.message.toString()] : undefined}
             />
             <Input
               autoComplete="current-password"
               id="password"
               type="password"
-              label="Password*"
+              label={t('det-password')}
               name="password"
               register={register}
-              placeholder="Type a password"
+              placeholder={t('det-password-placeholder')}
               errors={errors['password']?.message ? [errors['password']?.message.toString()] : undefined}
               hints={[
                 {
-                  hint: 'Your password must be at least 8 characters with lowercase, uppercase, and a special character.',
+                  hint: t('det-password-hint'),
                   hide: false,
                 },
               ]}
             />
           </div>
-          <Button color="primary" variant="contained">
-            Continue
+          <Button color="primary" variant="contained" onClick={onSubmit}>
+            {t('det-btn-label')}
           </Button>
         </div>
       </div>

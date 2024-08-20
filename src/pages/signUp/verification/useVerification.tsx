@@ -9,6 +9,8 @@ export const useVerification = () => {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
+    // TODO: Apply API call
+    navigate('/sign-up/detail');
     // try {
     //     const result = await otpConfirm({ email, code: otpValue });
     //     if (result) {

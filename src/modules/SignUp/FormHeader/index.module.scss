@@ -12,6 +12,11 @@
         font-weight: 600;
         line-height: 2.375rem;
         color: $color-grey-900;
+
+        @media (max-width: 640px) {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
     }
 
     &__subtitle {

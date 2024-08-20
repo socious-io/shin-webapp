@@ -1,0 +1,18 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @media (min-width: 640px) {
+        max-width: 480px;
+    }
+
+    &__uploader {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        align-items: center;
+        justify-content: center;
+    }
+}

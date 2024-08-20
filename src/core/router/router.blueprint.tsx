@@ -29,22 +29,23 @@ export const blueprint: RouteObject[] = [
           };
         },
       },
-      {
-        path: 'sign-up/email',
-        async lazy() {
-          const { SignIn } = await import('src/pages/signIn');
-          return {
-            Component: SignIn,
-          };
-        },
-      },
+
       {
         path: 'sign-up',
         children: [
           {
+            path: 'email',
+            async lazy() {
+              const { Email } = await import('src/pages/signUp/Email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
             path: 'verification',
             async lazy() {
-              const { Verification } = await import('src/pages/signUp/verification');
+              const { Verification } = await import('src/pages/signUp/Verification');
               return {
                 Component: Verification,
               };
@@ -53,9 +54,18 @@ export const blueprint: RouteObject[] = [
           {
             path: 'detail',
             async lazy() {
-              const { Detail } = await import('src/pages/signUp/detail');
+              const { Detail } = await import('src/pages/signUp/Detail');
               return {
                 Component: Detail,
+              };
+            },
+          },
+          {
+            path: 'profile',
+            async lazy() {
+              const { Profile } = await import('src/pages/signUp/Profile');
+              return {
+                Component: Profile,
               };
             },
           },
