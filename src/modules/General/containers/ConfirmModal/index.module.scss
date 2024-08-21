@@ -1,0 +1,37 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.content {
+    @include flex(normal, flex-start, column);
+    gap: 1rem;
+    padding: 1rem 1.5rem 1.5rem;
+
+    @media (max-width: $md) {
+        padding: 1rem;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 28px;
+        color: $color-grey-900;
+    }
+
+    &__subtitle {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        color: $color-grey-600;
+    }
+
+    &__buttons {
+        width: 100%;
+        @include flex(center, center);
+        gap: 0.75rem;
+        margin-top: 1rem;
+
+        @media (max-width: $md) {
+            flex-direction: column-reverse;
+        }
+    }
+}
