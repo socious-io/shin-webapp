@@ -1,0 +1,48 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    @include flex(normal, normal, column);
+    gap: 2rem;
+    background-color: $color-white;
+    padding: 2rem;
+
+    @media (max-width: $md) {
+        padding: 2rem 1rem;
+    }
+
+    .top {
+        @include flex(space-between, flex-start);
+        gap: 1rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid $color-grey-200;
+
+        @media (max-width: $md) {
+            flex-direction: column;
+        }
+
+        &__header {
+            @include flex(space-between, normal, column);
+            gap: 0.25rem;
+        }
+
+        &__title {
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 38px;
+            color: $color-grey-900;
+        }
+
+        &__subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            color: $color-grey-600;
+        }
+
+        &__buttons {
+            @include flex(normal, center);
+            gap: 0.75rem;
+        }
+    }
+}
