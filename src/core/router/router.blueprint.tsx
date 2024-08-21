@@ -2,6 +2,8 @@ import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
+import { getSchemasAdaptor } from '../adaptors';
+
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
   {
@@ -20,12 +22,30 @@ export const blueprint: RouteObject[] = [
           },
           {
             path: 'schemas',
-            async lazy() {
-              const { Schemas } = await import('src/pages/schemas');
-              return {
-                Component: Schemas,
-              };
-            },
+            children: [
+              {
+                path: 'create',
+                async lazy() {
+                  const { Create } = await import('src/pages/schemas/create');
+                  return {
+                    Component: Create,
+                  };
+                },
+              },
+              {
+                path: '',
+                loader: async () => {
+                  const { data } = await getSchemasAdaptor();
+                  return { schemaList: data };
+                },
+                async lazy() {
+                  const { Schemas } = await import('src/pages/schemas');
+                  return {
+                    Component: Schemas,
+                  };
+                },
+              },
+            ],
           },
           {
             path: 'verifications',
