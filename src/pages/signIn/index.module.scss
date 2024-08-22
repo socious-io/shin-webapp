@@ -16,63 +16,63 @@
 
     &__title {
         font-weight: 500;
-        font-size: 30px;
-        line-height: 38px;
+        font-size: 1.875rem;
+        line-height: 2.375rem;
         color: $color-grey-900;
     }
 
     &__stars {
         margin-top: 1.5rem;
         display: flex;
-        gap: 2px;
+        gap: 0.125rem;
     }
 
     &__image {
         width: 100%;
         flex: 1;
-        background-image: url('/images/signIn.png');
+        background-image: url('src/assets/images/signin.png');
         background-repeat: no-repeat;
         background-size: cover;
     }
 }
 
-.formSection {
+.form {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    padding: 32px;
+    padding: 2rem;
 
-    &__form {
+    &__layout {
         flex-grow: 1;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
 
-        &__content {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
+    &__h1 {
+        font-weight: 600;
+        font-size: 2.25rem;
+        line-height: 2.75rem;
+        color: $color-grey-900;
+    }
 
-        &__title {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    &__h2 {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5rem;
+        color: $color-grey-600;
+    }
 
-        &__h1 {
-            font-weight: 600;
-            font-size: 2.25rem;
-            line-height: 2.75rem;
-            color: $color-grey-900;
-        }
+    &__title {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
 
-        &__h2 {
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5rem;
-            color: $color-grey-600;
-        }
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
 
     &__subtitle {
