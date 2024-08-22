@@ -50,7 +50,7 @@ export const blueprint: RouteObject[] = [
           {
             path: 'email',
             async lazy() {
-              const { Email } = await import('src/pages/signUp/Email');
+              const { Email } = await import('src/pages/signUp/email');
               return {
                 Component: Email,
               };
@@ -59,7 +59,7 @@ export const blueprint: RouteObject[] = [
           {
             path: 'verification',
             async lazy() {
-              const { Verification } = await import('src/pages/signUp/Verification');
+              const { Verification } = await import('src/pages/signUp/verification');
               return {
                 Component: Verification,
               };
@@ -68,7 +68,7 @@ export const blueprint: RouteObject[] = [
           {
             path: 'detail',
             async lazy() {
-              const { Detail } = await import('src/pages/signUp/Detail');
+              const { Detail } = await import('src/pages/signUp/detail');
               return {
                 Component: Detail,
               };
@@ -77,7 +77,7 @@ export const blueprint: RouteObject[] = [
           {
             path: 'profile',
             async lazy() {
-              const { Profile } = await import('src/pages/signUp/Profile');
+              const { Profile } = await import('src/pages/signUp/profile');
               return {
                 Component: Profile,
               };

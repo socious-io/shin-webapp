@@ -4,9 +4,8 @@ import Button from 'src/modules/General/components/Button';
 import { Input } from 'src/modules/General/components/Input';
 import FormHeader from 'src/modules/SignUp/FormHeader';
 import StepperLayout from 'src/modules/SignUp/StepperLayout';
-
-import css from './index.module.scss';
-import { useDetail } from './useDetail';
+import css from 'src/pages/signUp/detail/index.module.scss';
+import { useDetail } from 'src/pages/signUp/detail/useDetail';
 
 export const Detail = () => {
   const { t } = useTranslation();

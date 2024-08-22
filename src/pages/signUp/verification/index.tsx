@@ -5,10 +5,10 @@ import { BackLink } from 'src/modules/General/components/BackLink';
 import Button from 'src/modules/General/components/Button';
 import { FeaturedIcon } from 'src/modules/General/components/FeaturedIcon';
 import { OTP } from 'src/modules/General/components/Otp';
+import { useVerification } from 'src/pages/signUp/verification/useVerification';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
-import { useVerification } from './useVerification';
 
 export const Verification = () => {
   const { t } = useTranslation();

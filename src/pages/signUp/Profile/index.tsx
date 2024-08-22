@@ -6,9 +6,9 @@ import { FileUploader } from 'src/modules/General/components/FileUploader';
 import { Input } from 'src/modules/General/components/Input';
 import FormHeader from 'src/modules/SignUp/FormHeader';
 import StepperLayout from 'src/modules/SignUp/StepperLayout';
+import { useProfile } from 'src/pages/signUp/profile/useProfile';
 
 import css from './index.module.scss';
-import { useProfile } from './useProfile';
 
 export const Profile = () => {
   const { t } = useTranslation();
