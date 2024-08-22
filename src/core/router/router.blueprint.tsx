@@ -22,12 +22,26 @@ export const blueprint: RouteObject[] = [
       },
       {
         path: 'sign-in',
-        async lazy() {
-          const { SignIn } = await import('src/pages/signIn');
-          return {
-            Component: SignIn,
-          };
-        },
+        children: [
+          {
+            path: 'email',
+            async lazy() {
+              const { Email } = await import('src/pages/signIn/email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
+            path: 'password',
+            async lazy() {
+              const { Password } = await import('src/pages/signIn/password');
+              return {
+                Component: Password,
+              };
+            },
+          },
+        ],
       },
 
       {

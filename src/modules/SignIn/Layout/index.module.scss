@@ -49,20 +49,6 @@
         justify-content: center;
     }
 
-    &__h1 {
-        font-weight: 600;
-        font-size: 2.25rem;
-        line-height: 2.75rem;
-        color: $color-grey-900;
-    }
-
-    &__h2 {
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5rem;
-        color: $color-grey-600;
-    }
-
     &__title {
         display: flex;
         flex-direction: column;
@@ -80,5 +66,12 @@
         font-weight: 400;
         line-height: 1.25rem;
         color: $color-grey-600;
+    }
+
+    &__footer {
+        // flex justify-between mt-auto mb-0
+        display: flex;
+        justify-content: space-between;
+        margin: auto 0 0 0;
     }
 }
