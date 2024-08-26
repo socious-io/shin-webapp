@@ -108,7 +108,3 @@ export function setupInterceptors(store: Store) {
     },
   );
 }
-
-function getErrorSection(request: XMLHttpRequest): string | undefined {
-  return errorSections.filter(s => request.responseURL.toUpperCase().includes(s))[0];
-}
