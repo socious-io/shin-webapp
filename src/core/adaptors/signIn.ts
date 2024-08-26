@@ -1,3 +1,5 @@
+import { ErrorHandlerParams } from '../api';
+
 export interface loginRes {
   error?: string;
   access_token: string;
@@ -5,14 +7,24 @@ export interface loginRes {
   token_type: 'Bearer';
 }
 
-export const callSignIn = async (email: string, password: string) => {
-  // TODO: call api with email and password
-  // TODO: get API result and map to loginRes type
-  const res: loginRes = {
-    error: '',
-    access_token: '',
-    refresh_token: '',
-    token_type: 'Bearer',
-  };
-  return res;
+export const signInAdaptor = async (email: string, password: string) => {
+  try {
+    // TODO: call api with email and password
+    // TODO: get API result and map to loginRes type
+    const res: loginRes = {
+      error: '',
+      access_token: '',
+      refresh_token: '',
+      token_type: 'Bearer',
+    };
+    return res;
+  } catch {
+    const res: loginRes = {
+      error: 'Error in SignIn API call',
+      access_token: '',
+      refresh_token: '',
+      token_type: 'Bearer',
+    };
+    return res;
+  }
 };
