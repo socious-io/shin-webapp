@@ -5,7 +5,7 @@ export interface loginRes {
   token_type: 'Bearer';
 }
 
-export const callSignIn = async (email: string, password: string) => {
+export const signInAdaptor = async (email: string, password: string) => {
   // TODO: call api with email and password
   // TODO: get API result and map to loginRes type
   const res: loginRes = {

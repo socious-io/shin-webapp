@@ -8,7 +8,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, handleContinue } = useEmail();
+  const { register, errors, handleSubmit, onContinue } = useEmail();
   const { t } = useTranslation();
 
   return (
@@ -33,7 +33,7 @@ export const Email = () => {
                 errors={errors['email']?.message ? [errors['email']?.message.toString()] : undefined}
               />
               <div className="flex flex-col gap-4">
-                <Button color="primary" onClick={handleContinue}>
+                <Button color="primary" onClick={handleSubmit(onContinue)}>
                   {t('primary-btn-label')}
                 </Button>
                 <Button color="primary" variant="outlined" style={{ display: 'flex', gap: '12px' }}>

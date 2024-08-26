@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
+import { uploadMediaAdaptor } from 'src/core/adaptors/media';
 
 export const useFileUploader = (
   fileTypes: string[],
@@ -42,17 +43,21 @@ export const useFileUploader = (
     return text;
   };
   const onDrop = useCallback(acceptedFiles => {
-    const attachmentIds: string[] = [];
+    let attachmentIds: string[] = [];
     acceptedFiles.forEach(async (file: File) => {
       if (file.size / 1000000 > maxSize) {
         setError(`Max file size is ${maxSize}mb`);
         return;
       }
-      // TODO: apply file upload API
-      // const res = await uploadMedia(file);
-      // setFileName(res.filename);
-      // attachmentIds = attachmentIds.concat(res.id);
-      // setAttachments(attachmentIds);
+      const res = await uploadMediaAdaptor(file);
+      if (res.error) {
+        setError(res.error);
+        return;
+      } else {
+        setFileName(res.filename);
+        attachmentIds = attachmentIds.concat(res.id);
+        setAttachments(attachmentIds);
+      }
     });
   }, []);
 

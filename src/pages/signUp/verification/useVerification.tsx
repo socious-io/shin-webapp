@@ -1,31 +1,39 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { otpConfirmAdaptor, resendCodeAdaptor } from 'src/core/adaptors/signUp';
+import { nonPermanentStorage } from 'src/core/storage/non-permanent';
 
 export const useVerification = () => {
   const navigate = useNavigate();
-  const email = localStorage.getItem('email') as string;
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get('email') || '';
   const [otpValue, setOtpValue] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
-    // TODO: Apply API call
-    navigate('/sign-up/detail');
-    // try {
-    //     const result = await otpConfirm({ email, code: otpValue });
-    //     if (result) {
-    //         await setAuthParams(result);
-    //         navigate('../password');
-    //     }
-    // } catch (error) {
-    //     setIsValid(false);
-    // }
+    const res = await otpConfirmAdaptor(email, otpValue);
+    if (res.error) {
+      setIsValid(false);
+      return;
+    }
+
+    const setStorages = [
+      nonPermanentStorage.set({ key: 'access_token', value: res.access_token }),
+      nonPermanentStorage.set({ key: 'refresh_token', value: res.refresh_token }),
+      nonPermanentStorage.set({ key: 'token_type', value: res.token_type }),
+    ];
+    await Promise.all(setStorages);
+    navigate(`/sign-up/detail?email=${email}`);
   };
-  function resendCode() {
-    // setLoading(true);
-    // const email = localStorage.getItem('email');
-    // if (email) resendVerifyCode({ email }).then(() => setLoading(false));
-  }
+  const resendCode = async () => {
+    setLoading(true);
+    const res = await resendCodeAdaptor(email);
+    if (res.error) setIsValid(false);
+    else {
+      setLoading(false);
+    }
+  };
 
   const navigateToSignIn = () => {
     navigate('sign-in');

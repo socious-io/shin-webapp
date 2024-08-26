@@ -9,7 +9,7 @@ import { useDetail } from 'src/pages/signUp/detail/useDetail';
 
 export const Detail = () => {
   const { t } = useTranslation();
-  const { register, errors, onSubmit } = useDetail();
+  const { register, errors, onContinue, handleSubmit, email } = useDetail();
   return (
     <StepperLayout activeStep={0}>
       <div className={css['container']}>
@@ -35,14 +35,7 @@ export const Detail = () => {
                 errors={errors['lastName']?.message ? [errors['lastName']?.message.toString()] : undefined}
               />
             </div>
-            <Input
-              id="email"
-              // TODO: get email from server
-              value="test@socious.com"
-              label={t('det-email-label')}
-              name="email"
-              disabled
-            />
+            <Input id="email" value={email} label={t('det-email-label')} name="email" disabled />
             <Input
               id="jobTitle"
               label={t('det-job-label')}
@@ -68,7 +61,7 @@ export const Detail = () => {
               ]}
             />
           </div>
-          <Button color="primary" variant="contained" onClick={onSubmit}>
+          <Button color="primary" variant="contained" onClick={handleSubmit(onContinue)}>
             {t('det-btn-label')}
           </Button>
         </div>

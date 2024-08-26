@@ -12,7 +12,7 @@ import css from './index.module.scss';
 
 export const Profile = () => {
   const { t } = useTranslation();
-  const { register, errors, img, setAttachment, descInputHeight } = useProfile();
+  const { register, errors, img, setAttachment, descInputHeight, handleSubmit, onSubmit } = useProfile();
   return (
     <StepperLayout activeStep={1}>
       <div className={css['container']}>
@@ -47,7 +47,7 @@ export const Profile = () => {
             maxRows={7}
           />
         </div>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>
           {t('prof-btn-label')}
         </Button>
       </div>

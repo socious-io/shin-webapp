@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { detailsAdaptor, detailsAdaptorReq } from 'src/core/adaptors/signUp';
 import * as yup from 'yup';
 
 const schema = yup
@@ -14,6 +15,8 @@ const schema = yup
   .required();
 
 export const useDetail = () => {
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get('email') || '';
   const navigate = useNavigate();
   const {
     register,
@@ -26,16 +29,34 @@ export const useDetail = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async () => {
+  const onContinue = async () => {
     // TODO: Apply API call
-    navigate('/sign-up/profile');
+    const { name, lastName, password, jobTitle } = getValues();
+    const param: detailsAdaptorReq = {
+      firstName: name,
+      lastName,
+      email,
+      password,
+      jobTitle,
+    };
+    const res = await detailsAdaptor(param);
+    if (res.error) {
+      setError('password', {
+        type: 'manual',
+        message: res.error,
+      });
+      return;
+    }
+
+    navigate(`/sign-up/profile`);
   };
   return {
+    email,
     register,
     handleSubmit,
     errors,
     isValid,
     getValues,
-    onSubmit,
+    onContinue,
   };
 };
