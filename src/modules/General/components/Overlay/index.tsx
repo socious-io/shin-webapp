@@ -1,13 +1,13 @@
 import { Slide, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import { BackLink } from 'src/modules/General/components/BackLink';
-import { CloseButton } from 'src/modules/General/components/CloseButton';
+import BackLink from 'src/modules/General/components/BackLink';
+import CloseButton from 'src/modules/General/components/CloseButton';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { OverlayProps } from './index.types';
 
-export const Overlay: React.FC<OverlayProps> = ({ open, onClose, children, title, subtitle }) => {
+const Overlay: React.FC<OverlayProps> = ({ open, onClose, children, title, subtitle }) => {
   const headerStyle = `${css.header} ${title || subtitle ? css.headerOverwrite : ``}`;
   const closeCustom = `${title || subtitle ? `${css.closeButtonOverwrite}` : ``}`;
   const ref = useRef<HTMLDivElement | null>(null);
@@ -63,3 +63,5 @@ export const Overlay: React.FC<OverlayProps> = ({ open, onClose, children, title
     </Slide>
   );
 };
+
+export default Overlay;

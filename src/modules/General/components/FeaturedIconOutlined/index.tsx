@@ -4,7 +4,7 @@ import css from './index.module.scss';
 import { FeaturedIconOutlinedProps } from './index.type';
 import Icon from '../Icon';
 
-export const FeaturedIconOutlined: React.FC<FeaturedIconOutlinedProps> = ({ iconName, size, theme }) => {
+const FeaturedIconOutlined: React.FC<FeaturedIconOutlinedProps> = ({ iconName, size, theme }) => {
   const iconSize = size === 'sm' ? 16 : size === 'md' ? 20 : size === 'lg' ? 24 : 28;
   return (
     <div className={`${css.outline} ${css[`outer-${size}`]} ${css[`${theme}-outer`]} `}>
@@ -14,3 +14,5 @@ export const FeaturedIconOutlined: React.FC<FeaturedIconOutlinedProps> = ({ icon
     </div>
   );
 };
+
+export default FeaturedIconOutlined;

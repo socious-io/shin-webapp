@@ -3,10 +3,10 @@ import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { CardRadioButtonProps } from './index.types';
-import { Checkbox } from '../Checkbox';
+import Checkbox from '../Checkbox';
 import Icon from '../Icon';
 
-export const CardRadioButton: React.FC<CardRadioButtonProps> = props => {
+const CardRadioButton: React.FC<CardRadioButtonProps> = props => {
   const { items, selectedValue, setSelectedValue } = props;
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -55,3 +55,5 @@ export const CardRadioButton: React.FC<CardRadioButtonProps> = props => {
     </RadioGroup>
   );
 };
+
+export default CardRadioButton;

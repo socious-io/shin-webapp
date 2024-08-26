@@ -4,7 +4,8 @@ import Icon from 'src/modules/General/components/Icon';
 
 import css from './index.module.scss';
 import { InputDropdownProps } from './index.types';
-export const InputDropdown: React.FC<InputDropdownProps> = ({
+
+const InputDropdown: React.FC<InputDropdownProps> = ({
   isAsync,
   hasDropdownIcon = true,
   options,
@@ -17,6 +18,7 @@ export const InputDropdown: React.FC<InputDropdownProps> = ({
   ...props
 }) => {
   const CustomControl = ({ children, ...props }) => {
+    //FIXME: ts errors
     return (
       <components.Control {...props}>
         {icon && <Icon className={css.startIcon} name={icon} fontSize={20} color="#667085" />}
@@ -85,3 +87,5 @@ export const InputDropdown: React.FC<InputDropdownProps> = ({
     />
   );
 };
+
+export default InputDropdown;

@@ -3,13 +3,9 @@ import React from 'react';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
-import { CheckboxProps } from './index.types';
+import { CheckboxProps, IconProps } from './index.types';
 import Icon from '../Icon';
 
-interface IconProps {
-  checked: boolean;
-  size: 'small' | 'medium';
-}
 const SquareIcon: React.FC<IconProps> = ({ checked, size }) => {
   return (
     <div
@@ -34,7 +30,7 @@ const CircleIcon: React.FC<IconProps> = ({ checked, size }) => {
   );
 };
 
-export const Checkbox: React.FC<CheckboxProps> = ({
+const Checkbox: React.FC<CheckboxProps> = ({
   name,
   id,
   label,
@@ -74,3 +70,5 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     </div>
   );
 };
+
+export default Checkbox;

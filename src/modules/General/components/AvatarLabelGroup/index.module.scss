@@ -1,0 +1,15 @@
+@import 'src/styles/utilities/_mixins.scss';
+
+.container {
+    height: fit-content;
+    display: flex;
+    gap: 0.75rem;
+
+    &--full {
+        width: 100%;
+    }
+
+    .info {
+        @include flex(normal, normal, column);
+    }
+}

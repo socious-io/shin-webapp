@@ -1,0 +1,23 @@
+@import 'src/styles/constants/_primitives.scss';
+
+$menu-width: 17.5rem;
+$nav-height: 4rem;
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: relative;
+
+    .content {
+        width: calc(100% - $menu-width);
+        margin-left: $menu-width;
+
+        @media (max-width: $md) {
+            width: 100%;
+            height: calc(100% - $nav-height);
+            margin-top: $nav-height;
+            margin-left: 0;
+        }
+    }
+}

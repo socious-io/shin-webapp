@@ -52,6 +52,10 @@ body {
     }
 }
 
+body {
+    background-color: $color-grey-25;
+}
+
 #root,
 .navigation {
     margin-top: env(safe-area-inset-top) !important;

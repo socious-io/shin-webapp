@@ -5,7 +5,7 @@ import variables from 'src/styles/constants/_exports.module.scss';
 import css from './index.module.scss';
 import { FeaturedIconProps } from './index.types';
 
-export const FeaturedIcon: React.FC<FeaturedIconProps> = ({ type, theme, size, iconName }) => {
+const FeaturedIcon: React.FC<FeaturedIconProps> = ({ type, theme, size, iconName }) => {
   const iconSize = size === 'xs' ? 10 : size === 'sm' ? 16 : size === 'md' ? 20 : size === 'lg' ? 24 : 28;
   let iconColor = variables.color_white;
   if (type === 'light-circle' || type === 'light-circle-outlined') {
@@ -32,3 +32,5 @@ export const FeaturedIcon: React.FC<FeaturedIconProps> = ({ type, theme, size, i
     </div>
   );
 };
+
+export default FeaturedIcon;

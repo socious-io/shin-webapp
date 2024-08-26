@@ -6,6 +6,7 @@ export interface AccountItem {
   username: string;
   selected?: boolean;
 }
+
 export interface AvatarLabelGroupProps {
   account: AccountItem;
   customStyle?: string;

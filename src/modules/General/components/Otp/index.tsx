@@ -6,10 +6,10 @@ import css from './index.module.scss';
 import { OTPProps } from './index.types';
 
 const handlePaste: React.ClipboardEventHandler = event => {
-  const data = event.clipboardData.getData('text');
+  event.clipboardData.getData('text');
 };
 
-export const OTP: React.FC<OTPProps> = ({ value, setValue, isValid = true, errorMessage }) => {
+const OTP: React.FC<OTPProps> = ({ value, setValue, isValid = true, errorMessage }) => {
   return (
     <>
       <OtpInput
@@ -31,3 +31,5 @@ export const OTP: React.FC<OTPProps> = ({ value, setValue, isValid = true, error
     </>
   );
 };
+
+export default OTP;

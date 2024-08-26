@@ -10,11 +10,52 @@ export const blueprint: RouteObject[] = [
         element: <Layout />,
         children: [
           {
-            path: '/home',
+            path: 'credentials',
             async lazy() {
-              const { Home } = await import('src/pages/home');
+              const { Credentials } = await import('src/pages/credentials');
               return {
-                Component: Home,
+                Component: Credentials,
+              };
+            },
+          },
+          {
+            path: 'schemas',
+            async lazy() {
+              const { Schemas } = await import('src/pages/schemas');
+              return {
+                Component: Schemas,
+              };
+            },
+          },
+          {
+            path: 'verifications',
+            async lazy() {
+              const { Verifications } = await import('src/pages/verifications');
+              return {
+                Component: Verifications,
+              };
+            },
+          },
+          {
+            path: 'profile',
+            children: [
+              {
+                path: 'org',
+                async lazy() {
+                  const { OrgProfile } = await import('src/pages/profile/org');
+                  return {
+                    Component: OrgProfile,
+                  };
+                },
+              },
+            ],
+          },
+          {
+            path: 'settings',
+            async lazy() {
+              const { Settings } = await import('src/pages/settings');
+              return {
+                Component: Settings,
               };
             },
           },
@@ -31,7 +72,7 @@ export const blueprint: RouteObject[] = [
 ];
 
 function DefaultRoute() {
-  return <Navigate to="/home" />;
+  return <Navigate to="/credentials" />;
 }
 
 function ErrorBoundary() {
