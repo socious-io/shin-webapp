@@ -11,3 +11,7 @@ export interface AuthRes {
   refresh_token: string;
   token_type: 'Bearer';
 }
+
+export interface GoogleAuthRes extends AuthRes {
+  registered?: boolean;
+}

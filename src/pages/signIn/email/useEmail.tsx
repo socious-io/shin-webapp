@@ -33,6 +33,10 @@ export const useEmail = () => {
     navigate(`/sign-in/password?email=${getValues().email}`);
   };
 
+  const continueWithGoogle = () => {
+    navigate(`/oauth/google`);
+  };
+
   return {
     register,
     handleSubmit,
@@ -40,5 +44,6 @@ export const useEmail = () => {
     isValid,
     getValues,
     onContinue,
+    continueWithGoogle,
   };
 };

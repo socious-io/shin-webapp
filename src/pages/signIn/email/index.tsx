@@ -11,7 +11,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue } = useEmail();
+  const { register, errors, handleSubmit, onContinue, continueWithGoogle } = useEmail();
   const { t } = useTranslation();
 
   return (
@@ -44,6 +44,7 @@ export const Email = () => {
               <Button
                 color="primary"
                 variant="outlined"
+                onClick={continueWithGoogle}
                 // onClick={() => {
                 //     tried();
                 //     navigate(`/oauth/google${event.name && `?event_name=${event.name}`}`);
