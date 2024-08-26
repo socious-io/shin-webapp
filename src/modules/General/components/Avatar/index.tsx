@@ -5,7 +5,7 @@ import css from './index.module.scss';
 import { AvatarProps } from './index.types';
 import Icon from '../Icon';
 
-export const Avatar: React.FC<AvatarProps> = props => {
+const Avatar: React.FC<AvatarProps> = props => {
   const {
     badge,
     customStyle = '',
@@ -22,6 +22,7 @@ export const Avatar: React.FC<AvatarProps> = props => {
   } = props;
 
   const [icon, setIcon] = useState('');
+
   useEffect(() => {
     if (iconName) setIcon(iconName);
     else setIcon(type === 'users' ? 'user-01' : 'building-05');
@@ -34,34 +35,35 @@ export const Avatar: React.FC<AvatarProps> = props => {
     minHeight: size,
     ...rest,
   };
+
   return (
     <div
       onClick={onClick}
       style={{ width: size, height: size, minWidth: size, minHeight: size }}
-      className={`${css.container} ${customStyle} ${hasBorder ? css.avatarBorder : ''}`}
+      className={`${css['container']} ${hasBorder && css['container__border']} ${customStyle} `}
     >
-      <div onClick={onClick} style={style} className={css.imageContainer}>
+      <div onClick={onClick} style={style} className={css['avatar']}>
         {img ? (
-          <img className={`${css.img} ${iconCustomStyle}`} src={img} alt="" />
+          <img className={`${css['avatar__img']} ${iconCustomStyle}`} src={img} alt="" />
         ) : (
-          <Icon
-            name={icon}
-            fontSize={iconSize ? iconSize : 24}
-            color={variables.color_grey_600}
-            className={`${iconCustomStyle}`}
-          />
+          <Icon name={icon} fontSize={iconSize || 24} color={variables.color_grey_600} className={iconCustomStyle} />
         )}
       </div>
       {badge && (
-        <div className={css.badge} style={{ backgroundColor: badge.color, width: badge.width, height: badge.height }}>
-          <img className={css.img} src={badge.image} alt="" />
+        <div
+          className={css['badge']}
+          style={{ backgroundColor: badge.color, width: badge.width, height: badge.height }}
+        >
+          <img className={css['badge__img']} src={badge.image} alt="badge" />
         </div>
       )}
       {isVerified && (
-        <div className={css.verifiedBadge}>
-          <img src="/icons/verified-blue.svg" />
+        <div className={css['badge--verified']}>
+          <Icon name="check-verified-02-filled" color="#0788F5" fontSize={20} />
         </div>
       )}
     </div>
   );
 };
+
+export default Avatar;

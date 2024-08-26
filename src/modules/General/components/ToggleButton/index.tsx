@@ -46,6 +46,8 @@ const CustomSwitch = styled(Switch)(({ theme, size }) => ({
   },
 }));
 
-export const ToggleButton: React.FC<SwitchProps> = props => {
+const ToggleButton: React.FC<SwitchProps> = props => {
   return <CustomSwitch {...props} />;
 };
+
+export default ToggleButton;

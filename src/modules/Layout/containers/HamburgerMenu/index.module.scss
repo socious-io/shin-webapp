@@ -1,0 +1,57 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+$menu-width: 17.5rem;
+$menu-width-mobile: 19.375rem;
+
+.container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 20;
+    background-color: $color-white;
+    border-right: 1px solid $color-grey-200;
+    width: $menu-width;
+    height: 100%;
+    padding: 2rem 1rem;
+    @include flex(space-between, flex-start, column);
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: 1s cubic-bezier(0.36, -0.01, 0, 0.77);
+
+    @media (max-width: $md) {
+        padding: 1rem;
+        width: $menu-width-mobile;
+        box-shadow: $shadow-xl;
+    }
+
+    &--closed {
+        transform: translateX(-$menu-width);
+
+        @media (max-width: $md) {
+            transform: translateX(-$menu-width-mobile);
+        }
+    }
+
+    &__top,
+    &__bottom {
+        width: 100%;
+        @include flex(normal, flex-start, column);
+        gap: 1.5rem;
+    }
+
+    .menu {
+        width: 100%;
+        @include flex(normal, normal, column);
+        gap: 0.25rem;
+    }
+
+    .profile {
+        width: 100%;
+        display: flex;
+        gap: 0.25rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid $color-grey-200;
+    }
+}

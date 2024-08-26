@@ -2,12 +2,9 @@ import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 
 import css from './index.module.scss';
+import { CloseButtonProps } from './index.types';
 
-interface CloseButtonProps {
-  handleClose: () => void;
-  customStyle?: string;
-}
-export const CloseButton: React.FC<CloseButtonProps> = ({ handleClose, customStyle }) => {
+const CloseButton: React.FC<CloseButtonProps> = ({ handleClose, customStyle }) => {
   return (
     <button className={`${css.btn} ${customStyle}`} onClick={handleClose}>
       <Icon
@@ -19,3 +16,5 @@ export const CloseButton: React.FC<CloseButtonProps> = ({ handleClose, customSty
     </button>
   );
 };
+
+export default CloseButton;

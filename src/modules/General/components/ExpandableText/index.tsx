@@ -3,9 +3,9 @@ import { convertMarkdownToJSX } from 'src/core/helpers/convert-md-to-jsx';
 
 import css from './index.module.scss';
 import { ExpandableTextProps } from './index.types';
-import { TextClickableURLs } from '../TextClickableUrls';
+import TextClickableURLs from '../TextClickableUrls';
 
-export const ExpandableText: React.FC<ExpandableTextProps> = ({
+const ExpandableText: React.FC<ExpandableTextProps> = ({
   text,
   seeMoreText = 'see more',
   expectedLength = 200,
@@ -60,3 +60,5 @@ export const ExpandableText: React.FC<ExpandableTextProps> = ({
     </div>
   );
 };
+
+export default ExpandableText;

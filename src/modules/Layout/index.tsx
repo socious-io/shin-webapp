@@ -1,10 +1,23 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import HamburgerMenu from './containers/HamburgerMenu';
+import Navbar from './containers/Navbar';
+import css from './index.module.scss';
+import Icon from '../General/components/Icon';
+
 const Layout = () => {
+  const [openMenu, setOpenMenu] = useState(false);
+
   return (
-    <div className="w-full h-full relative flex flex-col">
-      <div className="w-full fixed top-0 right-0 left-0 z-20 bg-Base-White">Layout</div>
-      <div className="w-full mt-16">
+    <div className={css['container']}>
+      <div className="hidden md:block">
+        <HamburgerMenu />
+      </div>
+      <div className="block md:hidden">
+        <Navbar menuIsOpened={openMenu} onOpenMenu={setOpenMenu} />
+      </div>
+      <div className={css['content']}>
         <Outlet />
       </div>
     </div>

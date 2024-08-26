@@ -84,6 +84,8 @@ $color-grey-500: #667085;
 $color-grey-600: #475467;
 $color-grey-700: #344054;
 $color-grey-800: #1d2939;
+//FIXME: ASK Marjan - conflict with tailwind config
+$color-grey-850: #182230;
 $color-grey-900: #101828;
 $color-grey-950: #0c111d;
 
@@ -290,6 +292,13 @@ $width-4xl: 1440px;
 $width-5xl: 1600px;
 $width-6xl: 1920px;
 $paragraph-max-width: 720px;
+
+//Responsive Breakpoints
+$sm: 640px;
+$md: 768px;
+$lg: 1024px;
+$xl: 1280px;
+$xxl: 1536px;
 
 // Containers
 $container-padding-mobile: 16px;
