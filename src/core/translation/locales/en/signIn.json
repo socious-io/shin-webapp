@@ -13,5 +13,8 @@
     "picture-desc": "Implementing this identity solution has transformed our onboarding process. We've cut verification times by 70% while improving security and protecting our user privacy.",
     "password-h1": "Enter password",
     "password-label": "Password*",
-    "password-placeholder": "Enter your password"
+    "password-placeholder": "Enter your password",
+    "password-forget": "Forgot password?",
+    "password-forget-desc": "No worries, we’ll send you reset instructions.",
+    "password-reset": "Reset password"
 }

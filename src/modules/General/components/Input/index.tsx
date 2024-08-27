@@ -31,7 +31,6 @@ export const Input: React.FC<InputProps> = ({
   const [endIcon, setEndIcon] = useState<React.ReactNode>('');
   const [inputType, setInputType] = useState(props.type || 'text');
   const [showEyeIcon, setShowEyeIcon] = useState(false);
-
   useEffect(() => {
     if (errors) setEndIcon(<Icon name="alert-circle" fontSize={14} color={variables.color_error_600} />);
     else if (props.type === 'password' && showPassword && showEyeIcon) {
@@ -136,7 +135,7 @@ export const Input: React.FC<InputProps> = ({
       {hints &&
         hints.map((hint, index) => (
           <p key={index} className={`${css.hintMsg} ${css.msg}`}>
-            {hint.hide && hint.hint}
+            {!hint.hide && hint.hint}
           </p>
         ))}
       {isValid && validMessage && <p className={`${css.successMsg} ${css.msg}`}>{validMessage}</p>}

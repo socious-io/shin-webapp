@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { otpConfirmAdaptor, resendCodeAdaptor } from 'src/core/adaptors/signUp';
 import { nonPermanentStorage } from 'src/core/storage/non-permanent';
 
-export const useVerification = () => {
+export const useForgetPasswordOTP = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email') || '';
@@ -24,7 +24,7 @@ export const useVerification = () => {
       nonPermanentStorage.set({ key: 'token_type', value: res.token_type }),
     ];
     await Promise.all(setStorages);
-    navigate(`/sign-up/detail?email=${email}`);
+    navigate(`/forget-password/new-password`);
   };
   const resendCode = async () => {
     setLoading(true);
@@ -35,8 +35,9 @@ export const useVerification = () => {
     }
   };
 
-  const navigateToSignIn = () => {
-    navigate('sign-in/email');
+  const handleBack = () => {
+    navigate('/sign-in/email');
   };
-  return { onSubmit, otpValue, setOtpValue, email, resendCode, isValid, loading, navigateToSignIn };
+
+  return { email, handleBack, isValid, otpValue, setOtpValue, loading, onSubmit, resendCode };
 };

@@ -42,7 +42,7 @@ export const blueprint: RouteObject[] = [
             },
           },
           {
-            path: '/oauth',
+            path: 'oauth',
             children: [
               {
                 path: 'google',
@@ -94,6 +94,47 @@ export const blueprint: RouteObject[] = [
               const { Profile } = await import('src/pages/signUp/profile');
               return {
                 Component: Profile,
+              };
+            },
+          },
+        ],
+      },
+      {
+        path: 'forget-password',
+        children: [
+          {
+            path: 'email',
+            async lazy() {
+              const { Email } = await import('src/pages/forgotPassword/email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
+            path: 'otp',
+            async lazy() {
+              const { ForgetPasswordOTP } = await import('src/pages/forgotPassword/otp');
+              return {
+                Component: ForgetPasswordOTP,
+              };
+            },
+          },
+          {
+            path: 'new-password',
+            async lazy() {
+              const { NewPassword } = await import('src/pages/forgotPassword/newPassword');
+              return {
+                Component: NewPassword,
+              };
+            },
+          },
+          {
+            path: 'reset',
+            async lazy() {
+              const { Reset } = await import('src/pages/forgotPassword/reset');
+              return {
+                Component: Reset,
               };
             },
           },

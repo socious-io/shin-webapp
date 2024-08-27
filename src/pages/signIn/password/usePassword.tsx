@@ -58,5 +58,9 @@ export const usePassword = () => {
       });
     }
   };
-  return { email, register, errors, handleSubmit, onSubmit };
+
+  const handleForgetPassword = () => {
+    navigate('/forget-password/email');
+  };
+  return { email, register, errors, handleSubmit, onSubmit, handleForgetPassword };
 };

@@ -10,7 +10,7 @@ import { usePassword } from './usePassword';
 
 export const Password = () => {
   const { t } = useTranslation();
-  const { email, register, errors, handleSubmit, onSubmit } = usePassword();
+  const { email, register, errors, handleSubmit, onSubmit, handleForgetPassword } = usePassword();
   return (
     <SignInLayout>
       <div className={css['form']}>
@@ -29,12 +29,15 @@ export const Password = () => {
               placeholder={t('password-placeholder')}
               errors={errors['password']?.message ? [errors['password']?.message.toString()] : undefined}
             />
-          </div>
-          <div className="flex flex-col gap-4">
-            <Button color="primary" onClick={handleSubmit(onSubmit)}>
-              {t('primary-btn-label')}
+            <Button variant="text" color="primary" customStyle={css['form__forgot']} onClick={handleForgetPassword}>
+              {t('password-forget')}
             </Button>
-            <BackLink title="Back" />
+            <div className="flex flex-col gap-4">
+              <Button color="primary" onClick={handleSubmit(onSubmit)}>
+                {t('primary-btn-label')}
+              </Button>
+              <BackLink title="Back" />
+            </div>
           </div>
         </div>
       </div>
