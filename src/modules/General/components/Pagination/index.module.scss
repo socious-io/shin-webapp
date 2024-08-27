@@ -1,9 +1,27 @@
 @import 'src/styles/constants/_primitives.scss';
 
-.buttonsFont {
-    display: flex;
+@mixin Font {
     font-size: 14px;
-    font-weight: 600;
     line-height: 20px;
-    color: $color-grey-600;
+    color: $color-grey-700;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    @include Font;
+    font-weight: 600;
+}
+
+.label {
+    margin-right: auto;
+    @include Font;
+    font-weight: 500;
 }

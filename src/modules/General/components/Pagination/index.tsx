@@ -1,66 +1,55 @@
 import { Pagination as MUIPagination, PaginationItem, PaginationProps } from '@mui/material';
 import React from 'react';
-import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 
 const Pagination: React.FC<PaginationProps> = props => {
   return (
-    <div className="relative">
+    <div className={css['container']}>
       <MUIPagination
         page={props.page}
         shape="rounded"
         sx={{
           '.MuiPagination-ul': {
             display: 'flex',
-            justifyContent: 'center',
             listStyleType: 'none',
             padding: 0,
-
-            button: {
-              color: variables.color_grey_600,
-              fontSize: '14px',
-              fontWeight: '500',
-              padding: '12px',
-              borderRadius: '8px',
-            },
+            margin: 0,
           },
-          '.MuiPagination-ul > :first-child': {
-            position: 'absolute',
-            left: '0',
+          '.MuiPaginationItem-root': {
+            color: variables.color_grey_600,
+            fontSize: '14px',
+            fontWeight: '500',
+            padding: '12px',
+            borderRadius: '8px',
+            border: `1px solid ${variables.color_grey_300}`,
           },
-          '.MuiPagination-ul > :last-child': {
-            position: 'absolute',
-            right: '0',
+          '.MuiPaginationItem-page, .MuiPaginationItem-ellipsis': {
+            display: 'none',
+          },
+          '.MuiPaginationItem-previous, .MuiPaginationItem-next': {
+            margin: '0 4px',
           },
           '.Mui-selected': {
             backgroundColor: variables.color_grey_50,
             color: variables.color_grey_800,
           },
         }}
-        renderItem={item => {
-          return (
-            <PaginationItem
-              slots={{
-                previous: () => (
-                  <div className={css.buttonsFont}>
-                    <Icon name="arrow-left" fontSize={20} color={variables.color_grey_800} className="mr-2" />
-                    Previous
-                  </div>
-                ),
-                next: () => (
-                  <div className={css.buttonsFont}>
-                    Next <Icon name="arrow-right" fontSize={20} color={variables.color_grey_800} className="ml-2" />
-                  </div>
-                ),
-              }}
-              {...item}
-            />
-          );
-        }}
+        renderItem={item => (
+          <PaginationItem
+            slots={{
+              previous: () => <div className={css['button']}>Previous</div>,
+              next: () => <div className={css['button']}>Next</div>,
+            }}
+            {...item}
+          />
+        )}
         {...props}
       />
+      <div className={css['label']}>
+        Page {props.page} of {props.count}
+      </div>
     </div>
   );
 };
