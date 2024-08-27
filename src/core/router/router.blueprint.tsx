@@ -61,6 +61,43 @@ export const blueprint: RouteObject[] = [
           },
         ],
       },
+      {
+        path: 'sign-in',
+        children: [
+          {
+            path: 'email',
+            async lazy() {
+              const { Email } = await import('src/pages/signIn/email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
+            path: 'password',
+            async lazy() {
+              const { Password } = await import('src/pages/signIn/password');
+              return {
+                Component: Password,
+              };
+            },
+          },
+          {
+            path: '/oauth',
+            children: [
+              {
+                path: 'google',
+                async lazy() {
+                  const { GoogleOauth2 } = await import('src/pages/oauth/google');
+                  return {
+                    Component: GoogleOauth2,
+                  };
+                },
+              },
+            ],
+          },
+        ],
+      },
     ],
     errorElement: <ErrorBoundary />,
   },

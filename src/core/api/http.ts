@@ -4,7 +4,6 @@ import { config } from 'src/config';
 import { dialog } from 'src/core/dialog/dialog';
 import { nonPermanentStorage } from 'src/core/storage/non-permanent';
 import { hideSpinner, showSpinner } from 'src/store/reducers/spinner.reducer';
-import translate from 'src/translations';
 
 import { refreshToken } from './auth/auth.service';
 import { removedEmptyProps } from '../helpers/objects-arrays';
@@ -53,14 +52,9 @@ const errorSections: ErrorSection[] = ['AUTH', 'FORGET_PASSWORD'];
 export function handleError(params?: ErrorHandlerParams) {
   return (err?: AxiosError<{ error: string }>) => {
     const errMessage = params?.message || err?.response?.data.error || 'An error accrued';
-    const section = params?.section || (err && err.request ? getErrorSection(err?.request) : '');
 
-    const message = translate(errMessage, {
-      cluster: 'ERROR',
-      section,
-    });
     dialog.alert({
-      message,
+      message: errMessage,
       title: params?.title || 'Failed',
     });
   };
@@ -114,8 +108,4 @@ export function setupInterceptors(store: Store) {
       return Promise.reject(error);
     },
   );
-}
-
-function getErrorSection(request: XMLHttpRequest): string | undefined {
-  return errorSections.filter(s => request.responseURL.toUpperCase().includes(s))[0];
 }
