@@ -3,6 +3,7 @@ import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
 import { getOrgProfileAdaptor, getSchemasAdaptor, getUserProfileAdaptor } from '../adaptors';
+import { getVerificationsAdaptor } from '../adaptors/verifications';
 
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
@@ -49,12 +50,21 @@ export const blueprint: RouteObject[] = [
           },
           {
             path: 'verifications',
-            async lazy() {
-              const { Verifications } = await import('src/pages/verifications');
-              return {
-                Component: Verifications,
-              };
-            },
+            children: [
+              {
+                path: '',
+                loader: async () => {
+                  const data = await getVerificationsAdaptor(1, 10);
+                  return data;
+                },
+                async lazy() {
+                  const { Verifications } = await import('src/pages/verifications');
+                  return {
+                    Component: Verifications,
+                  };
+                },
+              },
+            ],
           },
           {
             path: 'profile',

@@ -9,6 +9,7 @@ import detail from './singUp/detail.json';
 import profile from './singUp/profile.json';
 import stepper from './singUp/stepper.json';
 import verification from './singUp/verification.json';
+import VerificationList from './verifications.json';
 
 export function generateTranslationFile() {
   return Object.assign(
@@ -24,5 +25,6 @@ export function generateTranslationFile() {
     forgetPassword,
     orgProfile,
     settings,
+    VerificationList,
   );
 }
