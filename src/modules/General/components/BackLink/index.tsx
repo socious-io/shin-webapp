@@ -6,7 +6,7 @@ import { BackLinkProps } from './index.types';
 import Button from '../Button';
 import Icon from '../Icon';
 
-export const BackLink: React.FC<BackLinkProps> = props => {
+const BackLink: React.FC<BackLinkProps> = props => {
   const navigate = useNavigate();
   const { onBack, title, block = false, customStyle } = props;
   const onClick = () => {
@@ -24,10 +24,12 @@ export const BackLink: React.FC<BackLinkProps> = props => {
       onClick={onClick}
       block={block}
       fullWidth
-      className={`${css.textButton} ${customStyle}`}
+      className={`${css['button']} ${customStyle}`}
     >
       <Icon name="arrow-left" fontSize={20} className="text-Gray-light-mode-600" />
       {title}
     </Button>
   );
 };
+
+export default BackLink;

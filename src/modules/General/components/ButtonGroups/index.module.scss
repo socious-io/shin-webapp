@@ -15,25 +15,23 @@
     font-weight: 600;
     padding: 0.625rem 1rem;
     transition: background-color 0.2s ease-in-out;
+
     &:first-child {
         border-radius: 8px 0 0 8px;
         border-right: 0;
     }
+
     &:last-child {
         border-radius: 0 8px 8px 0;
         border-left: 0;
     }
-}
 
-.divider {
-    border-right: 1px solid $color-grey-300 !important;
-}
+    &--active {
+        background-color: $color-grey-50;
+        color: $color-grey-800;
+    }
 
-.active {
-    background-color: $color-grey-50;
-    color: $color-grey-800;
-}
-
-.content {
-    margin-top: 2rem;
+    &__divider {
+        border-right: 1px solid $color-grey-300 !important;
+    }
 }

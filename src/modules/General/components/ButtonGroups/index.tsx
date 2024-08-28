@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import css from './index.module.scss';
 import { ButtonGroupsProps } from './index.types';
 
-export const ButtonGroups: React.FC<ButtonGroupsProps> = props => {
+const ButtonGroups: React.FC<ButtonGroupsProps> = props => {
   const { buttons, activeIndex } = props;
   const [active, setActive] = useState(activeIndex || 0);
 
@@ -13,12 +13,12 @@ export const ButtonGroups: React.FC<ButtonGroupsProps> = props => {
   };
 
   return (
-    <div className={css.tabs}>
+    <div className={css['tabs']}>
       {buttons.map((btn, index) => (
         <button
           key={btn.label}
-          className={`${css.tab} ${index === active ? css.active : ''} ${
-            buttons.length === 2 && index === 0 && css.divider
+          className={`${css['tab']} ${index === active && css['tab--active']} ${
+            buttons.length === 2 && index === 0 && css['tab__divider']
           }`}
           onClick={() => handleClick(index)}
         >
@@ -28,3 +28,5 @@ export const ButtonGroups: React.FC<ButtonGroupsProps> = props => {
     </div>
   );
 };
+
+export default ButtonGroups;

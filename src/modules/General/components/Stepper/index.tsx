@@ -5,9 +5,9 @@ import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { StepperProps } from './index.types';
-import { FeaturedIcon } from '../FeaturedIcon';
+import FeaturedIcon from '../FeaturedIcon';
 
-export const Stepper: React.FC<StepperProps> = props => {
+const Stepper: React.FC<StepperProps> = props => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobile = windowWidth < 600;
   const { activeStep, orientation, steps } = props;
@@ -97,3 +97,5 @@ export const Stepper: React.FC<StepperProps> = props => {
     </MUIStepper>
   );
 };
+
+export default Stepper;

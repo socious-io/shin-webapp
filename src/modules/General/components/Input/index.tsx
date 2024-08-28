@@ -1,13 +1,13 @@
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import Icon from 'src/modules/General/components/Icon';
-import { InputDropdown } from 'src/modules/General/components/Input/InputDropdown';
+import InputDropdown from 'src/modules/General/components/InputDropdown';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { InputProps, Option } from './index.types';
 
-export const Input: React.FC<InputProps> = ({
+const Input: React.FC<InputProps> = ({
   id,
   label,
   name,
@@ -142,3 +142,5 @@ export const Input: React.FC<InputProps> = ({
     </div>
   );
 };
+
+export default Input;

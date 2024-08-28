@@ -5,7 +5,7 @@ import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 
-export const Pagination: React.FC<PaginationProps> = props => {
+const Pagination: React.FC<PaginationProps> = props => {
   return (
     <div className="relative">
       <MUIPagination
@@ -64,3 +64,5 @@ export const Pagination: React.FC<PaginationProps> = props => {
     </div>
   );
 };
+
+export default Pagination;
