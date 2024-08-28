@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 import HamburgerMenu from './containers/HamburgerMenu';
 import Navbar from './containers/Navbar';
 import css from './index.module.scss';
-import Icon from '../General/components/Icon';
 
 const Layout = () => {
   const [openMenu, setOpenMenu] = useState(false);
