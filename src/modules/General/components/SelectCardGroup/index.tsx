@@ -3,11 +3,13 @@ import React, { useEffect } from 'react';
 import css from './index.module.scss';
 import { SelectCardGroupProps } from './index.type';
 
-export const SelectCardGroup: React.FC<SelectCardGroupProps> = props => {
+const SelectCardGroup: React.FC<SelectCardGroupProps> = props => {
   const { items, value, setValue, defaultValue } = props;
+
   useEffect(() => {
     if (defaultValue) setValue(defaultValue);
   }, []);
+
   const handleClick = (value: string, label: string) => {
     setValue({ value, label });
   };

@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
-import Select, { ClearIndicatorProps, components, GroupBase } from 'react-select';
+import Select, { ClearIndicatorProps, components } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import Icon from 'src/modules/General/components/Icon';
 
 import css from './index.module.scss';
 import { SelectProps } from './index.types';
+
 //TODO: Multi select chips not implemented
 const CustomControl = (props: any) => {
   const { icon, children } = props;
@@ -36,6 +37,7 @@ const CustomOption = (props: any) => {
     </div>
   );
 };
+
 const CustomSingleValue = (props: any) => {
   const { children, data, controlClassName } = props;
   const labelValue = handleMultiValueAsync(children).isObject ? handleMultiValueAsync(children).label : children;
@@ -71,7 +73,8 @@ const handleMultiValueAsync = (value: string) => {
     return { isObject: false };
   }
 };
-export const SearchDropdown: React.FC<SelectProps> = ({
+
+const SearchDropdown: React.FC<SelectProps> = ({
   isAsync,
   creatable = false,
   hasDropdownIcon = true,
@@ -232,3 +235,5 @@ export const SearchDropdown: React.FC<SelectProps> = ({
     </div>
   );
 };
+
+export default SearchDropdown;

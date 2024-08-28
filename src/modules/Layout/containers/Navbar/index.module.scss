@@ -1,0 +1,42 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+$nav-height: 4rem;
+
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: $color-white;
+    border-bottom: 1px solid $color-grey-200;
+    width: 100%;
+    height: $nav-height;
+    @include flex(space-between, center);
+    padding: 0 1rem;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: $color-grey-950;
+    transition: 1s cubic-bezier(0.36, -0.01, 0, 0.77);
+
+    &--closed {
+        left: unset;
+        background-color: transparent;
+    }
+
+    &__close {
+        position: absolute;
+        right: 1rem;
+        top: 1.25rem;
+        z-index: 15;
+        color: $color-white;
+    }
+}
