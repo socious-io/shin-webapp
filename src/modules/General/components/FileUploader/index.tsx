@@ -15,7 +15,7 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
   maxFileNumbers = 1,
   setAttachments,
 }) => {
-  const { t } = useTranslation();
+  const { t: translate } = useTranslation();
   const { getRootProps, getInputProps, getSubtitle, error, fileName } = useFileUploader(
     fileTypes,
     maxFileNumbers,
@@ -30,10 +30,10 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
         <Icon name="upload-cloud-02" fontSize={20} color={variables.color_grey_600} />
         <div className="flex">
           <Typography variant="subtitle2" color={variables.color_primary_700} className="700 mr-1">
-            {t('upload')}
+            {translate('upload')}
           </Typography>
           <Typography variant="caption" color={variables.color_grey_600}>
-            {t('drag-and-drop')}
+            {translate('drag-and-drop')}
           </Typography>
         </div>
         <p className={css.subtitle}>{getSubtitle()}</p>

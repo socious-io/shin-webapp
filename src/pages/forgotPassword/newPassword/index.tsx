@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
-import { FeaturedIcon } from 'src/modules/General/components/FeaturedIcon';
-import { Input } from 'src/modules/General/components/Input';
+import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
+import Input from 'src/modules/General/components/Input';
 import EmptyPageLayout from 'src/modules/SignIn/EmptyPageLayout';
 
 import { useNewPassword } from './useNewPassword';

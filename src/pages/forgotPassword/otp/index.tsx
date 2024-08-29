@@ -2,8 +2,8 @@ import { CircularProgress } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
-import { FeaturedIcon } from 'src/modules/General/components/FeaturedIcon';
-import { OTP } from 'src/modules/General/components/Otp';
+import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
+import OTP from 'src/modules/General/components/Otp';
 import EmptyPageLayout from 'src/modules/SignIn/EmptyPageLayout';
 import variables from 'src/styles/constants/_exports.module.scss';
 

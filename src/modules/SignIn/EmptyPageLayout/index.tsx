@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackLink } from 'src/modules/General/components/BackLink';
+import BackLink from 'src/modules/General/components/BackLink';
 
 import css from './index.module.scss';
 import { EmptyPageLayoutProps } from './index.type';

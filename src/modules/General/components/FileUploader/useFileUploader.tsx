@@ -9,7 +9,7 @@ export const useFileUploader = (
   maxSize: number,
   setAttachments: (newVal: string[]) => void,
 ) => {
-  const { t } = useTranslation();
+  const { t: translate } = useTranslation();
   const [error, setError] = useState('');
   const [fileName, setFileName] = useState('');
   const getAcceptedFileTypes = () => {
@@ -39,7 +39,7 @@ export const useFileUploader = (
 
   const getSubtitle = () => {
     let text = fileTypes.slice(0, fileTypes.length - 1).join();
-    text = `${text} or ${fileTypes[fileTypes.length - 1]} (${t('max')} ${maxSize}mb)`;
+    text = `${text} or ${fileTypes[fileTypes.length - 1]} (${translate('max')} ${maxSize}mb)`;
     return text;
   };
   const onDrop = useCallback(acceptedFiles => {
@@ -66,7 +66,6 @@ export const useFileUploader = (
     accept: getAcceptedFileTypes(),
     maxFiles: maxFileNumbers,
   });
-  // const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return { getRootProps, getInputProps, getSubtitle, error, fileName };
 };

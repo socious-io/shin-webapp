@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Button from 'src/modules/General/components/Button';
-import { FeaturedIcon } from 'src/modules/General/components/FeaturedIcon';
+import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import EmptyPageLayout from 'src/modules/SignIn/EmptyPageLayout';
 
 export const Reset = () => {

@@ -1,11 +1,13 @@
+@import 'src/styles/constants/_primitives.scss';
+
 .container {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
 
-    @media (min-width: 640px) {
-        max-width: 480px;
+    @media (min-width: $md) {
+        max-width: 30rem;
     }
 
     &__uploader {

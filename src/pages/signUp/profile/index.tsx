@@ -1,22 +1,22 @@
 import { Button } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Avatar } from 'src/modules/General/components/Avatar';
+import Avatar from 'src/modules/General/components/Avatar';
 import { FileUploader } from 'src/modules/General/components/FileUploader';
-import { Input } from 'src/modules/General/components/Input';
-import FormHeader from 'src/modules/SignUp/FormHeader';
-import StepperLayout from 'src/modules/SignUp/StepperLayout';
+import Input from 'src/modules/General/components/Input';
+import FormHeader from 'src/modules/SignUp/components/FormHeader';
+import StepperLayout from 'src/modules/SignUp/components/StepperLayout';
 import { useProfile } from 'src/pages/signUp/profile/useProfile';
 
 import css from './index.module.scss';
 
 export const Profile = () => {
-  const { t } = useTranslation();
+  const { t: translate } = useTranslation();
   const { register, errors, img, setAttachment, descInputHeight, handleSubmit, onSubmit } = useProfile();
   return (
     <StepperLayout activeStep={1}>
       <div className={css['container']}>
-        <FormHeader title={t('prof-h1')} subtitle={t('prof-h2')} />
+        <FormHeader title={translate('prof-h1')} subtitle={translate('prof-h2')} />
         <div className={css['container__uploader']}>
           <Avatar type="organizations" size="4rem" img={img} iconName="image-up" iconSize={32} />
           <FileUploader
@@ -29,18 +29,18 @@ export const Profile = () => {
         <div className="flex flex-col gap-6">
           <Input
             id="orgName"
-            label={t('prof-name')}
+            label={translate('prof-name')}
             name="orgName"
             register={register}
-            placeholder={t('prof-name-placeholder')}
+            placeholder={translate('prof-name-placeholder')}
             errors={errors['orgName']?.message ? [errors['orgName']?.message.toString()] : undefined}
           />
           <Input
             id="description"
-            label={t('prof-desc')}
+            label={translate('prof-desc')}
             name="description"
             register={register}
-            placeholder={t('prof-desc-placeholder')}
+            placeholder={translate('prof-desc-placeholder')}
             errors={errors['description']?.message ? [errors['description']?.message.toString()] : undefined}
             multiline
             customHeight={descInputHeight}
@@ -48,7 +48,7 @@ export const Profile = () => {
           />
         </div>
         <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>
-          {t('prof-btn-label')}
+          {translate('prof-btn-label')}
         </Button>
       </div>
     </StepperLayout>

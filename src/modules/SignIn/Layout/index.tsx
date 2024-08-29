@@ -9,7 +9,7 @@ interface SignInLayoutProps {
   children: ReactNode;
 }
 const SignInLayout: React.FC<SignInLayoutProps> = ({ children }) => {
-  const { t } = useTranslation();
+  const { t: translate } = useTranslation();
   return (
     <div className={css['container']}>
       <div className={`w-full lg:min-w-[600px] ${css['form']}`}>
@@ -25,7 +25,7 @@ const SignInLayout: React.FC<SignInLayoutProps> = ({ children }) => {
       </div>
       <div className={`hidden lg:flex ${css['section']}`}>
         <div className="pr-16">
-          <div className={css['section__title']}>{t('picture-desc')}</div>
+          <div className={css['section__title']}>{translate('picture-desc')}</div>
           <div className={css['section__stars']}>
             {[...Array(5).map(i => <Icon key={i} name="Star" fontSize={20} className="text-Gray-light-mode-900" />)]}
           </div>
