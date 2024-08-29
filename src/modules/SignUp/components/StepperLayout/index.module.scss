@@ -6,11 +6,11 @@
     height: 100vh;
 }
 
-.vertical-stepper {
-    width: 440px;
-    min-width: 440px;
+.stepper {
+    width: 27.5rem;
+    min-width: 27.5rem;
     flex-direction: column;
-    gap: 80px;
+    gap: 5rem;
     padding: 2rem;
     background-color: $color-grey-50;
 
@@ -37,7 +37,7 @@
     justify-content: space-between;
     align-items: center;
 
-    @media (max-width: 640px) {
+    @media (max-width: $md) {
         padding: 3rem 1rem;
     }
 }
