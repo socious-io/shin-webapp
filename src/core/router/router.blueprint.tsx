@@ -83,7 +83,7 @@ export const blueprint: RouteObject[] = [
             },
           },
           {
-            path: '/oauth',
+            path: 'oauth',
             children: [
               {
                 path: 'google',
