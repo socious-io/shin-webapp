@@ -10,7 +10,6 @@ import { useEmail } from './useEmail';
 export const Email = () => {
   const { t: translate } = useTranslation();
   const { register, errors, handleSubmit, handleForgetPassword, handleBack } = useEmail();
-  console.log('test log forget password');
   return (
     <EmptyPageLayout
       headerIcon={<FeaturedIcon type="modern" theme="gray" size="xl" iconName="key-01" />}
