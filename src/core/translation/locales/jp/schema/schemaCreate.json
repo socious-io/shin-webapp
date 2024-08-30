@@ -1,0 +1,23 @@
+{
+  "schema-create-header": "クレデンシャルスキーマを作成",
+  "schema-create-subheader": "スキーマは、発行者や検証者が使用するクレデンシャルのテンプレートのようなものです。これには、名前、ライセンス番号、発行日など、特定のクレデンシャル属性が含まれます。",
+  "schema-publish-button": "公開",
+  "schema-cancel-button": "キャンセル",
+  "schema-form": {
+    "name": "スキーマ名",
+    "name-explanation": "スキーマ名は、クレデンシャルの「種類」を定義します。クレデンシャルを表示するすべての人に見えるものです。",
+    "name-placeholder": "例: 大学の学位、運転免許証 など...",
+    "description": "スキーマの説明",
+    "description-optional": "任意",
+    "description-explanation": "スキーマの目的を説明します。これは任意ですが、推奨されます。",
+    "description-placeholder": "説明を入力...",
+    "attribute": "クレデンシャル属性",
+    "attribute-explanation": "クレデンシャルに含めたい属性を定義します。",
+    "attribute-name": "属性名",
+    "attribute-option": "選択...",
+    "attribute-description": "属性の説明...",
+    "add-field": "フィールドを追加"
+  },
+  "schema-confirm-title": "確認",
+  "schema-confirm-subtitle": "公開する前にスキーマを確認してください。公開後は編集できませんが、スキーマを複製してコピーを変更することができます。"
+}

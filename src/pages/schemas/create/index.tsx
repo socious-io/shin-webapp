@@ -6,7 +6,7 @@ import { useCreate } from './useCreate';
 
 export const Create = () => {
   const {
-    data: { createSchemaRef },
+    data: { translate, createSchemaRef },
     operations: { onCancelCreateSchema, handlePublish },
   } = useCreate();
 
@@ -14,18 +14,15 @@ export const Create = () => {
     <div className={css['container']}>
       <div className={css['top']}>
         <div className={css['top__header']}>
-          <h1 className={css['top__title']}>Create a credential schema</h1>
-          <h2 className={css['top__subtitle']}>
-            A schema is like a template for credential that issuers and verifiers use. It includes specific credential
-            attributes such as name, license number, issue date etc.
-          </h2>
+          <h1 className={css['top__title']}>{translate('schema-create-header')}</h1>
+          <h2 className={css['top__subtitle']}>{translate('schema-create-subheader')}</h2>
         </div>
         <div className={css['top__buttons']}>
           <Button color="primary" variant="outlined" onClick={onCancelCreateSchema}>
-            Cancel
+            {translate('schema-cancel-button')}
           </Button>
           <Button color="primary" type="submit" onClick={handlePublish}>
-            Publish
+            {translate('schema-publish-button')}
           </Button>
         </div>
       </div>

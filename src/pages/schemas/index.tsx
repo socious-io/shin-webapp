@@ -9,7 +9,7 @@ import { useSchemas } from './useSchemas';
 
 export const Schemas = () => {
   const {
-    data: { currentList },
+    data: { translate, currentList },
     operations: { onCreateSchema, setCurrentList },
   } = useSchemas();
 
@@ -17,11 +17,11 @@ export const Schemas = () => {
     <div className={css['container']}>
       <div className={css['top']}>
         <div className={css['top__header']}>
-          <h1 className={css['top__title']}>Credential Schemas</h1>
-          <h2 className={css['top__subtitle']}>Manage your credentials schemas here.</h2>
+          <h1 className={css['top__title']}>{translate('schema-header')}</h1>
+          <h2 className={css['top__subtitle']}>{translate('schema-subheader')}</h2>
         </div>
         <Button color="primary" startIcon={<Icon name="plus" color={variables.color_white} />} onClick={onCreateSchema}>
-          Create schema
+          {translate('schema-create-button')}
         </Button>
       </div>
       {currentList?.length ? (

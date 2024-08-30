@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Modal from 'src/modules/General/components/Modal';
 
@@ -6,7 +7,9 @@ import css from './index.module.scss';
 import { SchemaDetailModalProps } from './index.types';
 
 const SchemaDetailModal: React.FC<SchemaDetailModalProps> = ({ open, handleClose, data }) => {
+  const { t: translate } = useTranslation();
   const { name, description, id, attributes = [] } = data || {};
+
   return (
     <Modal
       open={open}
@@ -21,17 +24,17 @@ const SchemaDetailModal: React.FC<SchemaDetailModalProps> = ({ open, handleClose
     >
       <>
         <div className={css['info']}>
-          Schema ID
+          {translate('schema-detail.id')}
           <Divider />
           <div className={css['info__value']}>{id}</div>
         </div>
         <div className={css['info']}>
-          Credential Type
+          {translate('schema-detail.type')}
           <Divider />
           <div className={css['info__value']}>{name}</div>
         </div>
         <div className={css['info']}>
-          Attributes
+          {translate('schema-detail.attributes')}
           <Divider />
           {attributes.map((attribute, index) => (
             <div className={css['attribute']} key={index}>

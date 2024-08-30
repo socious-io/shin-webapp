@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { deleteSchemaAdaptor, Schema } from 'src/core/adaptors';
 
 export const useSchemasList = (list: Schema[], onUpdateList?: (newList: Schema[]) => void) => {
+  const { t: translate } = useTranslation();
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState<{
     name: 'delete' | 'view' | '';
@@ -53,6 +55,7 @@ export const useSchemasList = (list: Schema[], onUpdateList?: (newList: Schema[]
 
   return {
     data: {
+      translate,
       currentList,
       page,
       totalPage,

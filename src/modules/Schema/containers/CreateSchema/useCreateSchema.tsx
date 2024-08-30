@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useImperativeHandle, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AttributeOption, createSchemaAdaptor, SchemaReq } from 'src/core/adaptors';
 import * as yup from 'yup';
@@ -32,6 +33,7 @@ const schema = yup
 
 export const useCreateSchema = ref => {
   const navigate = useNavigate();
+  const { t: translate } = useTranslation();
   const [openPublishModal, setOpenPublishModal] = useState(false);
   const {
     register,
@@ -88,7 +90,7 @@ export const useCreateSchema = ref => {
   };
 
   return {
-    data: { register, errors, fields, attributes, openPublishModal },
+    data: { translate, register, errors, fields, attributes, openPublishModal },
     operations: {
       handleSubmit,
       onPublish,

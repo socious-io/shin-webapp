@@ -16,7 +16,7 @@ import SchemaDetailModal from '../SchemaDetailModal';
 
 const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
   const {
-    data: { currentList, page, totalPage, openModal, openSnackbar, viewData },
+    data: { translate, currentList, page, totalPage, openModal, openSnackbar, viewData },
     operations: { onView, onCopy, onDelete, setPage, handleCloseModal, setOpenSnackbar, onDeleteSchema },
   } = useSchemasList(list, onUpdateList);
 
@@ -24,7 +24,7 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
     () => [
       {
         id: 'name',
-        header: 'Schema Name',
+        header: translate('schema-table.name'),
         accessorKey: 'id',
         cell: ({ getValue }: { getValue: Getter<string> }) => {
           const item = currentList.find(list => list.id === getValue());
@@ -38,19 +38,19 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
       },
       {
         id: 'description',
-        header: 'Schema Description',
+        header: translate('schema-table.description'),
         accessorKey: 'description',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
       },
       {
         id: 'created',
-        header: 'Created',
+        header: translate('schema-table.created'),
         accessorKey: 'created',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
       },
       {
         id: 'created_date',
-        header: 'Create Date',
+        header: translate('schema-table.created-at'),
         accessorKey: 'created_at',
         cell: ({ getValue }: { getValue: Getter<string> }) => formatDate(getValue()),
       },
@@ -151,22 +151,22 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
         open={openModal.name === 'delete' && openModal.open}
         handleClose={handleCloseModal}
         icon={<FeaturedIcon iconName="alert-circle" size="lg" type="light-circle" theme="warning" />}
-        confirmHeader="Delete schema?"
-        confirmSubheader="Deleting the schema is permanent and cannot be undone. Credentials issued with this schema will still be valid."
+        confirmHeader={translate('schema-delete-title')}
+        confirmSubheader={translate('schema-delete-subtitle')}
         buttons={[
           {
             color: 'primary',
             variant: 'outlined',
             fullWidth: true,
             onClick: handleCloseModal,
-            children: 'Cancel',
+            children: translate('schema-cancel-button'),
           },
           {
             color: 'error',
             variant: 'contained',
             fullWidth: true,
             onClick: onDeleteSchema,
-            children: 'Delete',
+            children: translate('schema-delete-button'),
           },
         ]}
       />
@@ -186,7 +186,7 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
       >
         <div className={css['snackbar__content']}>
           <Icon name="tick" color={variables.color_primary_700} />
-          Copied!
+          {translate('schema-copy-snackbar')}
         </div>
       </CustomSnackbar>
     </>

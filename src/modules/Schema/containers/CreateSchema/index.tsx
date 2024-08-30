@@ -16,7 +16,7 @@ import { useCreateSchema } from './useCreateSchema';
 
 const CreateSchema = forwardRef((_, ref) => {
   const {
-    data: { register, errors, fields, attributes, openPublishModal },
+    data: { translate, register, errors, fields, attributes, openPublishModal },
     operations: {
       handleSubmit,
       onPublish,
@@ -34,17 +34,15 @@ const CreateSchema = forwardRef((_, ref) => {
       <form className={css['container']} onSubmit={handleSubmit(onPublish)}>
         <div className={css['row']}>
           <div className={css['row__left']}>
-            Schema name
-            <span className={css['row__subtitle']}>
-              The schema name is define your credential “type”. It is visible to everyone who views the credential.
-            </span>
+            {translate('schema-form.name')}
+            <span className={css['row__subtitle']}>{translate('schema-form.name-explanation')}</span>
           </div>
           <div className={css['row__right']}>
             <Input
               register={register}
               id="name"
               name="name"
-              placeholder="ie. University degree, Drivers License, etc..."
+              placeholder={translate('schema-form.name-placeholder')}
               containerClassName={css['name__input']}
               errors={errors['name']?.message ? [errors['name']?.message.toString()] : undefined}
             />
@@ -54,18 +52,17 @@ const CreateSchema = forwardRef((_, ref) => {
         <div className={css['row']}>
           <div className={css['row__left']}>
             <p>
-              Schema description <span className="font-normal">(optional)</span>
+              {translate('schema-form.description')}{' '}
+              <span className="font-normal">({translate('schema-form.description-optional')})</span>
             </p>
-            <span className={css['row__subtitle']}>
-              Describe the schema&apos;s purpose. This is optional but recommended.
-            </span>
+            <span className={css['row__subtitle']}>{translate('schema-form.description-explanation')}</span>
           </div>
           <div className={css['row__right']}>
             <Input
               register={register}
               id="description"
               name="description"
-              placeholder="Enter a description..."
+              placeholder={translate('schema-form.description-placeholder')}
               customHeight="180px"
               multiline
               containerClassName="w-full"
@@ -75,8 +72,8 @@ const CreateSchema = forwardRef((_, ref) => {
         <Divider />
         <div className={css['row']}>
           <div className={css['row__left']}>
-            Credential attributes
-            <span className={css['row__subtitle']}>Define the attributes you want on the credential.</span>
+            {translate('schema-form.attribute')}
+            <span className={css['row__subtitle']}>{translate('schema-form.attribute-explanation')}</span>
           </div>
           <div className={css['row__right']}>
             <div className="w-full flex flex-col gap-12">
@@ -88,13 +85,13 @@ const CreateSchema = forwardRef((_, ref) => {
                         register={register}
                         id={`attributes.${index}.name`}
                         name={`attributes.${index}.name`}
-                        placeholder="Attribute name"
+                        placeholder={translate('schema-form.attribute-name')}
                         containerClassName={`flex-1 ${css['attribute__input']}`}
                       />
                       <SearchDropdown
                         id={`attributes.${index}.option`}
                         containerClassName={`flex min-w-[152px] ${css['attribute__input']}`}
-                        placeholder="Select..."
+                        placeholder={translate('schema-form.attribute-option')}
                         className="w-full"
                         options={SCHEMA_ATTRIBUTES}
                         value={attributes[index].option}
@@ -110,7 +107,7 @@ const CreateSchema = forwardRef((_, ref) => {
                       register={register}
                       id={`attributes.${index}.description`}
                       name={`attributes.${index}.description`}
-                      placeholder="Attribute description..."
+                      placeholder={translate('schema-form.attribute-description')}
                       customHeight="180px"
                       multiline
                       containerClassName="mt-4"
@@ -132,17 +129,17 @@ const CreateSchema = forwardRef((_, ref) => {
               startIcon={<Icon name="plus" color={variables.color_grey_600} />}
               onClick={addField}
             >
-              Add field
+              {translate('schema-form.add-field')}
             </Button>
           </div>
         </div>
         <Divider />
         <div className={css['buttons']}>
           <Button color="primary" variant="outlined" onClick={backToSchemasPage}>
-            Cancel
+            {translate('schema-cancel-button')}
           </Button>
           <Button color="primary" type="submit">
-            Publish
+            {translate('schema-publish-button')}
           </Button>
         </div>
       </form>
@@ -151,22 +148,22 @@ const CreateSchema = forwardRef((_, ref) => {
         open={openPublishModal}
         handleClose={() => setOpenPublishModal(false)}
         icon={<FeaturedIcon iconName="alert-circle" size="lg" type="light-circle" theme="warning" />}
-        confirmHeader="Confirmation"
-        confirmSubheader="Please review your schema before publishing. Once published, it cannot be edited. However, you will be able to duplicate the schema to make changes to a copy."
+        confirmHeader={translate('schema-confirm-title')}
+        confirmSubheader={translate('schema-confirm-subtitle')}
         buttons={[
           {
             color: 'primary',
             variant: 'outlined',
             fullWidth: true,
             onClick: () => setOpenPublishModal(false),
-            children: 'Cancel',
+            children: translate('schema-cancel-button'),
           },
           {
             color: 'primary',
             variant: 'contained',
             fullWidth: true,
             onClick: handleSubmit(onSubmit),
-            children: 'Publish',
+            children: translate('schema-publish-button'),
           },
         ]}
       />
