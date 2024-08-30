@@ -6,9 +6,10 @@ import SearchDropdown from 'src/modules/General/components/SearchDropdown';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
-import { CreateUpdateVerificationProps } from './index.type';
+import { useCreateUpdateVerification } from './useCreateUpdateVerification';
 
-export const CreateUpdateVerification: React.FC<CreateUpdateVerificationProps> = ({ verification }) => {
+export const CreateUpdateVerification = () => {
+  const { register, errors, onSelectSchema, schemaList, schema, onCancel } = useCreateUpdateVerification();
   const renderRowTitle = (title, subtitle) => {
     return (
       <div className={css['section__label']}>
@@ -30,7 +31,7 @@ export const CreateUpdateVerification: React.FC<CreateUpdateVerificationProps> =
             <Icon name="eye" fontSize={20} color={variables.color_grey_700} />
             Preview
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={onCancel}>
             Create
           </Button>
         </div>
@@ -42,10 +43,10 @@ export const CreateUpdateVerification: React.FC<CreateUpdateVerificationProps> =
             id="name"
             label=""
             name="name"
-            //register={register}
+            register={register}
             placeholder="Add a name"
             containerClassName="w-full md:w-[32rem]"
-            // errors={errors['email']?.message ? [errors['email']?.message.toString()] : undefined}
+            errors={errors['name']?.message ? [errors['name']?.message.toString()] : undefined}
           />
         </div>
         <div className={css['section__row']}>
@@ -57,9 +58,9 @@ export const CreateUpdateVerification: React.FC<CreateUpdateVerificationProps> =
             id="description"
             label=""
             name="description"
-            //register={register}
+            register={register}
             placeholder="Enter a description..."
-            // errors={errors['description']?.message ? [errors['description']?.message.toString()] : undefined}
+            errors={errors['description']?.message ? [errors['description']?.message.toString()] : undefined}
             multiline
             customHeight="180px"
             maxRows={7}
@@ -74,19 +75,19 @@ export const CreateUpdateVerification: React.FC<CreateUpdateVerificationProps> =
           <SearchDropdown
             id="schema"
             name="schema"
-            // value={category}
+            value={schema}
             label="Schema is equal to"
             placeholder="Enter or select a schema"
-            // options={catagoriesList}
+            options={schemaList}
             isSearchable
-            // onChange={onSelectCategory}
-            // errors={errors['category']?.value?.message ? [errors['category']?.value?.message.toString()] : undefined}
+            onChange={onSelectSchema}
+            errors={errors['schema']?.value?.message ? [errors['schema']?.value?.message.toString()] : undefined}
             containerClassName="w-full md:w-[20rem]"
           />
         </div>
         <div className={css['section__row']}>
           <div className={css['header__action']}>
-            <Button variant="outlined" color="primary">
+            <Button variant="outlined" color="primary" onClick={onCancel}>
               Cancel
             </Button>
             <Button variant="outlined" color="primary" customStyle={css['btn']}>

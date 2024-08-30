@@ -3,7 +3,7 @@ import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
 import { getOrgProfileAdaptor, getSchemasAdaptor, getUserProfileAdaptor } from '../adaptors';
-import { getVerificationsAdaptor } from '../adaptors/verifications';
+import { getVerificationById, getVerificationsAdaptor } from '../adaptors/verifications';
 
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
@@ -66,6 +66,21 @@ export const blueprint: RouteObject[] = [
               },
               {
                 path: 'create',
+                async lazy() {
+                  const { CreateUpdateVerification } = await import('src/pages/verifications/createUpdateVerification');
+                  return {
+                    Component: CreateUpdateVerification,
+                  };
+                },
+              },
+              {
+                path: 'edit/:id',
+                loader: async ({ params }) => {
+                  if (params.id) {
+                    const data = await getVerificationById(params.id);
+                    return data;
+                  }
+                },
                 async lazy() {
                   const { CreateUpdateVerification } = await import('src/pages/verifications/createUpdateVerification');
                   return {

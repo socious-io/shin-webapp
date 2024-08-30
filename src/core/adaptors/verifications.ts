@@ -12,6 +12,11 @@ export interface VerificationsRes {
   totalCount: number;
   error?: string;
 }
+
+export interface VerificationRes {
+  data?: Verification;
+  error?: string;
+}
 export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<VerificationsRes> => {
   try {
     // TODO: call API and map the result
@@ -76,6 +81,26 @@ export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<Ver
       page,
       totalCount: 0,
       error: 'error in get verifications API call',
+    };
+  }
+};
+
+export const getVerificationById = async (id: string): Promise<VerificationRes> => {
+  try {
+    // get verification by id and map the result to VerificationRes
+    const res: VerificationRes = {
+      data: {
+        id: '1',
+        name: 'verification 1',
+        proofId: '1234_1111',
+        createdBy: 'Marjan',
+        creationDate: '',
+      },
+    };
+    return res;
+  } catch {
+    return {
+      error: 'error in get verification API call',
     };
   }
 };
