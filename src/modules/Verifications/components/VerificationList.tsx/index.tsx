@@ -4,6 +4,7 @@ import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
+import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
 
 import css from './index.module.scss';
 import { VerificationListProps } from './index.type';
@@ -11,7 +12,7 @@ import { useVerificationList } from './useVerificationList';
 
 const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems }) => {
   const {
-    data: { page, verifications, total },
+    data: { page, verifications, total, menuItems },
     operations: { setPage },
   } = useVerificationList(list, totalItems);
 
@@ -21,13 +22,6 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
         id: 'name',
         header: 'Name',
         accessorKey: 'name',
-
-        // ({ getValue }: { getValue: Getter<string> }) => {
-        //     const rowId = getValue();
-        //     return (
-        //         <Button className='outlined'>Copy link</Button>
-        //     );
-        // },
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
       },
       {
@@ -57,10 +51,13 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
         cell: ({ getValue }: { getValue: Getter<string> }) => {
           const rowId = getValue();
           return (
-            <Button variant="outlined" color="primary" customStyle={css['col__btn']}>
-              <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
-              Copy link
-            </Button>
+            <div className={css['col__actions']}>
+              <Button variant="outlined" color="primary" customStyle={css['col__btn']}>
+                <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
+                Copy link
+              </Button>
+              <ThreeDotButton menuItems={menuItems} />
+            </div>
           );
         },
       },

@@ -58,9 +58,18 @@ export const blueprint: RouteObject[] = [
                   return data;
                 },
                 async lazy() {
-                  const { Verifications } = await import('src/pages/verifications');
+                  const { Verifications } = await import('src/pages/verifications/list');
                   return {
                     Component: Verifications,
+                  };
+                },
+              },
+              {
+                path: 'create',
+                async lazy() {
+                  const { CreateUpdateVerification } = await import('src/pages/verifications/createUpdateVerification');
+                  return {
+                    Component: CreateUpdateVerification,
                   };
                 },
               },

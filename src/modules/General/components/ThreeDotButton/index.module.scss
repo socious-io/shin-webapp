@@ -1,0 +1,31 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    position: relative;
+
+    .btn {
+        cursor: pointer !important;
+    }
+
+    .menu {
+        z-index: 10;
+        background-color: white;
+        width: 15rem;
+        max-width: 15rem;
+        position: absolute;
+        right: 0;
+        top: 1.75rem;
+        border-radius: 0.5rem;
+        border: 1px solid $color-grey-200;
+        padding: 0.25rem 1rem;
+
+        &__item {
+            padding: 0.5rem 0;
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.25rem;
+        }
+    }
+}
