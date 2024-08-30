@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
-import { uploadMediaAdaptor } from 'src/core/adaptors/media';
+import { uploadMedia } from 'src/core/adaptors';
 
 export const useFileUploader = (
   fileTypes: string[],
@@ -49,13 +49,13 @@ export const useFileUploader = (
         setError(`Max file size is ${maxSize}mb`);
         return;
       }
-      const res = await uploadMediaAdaptor(file);
+      const res = await uploadMedia(file);
       if (res.error) {
         setError(res.error);
         return;
-      } else {
-        setFileName(res.filename);
-        attachmentIds = attachmentIds.concat(res.id);
+      } else if (res.data) {
+        setFileName(res.data.filename);
+        attachmentIds = attachmentIds.concat(res.data.id);
         setAttachments(attachmentIds);
       }
     });
