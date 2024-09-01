@@ -1,0 +1,12 @@
+{
+  "org-profile-header": "組織プロフィール",
+  "org-profile-subheader": "ここでロゴと組織の詳細を更新してください。",
+  "org-profile-did": "あなたの組織のDID",
+  "org-profile-copy": "コピー",
+  "org-profile-name": "公開名",
+  "org-profile-name-placeholder": "名前",
+  "org-profile-description": "公開説明",
+  "org-profile-description-placeholder": "説明を入力してください...",
+  "org-profile-optional": "任意",
+  "org-profile-save-button": "変更を保存"
+}

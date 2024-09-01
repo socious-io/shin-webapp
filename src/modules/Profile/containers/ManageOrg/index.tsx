@@ -30,13 +30,13 @@ const ManageOrg = () => {
         </div>
         <Input
           id="did"
-          label="Your organization DID"
+          label={translate('org-profile-did')}
           value={did}
           disabled
           postfix={
             <div className={css['copy']} onClick={onCopy}>
               <Icon name="copy-01" fontSize={20} color={variables.color_grey_700} />
-              Copy
+              {translate('org-profile-copy')}
             </div>
           }
         />
@@ -44,8 +44,8 @@ const ManageOrg = () => {
           register={register}
           id="name"
           name="name"
-          label="Public name*"
-          placeholder="Name"
+          label={`${translate('org-profile-name')}*`}
+          placeholder={translate('org-profile-name-placeholder')}
           errors={errors['name']?.message ? [errors['name'].message.toString()] : undefined}
         />
         <div className="flex flex-col gap-1">
@@ -53,10 +53,10 @@ const ManageOrg = () => {
             register={register}
             id="description"
             name="description"
-            label="Public description (optional)"
+            label={`${translate('org-profile-description')} (${translate('org-profile-optional')})`}
             multiline
             customHeight="144px"
-            placeholder="Enter a description..."
+            placeholder={translate('org-profile-description-placeholder')}
             onChange={e => onChangeDescription(e.target.value)}
             errors={errors['description']?.message ? [errors['description'].message.toString()] : undefined}
           />
@@ -66,7 +66,7 @@ const ManageOrg = () => {
         </div>
         <Divider className="mx-[-1.5rem]" />
         <Button color="primary" type="submit" customStyle="self-end">
-          Save changes
+          {translate('org-profile-save-button')}
         </Button>
       </form>
       <CustomSnackbar
