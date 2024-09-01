@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { preRegister } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
@@ -28,12 +29,23 @@ export const useEmail = () => {
     resolver: yupResolver(schema),
   });
 
-  const onContinue = () => {
-    navigate(`/sign-in/password?email=${getValues().email}`);
-  };
-
-  const continueWithGoogle = () => {
-    navigate(`/oauth/google`);
+  const onContinue = async () => {
+    const res = await preRegister(getValues('email'));
+    if (res.error) {
+      setError('email', {
+        type: 'manual',
+        message: res.error,
+      });
+      return;
+    }
+    if (res.data?.email) {
+      setError('email', {
+        type: 'manual',
+        message: 'Email already exists',
+      });
+      return;
+    }
+    navigate(`/sign-up/verification?email=${getValues().email}`);
   };
 
   return {
@@ -43,6 +55,5 @@ export const useEmail = () => {
     isValid,
     getValues,
     onContinue,
-    continueWithGoogle,
   };
 };

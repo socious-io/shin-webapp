@@ -52,7 +52,6 @@ const errorSections: ErrorSection[] = ['AUTH', 'FORGET_PASSWORD'];
 export function handleError(params?: ErrorHandlerParams) {
   return (err?: AxiosError<{ error: string }>) => {
     const errMessage = params?.message || err?.response?.data.error || 'An error accrued';
-
     dialog.alert({
       message: errMessage,
       title: params?.title || 'Failed',

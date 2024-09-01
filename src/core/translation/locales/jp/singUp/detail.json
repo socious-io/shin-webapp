@@ -1,0 +1,15 @@
+{
+    "det-h1": "あなたの詳細",
+    "det-h2": "体験をカスタマイズするためにご協力ください。あなたのデータはプライバシーを守り、安全に保たれます。",
+    "det-name-label": "名*",
+    "det-name-placeholder": "あなたの名前",
+    "det-last-name-label": "姓*",
+    "det-last-name-placeholder": "あなたの姓",
+    "det-email-label": "メールアドレス*",
+    "det-job-label": "職名",
+    "det-job-placeholder": "あなたの職名",
+    "det-password": "パスワード*",
+    "det-password-placeholder": "パスワードを入力してください",
+    "det-password-hint": "パスワードは8文字以上で、英小文字、大文字、特殊文字を含める必要があります。",
+    "det-btn-label": "続ける"
+}

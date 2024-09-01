@@ -83,7 +83,7 @@ export const blueprint: RouteObject[] = [
             },
           },
           {
-            path: '/oauth',
+            path: 'oauth',
             children: [
               {
                 path: 'google',
@@ -95,6 +95,48 @@ export const blueprint: RouteObject[] = [
                 },
               },
             ],
+          },
+        ],
+      },
+
+      {
+        path: 'sign-up',
+        children: [
+          {
+            path: 'email',
+            async lazy() {
+              const { Email } = await import('src/pages/signUp/email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
+            path: 'verification',
+            async lazy() {
+              const { Verification } = await import('src/pages/signUp/verification');
+              return {
+                Component: Verification,
+              };
+            },
+          },
+          {
+            path: 'detail',
+            async lazy() {
+              const { Detail } = await import('src/pages/signUp/detail');
+              return {
+                Component: Detail,
+              };
+            },
+          },
+          {
+            path: 'profile',
+            async lazy() {
+              const { Profile } = await import('src/pages/signUp/profile');
+              return {
+                Component: Profile,
+              };
+            },
           },
         ],
       },
