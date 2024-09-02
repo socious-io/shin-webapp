@@ -9,10 +9,6 @@ export interface OtpConfirmRes {
   token_type: 'Bearer';
 }
 
-export interface successRes {
-  message?: string;
-}
-
 export interface detailsReq {
   firstName: string;
   lastName: string;

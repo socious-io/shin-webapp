@@ -31,6 +31,7 @@ export const useCreateUpdateVerification = () => {
   const loaderData = useLoaderData() as AdaptorRes<Verification>;
   const verification = loaderData?.data;
   const [schemaList, setSchemaList] = useState<{ label: string; value: string }[]>([]);
+  const [openPreview, setOpenPreview] = useState(false);
 
   const {
     register,
@@ -116,5 +117,9 @@ export const useCreateUpdateVerification = () => {
     onSubmit,
     handleSubmit,
     verification,
+    openPreview,
+    setOpenPreview,
+    name: getValues().name,
+    description: getValues().description,
   };
 };
