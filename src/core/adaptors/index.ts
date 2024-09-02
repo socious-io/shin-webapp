@@ -14,6 +14,12 @@ export * from './forgetPassword/index.adaptors';
 export * from './general/index.types';
 export * from './settings/index.adaptors';
 export * from './settings/index.types';
+export * from './verifications/index.adaptor';
+export * from './verifications/index.type';
+
+export interface SuccessRes {
+  message?: string;
+}
 
 export type AdaptorRes<T = null> = {
   data: T | null;

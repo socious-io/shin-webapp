@@ -2,8 +2,13 @@ import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
-import { getOrgProfileAdaptor, getSchemasAdaptor, getUserProfileAdaptor } from '../adaptors';
-import { getVerificationById, getVerificationsAdaptor } from '../adaptors/verifications';
+import {
+  getOrgProfileAdaptor,
+  getSchemasAdaptor,
+  getUserProfileAdaptor,
+  getVerificationById,
+  getVerifications,
+} from '../adaptors';
 
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
@@ -54,7 +59,7 @@ export const blueprint: RouteObject[] = [
               {
                 path: '',
                 loader: async () => {
-                  const data = await getVerificationsAdaptor(1, 10);
+                  const data = await getVerifications(1, 10);
                   return data;
                 },
                 async lazy() {

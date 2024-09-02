@@ -1,9 +1,9 @@
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { VerificationsRes } from 'src/core/adaptors/verifications';
+import { AdaptorRes, VerificationsRes } from 'src/core/adaptors';
 
 export const useVerifications = () => {
   const navigate = useNavigate();
-  const data = useLoaderData() as VerificationsRes;
+  const { data } = useLoaderData() as AdaptorRes<VerificationsRes>;
   const handleCreate = () => {
     navigate('/verifications/create');
   };

@@ -23,7 +23,7 @@ export const Verifications = () => {
           {translate('ver_create_btn')}
         </Button>
       </div>
-      {data.items.length ? (
+      {data?.items.length ? (
         <VerificationList list={data.items} totalItems={data.totalCount} />
       ) : (
         <EmptyVerifications handleCreate={handleCreate} />

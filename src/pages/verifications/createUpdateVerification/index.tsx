@@ -9,7 +9,8 @@ import css from './index.module.scss';
 import { useCreateUpdateVerification } from './useCreateUpdateVerification';
 
 export const CreateUpdateVerification = () => {
-  const { register, errors, onSelectSchema, schemaList, schema, onCancel } = useCreateUpdateVerification();
+  const { verification, register, errors, onSelectSchema, schemaList, schema, onCancel, onSubmit, handleSubmit } =
+    useCreateUpdateVerification();
   const renderRowTitle = (title, subtitle) => {
     return (
       <div className={css['section__label']}>
@@ -24,15 +25,15 @@ export const CreateUpdateVerification = () => {
       <div className={css['header']}>
         <div className={css['header__title']}>Create a verification request</div>
         <div className={css['header__action']}>
-          <Button variant="outlined" color="primary">
+          <Button variant="outlined" color="primary" onClick={onCancel}>
             Cancel
           </Button>
           <Button variant="outlined" color="primary" customStyle={css['btn']}>
             <Icon name="eye" fontSize={20} color={variables.color_grey_700} />
             Preview
           </Button>
-          <Button variant="contained" color="primary" onClick={onCancel}>
-            Create
+          <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>
+            {verification ? 'Edit' : 'Create'}
           </Button>
         </div>
       </div>
@@ -94,8 +95,8 @@ export const CreateUpdateVerification = () => {
               <Icon name="eye" fontSize={20} color={variables.color_grey_700} />
               Preview
             </Button>
-            <Button variant="contained" color="primary">
-              Create
+            <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>
+              {verification ? 'Edit' : 'Create'}
             </Button>
           </div>
         </div>

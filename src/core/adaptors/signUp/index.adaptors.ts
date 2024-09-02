@@ -1,7 +1,8 @@
 import { preregister } from 'src/core/api';
 
-import { detailsReq, OtpConfirmRes, PreRegisterRes, profileReq, successRes } from './index.types';
-import { AdaptorRes } from '..';
+import { detailsReq, OtpConfirmRes, PreRegisterRes, profileReq } from './index.types';
+import { AdaptorRes, SuccessRes } from '..';
+
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
   try {
     const res = await preregister({ email });
@@ -37,7 +38,7 @@ export const otpConfirm = async (email: string, code: string): Promise<AdaptorRe
   }
 };
 
-export const resendCode = async (email): Promise<AdaptorRes<successRes>> => {
+export const resendCode = async (email): Promise<AdaptorRes<SuccessRes>> => {
   try {
     // TODO: call api with email
     return { data: { message: 'succeed' }, error: null };
@@ -46,7 +47,7 @@ export const resendCode = async (email): Promise<AdaptorRes<successRes>> => {
   }
 };
 
-export const details = async (params: detailsReq): Promise<AdaptorRes<successRes>> => {
+export const details = async (params: detailsReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
     // TODO call API with params and map the result
     return { error: null, data: { message: 'succeed' } };
@@ -55,7 +56,7 @@ export const details = async (params: detailsReq): Promise<AdaptorRes<successRes
   }
 };
 
-export const profile = async (params: profileReq): Promise<AdaptorRes<successRes>> => {
+export const profile = async (params: profileReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
     // TODO call API with params and map the result
     return { data: { message: 'succeed' }, error: null };

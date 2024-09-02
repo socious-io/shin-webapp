@@ -12,7 +12,7 @@ import { useVerificationList } from './useVerificationList';
 
 const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems }) => {
   const {
-    data: { page, verifications, total, menuItems },
+    data: { page, verifications, total, getMenuItems },
     operations: { setPage },
   } = useVerificationList(list, totalItems);
 
@@ -56,7 +56,7 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
                 <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
                 Copy link
               </Button>
-              <ThreeDotButton menuItems={menuItems} />
+              <ThreeDotButton menuItems={getMenuItems(getValue())} />
             </div>
           );
         },
