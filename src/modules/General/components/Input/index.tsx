@@ -106,6 +106,7 @@ const Input: React.FC<InputProps> = ({
         InputProps={{
           style: {
             height: props.customHeight ? props.customHeight : '44px',
+            backgroundColor: props.disabled && variables.color_grey_50,
           },
           endAdornment: endAdornmentJSX,
 
@@ -137,7 +138,7 @@ const Input: React.FC<InputProps> = ({
       {hints &&
         hints.map((hint, index) => (
           <p key={index} className={`${css.hintMsg} ${css.msg}`}>
-            {hint.hide && hint.hint}
+            {!hint.hide && hint.hint}
           </p>
         ))}
       {isValid && validMessage && <p className={`${css.successMsg} ${css.msg}`}>{validMessage}</p>}
