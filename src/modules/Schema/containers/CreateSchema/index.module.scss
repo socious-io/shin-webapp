@@ -1,0 +1,81 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    @include flex(normal, normal, column);
+    gap: 1.25rem;
+
+    .row {
+        @include flex(normal, flex-start);
+        gap: 2rem;
+
+        @media (max-width: $md) {
+            flex-direction: column;
+        }
+
+        &__left {
+            @include flex(normal, normal, column);
+            flex: 25%;
+            font-size: 14px;
+            font-weight: 600;
+            color: $color-grey-700;
+            line-height: 20px;
+
+            @media (max-width: $md) {
+                flex: 1;
+                width: 100%;
+            }
+        }
+
+        &__subtitle {
+            font-weight: 400;
+            color: $color-grey-600;
+        }
+
+        &__right {
+            @include flex(normal, flex-start, column);
+            gap: 0.5rem;
+            flex: 75%;
+
+            @media (max-width: $md) {
+                flex: 1;
+                width: 100%;
+            }
+        }
+
+        .name {
+            &__input {
+                width: 32rem;
+
+                @media (max-width: $md) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .attribute {
+            @include flex(normal, center);
+            gap: 1rem;
+
+            @media (max-width: $md) {
+                flex-direction: column;
+            }
+
+            &__input {
+                @media (max-width: $md) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .buttons {
+        display: flex;
+        align-self: flex-end;
+        gap: 0.75rem;
+
+        @media (max-width: $md) {
+            padding-bottom: 2rem;
+        }
+    }
+}

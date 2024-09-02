@@ -27,7 +27,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ animatable = false, menuI
                 handleNavigate(item.id, item.path);
                 onCloseMenu?.();
               }}
-              isSelected={selectedItem === item.id}
+              isSelected={selectedItem.includes(item.id)}
             />
           ))}
         </div>

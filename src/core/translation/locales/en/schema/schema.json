@@ -1,0 +1,22 @@
+{
+  "schema-header": "Credential Schemas",
+  "schema-subheader": "Manage your credentials schemas here",
+  "schema-create-button": "Create schema",
+  "schema-table": {
+    "name": "Schema Name",
+    "description": "Schema Description",
+    "created": "Created",
+    "created-at": "Create Date"
+  },
+  "schema-delete-title": "Delete schema?",
+  "schema-delete-subtitle": "Deleting the schema is permanent and cannot be undone. Credentials issued with this schema will still be valid.",
+  "schema-delete-button": "Delete",
+  "schema-copy-snackbar": "Copied!",
+  "schema-empty-header": "Create a schema",
+  "schema-empty-subheader": "Create a schema manually and add attributes.",
+  "schema-detail": {
+    "id": "Schema ID",
+    "type": "Credential Type",
+    "attributes": "Attributes"
+  }
+}

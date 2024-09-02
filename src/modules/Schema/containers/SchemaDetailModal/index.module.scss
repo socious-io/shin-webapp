@@ -1,0 +1,52 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+@mixin Value {
+    background-color: $color-grey-950;
+    color: $color-grey-300;
+    padding: 0.5rem 1rem;
+    border-radius: $radius-md;
+}
+
+.content {
+    padding: 1.5rem;
+    @include flex(normal, normal, column);
+    gap: 1.25rem;
+
+    @media (max-width: $md) {
+        padding: 1rem;
+    }
+
+    .info {
+        @include flex(normal, normal, column);
+        gap: 1.25rem;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        color: $color-grey-900;
+
+        &__value {
+            @include Value;
+        }
+
+        .attribute {
+            @include flex(normal, flex-start, column);
+            gap: 0.25rem;
+            font-size: 14px;
+            line-height: 20px;
+            color: $color-grey-900;
+
+            &__value {
+                @include Value;
+                font-size: 16px;
+                font-weight: 500;
+                margin-top: 0.5rem;
+            }
+
+            &__description {
+                font-weight: 400;
+                color: $color-grey-600;
+            }
+        }
+    }
+}

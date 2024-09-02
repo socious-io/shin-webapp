@@ -1,0 +1,23 @@
+{
+  "schema-create-header": "Create a credential schema",
+  "schema-create-subheader": "A schema is like a template for credential that issuers and verifiers use. It includes specific credential attributes such as name, license number, issue date etc.",
+  "schema-publish-button": "Publish",
+  "schema-cancel-button": "Cancel",
+  "schema-form": {
+    "name": "Schema name",
+    "name-explanation": "The schema name is define your credential “type”. It is visible to everyone who views the credential.",
+    "name-placeholder": "ie. University degree, Drivers License, etc...",
+    "description": "Schema description",
+    "description-optional": "optional",
+    "description-explanation": "Describe the schema's purpose. This is optional but recommended.",
+    "description-placeholder": "Enter a description...",
+    "attribute": "Credential attributes",
+    "attribute-explanation": "Define the attributes you want on the credential.",
+    "attribute-name": "Attribute name",
+    "attribute-option": "Select...",
+    "attribute-description": "Attribute description...",
+    "add-field": "Add field"
+  },
+  "schema-confirm-title": "Confirmation",
+  "schema-confirm-subtitle": "Please review your schema before publishing. Once published, it cannot be edited. However, you will be able to duplicate the schema to make changes to a copy."
+}

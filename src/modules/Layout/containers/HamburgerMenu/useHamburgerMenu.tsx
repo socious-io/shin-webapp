@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const useHamburgerMenu = () => {
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState('credentials');
+  const { pathname } = useLocation();
+  const path = pathname.replace('/', '');
+  const [selectedItem, setSelectedItem] = useState(path || 'credentials');
 
   const menuItems = [
     {

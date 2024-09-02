@@ -79,12 +79,12 @@ const SearchDropdown: React.FC<SelectProps> = ({
   creatable = false,
   hasDropdownIcon = true,
   options,
-  className,
   label,
   icon,
   errors,
   id,
   border = true,
+  containerClassName = '',
   controlClassName,
   ...props
 }) => {
@@ -96,7 +96,7 @@ const SearchDropdown: React.FC<SelectProps> = ({
     }
   };
   return (
-    <div className={`${css.container} ${className}`}>
+    <div className={`${css.container} ${containerClassName}`}>
       <div className={css.labelContainer}>
         <label
           htmlFor={id}
