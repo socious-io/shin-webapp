@@ -1,0 +1,28 @@
+{
+  "settings-header": "Settings",
+  "settings-info": {
+    "section1-title": "Your account profile",
+    "section1-subtitle": "Your account information is used in emails and for display in socious.id, it is not public",
+    "section2-title": "Account name",
+    "section2-subtitle": "Your name is used in emails and for display in socious.id, it is not public",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "email-address": "Email address",
+    "job-title": "Job title",
+    "optional": "optional",
+    "save-button": "Save changes"
+  },
+  "settings-password": {
+    "title": "Change password",
+    "current": "Your current password",
+    "current-placeholder": "Current password",
+    "create": "Create password",
+    "create-placeholder": "New password",
+    "create-alert": "Your password must be at least 8 characters with lowercase, uppercase, and a special character.",
+    "confirm": "Confirm password",
+    "save-button": "Save password"
+  },
+  "settings-remove": {
+    "title": "Remove account"
+  }
+}
