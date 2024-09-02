@@ -1,5 +1,5 @@
 import { UpdateVerificationReq, Verification, VerificationReq, VerificationsRes } from './index.type';
-import { AdaptorRes, successRes } from '..';
+import { AdaptorRes, SuccessRes } from '..';
 
 const schema = {
   id: '1',
@@ -111,7 +111,7 @@ export const getVerificationById = async (id: string): Promise<AdaptorRes<Verifi
   }
 };
 
-export const createVerification = async (param: VerificationReq): Promise<AdaptorRes<successRes>> => {
+export const createVerification = async (param: VerificationReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
     // TODO: call API with param
     return {
@@ -123,9 +123,21 @@ export const createVerification = async (param: VerificationReq): Promise<Adapto
   }
 };
 
-export const updateVerification = async (param: UpdateVerificationReq): Promise<AdaptorRes<successRes>> => {
+export const updateVerification = async (param: UpdateVerificationReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
     // TODO: call API with param
+    return {
+      data: { message: 'succeed' },
+      error: null,
+    };
+  } catch {
+    return { data: null, error: 'Error in update verification API call' };
+  }
+};
+
+export const deleteVerification = async (id: string): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    // TODO: call API with id
     return {
       data: { message: 'succeed' },
       error: null,

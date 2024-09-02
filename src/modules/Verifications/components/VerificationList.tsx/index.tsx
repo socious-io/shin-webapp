@@ -2,9 +2,11 @@ import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@
 import React, { useMemo } from 'react';
 import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
+import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
 import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
+import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 
 import css from './index.module.scss';
 import { VerificationListProps } from './index.type';
@@ -12,8 +14,8 @@ import { useVerificationList } from './useVerificationList';
 
 const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems }) => {
   const {
-    data: { page, verifications, total, getMenuItems },
-    operations: { setPage },
+    data: { page, verifications, total, getMenuItems, openModal },
+    operations: { setPage, setOpenModal, handleDelete },
   } = useVerificationList(list, totalItems);
 
   const columns = useMemo<ColumnDef<any>[]>(
@@ -72,43 +74,71 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
   });
 
   return (
-    <div className={css['table']}>
-      <div className="block overflow-auto">
-        <table className="w-full rounded-lg">
-          <thead className={css['header']}>
-            {table.getHeaderGroups().map(headerGroup => {
-              return (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map(header => {
-                    return (
-                      <th id={header.id} key={header.id} className={css['header__item']}>
-                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                      </th>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map(row => {
-              return (
-                <tr key={row.id} className="cursor-pointer">
-                  {row.getVisibleCells().map(cell => (
-                    <td className={css['col']} key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    <>
+      <div className={css['table']}>
+        <div className="block overflow-auto">
+          <table className="w-full rounded-lg">
+            <thead className={css['header']}>
+              {table.getHeaderGroups().map(headerGroup => {
+                return (
+                  <tr key={headerGroup.id}>
+                    {headerGroup.headers.map(header => {
+                      return (
+                        <th id={header.id} key={header.id} className={css['header__item']}>
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(header.column.columnDef.header, header.getContext())}
+                        </th>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map(row => {
+                return (
+                  <tr key={row.id} className="cursor-pointer">
+                    {row.getVisibleCells().map(cell => (
+                      <td className={css['col']} key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div className={css['table__pagination']}>
+          <Pagination page={page} count={total} onChange={(_, p) => setPage(p)} />
+        </div>
       </div>
-      <div className={css['table__pagination']}>
-        <Pagination page={page} count={total} onChange={(_, p) => setPage(p)} />
-      </div>
-    </div>
+      <ConfirmModal
+        customStyle="max-w-[400px]"
+        open={openModal?.name === 'delete' && openModal.open}
+        handleClose={() => setOpenModal({ name: 'delete', open: false })}
+        icon={<FeaturedIcon iconName="alert-circle" size="lg" type="light-circle" theme="warning" />}
+        confirmHeader="Delete"
+        confirmSubheader="Are you sure you wish to delete this verification template and all associated requests? This action cannot be undone."
+        buttons={[
+          {
+            color: 'primary',
+            variant: 'outlined',
+            fullWidth: true,
+            onClick: () => setOpenModal({ name: 'delete', open: false }),
+            children: 'Cancel',
+          },
+          {
+            color: 'error',
+            variant: 'contained',
+            fullWidth: true,
+            onClick: handleDelete,
+            children: 'Delete',
+          },
+        ]}
+      />
+    </>
   );
 };
 
