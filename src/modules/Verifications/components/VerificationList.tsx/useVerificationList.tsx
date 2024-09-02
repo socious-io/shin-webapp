@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { config } from 'src/config';
 import { deleteVerification, getVerifications } from 'src/core/adaptors';
 import { Verification } from 'src/core/adaptors/verifications';
 import { MenuItem } from 'src/modules/General/components/ThreeDotButton/index.type';
-import { boolean } from 'yup';
 
 export const useVerificationList = (list: Verification[], totalItems: number) => {
   const [verifications, setVerifications] = useState(list);
@@ -12,6 +12,7 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
   const [total, setTotal] = useState(Math.ceil(totalItems / PER_PAGE));
   const [openModal, setOpenModal] = useState<{ name: 'delete' | 'copy'; open: boolean }>();
   const [selectedId, setSelectedId] = useState('');
+  const [url, setUrl] = useState('');
   const navigate = useNavigate();
   const getMenuItems = (id: string): MenuItem[] => {
     return [
@@ -55,6 +56,16 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
     setOpenModal({ name: 'delete', open: false });
   };
 
+  const handleOpenCopy = (id: string) => {
+    const copyUrl = `${config.appBaseURL}/verifications/${id}`;
+    setUrl(copyUrl);
+    setOpenModal({ name: 'copy', open: true });
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(url);
+  };
+
   return {
     data: {
       verifications,
@@ -62,11 +73,14 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
       total,
       getMenuItems,
       openModal,
+      url,
     },
     operations: {
       setPage,
       setOpenModal,
       handleDelete,
+      handleOpenCopy,
+      handleCopy,
     },
   };
 };

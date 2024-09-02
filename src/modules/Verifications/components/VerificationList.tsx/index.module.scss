@@ -77,3 +77,16 @@
         color: $color-primary-700;
     }
 }
+
+.copy {
+    &__container {
+        padding: 1.25rem 1.5rem 2rem;
+    }
+
+    &__btn {
+        width: fit-content;
+        display: flex;
+        gap: 0.25rem;
+        cursor: pointer;
+    }
+}

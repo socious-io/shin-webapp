@@ -4,6 +4,8 @@ import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
+import Input from 'src/modules/General/components/Input';
+import Modal from 'src/modules/General/components/Modal';
 import Pagination from 'src/modules/General/components/Pagination';
 import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
@@ -14,8 +16,8 @@ import { useVerificationList } from './useVerificationList';
 
 const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems }) => {
   const {
-    data: { page, verifications, total, getMenuItems, openModal },
-    operations: { setPage, setOpenModal, handleDelete },
+    data: { page, verifications, total, getMenuItems, openModal, url },
+    operations: { setPage, setOpenModal, handleDelete, handleOpenCopy, handleCopy },
   } = useVerificationList(list, totalItems);
 
   const columns = useMemo<ColumnDef<any>[]>(
@@ -50,18 +52,20 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
         id: 'actions',
         header: '',
         accessorKey: 'id',
-        cell: ({ getValue }: { getValue: Getter<string> }) => {
-          const rowId = getValue();
-          return (
-            <div className={css['col__actions']}>
-              <Button variant="outlined" color="primary" customStyle={css['col__btn']}>
-                <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
-                Copy link
-              </Button>
-              <ThreeDotButton menuItems={getMenuItems(getValue())} />
-            </div>
-          );
-        },
+        cell: ({ getValue }: { getValue: Getter<string> }) => (
+          <div className={css['col__actions']}>
+            <Button
+              variant="outlined"
+              color="primary"
+              customStyle={css['col__btn']}
+              onClick={() => handleOpenCopy(getValue())}
+            >
+              <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
+              Copy link
+            </Button>
+            <ThreeDotButton menuItems={getMenuItems(getValue())} />
+          </div>
+        ),
       },
     ],
     [verifications],
@@ -138,6 +142,32 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
           },
         ]}
       />
+
+      <Modal
+        open={openModal?.name === 'copy' && openModal.open}
+        handleClose={() => setOpenModal({ name: 'copy', open: false })}
+        icon={<FeaturedIcon type="modern" theme="gray" iconName="link-01" size="lg" />}
+        title="Verification request link"
+        subTitle="You can now request a submission for verification by using the below URL."
+        mobileFullHeight={false}
+        mobileCentered
+        headerDivider={false}
+        contentClassName=""
+        inlineTitle={false}
+      >
+        <div className={css['copy__container']}>
+          <Input
+            id="copy-url"
+            value={url}
+            postfix={
+              <button id="copy-button" className={css['copy__btn']} onClick={handleCopy}>
+                <Icon name="copy-01" fontSize={20} className="text-Gray-light-mode-700" />
+                <span>Copy</span>
+              </button>
+            }
+          />
+        </div>
+      </Modal>
     </>
   );
 };
