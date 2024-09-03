@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import sociousLogo from 'src/assets/images/logo/socious-logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Input from 'src/modules/General/components/Input';
 import { Link } from 'src/modules/General/components/Link';
@@ -9,7 +8,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue, continueWithGoogle } = useEmail();
+  const { register, errors, handleSubmit, onContinue } = useEmail();
   const { t: translate } = useTranslation();
 
   return (

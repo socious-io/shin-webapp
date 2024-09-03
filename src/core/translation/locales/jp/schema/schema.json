@@ -1,0 +1,22 @@
+{
+  "schema-header": "クレデンシャルスキーマ",
+  "schema-subheader": "ここでクレデンシャルスキーマを管理します",
+  "schema-create-button": "スキーマを作成",
+  "schema-table": {
+    "name": "スキーマ名",
+    "description": "スキーマの説明",
+    "created": "作成されました",
+    "created-at": "作成日時"
+  },
+  "schema-delete-title": "スキーマを削除しますか？",
+  "schema-delete-subtitle": "スキーマの削除は永久的であり、元に戻すことはできません。このスキーマで発行されたクレデンシャルは引き続き有効です。",
+  "schema-delete-button": "削除",
+  "schema-copy-snackbar": "コピーしました！",
+  "schema-empty-header": "スキーマを作成",
+  "schema-empty-subheader": "スキーマを手動で作成し、属性を追加します。",
+  "schema-detail": {
+    "id": "スキーマID",
+    "type": "クレデンシャルタイプ",
+    "attributes": "属性"
+  }
+}

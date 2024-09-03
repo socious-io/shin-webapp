@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { detailsAdaptor, detailsAdaptorReq } from 'src/core/adaptors/signUp';
+import { details, detailsReq } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
@@ -32,14 +32,14 @@ export const useDetail = () => {
   const onContinue = async () => {
     // TODO: Apply API call
     const { name, lastName, password, jobTitle } = getValues();
-    const param: detailsAdaptorReq = {
+    const param: detailsReq = {
       firstName: name,
       lastName,
       email,
       password,
       jobTitle,
     };
-    const res = await detailsAdaptor(param);
+    const res = await details(param);
     if (res.error) {
       setError('password', {
         type: 'manual',

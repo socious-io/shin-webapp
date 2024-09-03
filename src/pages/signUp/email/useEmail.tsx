@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { preRegisterAdaptor } from 'src/core/adaptors/signUp';
+import { preRegister } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
@@ -30,7 +30,7 @@ export const useEmail = () => {
   });
 
   const onContinue = async () => {
-    const res = await preRegisterAdaptor(getValues('email'));
+    const res = await preRegister(getValues('email'));
     if (res.error) {
       setError('email', {
         type: 'manual',
@@ -38,7 +38,7 @@ export const useEmail = () => {
       });
       return;
     }
-    if (res.email) {
+    if (res.data?.email) {
       setError('email', {
         type: 'manual',
         message: 'Email already exists',
