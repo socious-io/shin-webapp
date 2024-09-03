@@ -17,32 +17,32 @@ import { useVerificationList } from './useVerificationList';
 const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems }) => {
   const {
     data: { page, verifications, total, getMenuItems, openModal, url },
-    operations: { setPage, setOpenModal, handleDelete, handleOpenCopy, handleCopy },
+    operations: { setPage, setOpenModal, handleDelete, handleOpenCopy, handleCopy, translate },
   } = useVerificationList(list, totalItems);
 
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
       {
         id: 'name',
-        header: 'Name',
+        header: translate('ver-col-name'),
         accessorKey: 'name',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
       },
       {
         id: 'proofId',
-        header: 'Proof ID',
+        header: translate('ver-col-proof'),
         accessorKey: 'proofId',
         cell: ({ getValue }: { getValue: Getter<string> }) => <div className={css['col--gray']}>{getValue()}</div>,
       },
       {
         id: 'createdBy',
-        header: 'Created by',
+        header: translate('ver-col-created-by'),
         accessorKey: 'createdBy',
         cell: ({ getValue }: { getValue: Getter<string> }) => <div className={css['col--bold']}>{getValue()}</div>,
       },
       {
         id: 'creationDate',
-        header: 'Creation Date',
+        header: translate('ver-col-create-date'),
         accessorKey: 'creationDate',
         cell: ({ getValue }: { getValue: Getter<string> }) => (
           <div className={css['col--gray']}>{formatDate(getValue())}</div>
@@ -61,7 +61,7 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
               onClick={() => handleOpenCopy(getValue())}
             >
               <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
-              Copy link
+              {translate('ver-cell-copy-link')}
             </Button>
             <ThreeDotButton menuItems={getMenuItems(getValue())} />
           </div>
@@ -123,22 +123,22 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
         open={openModal?.name === 'delete' && openModal.open}
         handleClose={() => setOpenModal({ name: 'delete', open: false })}
         icon={<FeaturedIcon iconName="alert-circle" size="lg" type="light-circle" theme="warning" />}
-        confirmHeader="Delete"
-        confirmSubheader="Are you sure you wish to delete this verification template and all associated requests? This action cannot be undone."
+        confirmHeader={translate('ver-delete-modal-title')}
+        confirmSubheader={translate('ver-delete-modal-subtitle')}
         buttons={[
           {
             color: 'primary',
             variant: 'outlined',
             fullWidth: true,
             onClick: () => setOpenModal({ name: 'delete', open: false }),
-            children: 'Cancel',
+            children: translate('ver-delete-modal-cancel'),
           },
           {
             color: 'error',
             variant: 'contained',
             fullWidth: true,
             onClick: handleDelete,
-            children: 'Delete',
+            children: translate('ver-delete-modal-btn'),
           },
         ]}
       />
@@ -147,12 +147,11 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
         open={openModal?.name === 'copy' && openModal.open}
         handleClose={() => setOpenModal({ name: 'copy', open: false })}
         icon={<FeaturedIcon type="modern" theme="gray" iconName="link-01" size="lg" />}
-        title="Verification request link"
-        subTitle="You can now request a submission for verification by using the below URL."
+        title={translate('ver-copy-modal-title')}
+        subTitle={translate('ver-copy-modal-subtitle')}
         mobileFullHeight={false}
         mobileCentered
         headerDivider={false}
-        contentClassName=""
         inlineTitle={false}
       >
         <div className={css['copy__container']}>
@@ -162,7 +161,7 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
             postfix={
               <button id="copy-button" className={css['copy__btn']} onClick={handleCopy}>
                 <Icon name="copy-01" fontSize={20} className="text-Gray-light-mode-700" />
-                <span>Copy</span>
+                <span>{translate('ver-copy-modal-btn')}</span>
               </button>
             }
           />

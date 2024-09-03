@@ -1,12 +1,8 @@
-import { QRCodeSVG } from 'qrcode.react';
-import { Link } from 'react-router-dom';
-import appStore from 'src/assets/images/download-appstore.svg';
-import googlePlay from 'src/assets/images/download-googleplay.svg';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
-import Modal from 'src/modules/General/components/Modal';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
+import ProofRequest from 'src/modules/Verifications/components/ProofRequest';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -14,19 +10,8 @@ import { useCreateUpdateVerification } from './useCreateUpdateVerification';
 
 export const CreateUpdateVerification = () => {
   const {
-    verification,
-    register,
-    errors,
-    onSelectSchema,
-    schemaList,
-    schema,
-    onCancel,
-    onSubmit,
-    handleSubmit,
-    openPreview,
-    setOpenPreview,
-    name,
-    description,
+    data: { errors, schemaList, schema, verification, openPreview, name, description },
+    operation: { register, onSelectSchema, onCancel, onSubmit, handleSubmit, setOpenPreview, translate },
   } = useCreateUpdateVerification();
   const renderRowTitle = (title, subtitle) => {
     return (
@@ -40,14 +25,20 @@ export const CreateUpdateVerification = () => {
   const actionButtons = (
     <div className={css['header__action']}>
       <Button variant="outlined" color="primary" onClick={onCancel}>
-        Cancel
+        {translate('ver-create-cancel')}
       </Button>
-      <Button variant="outlined" color="primary" customStyle={css['btn']} onClick={() => setOpenPreview(true)}>
+      <Button
+        variant="outlined"
+        color="primary"
+        customStyle={css['btn']}
+        disabled={!name}
+        onClick={() => setOpenPreview(true)}
+      >
         <Icon name="eye" fontSize={20} color={variables.color_grey_700} />
-        Preview
+        {translate('ver-create-preview')}
       </Button>
       <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>
-        {verification ? 'Edit' : 'Create'}
+        {verification ? translate('ver-edit-btn') : translate('ver-create-btn')}
       </Button>
     </div>
   );
@@ -56,33 +47,30 @@ export const CreateUpdateVerification = () => {
     <>
       <div className={css['container']}>
         <div className={css['header']}>
-          <div className={css['header__title']}>Create a verification request</div>
+          <div className={css['header__title']}>{translate('ver-create-title')}</div>
           {actionButtons}
         </div>
         <div className={css['section']}>
           <div className={css['section__row']}>
-            {renderRowTitle('Name', 'This will be used for reference only by yourself and the credential holder.')}
+            {renderRowTitle(translate('ver-create-name'), translate('ver-create-name-desc'))}
             <Input
               id="name"
               label=""
               name="name"
               register={register}
-              placeholder="Add a name"
+              placeholder={translate('ver-create-name-placeholder')}
               containerClassName="w-full md:w-[32rem]"
               errors={errors['name']?.message ? [errors['name']?.message.toString()] : undefined}
             />
           </div>
           <div className={css['section__row']}>
-            {renderRowTitle(
-              'Description',
-              'Describe the purpose of the credential request for both the requester and the credential holder.',
-            )}
+            {renderRowTitle(translate('ver-create-description'), translate('ver-create-description-desc'))}
             <Input
               id="description"
               label=""
               name="description"
               register={register}
-              placeholder="Enter a description..."
+              placeholder={translate('ver-create-description-placeholder')}
               errors={errors['description']?.message ? [errors['description']?.message.toString()] : undefined}
               multiline
               customHeight="180px"
@@ -91,16 +79,13 @@ export const CreateUpdateVerification = () => {
             />
           </div>
           <div className={css['section__row']}>
-            {renderRowTitle(
-              'Credential requests',
-              'A verification can return as either valid or invalid.Define what constitutes a valid verification. Fields must match the credential schema exactly.',
-            )}
+            {renderRowTitle(translate('ver-create-credential'), translate('ver-create-credential-desc'))}
             <SearchDropdown
               id="schema"
               name="schema"
               value={schema}
-              label="Schema is equal to"
-              placeholder="Enter or select a schema"
+              label={translate('ver-create-schema-lbl')}
+              placeholder={translate('ver-create-schema-placeholder')}
               options={schemaList}
               isSearchable
               onChange={onSelectSchema}
@@ -111,46 +96,12 @@ export const CreateUpdateVerification = () => {
           <div className={css['section__row']}>{actionButtons}</div>
         </div>
       </div>
-      <Modal
+      <ProofRequest
         open={openPreview}
         handleClose={() => setOpenPreview(false)}
         title={name}
-        subTitle={description}
-        mobileFullHeight
-        headerDivider={false}
-        contentClassName=""
-      >
-        <div className={css['modal']}>
-          <div className={css['modal__content']}>
-            <div className={css['modal__medium']}>Scan the QR Code with your Socious Wallet</div>
-            <div className={css['modal__qr']}>
-              {/* TODO: fix value for QRCode */}
-              <QRCodeSVG value="https://app.socious.io/intro" size={200} />
-            </div>
-            <Button variant="contained" color="primary" fullWidth>
-              Open in Socious Wallet
-            </Button>
-          </div>
-        </div>
-        <div className={css['modal__footer']}>
-          <div className="flex flex-col gap-2">
-            <div className={css['modal__semibold']}>Download the app</div>
-            <div className={css['modal__regular']}>
-              Get the most of Socious Wallet by installing our new mobile app.
-            </div>
-          </div>
-          <div className={css['modal__download']}>
-            {/* TODO: Link to ??? */}
-            <Link to="https://wallet.socious.io/ios" target="_blank">
-              <img src={appStore} alt="app-store" height={40} width={135} className="cursor-pointer" />
-            </Link>
-            {/* TODO: Link to ??? */}
-            <Link to="https://wallet.socious.io/android" target="_blank">
-              <img src={googlePlay} alt="google-play" height={40} width={135} className="cursor-pointer" />
-            </Link>
-          </div>
-        </div>
-      </Modal>
+        subtitle={description || ''}
+      />
     </>
   );
 };

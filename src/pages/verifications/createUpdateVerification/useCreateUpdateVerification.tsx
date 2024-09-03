@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import {
   AdaptorRes,
@@ -27,6 +28,7 @@ const schema = yup
   .required();
 
 export const useCreateUpdateVerification = () => {
+  const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const loaderData = useLoaderData() as AdaptorRes<Verification>;
   const verification = loaderData?.data;
@@ -41,6 +43,7 @@ export const useCreateUpdateVerification = () => {
     setError,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     resolver: yupResolver(schema),
     mode: 'all',
@@ -107,19 +110,27 @@ export const useCreateUpdateVerification = () => {
     if (!res?.error) navigate('/verifications');
   };
 
+  const name = watch('name');
+  const description = watch('description');
+
   return {
-    register,
-    errors,
-    onSelectSchema,
-    schemaList,
-    schema: getValues().schema,
-    onCancel,
-    onSubmit,
-    handleSubmit,
-    verification,
-    openPreview,
-    setOpenPreview,
-    name: getValues().name,
-    description: getValues().description,
+    data: {
+      errors,
+      schemaList,
+      schema: getValues().schema,
+      verification,
+      openPreview,
+      name,
+      description,
+    },
+    operation: {
+      register,
+      onSelectSchema,
+      onCancel,
+      onSubmit,
+      handleSubmit,
+      setOpenPreview,
+      translate,
+    },
   };
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { config } from 'src/config';
 import { deleteVerification, getVerifications } from 'src/core/adaptors';
@@ -6,6 +7,7 @@ import { Verification } from 'src/core/adaptors/verifications';
 import { MenuItem } from 'src/modules/General/components/ThreeDotButton/index.type';
 
 export const useVerificationList = (list: Verification[], totalItems: number) => {
+  const { t: translate } = useTranslation();
   const [verifications, setVerifications] = useState(list);
   const [page, setPage] = useState(1);
   const PER_PAGE = 10;
@@ -18,21 +20,21 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
     return [
       {
         iconName: 'pencil-line',
-        label: 'Edit',
+        label: translate('ver-cell-edit'),
         action: () => {
           navigate(`/verifications/edit/${id}`);
         },
       },
       {
         iconName: 'clock-fast-forward',
-        label: 'History',
+        label: translate('ver-cell-History'),
         action: () => {
           return;
         },
       },
       {
         iconName: 'trash-01',
-        label: 'Delete',
+        label: translate('ver-cell-delete'),
         action: () => {
           setSelectedId(id);
           setOpenModal({ name: 'delete', open: true });
@@ -81,6 +83,7 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
       handleDelete,
       handleOpenCopy,
       handleCopy,
+      translate,
     },
   };
 };

@@ -9,7 +9,9 @@ import detail from './singUp/detail.json';
 import profile from './singUp/profile.json';
 import stepper from './singUp/stepper.json';
 import verification from './singUp/verification.json';
-import VerificationList from './verifications.json';
+import verificationCreate from './verifications/create.json';
+import verificationList from './verifications/list.json';
+import proofRequest from './verifications/proofRequest.json';
 
 export function generateTranslationFile() {
   return Object.assign(
@@ -20,11 +22,13 @@ export function generateTranslationFile() {
     stepper,
     profile,
     fileUploader,
+    forgetPassword,
     schema,
     schemaCreate,
-    forgetPassword,
     orgProfile,
     settings,
-    VerificationList,
+    verificationList,
+    verificationCreate,
+    proofRequest,
   );
 }
