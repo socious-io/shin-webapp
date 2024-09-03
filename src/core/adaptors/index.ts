@@ -8,6 +8,8 @@ export * from './signUp/index.adaptors';
 export * from './signUp/index.types';
 export * from './schema/index.adaptors';
 export * from './schema/index.types';
+export * from './orgProfile/index.adaptors';
+export * from './orgProfile/index.types';
 
 export type AdaptorRes<T = null> = {
   data: T | null;

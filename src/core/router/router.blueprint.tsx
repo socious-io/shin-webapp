@@ -2,7 +2,7 @@ import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
-import { getSchemasAdaptor } from '../adaptors';
+import { getOrgProfileAdaptor, getSchemasAdaptor } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
@@ -61,6 +61,10 @@ export const blueprint: RouteObject[] = [
             children: [
               {
                 path: 'org',
+                loader: async () => {
+                  const { data } = await getOrgProfileAdaptor();
+                  return { profile: data };
+                },
                 async lazy() {
                   const { OrgProfile } = await import('src/pages/profile/org');
                   return {

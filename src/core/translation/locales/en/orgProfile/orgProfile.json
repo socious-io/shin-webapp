@@ -1,0 +1,12 @@
+{
+  "org-profile-header": "Organization profile",
+  "org-profile-subheader": "Update your logo and organization details here.",
+  "org-profile-did": "Your organization DID",
+  "org-profile-copy": "Copy",
+  "org-profile-name": "Public name",
+  "org-profile-name-placeholder": "Name",
+  "org-profile-description": "Public description",
+  "org-profile-description-placeholder": "Enter a description...",
+  "org-profile-optional": "optional",
+  "org-profile-save-button": "Save changes"
+}

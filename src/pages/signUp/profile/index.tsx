@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Avatar from 'src/modules/General/components/Avatar';
-import { FileUploader } from 'src/modules/General/components/FileUploader';
+import FileUploader from 'src/modules/General/components/FileUploader';
 import Input from 'src/modules/General/components/Input';
 import FormHeader from 'src/modules/SignUp/components/FormHeader';
 import StepperLayout from 'src/modules/SignUp/components/StepperLayout';
