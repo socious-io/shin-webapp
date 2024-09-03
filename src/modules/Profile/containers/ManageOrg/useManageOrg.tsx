@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
-import { ProfileReq, ProfileRes } from 'src/core/adaptors';
-import { changeOrgProfileAdaptor } from 'src/core/adaptors/orgProfile/index.adaptors';
+import { changeOrgProfileAdaptor, ProfileReq, ProfileRes } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
