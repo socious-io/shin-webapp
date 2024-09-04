@@ -17,6 +17,8 @@ export * from './verifications/index.adaptor';
 export * from './verifications/index.type';
 export * from './proofRequests/index.adaptors';
 export * from './proofRequests/index.types';
+export * from './credentials/index.adaptors';
+export * from './credentials/index.types';
 
 export interface CustomError {
   response: { data: { error: string } };
