@@ -8,7 +8,7 @@ import css from './index.module.scss';
 import { FileUploaderProps } from './index.types';
 import { useFileUploader } from './useFileUploader';
 
-export const FileUploader: React.FC<FileUploaderProps> = ({
+const FileUploader: React.FC<FileUploaderProps> = ({
   customStyle,
   fileTypes,
   maxFileSize = 10,
@@ -51,3 +51,5 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
     </>
   );
 };
+
+export default FileUploader;
