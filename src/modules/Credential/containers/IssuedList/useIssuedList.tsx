@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
 import { CredentialsRes, CredentialStatus, deleteCredentialAdaptor, revokeCredentialAdaptor } from 'src/core/adaptors';
 import { StatusProps } from 'src/modules/General/components/Status/index.types';
 
 export const useIssuedList = () => {
+  const { t: translate } = useTranslation();
   const { credentialList } = (useLoaderData() as { credentialList: CredentialsRes }) || {};
   const { items: list } = credentialList || [];
   const [currentList, setCurrentList] = useState(list);
@@ -16,9 +18,9 @@ export const useIssuedList = () => {
   const totalPage = 1;
 
   const status: Record<Exclude<CredentialStatus, 'ISSUED'>, StatusProps> = {
-    PENDING: { label: 'Pending', theme: 'warning' },
-    ACTIVE: { label: 'Active', theme: 'success' },
-    REVOKED: { label: 'Revoked', theme: 'error' },
+    PENDING: { label: translate('credential-status.pending'), theme: 'warning' },
+    ACTIVE: { label: translate('credential-status.active'), theme: 'success' },
+    REVOKED: { label: translate('credential-status.revoked'), theme: 'error' },
   };
 
   const onSelectCredential = (id: string) => {
@@ -63,7 +65,7 @@ export const useIssuedList = () => {
   };
 
   return {
-    data: { currentList, page, totalPage, selectedCredential, status, openModal },
+    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal },
     operations: {
       setPage,
       onSelectCredential,

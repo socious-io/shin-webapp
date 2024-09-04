@@ -18,7 +18,7 @@ import { useIssuedList } from './useIssuedList';
 
 const IssuedList = () => {
   const {
-    data: { currentList, page, totalPage, selectedCredential, status, openModal },
+    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal },
     operations: {
       setPage,
       onSelectCredential,
@@ -34,37 +34,37 @@ const IssuedList = () => {
     () => [
       {
         id: 'recipient_name',
-        header: 'Recipient Name',
+        header: translate('credential-table.name'),
         accessorKey: 'recipient_name',
         cell: ({ getValue }: { getValue: Getter<string> }) => <span className={css['col--darker']}>{getValue()}</span>,
       },
       {
         id: 'issuer',
-        header: 'Issuer',
+        header: translate('credential-table.issuer'),
         accessorKey: 'issuer',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
       },
       {
         id: 'type',
-        header: 'Type',
+        header: translate('credential-table.type'),
         accessorKey: 'type',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
       },
       {
         id: 'issuance_date',
-        header: 'Issuance Date',
+        header: translate('credential-table.issuance-date'),
         accessorKey: 'issuance_date',
         cell: ({ getValue }: { getValue: Getter<string> }) => formatDate(getValue()),
       },
       {
         id: 'expiration_date',
-        header: 'Expiration Date',
+        header: translate('credential-table.expiration-date'),
         accessorKey: 'expiration_date',
         cell: ({ getValue }: { getValue: Getter<string> }) => formatDate(getValue()),
       },
       {
         id: 'status',
-        header: 'Status',
+        header: translate('credential-table.status'),
         accessorKey: 'status',
         cell: ({ getValue }: { getValue: Getter<string> }) => (
           <div className="flex items-center">
@@ -92,7 +92,7 @@ const IssuedList = () => {
             disabled={!selectedCredential}
             onClick={onRevokeClick}
           >
-            Revoke
+            {translate('credential-revoke-button')}
           </Button>
           <Button
             variant="outlined"
@@ -100,7 +100,7 @@ const IssuedList = () => {
             disabled={!selectedCredential}
             onClick={onDeleteClick}
           >
-            Delete
+            {translate('credential-delete-button')}
           </Button>
         </div>
         <div className={css['table']}>
@@ -162,11 +162,13 @@ const IssuedList = () => {
         open={openModal.open}
         handleClose={handleCloseModal}
         icon={<FeaturedIcon iconName="alert-circle" size="lg" type="light-circle" theme="warning" />}
-        confirmHeader={openModal.name === 'revoke' ? 'Revoke credential' : 'Delete credential'}
+        confirmHeader={
+          openModal.name === 'revoke' ? translate('credential-revoke-title') : translate('credential-delete-title')
+        }
         confirmSubheader={
           openModal.name === 'revoke'
-            ? 'Are you sure you want to revoke this credential?'
-            : 'Are you sure you want to delete this credential?'
+            ? translate('credential-revoke-subtitle')
+            : translate('credential-delete-subtitle')
         }
         buttons={[
           {
@@ -174,14 +176,17 @@ const IssuedList = () => {
             variant: 'outlined',
             fullWidth: true,
             onClick: handleCloseModal,
-            children: 'Cancel',
+            children: translate('credential-cancel-button'),
           },
           {
             color: 'error',
             variant: 'contained',
             fullWidth: true,
             onClick: openModal.name === 'revoke' ? onRevokeCredential : onDeleteCredential,
-            children: openModal.name === 'revoke' ? 'Revoke' : 'Delete',
+            children:
+              openModal.name === 'revoke'
+                ? translate('credential-revoke-button')
+                : translate('credential-delete-button'),
           },
         ]}
       />
@@ -189,10 +194,10 @@ const IssuedList = () => {
   ) : (
     <EmptyBox
       icon={<img src={emptyStateImage} width={152} height={118} alt="empty-issued-list" />}
-      title="Issue your first credential"
-      subtitle="Here are all the credentials you issued. "
+      title={translate('credential-empty-header')}
+      subtitle={translate('credential-empty-subheader')}
       button={{
-        children: 'Issue credential',
+        children: translate('credential-issue'),
         color: 'primary',
         startIcon: <Icon name="plus" color={variables.color_white} />,
         onClick: () => console.log('issue'),
