@@ -2,14 +2,24 @@
   "singleQuote": true,
   "printWidth": 120,
   "semi": true,
-  "tabWidth": 2,
+  "tabWidth": 4,
   "trailingComma": "all",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "avoid",
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "overrides": [
-    { "files": "*.scss", "options": { "tabWidth": 4 } },
-    { "files": "*.html", "options": { "tabWidth": 4 } }
+    {
+      "files": "*.scss",
+      "options": {
+        "tabWidth": 4
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "tabWidth": 4
+      }
+    }
   ]
 }

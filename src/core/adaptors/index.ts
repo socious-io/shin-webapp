@@ -10,9 +10,11 @@ export * from './schema/index.adaptors';
 export * from './schema/index.types';
 export * from './orgProfile/index.adaptors';
 export * from './orgProfile/index.types';
+export * from './forgetPassword/index.adaptors';
+export * from './general/index.types';
 
 export type AdaptorRes<T = null> = {
-  data: T | null;
-  error: string | null;
-  message?: string;
+    data: T | null;
+    error: string | null;
+    message?: string;
 };
