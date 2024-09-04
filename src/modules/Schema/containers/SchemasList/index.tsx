@@ -7,11 +7,11 @@ import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
 import CustomSnackbar from 'src/modules/General/components/Snackbar';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
+import EmptyBox from 'src/modules/General/containers/EmptyBox';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { useSchemasList } from './useSchemasList';
-import EmptySchema from '../EmptySchema';
 import SchemaDetailModal from '../SchemaDetailModal';
 
 const SchemasList: React.FC = () => {
@@ -200,7 +200,17 @@ const SchemasList: React.FC = () => {
       </CustomSnackbar>
     </>
   ) : (
-    <EmptySchema onCreateSchema={onCreateSchema} />
+    <EmptyBox
+      icon={<FeaturedIcon iconName="file-05" size="lg" type="modern" theme="gray" />}
+      title={translate('schema-empty-header')}
+      subtitle={translate('schema-empty-subheader')}
+      button={{
+        children: translate('schema-create-button'),
+        color: 'primary',
+        startIcon: <Icon name="plus" color={variables.color_white} />,
+        onClick: onCreateSchema,
+      }}
+    />
   );
 };
 
