@@ -2,12 +2,12 @@
   "singleQuote": true,
   "printWidth": 120,
   "semi": true,
-  "tabWidth": 4,
+  "tabWidth": 2,
   "trailingComma": "all",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "avoid",
-  "endOfLine": "auto",
+  "endOfLine": "lf",
   "overrides": [
     {
       "files": "*.scss",
