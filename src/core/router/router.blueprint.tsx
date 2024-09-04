@@ -11,6 +11,7 @@ import {
   getVerificationByIdAdaptor,
   getVerificationsAdaptor,
   connectVerificationAdaptor,
+  getCredentialsAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -23,6 +24,10 @@ export const blueprint: RouteObject[] = [
         children: [
           {
             path: 'credentials',
+            loader: async () => {
+              const { data } = await getCredentialsAdaptor();
+              return { credentialList: data };
+            },
             async lazy() {
               const { Credentials } = await import('src/pages/credentials');
               return {
