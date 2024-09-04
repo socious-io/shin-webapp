@@ -14,18 +14,20 @@ export const http = axios.create({
   timeout: 1000000,
 });
 
-export async function getAuthHeaders(): Promise<{ Authorization: string; CurrentIdentity: string }> {
+export async function getAuthHeaders(): Promise<{ Authorization: string }> {
   const token = await nonPermanentStorage.get('access_token');
   const prefix = await nonPermanentStorage.get('token_type');
-  const currentIdentity = await nonPermanentStorage.get('identity');
   return {
     Authorization: `${prefix} ${token}`,
-    CurrentIdentity: currentIdentity || '',
   };
 }
 
 export async function post<T>(uri: string, payload: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   return http.post<T>(uri, removedEmptyProps(payload), config);
+}
+
+export async function put<T>(uri: string, payload: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return http.put<T>(uri, removedEmptyProps(payload), config);
 }
 
 export async function get<T>(uri: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
@@ -37,6 +39,17 @@ export async function get<T>(uri: string, config?: AxiosRequestConfig): Promise<
   };
 
   return http.get<T>(uri, config);
+}
+
+export async function del<T>(uri: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  if (!config) config = {};
+
+  config.params = {
+    t: new Date().getTime(),
+    ...config?.params,
+  };
+
+  return http.delete<T>(uri, config);
 }
 
 export type ErrorSection = 'AUTH' | 'FORGET_PASSWORD';
@@ -61,9 +74,8 @@ export function handleError(params?: ErrorHandlerParams) {
 
 http.interceptors.request.use(
   async function (config) {
-    const { Authorization, CurrentIdentity } = await getAuthHeaders();
+    const { Authorization } = await getAuthHeaders();
     if (Authorization) config.headers.set('Authorization', Authorization);
-    if (CurrentIdentity) config.headers.set('Current-Identity', CurrentIdentity);
     // Do something before request is sent
     return config;
   },
