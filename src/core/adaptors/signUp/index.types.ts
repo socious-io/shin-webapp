@@ -1,7 +1,6 @@
 export interface PreRegisterRes {
   email: 'EXISTS' | null;
   username: 'EXISTS' | null;
-  shortname: 'EXISTS' | null;
 }
 
 export interface OtpConfirmRes {

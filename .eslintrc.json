@@ -9,7 +9,6 @@
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:storybook/recommended",
     "plugin:cypress/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -17,17 +16,36 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "react", "import", "jsdoc"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "import",
+    "jsdoc"
+  ],
   "rules": {
     "semi": "error",
-    "eol-last": ["error", "always"],
+    "eol-last": [
+      "error",
+      "always"
+    ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "import/order": [
       "error",
       {
         "newlines-between": "always",
-        "groups": [["builtin", "external"], "internal", ["parent", "sibling", "index"]],
+        "groups": [
+          [
+            "builtin",
+            "external"
+          ],
+          "internal",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ],
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true
