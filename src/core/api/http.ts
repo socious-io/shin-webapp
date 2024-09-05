@@ -10,7 +10,7 @@ import { removedEmptyProps } from '../helpers/objects-arrays';
 
 export const http = axios.create({
   baseURL: config.baseURL,
-  withCredentials: true,
+  // withCredentials: true,
   timeout: 1000000,
 });
 
