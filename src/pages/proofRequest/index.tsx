@@ -4,10 +4,10 @@ import { Link } from 'src/modules/General/components/Link';
 import Modal from 'src/modules/General/components/Modal';
 import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
 
-import { useProofRequest } from './useProofReques';
+import { useProofRequest } from './useProofRequest';
 
 export const ProofRequest = () => {
-  const { connectUrl, loading, verificationStatus, setVerificationStatus, verification } = useProofRequest();
+  const { connectUrl, loading, verificationStatus, setVerificationStatus, verification, translate } = useProofRequest();
   return (
     <>
       <ProofRequestModal
@@ -24,35 +24,41 @@ export const ProofRequest = () => {
         open={verificationStatus === 'succeed'}
         handleClose={() => setVerificationStatus(undefined)}
         icon={<FeaturedIcon iconName="check-circle" theme="success" size="xl" type="light-circle" />}
-        title="Verification Successful"
-        subTitle="Thank you! Your credentials have been verified successfully."
+        title={translate('proof-succeed')}
+        subTitle={translate('proof-succeed-desc')}
         mobileFullHeight
         headerDivider={false}
       >
-        <Link label="Continue" href="/home" />
+        <div className="flex items-center justify-center mb-8">
+          <Link label={translate('proof-continue')} href="/home" />
+        </div>
       </Modal>
       <Modal
         open={verificationStatus === 'error'}
         handleClose={() => setVerificationStatus(undefined)}
         icon={<FeaturedIcon iconName="alert-circle" theme="warning" size="xl" type="light-circle" />}
-        title="Verification Error"
-        subTitle="An error occurred during the verification process. Please try again later or contact support if the problem persists."
+        title={translate('proof-error')}
+        subTitle={translate('proof-error-desc')}
         mobileFullHeight
         headerDivider={false}
       >
-        <Link label="Try again" href="/home" />
+        <div className="flex items-center justify-center mb-8">
+          <Link label={translate('proof-try-again')} href="/home" />
+        </div>
       </Modal>
 
       <Modal
         open={verificationStatus === 'failed'}
         handleClose={() => setVerificationStatus(undefined)}
         icon={<FeaturedIcon iconName="alert-circle" theme="error" size="xl" type="light-circle" />}
-        title="Verification Failed"
-        subTitle="We're sorry, but we couldn't verify your credentials."
+        title={translate('proof-failed')}
+        subTitle="proof-failed-desc"
         mobileFullHeight
         headerDivider={false}
       >
-        <Link label="Continue" href="/home" />
+        <div className="flex items-center justify-center mb-8">
+          <Link label={translate('proof-continue')} href="/home" />
+        </div>
       </Modal>
     </>
   );

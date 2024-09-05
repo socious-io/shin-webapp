@@ -2,5 +2,13 @@
     "proof-title": "SociousウォレットでQRコードをスキャン",
     "proof-btn": "Sociousウォレットで開く",
     "proof-download-app": "アプリをダウンロード",
-    "proof-download-app-desc": "新しいモバイルアプリをインストールして、Sociousウォレットを最大限に活用しましょう。"
+    "proof-download-app-desc": "新しいモバイルアプリをインストールして、Sociousウォレットを最大限に活用しましょう。",
+    "proof-succeed": "検証成功",
+    "proof-succeed-desc": "ありがとうございます！あなたの資格情報は正常に検証されました。",
+    "proof-continue": "続行",
+    "proof-error": "検証エラー",
+    "proof-error-desc": "検証プロセス中にエラーが発生しました。後でもう一度お試しください。問題が解決しない場合は、サポートに連絡してください。",
+    "proof-try-again": "再試行",
+    "proof-failed": "検証失敗",
+    "proof-failed-desc": "申し訳ありませんが、資格情報を検証できませんでした。"
 }
