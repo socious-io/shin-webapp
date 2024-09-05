@@ -2,7 +2,7 @@ import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
-import { getOrgProfileAdaptor, getSchemasAdaptor } from '../adaptors';
+import { getOrgProfileAdaptor, getSchemasAdaptor, getUserProfileAdaptor } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
@@ -76,6 +76,10 @@ export const blueprint: RouteObject[] = [
           },
           {
             path: 'settings',
+            loader: async () => {
+              const { data } = await getUserProfileAdaptor();
+              return { userProfile: data };
+            },
             async lazy() {
               const { Settings } = await import('src/pages/settings');
               return {
