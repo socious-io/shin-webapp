@@ -1,6 +1,5 @@
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
-import EmptySchema from 'src/modules/Schema/containers/EmptySchema';
 import SchemasList from 'src/modules/Schema/containers/SchemasList';
 import variables from 'src/styles/constants/_exports.module.scss';
 
@@ -9,8 +8,8 @@ import { useSchemas } from './useSchemas';
 
 export const Schemas = () => {
   const {
-    data: { translate, currentList },
-    operations: { onCreateSchema, setCurrentList },
+    data: { translate },
+    operations: { onCreateSchema },
   } = useSchemas();
 
   return (
@@ -24,11 +23,7 @@ export const Schemas = () => {
           {translate('schema-create-button')}
         </Button>
       </div>
-      {currentList?.length ? (
-        <SchemasList list={currentList} onUpdateList={setCurrentList} />
-      ) : (
-        <EmptySchema onCreateSchema={onCreateSchema} />
-      )}
+      <SchemasList />
     </div>
   );
 };

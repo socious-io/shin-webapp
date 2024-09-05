@@ -10,15 +10,24 @@ import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
-import { SchemasListProps } from './index.types';
 import { useSchemasList } from './useSchemasList';
+import EmptySchema from '../EmptySchema';
 import SchemaDetailModal from '../SchemaDetailModal';
 
-const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
+const SchemasList: React.FC = () => {
   const {
     data: { translate, currentList, page, totalPage, openModal, openSnackbar, viewData },
-    operations: { onView, onCopy, onDelete, setPage, handleCloseModal, setOpenSnackbar, onDeleteSchema },
-  } = useSchemasList(list, onUpdateList);
+    operations: {
+      onView,
+      onCopy,
+      onDelete,
+      onChangePage,
+      handleCloseModal,
+      setOpenSnackbar,
+      onDeleteSchema,
+      onCreateSchema,
+    },
+  } = useSchemasList();
 
   const columns = useMemo<ColumnDef<Schema>[]>(
     () => [
@@ -46,7 +55,7 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
         id: 'created',
         header: translate('schema-table.created'),
         accessorKey: 'created',
-        cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
+        cell: ({ getValue }: { getValue: Getter<string> }) => <span className={css['col--darker']}>{getValue()}</span>,
       },
       {
         id: 'created_date',
@@ -105,7 +114,7 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  return (
+  return currentList.length ? (
     <>
       <div className={css['table']}>
         <div className="block overflow-auto">
@@ -130,7 +139,7 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
             <tbody>
               {table.getRowModel().rows.map(row => {
                 return (
-                  <tr key={row.id} className="cursor-pointer">
+                  <tr key={row.id} className={css['row']}>
                     {row.getVisibleCells().map(cell => (
                       <td className={css['col']} key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -143,7 +152,7 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
           </table>
         </div>
         <div className={css['table__pagination']}>
-          <Pagination page={page} count={totalPage} onChange={(_, p) => setPage(p)} />
+          <Pagination page={page} count={totalPage} onChange={(_, p) => onChangePage(p)} />
         </div>
       </div>
       <ConfirmModal
@@ -190,6 +199,8 @@ const SchemasList: React.FC<SchemasListProps> = ({ list, onUpdateList }) => {
         </div>
       </CustomSnackbar>
     </>
+  ) : (
+    <EmptySchema onCreateSchema={onCreateSchema} />
   );
 };
 
