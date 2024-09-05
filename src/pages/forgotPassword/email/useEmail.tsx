@@ -5,44 +5,44 @@ import { forgetPasswordAdaptor } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
-    .object()
-    .shape({
-        email: yup
-            .string()
-            .trim()
-            .email('Enter a correct email')
-            .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i, 'Enter a correct email')
-            .required('Enter a correct email'),
-    })
-    .required();
+  .object()
+  .shape({
+    email: yup
+      .string()
+      .trim()
+      .email('Enter a correct email')
+      .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i, 'Enter a correct email')
+      .required('Enter a correct email'),
+  })
+  .required();
 
 export const useEmail = () => {
-    const navigate = useNavigate();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        getValues,
-        setError,
-    } = useForm({
-        mode: 'all',
-        resolver: yupResolver(schema),
-    });
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    setError,
+  } = useForm({
+    mode: 'all',
+    resolver: yupResolver(schema),
+  });
 
-    const handleForgetPassword = async () => {
-        const { email } = getValues();
-        const res = await forgetPasswordAdaptor(email);
-        if (res.error)
-            setError('email', {
-                type: 'manual',
-                message: 'Enter a correct email',
-            });
-        else navigate(`../otp?email=${email}`);
-    };
+  const handleForgetPassword = async () => {
+    const { email } = getValues();
+    const res = await forgetPasswordAdaptor(email);
+    if (res.error)
+      setError('email', {
+        type: 'manual',
+        message: 'Enter a correct email',
+      });
+    else navigate(`../otp?email=${email}`);
+  };
 
-    const handleBack = () => {
-        navigate('/sign-in/email');
-    };
+  const handleBack = () => {
+    navigate('/sign-in/email');
+  };
 
-    return { register, errors, handleSubmit, handleForgetPassword, handleBack };
+  return { register, errors, handleSubmit, handleForgetPassword, handleBack };
 };
