@@ -1,4 +1,4 @@
-import { PagniateRes } from '../types';
+import { PaginateRes } from '../types';
 
 export type SchemaAttributeType = 'TEXT' | 'NUMBER' | 'BOOLEAN' | 'URL' | 'EMAIL' | 'DATETIME';
 
@@ -28,6 +28,6 @@ export interface SchemaRes extends SchemaReq {
   created_at: Date;
 }
 
-export interface SchemaListRes extends PagniateRes {
+export interface SchemaListRes extends PaginateRes {
   results: SchemaRes;
 }

@@ -1,5 +1,5 @@
 import { SchemaRes } from '../schemas/schemas.types';
-import { PagniateRes } from '../types';
+import { PaginateRes } from '../types';
 
 export interface CredentialClaims {
   name: string;
@@ -28,6 +28,6 @@ export interface CredentialRes extends CredentialReq {
   connection_at?: Date;
 }
 
-export interface CredentialListRes extends PagniateRes {
+export interface CredentialListRes extends PaginateRes {
   results: CredentialRes[];
 }

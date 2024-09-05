@@ -1,5 +1,5 @@
 import { SchemaRes } from '../schemas/schemas.types';
-import { PagniateRes } from '../types';
+import { PaginateRes } from '../types';
 
 export interface VerificationReq {
   name: string;
@@ -22,6 +22,6 @@ export interface VerificationRes extends VerificationReq {
   connection_at?: Date;
 }
 
-export interface VerificationListRes extends PagniateRes {
+export interface VerificationListRes extends PaginateRes {
   results: VerificationRes[];
 }

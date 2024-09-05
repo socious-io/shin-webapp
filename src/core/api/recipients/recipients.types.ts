@@ -1,4 +1,4 @@
-import { PagniateRes } from '../types';
+import { PaginateRes } from '../types';
 
 export interface RecipientReq {
   first_name: string;
@@ -11,6 +11,6 @@ export interface RecipientRes extends RecipientReq {
   created_at: Date;
 }
 
-export interface RecipientListRes extends PagniateRes {
+export interface RecipientListRes extends PaginateRes {
   results: RecipientRes[];
 }

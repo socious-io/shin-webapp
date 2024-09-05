@@ -7,7 +7,7 @@ export interface PaginateReq {
   limit?: number;
 }
 
-export interface PagniateRes {
+export interface PaginateRes {
   page: number;
   total: number;
   limit: number;
