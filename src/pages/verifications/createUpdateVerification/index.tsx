@@ -2,7 +2,7 @@ import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
-import ProofRequest from 'src/modules/Verifications/components/ProofRequest';
+import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -96,7 +96,7 @@ export const CreateUpdateVerification = () => {
           <div className={css['section__row']}>{actionButtons}</div>
         </div>
       </div>
-      <ProofRequest
+      <ProofRequestModal
         open={openPreview}
         handleClose={() => setOpenPreview(false)}
         title={name}

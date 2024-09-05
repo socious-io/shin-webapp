@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import { QRCodeSVG } from 'qrcode.react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,11 +8,19 @@ import googlePlay from 'src/assets/images/download-googleplay.svg';
 import qrCode from 'src/assets/images/qrcode.png';
 import Button from 'src/modules/General/components/Button';
 import Modal from 'src/modules/General/components/Modal';
+import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { ProofRequestProps } from './index.types';
 
-const ProofRequest: React.FC<ProofRequestProps> = ({ open, handleClose, title, subtitle, shortLink }) => {
+export const ProofRequestModal: React.FC<ProofRequestProps> = ({
+  open,
+  handleClose,
+  title,
+  subtitle,
+  shortLink,
+  loading,
+}) => {
   const { t: translate } = useTranslation();
   return (
     <Modal
@@ -27,11 +36,9 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ open, handleClose, title, s
         <div className={css['modal__content']}>
           <div className={css['modal__medium']}>{translate('proof-title')}</div>
           <div className={css['modal__qr']}>
-            {shortLink ? (
-              <QRCodeSVG value={shortLink} size={240} />
-            ) : (
-              <img src={qrCode} alt="QR Code" height={240} width={240} />
-            )}
+            {shortLink && <QRCodeSVG value={shortLink} size={240} />}
+            {!shortLink && loading && <CircularProgress size="4rem" sx={{ color: variables.color_primary_600 }} />}
+            {!shortLink && loading === undefined && <img src={qrCode} alt="QR Code" height={240} width={240} />}
           </div>
           <Button variant="contained" color="primary" fullWidth>
             {translate('proof-btn')}
@@ -55,5 +62,3 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ open, handleClose, title, s
     </Modal>
   );
 };
-
-export default ProofRequest;

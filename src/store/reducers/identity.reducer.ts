@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Identity } from 'src/core/adaptors/site';
+import { Identity } from 'src/core/adaptors';
 
 const initState = {
   identity: undefined,
