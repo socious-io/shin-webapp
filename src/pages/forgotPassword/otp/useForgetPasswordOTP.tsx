@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { otpConfirm, resendCode as resendCodeAdaptor } from 'src/core/adaptors';
+import { otpConfirm, sendOtp } from 'src/core/adaptors';
 import { nonPermanentStorage } from 'src/core/storage/non-permanent';
 
 export const useForgetPasswordOTP = () => {
@@ -29,7 +29,7 @@ export const useForgetPasswordOTP = () => {
   };
   const resendCode = async () => {
     setLoading(true);
-    const res = await resendCodeAdaptor(email);
+    const res = await sendOtp(email);
     if (res.error) setIsValid(false);
     else {
       setLoading(false);
