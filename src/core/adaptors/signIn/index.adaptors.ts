@@ -5,7 +5,7 @@ import { AdaptorRes } from '..';
 
 export const signIn = async (email: string, password: string): Promise<AdaptorRes<authAdaptorRes>> => {
   try {
-    const res = await login({email, password})
+    const res = await login({ email, password });
     return {
       data: res as authAdaptorRes,
       error: null,

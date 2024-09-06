@@ -1,4 +1,5 @@
 import fileUploader from './fileUploader.json';
+import forgetPassword from './forgetPassword.json';
 import orgProfile from './orgProfile/orgProfile.json';
 import schema from './schema/schema.json';
 import schemaCreate from './schema/schemaCreate.json';
@@ -20,6 +21,7 @@ export function generateTranslationFile() {
     fileUploader,
     schema,
     schemaCreate,
+    forgetPassword,
     orgProfile,
     settings,
   );

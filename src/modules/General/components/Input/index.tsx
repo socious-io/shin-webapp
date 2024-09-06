@@ -32,7 +32,6 @@ const Input: React.FC<InputProps> = ({
   const [endIcon, setEndIcon] = useState<React.ReactNode>('');
   const [inputType, setInputType] = useState(props.type || 'text');
   const [showEyeIcon, setShowEyeIcon] = useState(false);
-
   useEffect(() => {
     if (errors) setEndIcon(<Icon name="alert-circle" fontSize={14} color={variables.color_error_600} />);
     else if (props.type === 'password' && showPassword && showEyeIcon) {

@@ -1,9 +1,9 @@
 {
-    "prof-h1": "あなたの組織プロフィール",
-    "prof-h2": "組織プロフィールには、固有の暗号鍵が含まれています。これらの鍵は、発行するすべての資格証明にデジタル署名を行います。",
-    "prof-name": "組織名*",
-    "prof-name-placeholder": "あなたの組織名",
-    "prof-desc": "公開説明 (任意)",
-    "prof-desc-placeholder": "説明を入力してください...",
-    "prof-btn-label": "始めましょう"
+  "prof-h1": "あなたの組織プロフィール",
+  "prof-h2": "組織プロフィールには、固有の暗号鍵が含まれています。これらの鍵は、発行するすべての資格証明にデジタル署名を行います。",
+  "prof-name": "組織名*",
+  "prof-name-placeholder": "あなたの組織名",
+  "prof-desc": "公開説明 (任意)",
+  "prof-desc-placeholder": "説明を入力してください...",
+  "prof-btn-label": "始めましょう"
 }

@@ -1,5 +1,5 @@
-import { get, put } from '../http';
 import { ProfileReq, User } from './users.types';
+import { get, put } from '../http';
 
 export async function getUser(): Promise<User> {
   return (await get<User>('users')).data;

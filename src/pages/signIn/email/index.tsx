@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
 import Input from 'src/modules/General/components/Input';
 import { Link } from 'src/modules/General/components/Link';
-import SignInLayout from 'src/modules/SignIn/Layout';
+import SignInLayout from 'src/modules/SignIn/containers/Layout';
 
 import css from './index.module.scss';
 import { useEmail } from './useEmail';

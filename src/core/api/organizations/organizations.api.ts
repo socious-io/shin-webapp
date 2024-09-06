@@ -1,5 +1,5 @@
-import { post, put, get } from '../http';
 import { OrganizationReq, OrganizationRes } from './organizations.types';
+import { post, put, get } from '../http';
 
 export async function createOrg(payload: OrganizationReq): Promise<OrganizationRes> {
   return (await post<OrganizationRes>('organizations', payload)).data;

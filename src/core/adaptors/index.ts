@@ -10,6 +10,8 @@ export * from './schema/index.adaptors';
 export * from './schema/index.types';
 export * from './orgProfile/index.adaptors';
 export * from './orgProfile/index.types';
+export * from './forgetPassword/index.adaptors';
+export * from './general/index.types';
 export * from './settings/index.adaptors';
 export * from './settings/index.types';
 

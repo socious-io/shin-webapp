@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { emailPattern } from 'src/core/helpers/regexs';
 import * as yup from 'yup';
 
 const schema = yup
@@ -10,7 +11,7 @@ const schema = yup
       .string()
       .trim()
       .email('Enter a correct email')
-      .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i, 'Enter a correct email')
+      .matches(emailPattern, 'Enter a correct email')
       .required('Enter a correct email'),
   })
   .required();

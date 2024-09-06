@@ -1,13 +1,7 @@
-
-
-
-
-
-
-
 # Project Title: Shin
 
 ---
+
 # Key Technologies and Tools
 
 - **TypeScript**: Provides static type checking to enhance code quality and maintainability.
@@ -21,6 +15,7 @@
 - **React-router**: Our router package
 
 ---
+
 # Guidance on how to contribute
 
 > All contributions to this project will be released under the GNU General Public License (GPL) v3.
@@ -53,6 +48,7 @@ the project prescribes. In the absence of such guidelines, mimic the styles
 and patterns in the existing codebase.
 
 ---
+
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/) to install the app. The app pipeline is created with `‍npm`‍
@@ -60,4 +56,3 @@ Use the package manager [npm](https://www.npmjs.com/) to install the app. The ap
 ```bash
 npm install
 ```
-

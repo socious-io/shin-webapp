@@ -1,9 +1,10 @@
+import { preregister } from 'src/core/api';
+
 import { detailsReq, OtpConfirmRes, PreRegisterRes, profileReq, successRes } from './index.types';
 import { AdaptorRes } from '..';
-import { preregister } from 'src/core/api';
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
   try {
-    const res = await preregister({ email })
+    const res = await preregister({ email });
     return {
       data: res as PreRegisterRes,
       error: null,

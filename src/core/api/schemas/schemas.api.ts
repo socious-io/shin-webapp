@@ -1,6 +1,6 @@
+import { SchemaListRes, SchemaReq, SchemaRes } from './schemas.types';
 import { post, del, get } from '../http';
 import { PaginateReq, SuccessRes } from '../types';
-import { SchemaListRes, SchemaReq, SchemaRes } from './schemas.types';
 
 export async function createSchema(payload: SchemaReq): Promise<SchemaRes> {
   return (await post<SchemaRes>('schemas', payload)).data;

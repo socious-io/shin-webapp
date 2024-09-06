@@ -1,6 +1,6 @@
+import { CredentialReq, CredentialRes, CredentialListRes } from './credentials.types';
 import { post, del, get, put } from '../http';
 import { PaginateReq, SuccessRes } from '../types';
-import { CredentialReq, CredentialRes, CredentialListRes } from './credentials.types';
 
 export async function createCredential(payload: CredentialReq): Promise<CredentialRes> {
   return (await post<CredentialRes>('credentials', payload)).data;

@@ -168,6 +168,47 @@ export const blueprint: RouteObject[] = [
           },
         ],
       },
+      {
+        path: 'forget-password',
+        children: [
+          {
+            path: 'email',
+            async lazy() {
+              const { Email } = await import('src/pages/forgotPassword/email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
+            path: 'otp',
+            async lazy() {
+              const { ForgetPasswordOTP } = await import('src/pages/forgotPassword/otp');
+              return {
+                Component: ForgetPasswordOTP,
+              };
+            },
+          },
+          {
+            path: 'new-password',
+            async lazy() {
+              const { NewPassword } = await import('src/pages/forgotPassword/newPassword');
+              return {
+                Component: NewPassword,
+              };
+            },
+          },
+          {
+            path: 'reset',
+            async lazy() {
+              const { Reset } = await import('src/pages/forgotPassword/reset');
+              return {
+                Component: Reset,
+              };
+            },
+          },
+        ],
+      },
     ],
     errorElement: <ErrorBoundary />,
   },

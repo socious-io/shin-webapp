@@ -2,14 +2,15 @@ import { useTranslation } from 'react-i18next';
 import BackLink from 'src/modules/General/components/BackLink';
 import Button from 'src/modules/General/components/Button';
 import Input from 'src/modules/General/components/Input';
-import SignInLayout from 'src/modules/SignIn/Layout';
+import SignInLayout from 'src/modules/SignIn/containers/Layout';
 
 import css from './index.module.scss';
 import { usePassword } from './usePassword';
 
 export const Password = () => {
   const { t: translate } = useTranslation();
-  const { email, register, errors, handleSubmit, onSubmit } = usePassword();
+  const { email, register, errors, handleSubmit, onSubmit, handleForgetPassword } = usePassword();
+
   return (
     <SignInLayout>
       <div className={css['form']}>
@@ -28,7 +29,12 @@ export const Password = () => {
               placeholder={translate('password-placeholder')}
               errors={errors['password']?.message ? [errors['password']?.message.toString()] : undefined}
             />
+
+            <Button variant="text" color="primary" customStyle={css['form__forgot']} onClick={handleForgetPassword}>
+              {translate('password-forget')}
+            </Button>
           </div>
+
           <div className="flex flex-col gap-4">
             <Button color="primary" onClick={handleSubmit(onSubmit)}>
               {translate('primary-btn-label')}
