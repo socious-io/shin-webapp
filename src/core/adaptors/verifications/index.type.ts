@@ -1,13 +1,13 @@
-import { Schema } from '../schema/index.types';
+import { SchemaRes } from 'src/core/api';
 
 export interface Verification {
   id: string;
   name: string;
-  proofId: string;
+  proofId?: string;
   createdBy: string;
-  creationDate: string;
+  creationDate: Date;
   description?: string;
-  schema: Schema;
+  schema: SchemaRes;
 }
 
 export interface VerificationsRes {
@@ -16,12 +16,12 @@ export interface VerificationsRes {
   totalCount: number;
 }
 
-export interface VerificationReq {
+export interface VerificationReqAdaptor {
   name: string;
   description?: string;
   schemaId: string;
 }
 
-export interface UpdateVerificationReq extends VerificationReq {
+export interface UpdateVerificationReq extends VerificationReqAdaptor {
   id: string;
 }

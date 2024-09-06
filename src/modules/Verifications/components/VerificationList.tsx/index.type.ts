@@ -1,4 +1,4 @@
-import { Verification } from 'src/core/adaptors/verifications';
+import { Verification } from 'src/core/adaptors';
 
 export interface VerificationListProps {
   list: Verification[];

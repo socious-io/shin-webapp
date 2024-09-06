@@ -1,77 +1,30 @@
-import { UpdateVerificationReq, Verification, VerificationReq, VerificationsRes } from './index.type';
+import {
+  getVerifications as getVerificationsAPI,
+  createVerification as createVerificationAPI,
+  getVerification,
+  updateVerification,
+  VerificationReq,
+  deleteVerification,
+} from 'src/core/api';
+
+import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
 import { AdaptorRes, SuccessRes } from '..';
 
-const schema = {
-  id: '1',
-  name: 'Educational Certificate',
-  description: 'For academic degrees, diplomas, or certifications',
-  created: '',
-  created_at: new Date(),
-  deletable: false,
-  attributes: [{ name: 'Test', option: { label: 'Text', value: 'TEXT' }, description: 'attribute description' }],
-};
-export const getVerifications = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
+export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
   try {
-    // TODO: call API and map the result
+    const res = await getVerificationsAPI({ page, limit });
+    const items: Verification[] = res.results.map(item => {
+      return {
+        id: item.id,
+        name: item.name,
+        proofId: item.present_id,
+        createdBy: `${item.user.first_name} ${item.user.last_name}`,
+        creationDate: item.created_at,
+        schema: item.schema,
+      };
+    });
     const data: VerificationsRes = {
-      items: [
-        {
-          id: '1',
-          name: 'verification 1',
-          proofId: '1234_1111',
-          createdBy: 'Marjan',
-          creationDate: '',
-          schema,
-        },
-        {
-          id: '2',
-          name: 'verification 2',
-          proofId: '1234_2222',
-          createdBy: 'Sanaz',
-          creationDate: '',
-          schema,
-        },
-        {
-          id: '3',
-          name: 'verification 3',
-          proofId: '1234_3333',
-          createdBy: 'Azin',
-          creationDate: '',
-          schema,
-        },
-        {
-          id: '4',
-          name: 'verification 4',
-          proofId: '1234_4444',
-          createdBy: 'Mohammad',
-          creationDate: '',
-          schema,
-        },
-        {
-          id: '5',
-          name: 'verification 5',
-          proofId: '1234_5555',
-          createdBy: 'Minh',
-          creationDate: '',
-          schema,
-        },
-        {
-          id: '6',
-          name: 'verification 6',
-          proofId: '1234_6666',
-          createdBy: 'Seira',
-          creationDate: '',
-          schema,
-        },
-        {
-          id: '7',
-          name: 'verification 7',
-          proofId: '1234_7777',
-          createdBy: 'Elain',
-          creationDate: '',
-          schema,
-        },
-      ],
+      items,
       page,
       totalCount: 7,
     };
@@ -87,22 +40,22 @@ export const getVerifications = async (page = 1, limit = 10): Promise<AdaptorRes
   }
 };
 
-export const getVerificationById = async (id: string): Promise<AdaptorRes<Verification>> => {
+export const getVerificationByIdAdaptor = async (id: string): Promise<AdaptorRes<Verification>> => {
   try {
-    // get verification by id and map the result to VerificationRes
-    const res = {
-      data: {
-        id: '1',
-        name: 'verification 1',
-        proofId: '1234_1111',
-        createdBy: 'Marjan',
-        creationDate: '',
-        description: 'test desc',
-        schema,
-      },
+    const res = await getVerification(id);
+    const data: Verification = {
+      id: res.id,
+      name: res.name,
+      createdBy: res.user.id,
+      creationDate: res.created_at,
+      description: res.description,
+      schema: res.schema,
+    };
+
+    return {
+      data,
       error: null,
     };
-    return res;
   } catch {
     return {
       data: null,
@@ -111,9 +64,13 @@ export const getVerificationById = async (id: string): Promise<AdaptorRes<Verifi
   }
 };
 
-export const createVerification = async (param: VerificationReq): Promise<AdaptorRes<SuccessRes>> => {
+export const createVerificationAdaptor = async (param: VerificationReqAdaptor): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    // TODO: call API with param
+    await createVerificationAPI({
+      name: param.name,
+      description: param.description || '',
+      schema_id: param.schemaId,
+    });
     return {
       data: { message: 'succeed' },
       error: null,
@@ -123,9 +80,14 @@ export const createVerification = async (param: VerificationReq): Promise<Adapto
   }
 };
 
-export const updateVerification = async (param: UpdateVerificationReq): Promise<AdaptorRes<SuccessRes>> => {
+export const updateVerificationAdaptor = async (param: UpdateVerificationReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    // TODO: call API with param
+    const payload: VerificationReq = {
+      name: param.name,
+      description: param.description || '',
+      schema_id: param.schemaId,
+    };
+    await updateVerification(param.id, payload);
     return {
       data: { message: 'succeed' },
       error: null,
@@ -135,9 +97,10 @@ export const updateVerification = async (param: UpdateVerificationReq): Promise<
   }
 };
 
-export const deleteVerification = async (id: string): Promise<AdaptorRes<SuccessRes>> => {
+export const deleteVerificationAdaptor = async (id: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    // TODO: call API with id
+    await deleteVerification(id);
+
     return {
       data: { message: 'succeed' },
       error: null,

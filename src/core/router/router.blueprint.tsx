@@ -4,10 +4,10 @@ import { FallBack } from 'src/pages/fallback';
 
 import {
   getOrgProfileAdaptor,
-  getSchemasAdaptor,
   getUserProfileAdaptor,
-  getVerificationById,
-  getVerifications,
+  getSchemasAdaptor,
+  getVerificationByIdAdaptor,
+  getVerificationsAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -59,7 +59,7 @@ export const blueprint: RouteObject[] = [
               {
                 path: '',
                 loader: async () => {
-                  const data = await getVerifications(1, 10);
+                  const data = await getVerificationsAdaptor(1, 10);
                   return data;
                 },
                 async lazy() {
@@ -82,7 +82,7 @@ export const blueprint: RouteObject[] = [
                 path: 'edit/:id',
                 loader: async ({ params }) => {
                   if (params.id) {
-                    const data = await getVerificationById(params.id);
+                    const data = await getVerificationByIdAdaptor(params.id);
                     return data;
                   }
                 },

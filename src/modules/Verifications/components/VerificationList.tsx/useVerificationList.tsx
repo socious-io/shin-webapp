@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { config } from 'src/config';
-import { deleteVerification, getVerifications } from 'src/core/adaptors';
-import { Verification } from 'src/core/adaptors/verifications';
+import { deleteVerificationAdaptor, getVerificationsAdaptor, Verification } from 'src/core/adaptors';
 import { MenuItem } from 'src/modules/General/components/ThreeDotButton/index.type';
 
 export const useVerificationList = (list: Verification[], totalItems: number) => {
@@ -43,16 +42,22 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
     ];
   };
 
+  const fetchMore = async () => {
+    const res = await getVerificationsAdaptor(page, PER_PAGE);
+    if (!res.data) return;
+    setVerifications(res.data.items);
+    setTotal(Math.ceil(res.data.totalCount / PER_PAGE));
+  };
+
   useEffect(() => {
-    // TODO: get next items
-    // TODO:setList, setTotal
+    fetchMore();
   }, [page]);
 
   const handleDelete = async () => {
     if (!selectedId) return;
-    const res = await deleteVerification(selectedId);
+    const res = await deleteVerificationAdaptor(selectedId);
     if (res.error) return;
-    const verificationRes = await getVerifications(page, PER_PAGE);
+    const verificationRes = await getVerificationsAdaptor(page, PER_PAGE);
     if (verificationRes.error) return;
     setVerifications(verificationRes.data?.items || []);
     setOpenModal({ name: 'delete', open: false });

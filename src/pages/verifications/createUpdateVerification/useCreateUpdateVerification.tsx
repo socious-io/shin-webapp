@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import {
   AdaptorRes,
-  createVerification,
+  createVerificationAdaptor,
   getSchemasAdaptor,
   SuccessRes,
-  updateVerification,
+  updateVerificationAdaptor,
   UpdateVerificationReq,
   Verification,
-  VerificationReq,
+  VerificationReqAdaptor,
 } from 'src/core/adaptors';
 import * as yup from 'yup';
 
@@ -97,14 +97,14 @@ export const useCreateUpdateVerification = () => {
         description,
         schemaId: schema.value,
       };
-      res = await updateVerification(param);
+      res = await updateVerificationAdaptor(param);
     } else {
-      const param: VerificationReq = {
+      const param: VerificationReqAdaptor = {
         name,
         description,
         schemaId: schema.value,
       };
-      res = await createVerification(param);
+      res = await createVerificationAdaptor(param);
     }
 
     if (!res?.error) navigate('/verifications');
