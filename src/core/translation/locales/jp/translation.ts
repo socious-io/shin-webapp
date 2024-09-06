@@ -3,6 +3,7 @@ import forgetPassword from './forgetPassword.json';
 import orgProfile from './orgProfile/orgProfile.json';
 import schema from './schema/schema.json';
 import schemaCreate from './schema/schemaCreate.json';
+import settings from './settings/settings.json';
 import signIn from './signIn.json';
 import detail from './singUp/detail.json';
 import profile from './singUp/profile.json';
@@ -22,5 +23,6 @@ export function generateTranslationFile() {
     schemaCreate,
     forgetPassword,
     orgProfile,
+    settings,
   );
 }

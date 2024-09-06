@@ -1,0 +1,28 @@
+{
+  "settings-header": "設定",
+  "settings-info": {
+    "section1-title": "あなたのアカウントプロフィール",
+    "section1-subtitle": "アカウント情報はメールやsocious.idに表示されるために使用されますが、公開されることはありません",
+    "section2-title": "アカウント名",
+    "section2-subtitle": "名前はメールやsocious.idに表示されるために使用されますが、公開されることはありません",
+    "first-name": "名",
+    "last-name": "姓",
+    "email-address": "メールアドレス",
+    "job-title": "役職",
+    "optional": "任意",
+    "save-button": "変更を保存"
+  },
+  "settings-password": {
+    "title": "パスワードの変更",
+    "current": "現在のパスワード",
+    "current-placeholder": "現在のパスワード",
+    "create": "パスワードを作成",
+    "create-placeholder": "新しいパスワード",
+    "create-alert": "パスワードは8文字以上で、英小文字、英大文字、特殊文字を含む必要があります。",
+    "confirm": "パスワードを確認",
+    "save-button": "パスワードを保存"
+  },
+  "settings-remove": {
+    "title": "アカウントを削除"
+  }
+}

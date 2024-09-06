@@ -105,6 +105,7 @@ const Input: React.FC<InputProps> = ({
         InputProps={{
           style: {
             height: props.customHeight ? props.customHeight : '44px',
+            backgroundColor: props.disabled && variables.color_grey_50,
           },
           endAdornment: endAdornmentJSX,
 

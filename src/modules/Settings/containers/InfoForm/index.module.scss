@@ -1,0 +1,53 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    @include flex(normal, normal, column);
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: $color-white;
+    border: 1px solid $color-grey-200;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-xs;
+    max-width: 43.75rem;
+
+    @media (max-width: $md) {
+        gap: 1.25rem;
+        padding: 1.25rem 1rem;
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .section,
+    .section2 {
+        @include flex(normal, flex-start, column);
+        color: $color-grey-600;
+        line-height: 24px;
+        font-size: 16px;
+
+        &__title {
+            font-weight: 600;
+            color: $color-grey-700;
+        }
+    }
+
+    .section2 {
+        line-height: 20px;
+        font-size: 14px;
+
+        &__title {
+            font-weight: 500;
+            color: $color-grey-700;
+        }
+    }
+
+    .upload {
+        @include flex(normal, flex-start);
+        gap: 1.25rem;
+
+        @media (max-width: $md) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
