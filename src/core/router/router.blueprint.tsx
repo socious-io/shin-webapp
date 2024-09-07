@@ -165,7 +165,6 @@ export const blueprint: RouteObject[] = [
           },
         ],
       },
-
       {
         path: 'sign-up',
         children: [
@@ -247,6 +246,21 @@ export const blueprint: RouteObject[] = [
             },
           },
         ],
+      },
+      {
+        path: 'proof-request/:id',
+        loader: async ({ params }) => {
+          if (params.id) {
+            const data = await getVerificationByIdAdaptor(params.id);
+            return data;
+          }
+        },
+        async lazy() {
+          const { ProofRequest } = await import('src/pages/proofRequest/index');
+          return {
+            Component: ProofRequest,
+          };
+        },
       },
     ],
     errorElement: <ErrorBoundary />,

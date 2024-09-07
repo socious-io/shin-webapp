@@ -2,5 +2,13 @@
     "proof-title": "Scan the QR Code with your Socious Wallet",
     "proof-btn": "Open in Socious Wallet",
     "proof-download-app": "Download the app",
-    "proof-download-app-desc": "Get the most of Socious Wallet by installing our new mobile app."
+    "proof-download-app-desc": "Get the most of Socious Wallet by installing our new mobile app.",
+    "proof-succeed": "Verification Successful",
+    "proof-succeed-desc": "Thank you! Your credentials have been verified successfully.",
+    "proof-continue": "Continue",
+    "proof-error": "Verification Error",
+    "proof-error-desc": "An error occurred during the verification process. Please try again later or contact support if the problem persists.",
+    "proof-try-again": "Try again",
+    "proof-failed": "Verification Failed",
+    "proof-failed-desc": "We're sorry, but we couldn't verify your credentials."
 }

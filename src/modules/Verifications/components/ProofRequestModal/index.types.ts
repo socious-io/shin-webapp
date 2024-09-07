@@ -4,4 +4,5 @@ export interface ProofRequestProps {
   title: string;
   subtitle: string;
   shortLink?: string;
+  loading?: boolean;
 }
