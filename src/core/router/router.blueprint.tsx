@@ -2,7 +2,13 @@ import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
-import { getOrgProfileAdaptor, getSchemasAdaptor, getUserProfileAdaptor } from '../adaptors';
+import {
+  getOrgProfileAdaptor,
+  getUserProfileAdaptor,
+  getSchemasAdaptor,
+  getVerificationByIdAdaptor,
+  getVerificationsAdaptor,
+} from '../adaptors';
 
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
@@ -49,12 +55,45 @@ export const blueprint: RouteObject[] = [
           },
           {
             path: 'verifications',
-            async lazy() {
-              const { Verifications } = await import('src/pages/verifications');
-              return {
-                Component: Verifications,
-              };
-            },
+            children: [
+              {
+                path: '',
+                loader: async () => {
+                  const data = await getVerificationsAdaptor(1, 10);
+                  return data;
+                },
+                async lazy() {
+                  const { Verifications } = await import('src/pages/verifications/list');
+                  return {
+                    Component: Verifications,
+                  };
+                },
+              },
+              {
+                path: 'create',
+                async lazy() {
+                  const { CreateUpdateVerification } = await import('src/pages/verifications/createUpdateVerification');
+                  return {
+                    Component: CreateUpdateVerification,
+                  };
+                },
+              },
+              {
+                path: 'edit/:id',
+                loader: async ({ params }) => {
+                  if (params.id) {
+                    const data = await getVerificationByIdAdaptor(params.id);
+                    return data;
+                  }
+                },
+                async lazy() {
+                  const { CreateUpdateVerification } = await import('src/pages/verifications/createUpdateVerification');
+                  return {
+                    Component: CreateUpdateVerification,
+                  };
+                },
+              },
+            ],
           },
           {
             path: 'profile',

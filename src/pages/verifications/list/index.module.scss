@@ -1,0 +1,44 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    padding: 2rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @media (max-width: $md) {
+        padding: 2rem 0 3rem;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        @media (max-width: $md) {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            &__title {
+                font-size: 1.875rem;
+                font-weight: 600;
+                line-height: 2.375rem;
+                color: $color-grey-900;
+            }
+
+            &__subtitle {
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5rem;
+                color: $color-grey-600;
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { AdaptorRes, ProfileReq, ProfileRes, successRes } from '..';
+import { AdaptorRes, ProfileReq, ProfileRes, SuccessRes } from '..';
 
 export const getOrgProfileAdaptor = async (): Promise<AdaptorRes<ProfileRes>> => {
   try {
@@ -16,7 +16,7 @@ export const getOrgProfileAdaptor = async (): Promise<AdaptorRes<ProfileRes>> =>
   }
 };
 
-export const changeOrgProfileAdaptor = async (payload: ProfileReq): Promise<AdaptorRes<successRes>> => {
+export const changeOrgProfileAdaptor = async (payload: ProfileReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
     //TODO: API call with payload
     return { data: { message: 'succeed' }, error: null };

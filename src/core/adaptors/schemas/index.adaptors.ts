@@ -2,7 +2,7 @@ import { SCHEMA_ATTRIBUTES } from 'src/constants/SCHEMA';
 import { createSchema, deleteSchema, getSchemas, SchemaAttributeType } from 'src/core/api';
 
 import { Schema, SchemaReq, SchemaRes } from './index.types';
-import { AdaptorRes } from '..';
+import { AdaptorRes, SuccessRes } from '..';
 
 export const getSchemasAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<SchemaRes>> => {
   try {
@@ -77,10 +77,10 @@ export const createSchemaAdaptor = async (payload: SchemaReq): Promise<AdaptorRe
   }
 };
 
-export const deleteSchemaAdaptor = async (schemaId: string): Promise<AdaptorRes> => {
+export const deleteSchemaAdaptor = async (schemaId: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
     await deleteSchema(schemaId);
-    return { data: null, message: 'succeed', error: null };
+    return { data: { message: 'succeed' }, error: null };
   } catch (error) {
     console.error('Error in deleting Schema ', error);
     return { data: null, error: 'Error in deleting Schema' };

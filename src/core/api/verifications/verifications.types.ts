@@ -1,5 +1,6 @@
 import { SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
+import { User } from '../users/users.types';
 
 export interface VerificationReq {
   name: string;
@@ -10,7 +11,7 @@ export interface VerificationReq {
 export interface VerificationRes extends VerificationReq {
   id: string;
   schema: SchemaRes;
-  user: any; //FIXME with user type
+  user: User;
   connection_url?: string;
   connection_id?: string;
   present_id?: string;

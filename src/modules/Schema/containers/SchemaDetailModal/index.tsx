@@ -8,7 +8,7 @@ import { SchemaDetailModalProps } from './index.types';
 
 const SchemaDetailModal: React.FC<SchemaDetailModalProps> = ({ open, handleClose, data }) => {
   const { t: translate } = useTranslation();
-  const { name, description, id, attributes = [] } = data || {};
+  const { name, description = '', id, attributes = [] } = data || {};
 
   return (
     <Modal

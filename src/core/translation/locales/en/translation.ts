@@ -9,6 +9,9 @@ import detail from './signUp/detail.json';
 import profile from './signUp/profile.json';
 import stepper from './signUp/stepper.json';
 import verification from './signUp/verification.json';
+import verificationCreate from './verifications/create.json';
+import verificationList from './verifications/list.json';
+import proofRequest from './verifications/proofRequest.json';
 
 export function generateTranslationFile() {
   return Object.assign(
@@ -19,10 +22,13 @@ export function generateTranslationFile() {
     stepper,
     profile,
     fileUploader,
+    forgetPassword,
     schema,
     schemaCreate,
-    forgetPassword,
     orgProfile,
     settings,
+    verificationList,
+    verificationCreate,
+    proofRequest,
   );
 }
