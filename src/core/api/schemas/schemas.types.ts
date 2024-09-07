@@ -1,33 +1,35 @@
-import { PagniateRes } from '../types';
+import { User } from '..';
+import { PaginateRes } from '../types';
 
 export type SchemaAttributeType = 'TEXT' | 'NUMBER' | 'BOOLEAN' | 'URL' | 'EMAIL' | 'DATETIME';
 
 export interface SchemaAttributeReq {
   name: string;
-  description: string;
+  description?: string;
   type: SchemaAttributeType;
 }
 
 export interface SchemaReq {
   name: string;
-  description: string;
-  public: boolean;
+  description?: string;
+  public?: boolean;
   attributes: SchemaAttributeReq[];
 }
 
 export interface SchemaAttributeRes extends SchemaAttributeReq {
   id: string;
-  deleteable: boolean;
-  created: any; //FIXME: use user object
   created_at: Date;
 }
 
-export interface SchemaRes extends SchemaReq {
+export interface SchemaRes extends Omit<SchemaReq, 'description'> {
   id: string;
+  description: string | null;
   attributes: SchemaAttributeRes[];
+  deleteable: boolean;
+  created: User;
   created_at: Date;
 }
 
-export interface SchemaListRes extends PagniateRes {
-  results: SchemaRes;
+export interface SchemaListRes extends PaginateRes {
+  results: SchemaRes[];
 }

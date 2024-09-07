@@ -10,7 +10,7 @@ const schema = yup
   .object()
   .shape({
     name: yup.string().required('This field is required'),
-    description: yup.string().optional(),
+    description: yup.string(),
     attributes: yup
       .array()
       .of(
@@ -18,13 +18,12 @@ const schema = yup
           name: yup.string().required('This field is required'),
           option: yup
             .object()
-            .nullable()
             .shape({
-              label: yup.string().optional(),
-              value: yup.string().optional(),
+              label: yup.string(),
+              value: yup.string().required('This field is required'),
             })
-            .optional(),
-          description: yup.string().optional(),
+            .required(),
+          description: yup.string(),
         }),
       )
       .required(),
@@ -46,7 +45,7 @@ export const useCreateSchema = ref => {
     mode: 'all',
     resolver: yupResolver(schema),
     defaultValues: {
-      attributes: [{ name: '', option: null, description: '' }],
+      attributes: [{ name: '', option: { value: '' }, description: '' }],
     },
   });
 
@@ -67,7 +66,6 @@ export const useCreateSchema = ref => {
   };
 
   const onSubmit = async (formData: SchemaReq) => {
-    console.log('submit', formData);
     const { error } = await createSchemaAdaptor(formData);
     if (error) {
       console.log(error);
@@ -82,7 +80,7 @@ export const useCreateSchema = ref => {
   };
 
   const addField = () => {
-    append({ name: '', option: null, description: '' });
+    append({ name: '', option: { value: '' }, description: '' });
   };
 
   const removeField = (index: number) => {

@@ -94,13 +94,15 @@ const CreateSchema = forwardRef((_, ref) => {
                         placeholder={translate('schema-form.attribute-option')}
                         className="w-full"
                         options={SCHEMA_ATTRIBUTES}
-                        value={attributes[index].option}
+                        value={attributes[index].option.value && attributes[index].option}
                         onChange={newOption => onSelectAttributeOption(index, newOption as AttributeOption)}
                       />
                     </div>
-                    {errors['attributes']?.[index]?.name?.message && (
+                    {(errors['attributes']?.[index]?.name?.message ||
+                      errors['attributes']?.[index]?.option?.value?.message) && (
                       <div className="text-Error-500 text-sm mt-[6px]">
-                        {errors['attributes']?.[index]?.name?.message?.toString()}
+                        {errors['attributes']?.[index]?.name?.message?.toString() ||
+                          errors['attributes']?.[index]?.option?.value?.message?.toString()}
                       </div>
                     )}
                     <Input
@@ -113,13 +115,15 @@ const CreateSchema = forwardRef((_, ref) => {
                       containerClassName="mt-4"
                     />
                   </div>
-                  <IconButton
-                    iconName="trash-03"
-                    iconSize={20}
-                    iconColor={variables.color_grey_600}
-                    size="large"
-                    onClick={() => removeField(index)}
-                  />
+                  {fields.length > 1 && (
+                    <IconButton
+                      iconName="trash-03"
+                      iconSize={20}
+                      iconColor={variables.color_grey_600}
+                      size="large"
+                      onClick={() => removeField(index)}
+                    />
+                  )}
                 </div>
               ))}
             </div>

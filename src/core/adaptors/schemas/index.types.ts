@@ -1,27 +1,27 @@
-import { PaginationRes } from 'src/core/api';
+import { PaginateRes } from 'src/core/api';
 
 export type AttributeOption = {
-  value?: string;
+  value: string;
   label?: string;
 };
 
 export type Attribute = {
   name: string;
-  option?: AttributeOption | null;
+  option: AttributeOption;
   description?: string;
 };
 
 export type Schema = {
   id: string;
   name: string;
-  description: string;
+  description: string | null;
   deletable: boolean;
   created: string;
   created_at: Date;
   attributes: Attribute[];
 };
 
-export interface SchemaRes extends PaginationRes {
+export interface SchemaRes extends PaginateRes {
   items: Schema[];
 }
 

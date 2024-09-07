@@ -23,11 +23,19 @@
         }
     }
 
+    .row {
+        cursor: pointer;
+
+        & + .row {
+            border-top: 1px solid $color-grey-200;
+        }
+    }
+
     .col {
         color: $color-grey-600;
         font-size: 14px;
         font-weight: 400;
-        padding: 0.75rem 1.5rem;
+        padding: 1.5rem;
         vertical-align: middle;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -41,6 +49,11 @@
             &--darker {
                 color: $color-grey-900;
             }
+        }
+
+        &--darker {
+            font-weight: 500;
+            color: $color-grey-900;
         }
 
         &__actions {
