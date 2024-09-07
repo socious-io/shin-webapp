@@ -1,6 +1,6 @@
-import { preregister } from 'src/core/api';
+import { createOrg, preregister, register, sendOTP, updateProfile, verifyOTP } from 'src/core/api';
 
-import { detailsReq, OtpConfirmRes, PreRegisterRes, profileReq } from './index.types';
+import { DetailsReq, OtpConfirmRes, PreRegisterRes, ProfileReq } from './index.types';
 import { AdaptorRes, SuccessRes } from '..';
 
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
@@ -17,15 +17,44 @@ export const preRegister = async (email: string): Promise<AdaptorRes<PreRegister
     };
   }
 };
-
-export const otpConfirm = async (email: string, code: string): Promise<AdaptorRes<OtpConfirmRes>> => {
+export const registerAdaptor = async (email: string, password?: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    // TODO: call api with email ,code
-    // TODO: get API result and map to OtpConfirmRes type
+    await register({ email, password });
+    return {
+      data: { message: 'succeed' },
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'error in Register API call',
+    };
+  }
+};
+
+export const sendOtp = async (email): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    await sendOTP({ email });
     return {
       data: {
-        access_token: '',
-        refresh_token: '',
+        message: 'succeed',
+      },
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in send OTP API call',
+    };
+  }
+};
+export const otpConfirm = async (email: string, code: string): Promise<AdaptorRes<OtpConfirmRes>> => {
+  try {
+    const res = await verifyOTP({ email, code: Number(code) });
+    return {
+      data: {
+        access_token: res.access_token,
+        refresh_token: res.refresh_token,
         token_type: 'Bearer',
       },
       error: null,
@@ -38,27 +67,27 @@ export const otpConfirm = async (email: string, code: string): Promise<AdaptorRe
   }
 };
 
-export const resendCode = async (email): Promise<AdaptorRes<SuccessRes>> => {
+export const details = async (params: DetailsReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    // TODO: call api with email
-    return { data: { message: 'succeed' }, error: null };
-  } catch (error) {
-    return { data: null, error: 'server error in resendCode API call' };
-  }
-};
-
-export const details = async (params: detailsReq): Promise<AdaptorRes<SuccessRes>> => {
-  try {
-    // TODO call API with params and map the result
+    await updateProfile({
+      job_title: params.jobTitle,
+      first_name: params.firstName,
+      last_name: params.lastName,
+      status: 'ACTIVE',
+    });
     return { error: null, data: { message: 'succeed' } };
   } catch {
     return { error: 'server error in details API call', data: null };
   }
 };
 
-export const profile = async (params: profileReq): Promise<AdaptorRes<SuccessRes>> => {
+export const profile = async (params: ProfileReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    // TODO call API with params and map the result
+    await createOrg({
+      name: params.name,
+      description: params.description || '',
+      logo_id: params.imageUrl,
+    });
     return { data: { message: 'succeed' }, error: null };
   } catch {
     return { error: 'server error in profile API call', data: null };

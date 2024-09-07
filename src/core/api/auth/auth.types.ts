@@ -23,7 +23,7 @@ export interface OTPReq {
 
 export interface VerifyOTPReq {
   email: string;
-  code: string;
+  code: number;
 }
 
 export interface PreregisterReq {

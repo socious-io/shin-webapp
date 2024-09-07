@@ -1,6 +1,10 @@
+export interface RegisterReq {
+  email: string;
+  password?: string;
+}
 export interface PreRegisterRes {
-  email: 'EXISTS' | null;
-  username: 'EXISTS' | null;
+  email: 'AVAILABLE' | null;
+  username: 'EXISTS' | 'UNKOWN' | null;
 }
 
 export interface OtpConfirmRes {
@@ -9,7 +13,7 @@ export interface OtpConfirmRes {
   token_type: 'Bearer';
 }
 
-export interface detailsReq {
+export interface DetailsReq {
   firstName: string;
   lastName: string;
   email: string;
@@ -17,7 +21,7 @@ export interface detailsReq {
   password: string;
 }
 
-export interface profileReq {
+export interface ProfileReq {
   imageUrl?: string;
   name: string;
   description?: string;

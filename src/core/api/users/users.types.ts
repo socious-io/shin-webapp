@@ -1,5 +1,5 @@
 export interface ProfileReq {
-  username: string;
+  username?: string;
   job_title?: string;
   bio?: string;
   first_name?: string;

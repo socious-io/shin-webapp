@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { profile, profileReq } from 'src/core/adaptors';
+import { profile, ProfileReq } from 'src/core/adaptors';
 import { isTouchDevice } from 'src/core/helpers/device-type-detector';
 import * as yup from 'yup';
 
@@ -30,14 +30,14 @@ export const useProfile = () => {
 
   const onSubmit = async () => {
     const { orgName, description } = getValues();
-    const params: profileReq = {
+    const params: ProfileReq = {
       imageUrl: attachment[0],
       name: orgName,
       description,
     };
     const res = await profile(params);
     if (!res.error) {
-      navigate('/home');
+      navigate('/verifications');
     }
   };
 
