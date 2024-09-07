@@ -14,7 +14,7 @@ export type Attribute = {
 export type Schema = {
   id: string;
   name: string;
-  description: string | null;
+  description: string;
   deletable: boolean;
   created: string;
   created_at: Date;

@@ -1,5 +1,5 @@
 import { PasswordReq, UserProfileReq, UserProfileRes } from './index.types';
-import { AdaptorRes, successRes } from '..';
+import { AdaptorRes, SuccessRes } from '..';
 
 export const getUserProfileAdaptor = async (): Promise<AdaptorRes<UserProfileRes>> => {
   try {
@@ -19,7 +19,7 @@ export const getUserProfileAdaptor = async (): Promise<AdaptorRes<UserProfileRes
   }
 };
 
-export const changeUserProfileAdaptor = async (payload: UserProfileReq): Promise<AdaptorRes<successRes>> => {
+export const changeUserProfileAdaptor = async (payload: UserProfileReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
     //TODO: API call with payload
     return { data: { message: 'succeed' }, error: null };
@@ -29,7 +29,7 @@ export const changeUserProfileAdaptor = async (payload: UserProfileReq): Promise
   }
 };
 
-export const changePasswordAdaptor = async (payload: PasswordReq): Promise<AdaptorRes<successRes>> => {
+export const changePasswordAdaptor = async (payload: PasswordReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
     //TODO: API call with payload
     return { data: { message: 'succeed' }, error: null };
@@ -39,7 +39,7 @@ export const changePasswordAdaptor = async (payload: PasswordReq): Promise<Adapt
   }
 };
 
-export const removeAccountAdaptor = async (userId: string): Promise<AdaptorRes<successRes>> => {
+export const removeAccountAdaptor = async (userId: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
     //TODO: API call with userId
     return { data: { message: 'succeed' }, error: null };

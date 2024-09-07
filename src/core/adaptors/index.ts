@@ -24,5 +24,4 @@ export interface SuccessRes {
 export type AdaptorRes<T = null> = {
   data: T | null;
   error: string | null;
-  message?: string;
 };
