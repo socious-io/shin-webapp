@@ -37,7 +37,7 @@ export const useForgetPasswordOTP = () => {
   };
 
   const handleBack = () => {
-    navigate('/sign-in/email');
+    navigate('/sign-in');
   };
 
   return { email, handleBack, isValid, otpValue, setOtpValue, loading, onSubmit, resendCode };

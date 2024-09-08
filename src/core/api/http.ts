@@ -98,7 +98,6 @@ export function setupInterceptors(store: Store) {
       return Promise.reject(error);
     },
   );
-
   http.interceptors.response.use(
     function (response) {
       store.dispatch(hideSpinner());

@@ -5,8 +5,6 @@ import { config } from 'src/config';
 import { getIdentityAdaptor } from 'src/core/adaptors/site'; */
 import { AuthRes, GoogleAuthRes } from 'src/core/api';
 import { setAuthParams } from 'src/core/api/auth/auth.service';
-import store from 'src/store';
-import { setIdentity } from 'src/store/reducers/identity.reducer';
 
 export const GoogleOauth2 = () => {
   const googleLoginURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${config.googleOauthClientId}&redirect_uri=${window.location.href}&response_type=code&scope=email profile&access_type=offline&prompt=consent`;
@@ -16,7 +14,7 @@ export const GoogleOauth2 = () => {
 
   async function onLoginSucceed(loginResp: GoogleAuthRes) {
     await setAuthParams(loginResp as AuthRes, true);
-    store.dispatch(setIdentity(await getIdentityAdaptor()));
+    // store.dispatch(setIdentity(await getIdentityAdaptor()));
     // const registered = (loginResp.registered ??= false);
     // TODO: define redirect path
     navigate('/home');

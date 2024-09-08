@@ -1,8 +1,5 @@
-import store from 'src/store';
-import { setIdentity } from 'src/store/reducers/identity.reducer';
-
+import { AdaptorRes } from '..';
 import { CheckVerificationRes, RequestVerificationRes } from './index.types';
-import { AdaptorRes, getIdentity } from '..';
 
 const requestVerificationAdaptor = async (): Promise<AdaptorRes<RequestVerificationRes>> => {
   try {
@@ -49,8 +46,8 @@ export const verifyActionAdaptor = async (
     const res = await checkVerificationAdaptor();
     if (res.data) {
       if (res.data.verified) {
-        const identityRes = await getIdentity();
-        if (identityRes.data?.identity) await store.dispatch(setIdentity(identityRes.data.identity));
+        // const identityRes = await getIdentity();
+        /* if (identityRes.data?.identity) await store.dispatch(setIdentity(identityRes.data.identity)); */
         setVerificationStatus('succeed');
       } else {
         setVerificationStatus('failed');

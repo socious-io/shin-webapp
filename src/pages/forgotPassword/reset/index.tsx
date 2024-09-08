@@ -13,7 +13,7 @@ export const Reset = () => {
       title={t('reset-title')}
       subtitle={t('reset-subtitle')}
     >
-      <Button variant="contained" color="primary" onClick={() => navigate('/sign-in/email')}>
+      <Button variant="contained" color="primary" onClick={() => navigate('/sign-in')}>
         {t('reset-btn-label')}
       </Button>
     </EmptyPageLayout>

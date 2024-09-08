@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { getIdentity, signIn } from 'src/core/adaptors';
+import { getUserProfileAdaptor, signIn } from 'src/core/adaptors';
 import { nonPermanentStorage } from 'src/core/storage/non-permanent';
-import { setIdentity } from 'src/store/reducers/identity.reducer';
+import { setUserProfile } from 'src/store/reducers/user.reducer';
 import * as yup from 'yup';
 
 const schema = yup
@@ -46,8 +46,8 @@ export const usePassword = () => {
           nonPermanentStorage.set({ key: 'token_type', value: res.data.token_type }),
         ];
         await Promise.all(setStorages);
-        const identityRes = await getIdentity();
-        identityRes.data && dispatch(setIdentity(identityRes.data.identity));
+        const profileRes = await getUserProfileAdaptor();
+        dispatch(setUserProfile(profileRes));
         navigate(`/home`);
       }
     } catch (error) {

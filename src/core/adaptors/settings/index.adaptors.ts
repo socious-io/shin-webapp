@@ -1,16 +1,18 @@
-import { PasswordReq, UserProfileReq, UserProfileRes } from './index.types';
+import { getUser } from 'src/core/api';
+
 import { AdaptorRes, SuccessRes } from '..';
+import { PasswordReq, UserProfileReq, UserProfileRes } from './index.types';
 
 export const getUserProfileAdaptor = async (): Promise<AdaptorRes<UserProfileRes>> => {
   try {
-    //TODO: API call response and map
+    const user = await getUser();
     const res = {
-      id: '1234',
-      imageUrl: '',
-      firstName: 'Sanaz',
-      lastName: 'Mahmoudi',
-      email: 'mahmoudisanaz59@gmail.com',
-      jobTitle: 'Front-End developer',
+      id: user.id,
+      imageUrl: user.avatar?.url,
+      firstName: user.first_name || 'Dear',
+      lastName: user.last_name || '',
+      email: user.email,
+      jobTitle: user.job_title,
     };
     return { data: res, error: null };
   } catch (error) {
