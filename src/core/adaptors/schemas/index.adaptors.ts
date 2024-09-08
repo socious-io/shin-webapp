@@ -15,9 +15,9 @@ export const getSchemasAdaptor = async (page = 1, limit = 10): Promise<AdaptorRe
           description: schema.description || '',
           deletable: schema.deleteable,
           created:
-            schema.created?.first_name || schema.created?.last_name
+            (schema.created?.first_name || schema.created?.last_name
               ? `${schema.created.first_name} ${schema.created.last_name}`
-              : schema.created?.username,
+              : schema.created?.username) || '',
           created_at: new Date(schema.created_at),
           attributes: schema.attributes.map(attribute => ({
             ...attribute,
@@ -59,9 +59,9 @@ export const createSchemaAdaptor = async (payload: SchemaReq): Promise<AdaptorRe
       description: schema.description || '',
       deletable: schema.deleteable,
       created:
-        schema.created?.first_name || schema.created?.last_name
+        (schema.created?.first_name || schema.created?.last_name
           ? `${schema.created.first_name} ${schema.created?.last_name}`
-          : schema.created?.username,
+          : schema.created?.username) || '',
       attributes: schema.attributes.map(attribute => ({
         ...attribute,
         option: {
