@@ -1,7 +1,7 @@
 import { createOrg, preregister, register, sendOTP, updatePassword, updateProfile, verifyOTP } from 'src/core/api';
 
-import { AdaptorRes, SuccessRes, UserProfileRes } from '..';
 import { DetailsReq, OtpConfirmRes, PreRegisterRes, ProfileReq } from './index.types';
+import { AdaptorRes, OrgProfileRes, SuccessRes, UserProfileRes } from '..';
 
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
   try {
@@ -90,14 +90,22 @@ export const details = async (params: DetailsReq): Promise<AdaptorRes<UserProfil
   }
 };
 
-export const profile = async (params: ProfileReq): Promise<AdaptorRes<SuccessRes>> => {
+export const profile = async (params: ProfileReq): Promise<AdaptorRes<OrgProfileRes>> => {
   try {
-    await createOrg({
+    const res = await createOrg({
       name: params.name,
       description: params.description || '',
       logo_id: params.imageUrl,
     });
-    return { data: { message: 'succeed' }, error: null };
+    return {
+      data: {
+        imageUrl: res.logo?.url,
+        did: res.did || '',
+        name: res.name,
+        description: res.description,
+      },
+      error: null,
+    };
   } catch {
     return { error: 'server error in profile API call', data: null };
   }

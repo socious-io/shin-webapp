@@ -9,7 +9,7 @@ import { usePassword } from './usePassword';
 
 export const Password = () => {
   const { t: translate } = useTranslation();
-  const { email, register, errors, handleSubmit, onSubmit, handleForgetPassword } = usePassword();
+  const { email, register, errors, handleSubmit, onSubmit, handleForgetPassword, loading } = usePassword();
 
   return (
     <SignInLayout>
@@ -22,6 +22,7 @@ export const Password = () => {
           <div className="flex flex-col gap-6">
             <Input
               id="password"
+              type="password"
               autoComplete="Password"
               label={translate('password-label')}
               name="password"
@@ -36,7 +37,7 @@ export const Password = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <Button color="primary" onClick={handleSubmit(onSubmit)}>
+            <Button color="primary" onClick={handleSubmit(onSubmit)} disabled={loading}>
               {translate('primary-btn-label')}
             </Button>
             <BackLink title="Back" />

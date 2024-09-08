@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
-import { changeOrgProfileAdaptor, ProfileReq, ProfileRes } from 'src/core/adaptors';
+import { changeOrgProfileAdaptor, OrgProfileReq, OrgProfileRes } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
@@ -17,7 +17,7 @@ const schema = yup
 export const useManageOrg = () => {
   const limitDescription = 160;
   const { t: translate } = useTranslation();
-  const { profile } = (useLoaderData() as { profile: ProfileRes }) || {};
+  const { profile } = (useLoaderData() as { profile: OrgProfileRes }) || {};
   const [letterCount, setLetterCount] = useState(0);
   const [attachment, setAttachment] = useState<string[]>([profile.imageUrl || '']);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -29,7 +29,7 @@ export const useManageOrg = () => {
     setValue,
     setError,
     clearErrors,
-  } = useForm<ProfileReq>({
+  } = useForm<OrgProfileReq>({
     mode: 'all',
     resolver: yupResolver(schema),
   });
@@ -45,7 +45,7 @@ export const useManageOrg = () => {
 
   useEffect(() => initializeValues(), []);
 
-  const onSubmit = async (formData: ProfileReq) => {
+  const onSubmit = async (formData: OrgProfileReq) => {
     console.log('submit', formData);
     const payload = {
       ...formData,

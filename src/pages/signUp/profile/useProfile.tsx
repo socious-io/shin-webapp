@@ -1,9 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { profile, ProfileReq } from 'src/core/adaptors';
+import { getUserProfileAdaptor, profile, ProfileReq } from 'src/core/adaptors';
+import { getUser } from 'src/core/api';
 import { isTouchDevice } from 'src/core/helpers/device-type-detector';
+import { setOrgProfile } from 'src/store/reducers/org.reducer';
+import { setUserProfile } from 'src/store/reducers/user.reducer';
 import * as yup from 'yup';
 
 const schema = yup
@@ -16,6 +20,7 @@ const schema = yup
 
 export const useProfile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [attachment, setAttachment] = useState<string[]>([]);
   const {
     register,
@@ -36,6 +41,11 @@ export const useProfile = () => {
       description,
     };
     const res = await profile(params);
+    if (res.data) {
+      const userRes = await getUserProfileAdaptor();
+      dispatch(setUserProfile(userRes.data));
+      dispatch(setOrgProfile(res.data));
+    }
     if (!res.error) {
       navigate('/verifications');
     }

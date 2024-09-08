@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserProfileRes } from 'src/core/adaptors';
 import { cleanAuthParams } from 'src/core/api/auth/auth.service';
+import { RootState } from 'src/store';
 import { clearUserProfile } from 'src/store/reducers/user.reducer';
 
 export const useHamburgerMenu = () => {
@@ -10,6 +12,8 @@ export const useHamburgerMenu = () => {
   const { pathname } = useLocation();
   const path = pathname.replace('/', '');
   const [selectedItem, setSelectedItem] = useState(path || 'credentials');
+
+  const userProfile = useSelector<RootState, UserProfileRes>(state => state.user.userProfile);
 
   const menuItems = [
     {
@@ -52,6 +56,7 @@ export const useHamburgerMenu = () => {
     data: {
       menuItems,
       selectedItem,
+      userProfile,
     },
     operations: {
       handleNavigate,

@@ -6,7 +6,7 @@
     border: 1px solid $color-grey-200;
     border-radius: $radius-xl;
     box-shadow: $shadow-sm;
-    overflow: hidden;
+    min-width: fit-content;
 
     .header {
         border-bottom: 1px solid $color-grey-200;

@@ -64,7 +64,7 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
   };
 
   const handleOpenCopy = (id: string) => {
-    const copyUrl = `${config.appBaseURL}/verifications/${id}`;
+    const copyUrl = `${config.appBaseURL}/proof-request/${id}`;
     setUrl(copyUrl);
     setOpenModal({ name: 'copy', open: true });
   };

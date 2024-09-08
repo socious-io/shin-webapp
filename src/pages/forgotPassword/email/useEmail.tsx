@@ -35,7 +35,7 @@ export const useEmail = () => {
     if (res.error)
       setError('email', {
         type: 'manual',
-        message: 'Enter a correct email',
+        message: res.error,
       });
     else navigate(`../otp?email=${email}`);
   };

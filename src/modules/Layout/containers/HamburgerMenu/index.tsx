@@ -10,7 +10,7 @@ import { useHamburgerMenu } from './useHamburgerMenu';
 
 const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ animatable = false, menuIsOpened = false, onCloseMenu }) => {
   const {
-    data: { menuItems, selectedItem },
+    data: { menuItems, selectedItem, userProfile },
     operations: { handleNavigate, onLogout },
   } = useHamburgerMenu();
 
@@ -44,8 +44,12 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ animatable = false, menuI
         />
         <div className={css['profile']}>
           <AvatarLabelGroup
-            //FIXME: user profile and info
-            account={{ id: '1', name: 'Sanaz', type: 'users', username: 'satanmourner' }}
+            account={{
+              id: userProfile.id,
+              name: `${userProfile.firstName} ${userProfile.lastName}`,
+              type: 'users',
+              email: userProfile.email,
+            }}
             customStyle="px-2"
           />
           <IconButton

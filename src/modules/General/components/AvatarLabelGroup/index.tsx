@@ -20,7 +20,7 @@ const AvatarLabelGroup: React.FC<AvatarLabelGroupProps> = props => {
           {account.name}
         </Typography>
         <Typography variant="caption" color={variables.color_grey_600}>
-          {account.username.includes('@') ? account.username : `@${account.username}`}
+          {account.email}
         </Typography>
       </div>
     </div>
