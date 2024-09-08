@@ -14,3 +14,5 @@ export * from './schemas/schemas.types';
 export * from './schemas/schemas.api';
 export * from './organizations/organizations.types';
 export * from './organizations/organizations.api';
+export * from './media/media.types';
+export * from './media/media.api';

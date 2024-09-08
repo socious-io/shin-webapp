@@ -13,7 +13,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   fileTypes,
   maxFileSize = 10,
   maxFileNumbers = 1,
+  showFileName = true,
   setAttachments,
+  setAttachmentsUrl,
 }) => {
   const { t: translate } = useTranslation();
   const { getRootProps, getInputProps, getSubtitle, error, fileName } = useFileUploader(
@@ -21,6 +23,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
     maxFileNumbers,
     maxFileSize,
     setAttachments,
+    setAttachmentsUrl,
   );
 
   return (
@@ -43,7 +46,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
           {error}
         </Typography>
       )}
-      {fileName && (
+      {showFileName && fileName && (
         <Typography variant="caption" color={variables.color_grey_600}>
           {fileName}
         </Typography>
