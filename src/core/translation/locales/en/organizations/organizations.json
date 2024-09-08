@@ -8,5 +8,6 @@
   "org-profile-description": "Public description",
   "org-profile-description-placeholder": "Enter a description...",
   "org-profile-optional": "optional",
-  "org-profile-save-button": "Save changes"
+  "org-profile-save-button": "Save changes",
+  "org-profile-create-button": "Create organization"
 }
