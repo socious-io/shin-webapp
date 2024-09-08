@@ -9,7 +9,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue } = useEmail();
+  const { register, errors, handleSubmit, onContinue, disabled, isValid } = useEmail();
   const { t: translate } = useTranslation();
 
   return (
@@ -19,7 +19,7 @@ export const Email = () => {
         <div className={css['form']}>
           <div className={`w-full lg:w-[360px] lg:min-w-[360px] ${css['form__content']}`}>
             <div className={css['form__title']}>
-              <div className={css['form__h1']}>{translate('h1')}</div>
+              <div className={css['form__h1']}>{translate('sign-up-h1')}</div>
               <div className={css['form__h2']}>{translate('h2')}</div>
             </div>
 
@@ -34,7 +34,7 @@ export const Email = () => {
                 errors={errors['email']?.message ? [errors['email']?.message.toString()] : undefined}
               />
               <div className="flex flex-col gap-4">
-                <Button color="primary" onClick={handleSubmit(onContinue)}>
+                <Button color="primary" onClick={handleSubmit(onContinue)} disabled={disabled || !isValid}>
                   {translate('primary-btn-label')}
                 </Button>
                 {/* <Button color="primary" variant="outlined" style={{ display: 'flex', gap: '12px' }}>
@@ -55,12 +55,15 @@ export const Email = () => {
                 </Button> */}
               </div>
             </div>
-
+            <div className="text-center">
+              <span className={css['layout__subtitle']}>{translate('have-account')}</span>
+              <Link href="/sign-in" label={translate('sign-in-link')} />
+            </div>
             <div className="text-center">
               <span className={css['layout__subtitle']}>{translate('accept')}</span>
-              <Link href="/home" label={translate('terms-of-use')} target="_blank" />
+              <Link href="/sign-in" label={translate('terms-of-use')} target="_blank" />
               <span className={css['layout__subtitle']}>{translate('and')}</span>
-              <Link href="/home" label={translate('privacy-policy')} target="_blank" />
+              <Link href="/sign-in" label={translate('privacy-policy')} target="_blank" />
             </div>
           </div>
         </div>

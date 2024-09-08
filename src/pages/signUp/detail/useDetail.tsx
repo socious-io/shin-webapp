@@ -42,7 +42,7 @@ export const useDetail = () => {
       jobTitle,
     };
     const res = await details(param);
-    dispatch(setUserProfile(res.data));
+    // dispatch(setUserProfile(res.data));
     if (res.error) {
       setError('password', {
         type: 'manual',

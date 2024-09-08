@@ -37,7 +37,7 @@ export const useVerification = () => {
   };
 
   const navigateToSignIn = () => {
-    navigate('sign-in');
+    navigate('/sign-in');
   };
   return { onSubmit, otpValue, setOtpValue, email, resendCode, isValid, loading, navigateToSignIn };
 };

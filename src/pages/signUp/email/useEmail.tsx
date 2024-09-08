@@ -1,4 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import debounce from 'lodash.debounce';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { preRegister, registerAdaptor, sendOtp } from 'src/core/adaptors';
@@ -18,21 +20,24 @@ const schema = yup
 
 export const useEmail = () => {
   const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(true);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
     getValues,
     setError,
+    watch,
+    trigger,
   } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
   });
+  const email = watch('email');
 
-  const onContinue = async () => {
-    const { email } = getValues();
-    // FIXME: DO it after Yup validation
-    /* const res = await preRegister(email);
+  const preRegisterCheck = async () => {
+    setDisabled(true);
+    const res = await preRegister(email);
     if (res.error) {
       setError('email', {
         type: 'manual',
@@ -46,15 +51,35 @@ export const useEmail = () => {
         message: 'Email already exists',
       });
       return;
-    } */
+    }
+    setDisabled(false);
+  };
+  const onContinue = async () => {
+    setDisabled(true);
     const registerRes = await registerAdaptor(email);
-    if (registerRes.error)
+    if (registerRes.error) {
       setError('email', {
         type: 'manual',
         message: registerRes.error,
       });
-    else navigate(`/sign-up/verification?email=${getValues().email}`);
+      setDisabled(false);
+    } else navigate(`/sign-up/verification?email=${email}`);
   };
+
+  useEffect(() => {
+    const checkEmailValidity = debounce(async () => {
+      const isValidEmail = await trigger('email');
+      if (isValidEmail) {
+        preRegisterCheck();
+      }
+    }, 500);
+
+    checkEmailValidity();
+
+    return () => {
+      checkEmailValidity.cancel();
+    };
+  }, [email, trigger]);
 
   return {
     register,
@@ -63,5 +88,6 @@ export const useEmail = () => {
     isValid,
     getValues,
     onContinue,
+    disabled,
   };
 };

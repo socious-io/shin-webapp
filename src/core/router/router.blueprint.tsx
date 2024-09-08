@@ -280,7 +280,7 @@ export const blueprint: RouteObject[] = [
 ];
 
 function DefaultRoute() {
-  return <Navigate to="/credentials" />;
+  return <Navigate to="/verifications" />;
 }
 
 function ErrorBoundary() {

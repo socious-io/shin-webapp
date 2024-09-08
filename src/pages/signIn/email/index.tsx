@@ -53,7 +53,10 @@ export const Email = () => {
               </Button> */}
             </div>
           </div>
-
+          <div className="text-center">
+            <span className={css['layout__subtitle']}>{translate('dont-have-account')}</span>
+            <Link href="/sign-up" label={translate('link-sign-up')} />
+          </div>
           <div className="text-center">
             <span className={css['form__subtitle']}>{translate('accept')}</span>
             <Link href="/home" label={translate('terms-of-use')} target="_blank" />

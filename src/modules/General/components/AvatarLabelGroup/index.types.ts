@@ -3,7 +3,7 @@ export interface AccountItem {
   img?: string;
   type: 'organizations' | 'users';
   name: string;
-  username: string;
+  email: string;
   selected?: boolean;
 }
 

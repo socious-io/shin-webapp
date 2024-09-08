@@ -16,5 +16,7 @@
   "password-placeholder": "Enter your password",
   "password-forget": "Forgot password?",
   "password-forget-desc": "No worries, we’ll send you reset instructions.",
-  "password-reset": "Reset password"
+  "password-reset": "Reset password",
+  "dont-have-account": "Don't have an account? ",
+  "link-sign-up": "Sign up"
 }

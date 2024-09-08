@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -17,6 +18,7 @@ const schema = yup
 
 export const usePassword = () => {
   const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
   const email = searchParams.get('email') || '';
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,11 +34,13 @@ export const usePassword = () => {
   });
 
   const onSubmit = async () => {
+    setLoading(true);
     try {
       const { password } = getValues();
       const res = await signIn(email, password);
 
       if (res.error) {
+        setLoading(false);
         return;
       }
       if (res.data) {
@@ -48,18 +52,19 @@ export const usePassword = () => {
         await Promise.all(setStorages);
         const profileRes = await getUserProfileAdaptor();
         dispatch(setUserProfile(profileRes));
-        navigate(`/home`);
+        navigate(`/`);
       }
     } catch (error) {
       setError('password', {
         type: 'manual',
         message: 'Username or password not matched',
       });
+      setLoading(false);
     }
   };
 
   const handleForgetPassword = () => {
     navigate('/forget-password/email');
   };
-  return { email, register, errors, handleSubmit, onSubmit, handleForgetPassword };
+  return { email, register, errors, handleSubmit, onSubmit, handleForgetPassword, loading };
 };
