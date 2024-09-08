@@ -1,12 +1,12 @@
 export interface OrgProfileRes {
-  imageUrl?: string;
+  logo: { url?: string; id?: string };
   did: string;
   name: string;
   description?: string;
 }
 
 export interface OrgProfileReq {
-  imageUrl?: string;
+  logoId?: string;
   name: string;
   description?: string;
 }

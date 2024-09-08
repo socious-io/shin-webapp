@@ -100,16 +100,25 @@ export const blueprint: RouteObject[] = [
             ],
           },
           {
-            path: 'profile',
+            path: 'organization',
             children: [
               {
-                path: 'org',
-                loader: async () => {
-                  const { data } = await getOrgProfileAdaptor();
+                path: '',
+                async lazy() {
+                  const { OrgProfile } = await import('src/pages/organizations');
+                  return {
+                    Component: OrgProfile,
+                  };
+                },
+              },
+              {
+                path: ':id',
+                loader: async ({ params }) => {
+                  const { data } = await getOrgProfileAdaptor(params.id || '');
                   return { profile: data };
                 },
                 async lazy() {
-                  const { OrgProfile } = await import('src/pages/profile/org');
+                  const { OrgProfile } = await import('src/pages/organizations');
                   return {
                     Component: OrgProfile,
                   };

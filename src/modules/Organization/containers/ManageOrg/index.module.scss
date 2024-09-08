@@ -35,6 +35,10 @@
         font-weight: 600;
         line-height: 24px;
         color: $color-grey-700;
+
+        &--disabled {
+            cursor: not-allowed;
+        }
     }
 }
 

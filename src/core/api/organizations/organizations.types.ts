@@ -1,4 +1,5 @@
 import { Media } from '../media/media.types';
+import { PaginateRes } from '../types';
 
 export interface OrganizationReq {
   name: string;
@@ -6,7 +7,7 @@ export interface OrganizationReq {
   logo_id?: string;
 }
 
-export interface OrganizationRes extends OrganizationReq {
+export interface Organization extends OrganizationReq {
   id: string;
   did?: string;
   logo?: Media;
@@ -14,4 +15,8 @@ export interface OrganizationRes extends OrganizationReq {
   is_verified: boolean;
   created_at: Date;
   updated_at: Date;
+}
+
+export interface OrganizationRes extends PaginateRes {
+  results: Organization[];
 }

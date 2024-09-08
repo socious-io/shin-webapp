@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { UserProfileRes } from 'src/core/adaptors';
 import { cleanAuthParams } from 'src/core/api/auth/auth.service';
 import { RootState } from 'src/store';
+import { clearOrgProfile, OrgState } from 'src/store/reducers/org.reducer';
 import { clearUserProfile } from 'src/store/reducers/user.reducer';
 
 export const useHamburgerMenu = () => {
@@ -14,6 +15,7 @@ export const useHamburgerMenu = () => {
   const [selectedItem, setSelectedItem] = useState(path || 'credentials');
 
   const userProfile = useSelector<RootState, UserProfileRes>(state => state.user.userProfile);
+  const orgProfileId = useSelector<RootState, OrgState>(state => state.org).id || '';
 
   const menuItems = [
     {
@@ -38,7 +40,7 @@ export const useHamburgerMenu = () => {
       id: 'organization-profile',
       iconName: 'building-06',
       title: 'Organization profile',
-      path: '/profile/org',
+      path: `/organization/${orgProfileId}`,
     },
   ];
 
@@ -50,6 +52,7 @@ export const useHamburgerMenu = () => {
   const onLogout = () => {
     cleanAuthParams();
     dispatch(clearUserProfile());
+    dispatch(clearOrgProfile());
   };
 
   return {

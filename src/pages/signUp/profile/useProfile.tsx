@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserProfileAdaptor, profile, ProfileReq } from 'src/core/adaptors';
-import { getUser } from 'src/core/api';
 import { isTouchDevice } from 'src/core/helpers/device-type-detector';
 import { setOrgProfile } from 'src/store/reducers/org.reducer';
 import { setUserProfile } from 'src/store/reducers/user.reducer';
@@ -27,7 +26,6 @@ export const useProfile = () => {
     handleSubmit,
     formState: { errors, isValid },
     getValues,
-    setError,
   } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),

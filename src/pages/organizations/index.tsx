@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import ManageOrg from 'src/modules/Profile/containers/ManageOrg';
+import ManageOrg from 'src/modules/Organization/containers/ManageOrg';
 
 import css from './index.module.scss';
 
