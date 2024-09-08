@@ -52,7 +52,7 @@ export const usePassword = () => {
         await Promise.all(setStorages);
         const profileRes = await getUserProfileAdaptor();
         dispatch(setUserProfile(profileRes));
-        navigate(`/`);
+        navigate('/');
       }
     } catch (error) {
       setError('password', {

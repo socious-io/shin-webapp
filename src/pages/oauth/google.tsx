@@ -17,7 +17,7 @@ export const GoogleOauth2 = () => {
     // store.dispatch(setIdentity(await getIdentityAdaptor()));
     // const registered = (loginResp.registered ??= false);
     // TODO: define redirect path
-    navigate('/home');
+    navigate('/');
     return loginResp;
   }
 
