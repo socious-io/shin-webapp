@@ -1,19 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { OrgProfileRes } from 'src/core/adaptors';
 
-export interface UserState {
-  orgProfile: OrgProfileRes;
-  isAuthenticated: boolean;
+export interface OrgState {
+  id: string;
 }
 
-const initialState: UserState = {
-  orgProfile: {
-    imageUrl: '',
-    did: '',
-    name: '',
-    description: '',
-  },
-  isAuthenticated: false,
+const initialState: OrgState = {
+  id: '',
 };
 
 export const orgSlice = createSlice({
@@ -21,12 +14,10 @@ export const orgSlice = createSlice({
   initialState,
   reducers: {
     setOrgProfile: (state, action) => {
-      state.orgProfile = action.payload;
-      state.isAuthenticated = true;
+      state.id = action.payload;
     },
     clearOrgProfile: state => {
-      state.orgProfile = initialState.orgProfile;
-      state.isAuthenticated = false;
+      state.id = initialState.id;
     },
   },
 });

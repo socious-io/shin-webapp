@@ -20,20 +20,13 @@ export const forgetPasswordAdaptor = async (email: string): Promise<AdaptorRes<S
 
 export const resetPasswordAdaptor = async (password: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    const res = await updatePassword({ password });
-    if (res.message === 'success') {
-      const data = {
+    await updatePassword({ password });
+    return {
+      data: {
         message: 'succeed',
-      };
-      return {
-        data,
-        error: null,
-      };
-    } else
-      return {
-        data: null,
-        error: res.message,
-      };
+      },
+      error: null,
+    };
   } catch {
     return {
       error: 'Error in reset password API call',

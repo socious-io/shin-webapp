@@ -90,7 +90,7 @@ export const details = async (params: DetailsReq): Promise<AdaptorRes<UserProfil
   }
 };
 
-export const profile = async (params: ProfileReq): Promise<AdaptorRes<OrgProfileRes>> => {
+export const profile = async (params: ProfileReq): Promise<AdaptorRes<string>> => {
   try {
     const res = await createOrg({
       name: params.name,
@@ -98,12 +98,7 @@ export const profile = async (params: ProfileReq): Promise<AdaptorRes<OrgProfile
       logo_id: params.imageUrl,
     });
     return {
-      data: {
-        imageUrl: res.logo?.url,
-        did: res.did || '',
-        name: res.name,
-        description: res.description,
-      },
+      data: res.id,
       error: null,
     };
   } catch {
