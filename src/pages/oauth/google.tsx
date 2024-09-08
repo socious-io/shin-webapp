@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { config } from 'src/config';
-import { googleOauthAdaptor } from 'src/core/adaptors/signIn';
-import { getIdentityAdaptor } from 'src/core/adaptors/site';
+/* import { googleOauthAdaptor } from 'src/core/adaptors/signIn';
+import { getIdentityAdaptor } from 'src/core/adaptors/site'; */
 import { AuthRes, GoogleAuthRes } from 'src/core/api';
 import { setAuthParams } from 'src/core/api/auth/auth.service';
 import store from 'src/store';
