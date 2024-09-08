@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { identitySlice } from './reducers/identity.reducer';
 import { languageSlice } from './reducers/language.reducer';
 import { spinnerSlice } from './reducers/spinner.reducer';
+import { userSlice } from './reducers/user.reducer';
 
 const store = configureStore({
   reducer: {
     spinner: spinnerSlice.reducer,
     language: languageSlice.reducer,
-    identity: identitySlice.reducer,
+    user: userSlice.reducer,
   },
   middleware: getDefaultMiddleware => {
     return getDefaultMiddleware({

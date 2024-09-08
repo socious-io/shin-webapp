@@ -1,4 +1,6 @@
 import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react-router-dom';
+import Auth from 'src/modules/Auth';
+import Base from 'src/modules/Base';
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
 
@@ -13,6 +15,7 @@ import {
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
   {
+    element: <Base />,
     children: [
       {
         element: <Layout />,
@@ -129,80 +132,85 @@ export const blueprint: RouteObject[] = [
         ],
       },
       {
-        path: 'sign-in',
+        element: <Auth />,
         children: [
           {
-            path: 'email',
-            async lazy() {
-              const { Email } = await import('src/pages/signIn/email');
-              return {
-                Component: Email,
-              };
-            },
-          },
-          {
-            path: 'password',
-            async lazy() {
-              const { Password } = await import('src/pages/signIn/password');
-              return {
-                Component: Password,
-              };
-            },
-          },
-          {
-            path: 'oauth',
+            path: 'sign-in',
             children: [
               {
-                path: 'google',
+                path: '',
                 async lazy() {
-                  const { GoogleOauth2 } = await import('src/pages/oauth/google');
+                  const { Email } = await import('src/pages/signIn/email');
                   return {
-                    Component: GoogleOauth2,
+                    Component: Email,
+                  };
+                },
+              },
+              {
+                path: 'password',
+                async lazy() {
+                  const { Password } = await import('src/pages/signIn/password');
+                  return {
+                    Component: Password,
+                  };
+                },
+              },
+              {
+                path: 'oauth',
+                children: [
+                  {
+                    path: 'google',
+                    async lazy() {
+                      const { GoogleOauth2 } = await import('src/pages/oauth/google');
+                      return {
+                        Component: GoogleOauth2,
+                      };
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: 'sign-up',
+            children: [
+              {
+                path: '',
+                async lazy() {
+                  const { Email } = await import('src/pages/signUp/email');
+                  return {
+                    Component: Email,
+                  };
+                },
+              },
+              {
+                path: 'verification',
+                async lazy() {
+                  const { Verification } = await import('src/pages/signUp/verification');
+                  return {
+                    Component: Verification,
+                  };
+                },
+              },
+              {
+                path: 'detail',
+                async lazy() {
+                  const { Detail } = await import('src/pages/signUp/detail');
+                  return {
+                    Component: Detail,
+                  };
+                },
+              },
+              {
+                path: 'profile',
+                async lazy() {
+                  const { Profile } = await import('src/pages/signUp/profile');
+                  return {
+                    Component: Profile,
                   };
                 },
               },
             ],
-          },
-        ],
-      },
-      {
-        path: 'sign-up',
-        children: [
-          {
-            path: 'email',
-            async lazy() {
-              const { Email } = await import('src/pages/signUp/email');
-              return {
-                Component: Email,
-              };
-            },
-          },
-          {
-            path: 'verification',
-            async lazy() {
-              const { Verification } = await import('src/pages/signUp/verification');
-              return {
-                Component: Verification,
-              };
-            },
-          },
-          {
-            path: 'detail',
-            async lazy() {
-              const { Detail } = await import('src/pages/signUp/detail');
-              return {
-                Component: Detail,
-              };
-            },
-          },
-          {
-            path: 'profile',
-            async lazy() {
-              const { Profile } = await import('src/pages/signUp/profile');
-              return {
-                Component: Profile,
-              };
-            },
           },
         ],
       },
@@ -247,25 +255,24 @@ export const blueprint: RouteObject[] = [
           },
         ],
       },
-      {
-        path: 'proof-request/:id',
-        loader: async ({ params }) => {
-          if (params.id) {
-            const data = await getVerificationByIdAdaptor(params.id);
-            return data;
-          }
-        },
-        async lazy() {
-          const { ProofRequest } = await import('src/pages/proofRequest/index');
-          return {
-            Component: ProofRequest,
-          };
-        },
-      },
     ],
     errorElement: <ErrorBoundary />,
   },
-
+  {
+    path: 'proof-request/:id',
+    loader: async ({ params }) => {
+      if (params.id) {
+        const data = await getVerificationByIdAdaptor(params.id);
+        return data;
+      }
+    },
+    async lazy() {
+      const { ProofRequest } = await import('src/pages/proofRequest/index');
+      return {
+        Component: ProofRequest,
+      };
+    },
+  },
   {
     path: '*',
     element: <div>Page not found :(</div>,

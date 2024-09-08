@@ -41,7 +41,7 @@ export const useEmail = () => {
   };
 
   const handleBack = () => {
-    navigate('/sign-in/email');
+    navigate('/sign-in');
   };
 
   return { register, errors, handleSubmit, handleForgetPassword, handleBack };

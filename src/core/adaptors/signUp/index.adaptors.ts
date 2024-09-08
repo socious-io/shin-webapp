@@ -1,7 +1,7 @@
-import { createOrg, preregister, register, sendOTP, updateProfile, verifyOTP } from 'src/core/api';
+import { createOrg, preregister, register, sendOTP, updatePassword, updateProfile, verifyOTP } from 'src/core/api';
 
+import { AdaptorRes, SuccessRes, UserProfileRes } from '..';
 import { DetailsReq, OtpConfirmRes, PreRegisterRes, ProfileReq } from './index.types';
-import { AdaptorRes, SuccessRes } from '..';
 
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
   try {
@@ -67,15 +67,24 @@ export const otpConfirm = async (email: string, code: string): Promise<AdaptorRe
   }
 };
 
-export const details = async (params: DetailsReq): Promise<AdaptorRes<SuccessRes>> => {
+export const details = async (params: DetailsReq): Promise<AdaptorRes<UserProfileRes>> => {
   try {
-    await updateProfile({
+    await updatePassword({ password: params.password });
+    const user = await updateProfile({
       job_title: params.jobTitle,
       first_name: params.firstName,
       last_name: params.lastName,
       status: 'ACTIVE',
     });
-    return { error: null, data: { message: 'succeed' } };
+    const profile: UserProfileRes = {
+      id: user.id,
+      firstName: user.first_name || '',
+      lastName: user.last_name || '',
+      email: user.email,
+      jobTitle: user.job_title,
+      imageUrl: user.avatar?.url,
+    };
+    return { error: null, data: profile };
   } catch {
     return { error: 'server error in details API call', data: null };
   }

@@ -45,7 +45,7 @@ export const useNewPassword = () => {
   };
 
   const handleBack = () => {
-    navigate('/sign-in/email');
+    navigate('/sign-in');
   };
   return { handleBack, register, errors, handleSubmit, handleReset, translate };
 };

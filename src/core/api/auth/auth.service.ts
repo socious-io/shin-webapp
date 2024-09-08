@@ -25,3 +25,9 @@ export async function refreshToken() {
 
   await setAuthParams(await refresh({ refresh_token: token }));
 }
+
+export async function cleanAuthParams() {
+  await nonPermanentStorage.remove('access_token');
+  await nonPermanentStorage.remove('refresh_token');
+  await nonPermanentStorage.remove('token_type');
+}

@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { cleanAuthParams } from 'src/core/api/auth/auth.service';
+import { clearUserProfile } from 'src/store/reducers/user.reducer';
 
 export const useHamburgerMenu = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const path = pathname.replace('/', '');
   const [selectedItem, setSelectedItem] = useState(path || 'credentials');
@@ -39,7 +43,10 @@ export const useHamburgerMenu = () => {
     navigate(path);
   };
 
-  const onLogout = () => console.log('log out');
+  const onLogout = () => {
+    cleanAuthParams();
+    dispatch(clearUserProfile());
+  };
 
   return {
     data: {

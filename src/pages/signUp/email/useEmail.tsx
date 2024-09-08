@@ -31,7 +31,8 @@ export const useEmail = () => {
 
   const onContinue = async () => {
     const { email } = getValues();
-    const res = await preRegister(email);
+    // FIXME: DO it after Yup validation
+    /* const res = await preRegister(email);
     if (res.error) {
       setError('email', {
         type: 'manual',
@@ -45,7 +46,7 @@ export const useEmail = () => {
         message: 'Email already exists',
       });
       return;
-    }
+    } */
     const registerRes = await registerAdaptor(email);
     if (registerRes.error)
       setError('email', {
