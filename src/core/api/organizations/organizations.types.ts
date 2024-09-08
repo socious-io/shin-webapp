@@ -1,3 +1,5 @@
+import { Media } from '../media/media.types';
+
 export interface OrganizationReq {
   name: string;
   description: string;
@@ -7,7 +9,8 @@ export interface OrganizationReq {
 export interface OrganizationRes extends OrganizationReq {
   id: string;
   did?: string;
-  logo?: any; // FIXME: set media response type
+  logo?: Media;
+  logo_id?: string;
   is_verified: boolean;
   created_at: Date;
   updated_at: Date;

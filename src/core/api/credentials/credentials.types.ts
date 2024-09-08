@@ -1,5 +1,7 @@
+import { RecipientRes } from '../recipients/recipients.types';
 import { SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
+import { User } from '../users/users.types';
 
 export interface CredentialClaims {
   name: string;
@@ -17,8 +19,8 @@ export interface CredentialReq {
 export interface CredentialRes extends CredentialReq {
   id: string;
   schema: SchemaRes;
-  created: any; //FIXME with user type
-  recipient: any; //FIXME with recipient type
+  created: User;
+  recipient: RecipientRes;
   connection_url?: string;
   connection_id?: string;
   status: 'ISSUED' | 'CLAIMED' | 'FAILED';

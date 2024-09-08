@@ -1,3 +1,5 @@
+import { Media } from '../media/media.types';
+
 export interface ProfileReq {
   username?: string;
   job_title?: string;
@@ -5,6 +7,7 @@ export interface ProfileReq {
   first_name?: string;
   last_name?: string;
   avatar_id?: string;
+  avatar?: Media;
   phone?: string;
   status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
 }
