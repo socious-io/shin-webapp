@@ -9,6 +9,7 @@ export interface UserState {
 const initialState: UserState = {
   userProfile: {
     id: '',
+    avatar: {},
     firstName: '',
     lastName: '',
     jobTitle: '',

@@ -1,15 +1,15 @@
-import { getUser } from 'src/core/api';
+import { getUser, updatePassword, updateProfile } from 'src/core/api';
 
-import { AdaptorRes, SuccessRes } from '..';
 import { PasswordReq, UserProfileReq, UserProfileRes } from './index.types';
+import { AdaptorRes, SuccessRes, CustomError } from '..';
 
 export const getUserProfileAdaptor = async (): Promise<AdaptorRes<UserProfileRes>> => {
   try {
     const user = await getUser();
     const res = {
       id: user.id,
-      imageUrl: user.avatar?.url,
-      firstName: user.first_name || 'Dear',
+      avatar: { url: user.avatar?.url || '', id: user.avatar_id || '' },
+      firstName: user.first_name || '',
       lastName: user.last_name || '',
       email: user.email,
       jobTitle: user.job_title,
@@ -21,10 +21,24 @@ export const getUserProfileAdaptor = async (): Promise<AdaptorRes<UserProfileRes
   }
 };
 
-export const changeUserProfileAdaptor = async (payload: UserProfileReq): Promise<AdaptorRes<SuccessRes>> => {
+export const changeUserProfileAdaptor = async (payload: UserProfileReq): Promise<AdaptorRes<UserProfileRes>> => {
   try {
-    //TODO: API call with payload
-    return { data: { message: 'succeed' }, error: null };
+    const newPayload = {
+      first_name: payload.firstName,
+      last_name: payload.lastName,
+      job_title: payload?.jobTitle || '',
+      avatar_id: payload?.avatarId || '',
+    };
+    const user = await updateProfile(newPayload);
+    const res = {
+      id: user.id,
+      avatar: { url: user.avatar?.url || '', id: user.avatar_id || '' },
+      firstName: user.first_name || '',
+      lastName: user.last_name || '',
+      email: user.email,
+      jobTitle: user.job_title,
+    };
+    return { data: res, error: null };
   } catch (error) {
     console.error('Error in changing User Profile', error);
     return { data: null, error: 'Error in changing User Profile' };
@@ -33,11 +47,15 @@ export const changeUserProfileAdaptor = async (payload: UserProfileReq): Promise
 
 export const changePasswordAdaptor = async (payload: PasswordReq): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    //TODO: API call with payload
+    const newPayload = {
+      current_password: payload.currentPass,
+      password: payload.confirmPass,
+    };
+    await updatePassword(newPayload);
     return { data: { message: 'succeed' }, error: null };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error in changing Password', error);
-    return { data: null, error: 'Error in changing Password' };
+    return { data: null, error: (error as CustomError).response.data.error || 'Error in changing Password' };
   }
 };
 

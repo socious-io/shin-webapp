@@ -18,6 +18,10 @@ export * from './verifications/index.type';
 export * from './proofRequests/index.adaptors';
 export * from './proofRequests/index.types';
 
+export interface CustomError {
+  response: { data: { error: string } };
+}
+
 export interface SuccessRes {
   message?: string;
 }

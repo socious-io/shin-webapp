@@ -1,6 +1,6 @@
 export interface UserProfileRes {
   id: string;
-  imageUrl?: string;
+  avatar: { url?: string; id?: string };
   firstName: string;
   lastName: string;
   email: string;
@@ -8,7 +8,7 @@ export interface UserProfileRes {
 }
 
 export interface UserProfileReq {
-  imageUrl?: string;
+  avatarId?: string;
   firstName: string;
   lastName: string;
   jobTitle?: string;
