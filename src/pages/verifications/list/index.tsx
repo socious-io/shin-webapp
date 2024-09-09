@@ -9,7 +9,7 @@ import { useVerifications } from './useVerifications';
 
 export const Verifications = () => {
   const { t: translate } = useTranslation();
-  const { data, handleCreate } = useVerifications();
+  const { list, setList, handleCreate, totalCount } = useVerifications();
   return (
     <div className={css['container']}>
       <div className={css['header']}>
@@ -23,8 +23,8 @@ export const Verifications = () => {
           {translate('ver_create_btn')}
         </Button>
       </div>
-      {data?.items.length ? (
-        <VerificationList list={data.items} totalItems={data.totalCount} />
+      {list?.length ? (
+        <VerificationList list={list} setList={setList} totalItems={totalCount || 0} />
       ) : (
         <EmptyVerifications handleCreate={handleCreate} />
       )}

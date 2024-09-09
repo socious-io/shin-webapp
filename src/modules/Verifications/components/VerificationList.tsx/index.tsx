@@ -13,12 +13,14 @@ import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 import css from './index.module.scss';
 import { VerificationListProps } from './index.type';
 import { useVerificationList } from './useVerificationList';
+import Status from '../Status';
+import { StatusValue } from '../Status/index.types';
 
-const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems }) => {
+const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems, setList }) => {
   const {
-    data: { page, verifications, total, getMenuItems, openModal, url },
+    data: { page, total, getMenuItems, openModal, url },
     operations: { setPage, setOpenModal, handleDelete, handleOpenCopy, handleCopy, translate },
-  } = useVerificationList(list, totalItems);
+  } = useVerificationList(list, setList, totalItems);
 
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
@@ -27,6 +29,16 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
         header: translate('ver-col-name'),
         accessorKey: 'name',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
+      },
+      {
+        id: 'status',
+        header: translate('ver-col-status'),
+        accessorKey: 'status',
+        cell: ({ getValue }: { getValue: Getter<string> }) => {
+          const status = getValue();
+          if (status) return <Status status={status as StatusValue} />;
+          return '';
+        },
       },
       {
         id: 'proofId',
@@ -68,11 +80,11 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems })
         ),
       },
     ],
-    [verifications],
+    [list],
   );
 
   const table = useReactTable({
-    data: verifications,
+    data: list,
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
   });

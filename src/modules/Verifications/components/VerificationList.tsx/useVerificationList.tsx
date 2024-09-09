@@ -5,9 +5,12 @@ import { config } from 'src/config';
 import { deleteVerificationAdaptor, getVerificationsAdaptor, Verification } from 'src/core/adaptors';
 import { MenuItem } from 'src/modules/General/components/ThreeDotButton/index.type';
 
-export const useVerificationList = (list: Verification[], totalItems: number) => {
+export const useVerificationList = (
+  list: Verification[],
+  setList: (val: Verification[]) => void,
+  totalItems: number,
+) => {
   const { t: translate } = useTranslation();
-  const [verifications, setVerifications] = useState(list);
   const [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const [total, setTotal] = useState(Math.ceil(totalItems / PER_PAGE));
@@ -45,7 +48,7 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
   const fetchMore = async () => {
     const res = await getVerificationsAdaptor(page, PER_PAGE);
     if (!res.data) return;
-    setVerifications(res.data.items);
+    setList(res.data.items);
     setTotal(Math.ceil(res.data.totalCount / PER_PAGE));
   };
 
@@ -59,8 +62,8 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
     if (res.error) return;
     const verificationRes = await getVerificationsAdaptor(page, PER_PAGE);
     if (verificationRes.error) return;
-    setVerifications(verificationRes.data?.items || []);
     setOpenModal({ name: 'delete', open: false });
+    setList(verificationRes.data?.items || []);
   };
 
   const handleOpenCopy = (id: string) => {
@@ -75,7 +78,7 @@ export const useVerificationList = (list: Verification[], totalItems: number) =>
 
   return {
     data: {
-      verifications,
+      list,
       page,
       total,
       getMenuItems,

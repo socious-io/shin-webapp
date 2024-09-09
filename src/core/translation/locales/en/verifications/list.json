@@ -5,6 +5,7 @@
   "ver-create_title": "Create a verification",
   "ver-create-desc": "Verifications allows you to define the credentials and / or the attributes you want to receive.",
   "ver-col-name": "Name",
+  "ver-col-status": "Status",
   "ver-col-proof": "Proof ID",
   "ver-col-created-by": "Created by",
   "ver-col-create-date": "Creation Date",
