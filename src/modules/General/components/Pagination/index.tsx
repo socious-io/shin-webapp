@@ -1,10 +1,13 @@
 import { Pagination as MUIPagination, PaginationItem, PaginationProps } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 
 const Pagination: React.FC<PaginationProps> = props => {
+  const { t: translate } = useTranslation();
+
   return (
     <div className={css['container']}>
       <MUIPagination
@@ -39,8 +42,8 @@ const Pagination: React.FC<PaginationProps> = props => {
         renderItem={item => (
           <PaginationItem
             slots={{
-              previous: () => <div className={css['button']}>Previous</div>,
-              next: () => <div className={css['button']}>Next</div>,
+              previous: () => <div className={css['button']}>{translate('pagination-previous')}</div>,
+              next: () => <div className={css['button']}>{translate('pagination-next')}</div>,
             }}
             {...item}
           />
@@ -48,7 +51,7 @@ const Pagination: React.FC<PaginationProps> = props => {
         {...props}
       />
       <div className={css['label']}>
-        Page {props.page} of {props.count}
+        {translate('pagination-page')} {props.page} {translate('pagination-of')} {props.count}
       </div>
     </div>
   );

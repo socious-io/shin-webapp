@@ -1,5 +1,7 @@
+import credential from './credentials/credential.json';
 import fileUploader from './fileUploader.json';
 import forgetPassword from './forgetPassword.json';
+import pagination from './general/pagination.json';
 import orgProfile from './organizations/organizations.json';
 import schema from './schemas/schema.json';
 import schemaCreate from './schemas/schemaCreate.json';
@@ -17,6 +19,7 @@ import proofRequest from './verifications/proofRequest.json';
 export function generateTranslationFile() {
   return Object.assign(
     {},
+    pagination,
     signIn,
     verification,
     detail,
@@ -32,5 +35,6 @@ export function generateTranslationFile() {
     verificationCreate,
     proofRequest,
     signUp,
+    credential,
   );
 }
