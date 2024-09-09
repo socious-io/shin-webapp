@@ -24,7 +24,7 @@ export const useManageOrg = () => {
   const { id: orgId } = useParams() || '';
   const { profile } = (useLoaderData() as { profile: OrgProfileRes }) || {};
   const { url: logoUrl = '', id: logoId = '' } = profile?.logo || {};
-  const [letterCount, setLetterCount] = useState(0);
+  const [letterCount, setLetterCount] = useState(profile?.description?.length || 0);
   const [attachment, setAttachment] = useState<string[]>([logoId]);
   const [attachmentUrl, setAttachmentUrl] = useState<string[]>([logoUrl]);
   const [openSnackbar, setOpenSnackbar] = useState(false);
