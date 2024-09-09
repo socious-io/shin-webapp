@@ -1,6 +1,5 @@
 import { checkVerification, VerificationRes } from 'src/core/api';
 
-import { CheckVerificationRes, RequestVerificationRes } from './index.types';
 import { AdaptorRes } from '..';
 
 const checkVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationRes>> => {

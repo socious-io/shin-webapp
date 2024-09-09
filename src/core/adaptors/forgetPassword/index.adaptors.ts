@@ -1,7 +1,6 @@
 import { forgetPassword, updatePassword } from 'src/core/api';
 
-import { AdaptorRes } from '..';
-import { SuccessRes } from '../general/index.types';
+import { AdaptorRes, SuccessRes } from '..';
 
 export const forgetPasswordAdaptor = async (email: string): Promise<AdaptorRes<SuccessRes>> => {
   try {

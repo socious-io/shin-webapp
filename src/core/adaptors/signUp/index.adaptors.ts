@@ -1,7 +1,7 @@
 import { createOrg, preregister, register, sendOTP, updatePassword, updateProfile, verifyOTP } from 'src/core/api';
 
+import { AdaptorRes, SuccessRes, UserProfileRes } from '..';
 import { DetailsReq, OtpConfirmRes, PreRegisterRes, ProfileReq } from './index.types';
-import { AdaptorRes, OrgProfileRes, SuccessRes, UserProfileRes } from '..';
 
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
   try {
@@ -82,7 +82,7 @@ export const details = async (params: DetailsReq): Promise<AdaptorRes<UserProfil
       lastName: user.last_name || '',
       email: user.email,
       jobTitle: user.job_title,
-      imageUrl: user.avatar?.url,
+      avatar: { url: user.avatar?.url || '', id: user?.avatar_id || '' },
     };
     return { error: null, data: profile };
   } catch {
