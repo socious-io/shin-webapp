@@ -59,9 +59,9 @@ export const Email = () => {
           </div>
           <div className="text-center">
             <span className={css['form__subtitle']}>{translate('accept')}</span>
-            <Link href="/home" label={translate('terms-of-use')} target="_blank" />
+            <Link href="/" label={translate('terms-of-use')} target="_blank" />
             <span className={css['form__subtitle']}>{translate('and')}</span>
-            <Link href="/home" label={translate('privacy-policy')} target="_blank" />
+            <Link href="/" label={translate('privacy-policy')} target="_blank" />
           </div>
         </div>
       </div>

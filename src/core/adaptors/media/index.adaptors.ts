@@ -1,18 +1,16 @@
+import { uploadMedia } from 'src/core/api';
+
 import { UploadMediaRes } from './index.types';
 import { AdaptorRes } from '..';
 
-export const uploadMedia = async (file: File): Promise<AdaptorRes<UploadMediaRes>> => {
+export const uploadMediaAdaptor = async (file: File): Promise<AdaptorRes<UploadMediaRes>> => {
   try {
-    const formData = new FormData();
-    formData.append('file', file);
-    // TODO: CALL upload API
+    const res = await uploadMedia(file);
     return {
       data: {
-        id: '',
+        ...res,
         identity_id: '',
-        filename: '',
-        url: '',
-        created_at: '',
+        created_at: res.created_at.toString(),
       },
       error: null,
     };

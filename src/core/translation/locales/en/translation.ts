@@ -1,6 +1,6 @@
 import fileUploader from './fileUploader.json';
 import forgetPassword from './forgetPassword.json';
-import orgProfile from './orgProfile/orgProfile.json';
+import orgProfile from './organizations/organizations.json';
 import schema from './schema/schema.json';
 import schemaCreate from './schema/schemaCreate.json';
 import settings from './settings/settings.json';

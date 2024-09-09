@@ -12,8 +12,16 @@ import { useManageOrg } from './useManageOrg';
 
 const ManageOrg = () => {
   const {
-    data: { translate, letterCount, register, errors, avatarImg, did, openSnackbar },
-    operations: { handleSubmit, onSubmit, onChangeDescription, setAttachment, onCopy, setOpenSnackbar },
+    data: { translate, letterCount, register, errors, avatarImg, did, orgId, openSnackbar, errorMessage },
+    operations: {
+      handleSubmit,
+      onSubmit,
+      onChangeDescription,
+      setAttachment,
+      setAttachmentUrl,
+      onCopy,
+      setOpenSnackbar,
+    },
   } = useManageOrg();
 
   return (
@@ -25,7 +33,9 @@ const ManageOrg = () => {
             fileTypes={['PNG', 'JPG', 'GIF']}
             maxFileNumbers={1}
             maxFileSize={2}
+            showFileName={false}
             setAttachments={setAttachment}
+            setAttachmentsUrl={setAttachmentUrl}
           />
         </div>
         <Input
@@ -34,7 +44,7 @@ const ManageOrg = () => {
           value={did}
           disabled
           postfix={
-            <div className={css['copy']} onClick={onCopy}>
+            <div className={`${css['copy']} ${!did && css['copy--disabled']}`} onClick={() => did && onCopy()}>
               <Icon name="copy-01" fontSize={20} color={variables.color_grey_700} />
               {translate('org-profile-copy')}
             </div>
@@ -64,9 +74,10 @@ const ManageOrg = () => {
             {`${letterCount}/160`}
           </Typography>
         </div>
+        {errorMessage && <div className="text-Error-500 text-sm mt-[-12px]">{errorMessage}</div>}
         <Divider className="mx-[-1.5rem]" />
         <Button color="primary" type="submit" customStyle="self-end">
-          {translate('org-profile-save-button')}
+          {orgId ? translate('org-profile-save-button') : translate('org-profile-create-button')}
         </Button>
       </form>
       <CustomSnackbar

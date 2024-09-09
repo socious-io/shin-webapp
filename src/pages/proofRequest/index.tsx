@@ -29,7 +29,7 @@ export const ProofRequest = () => {
         headerDivider={false}
       >
         <div className="flex items-center justify-center mb-8">
-          <Link label={translate('proof-continue')} href="/home" />
+          <Link label={translate('proof-continue')} href="/" />
         </div>
       </Modal>
       <Modal
@@ -42,7 +42,7 @@ export const ProofRequest = () => {
         headerDivider={false}
       >
         <div className="flex items-center justify-center mb-8">
-          <Link label={translate('proof-try-again')} href="/home" />
+          <Link label={translate('proof-try-again')} href="/" />
         </div>
       </Modal>
 
@@ -56,7 +56,7 @@ export const ProofRequest = () => {
         headerDivider={false}
       >
         <div className="flex items-center justify-center mb-8">
-          <Link label={translate('proof-continue')} href="/home" />
+          <Link label={translate('proof-continue')} href="/" />
         </div>
       </Modal>
     </>

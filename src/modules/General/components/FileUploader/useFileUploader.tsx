@@ -1,13 +1,14 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
-import { uploadMedia } from 'src/core/adaptors';
+import { uploadMediaAdaptor } from 'src/core/adaptors';
 
 export const useFileUploader = (
   fileTypes: string[],
   maxFileNumbers: number,
   maxSize: number,
   setAttachments: (newVal: string[]) => void,
+  setAttachmentsUrl?: (newVal: string[]) => void,
 ) => {
   const { t: translate } = useTranslation();
   const [error, setError] = useState('');
@@ -42,21 +43,26 @@ export const useFileUploader = (
     text = `${text} or ${fileTypes[fileTypes.length - 1]} (${translate('max')} ${maxSize}mb)`;
     return text;
   };
+
   const onDrop = useCallback(acceptedFiles => {
     let attachmentIds: string[] = [];
+    let attachmentUrls: string[] = [];
+    setError('');
     acceptedFiles.forEach(async (file: File) => {
       if (file.size / 1000000 > maxSize) {
         setError(`Max file size is ${maxSize}mb`);
         return;
       }
-      const res = await uploadMedia(file);
+      const res = await uploadMediaAdaptor(file);
       if (res.error) {
         setError(res.error);
         return;
       } else if (res.data) {
         setFileName(res.data.filename);
         attachmentIds = attachmentIds.concat(res.data.id);
+        attachmentUrls = attachmentUrls.concat(res.data.url);
         setAttachments(attachmentIds);
+        setAttachmentsUrl?.(attachmentUrls);
       }
     });
   }, []);

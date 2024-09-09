@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { getUserProfileAdaptor, signIn } from 'src/core/adaptors';
+import { getOrgIdAdaptor, getUserProfileAdaptor, signIn } from 'src/core/adaptors';
 import { nonPermanentStorage } from 'src/core/storage/non-permanent';
+import { setOrgProfile } from 'src/store/reducers/org.reducer';
 import { setUserProfile } from 'src/store/reducers/user.reducer';
 import * as yup from 'yup';
 
@@ -51,8 +52,10 @@ export const usePassword = () => {
         ];
         await Promise.all(setStorages);
         const profileRes = await getUserProfileAdaptor();
+        const { data: orgId } = await getOrgIdAdaptor();
         dispatch(setUserProfile(profileRes));
-        navigate(`/`);
+        dispatch(setOrgProfile(orgId));
+        navigate('/');
       }
     } catch (error) {
       setError('password', {
