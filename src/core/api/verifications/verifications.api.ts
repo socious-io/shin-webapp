@@ -25,3 +25,7 @@ export async function getVerifications(params: PaginateReq): Promise<Verificatio
 export async function deleteVerification(id: string): Promise<SuccessRes> {
   return (await del<SuccessRes>(`verifications/${id}`)).data;
 }
+
+export async function checkVerification(id: string): Promise<VerificationRes> {
+  return (await get<VerificationRes>(`verifications/${id}/verify`)).data;
+}

@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
-import { AdaptorRes, Verification, verifyActionAdaptor } from 'src/core/adaptors';
+import { AdaptorRes, verifyActionAdaptor } from 'src/core/adaptors';
+import { VerificationRes } from 'src/core/api';
 
 export const useProofRequest = () => {
   const { t: translate } = useTranslation();
-  const [connectUrl, setConnectUrl] = useState('');
-  const [loading, setLoading] = useState(true);
   const [verificationStatus, setVerificationStatus] = useState<'succeed' | 'failed' | 'error' | undefined>();
 
-  const loaderData = useLoaderData() as AdaptorRes<Verification>;
+  const loaderData = useLoaderData() as AdaptorRes<VerificationRes>;
   const verification = loaderData?.data;
 
   useEffect(() => {
-    verifyActionAdaptor(setConnectUrl, setLoading, setVerificationStatus);
+    if (verification?.id) verifyActionAdaptor(verification.id, setVerificationStatus);
   }, []);
 
-  return { connectUrl, loading, verificationStatus, verification, setVerificationStatus, translate };
+  return { verificationStatus, verification, setVerificationStatus, translate };
 };
