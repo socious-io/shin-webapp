@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './chip.module.scss';
+import styles from './index.module.scss';
 import { ChipProps } from './index.types';
 
 const Chip: React.FC<ChipProps> = ({
