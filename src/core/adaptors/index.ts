@@ -11,7 +11,6 @@ export * from './schemas/index.types';
 export * from './organizations/index.adaptors';
 export * from './organizations/index.types';
 export * from './forgetPassword/index.adaptors';
-export * from './general/index.types';
 export * from './settings/index.adaptors';
 export * from './settings/index.types';
 export * from './verifications/index.adaptor';
