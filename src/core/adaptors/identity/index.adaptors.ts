@@ -1,5 +1,5 @@
-import { IdentityRes } from './index.types';
 import { AdaptorRes } from '..';
+import { IdentityRes } from './index.types';
 
 export const getIdentity = async (): Promise<AdaptorRes<IdentityRes>> => {
   try {

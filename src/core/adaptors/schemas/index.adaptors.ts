@@ -1,8 +1,8 @@
 import { SCHEMA_ATTRIBUTES } from 'src/constants/SCHEMA';
 import { createSchema, deleteSchema, getSchemas, SchemaAttributeType } from 'src/core/api';
 
-import { Schema, SchemaReq, SchemaRes } from './index.types';
 import { AdaptorRes, SuccessRes } from '..';
+import { Schema, SchemaReq, SchemaRes } from './index.types';
 
 export const getSchemasAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<SchemaRes>> => {
   try {

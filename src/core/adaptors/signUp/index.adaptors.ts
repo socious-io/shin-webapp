@@ -1,7 +1,7 @@
 import { createOrg, preregister, register, sendOTP, updatePassword, updateProfile, verifyOTP } from 'src/core/api';
 
-import { DetailsReq, OtpConfirmRes, PreRegisterRes, ProfileReq } from './index.types';
 import { AdaptorRes, SuccessRes, UserProfileRes } from '..';
+import { DetailsReq, OtpConfirmRes, PreRegisterRes, ProfileReq } from './index.types';
 
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
   try {

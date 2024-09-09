@@ -1,7 +1,7 @@
 import { GoogleAuthRes, login } from 'src/core/api';
 
-import { authAdaptorRes } from './index.types';
 import { AdaptorRes } from '..';
+import { authAdaptorRes } from './index.types';
 
 export const signIn = async (email: string, password: string): Promise<AdaptorRes<authAdaptorRes>> => {
   try {
