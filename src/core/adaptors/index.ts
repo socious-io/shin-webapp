@@ -11,13 +11,16 @@ export * from './schemas/index.types';
 export * from './organizations/index.adaptors';
 export * from './organizations/index.types';
 export * from './forgetPassword/index.adaptors';
-export * from './general/index.types';
 export * from './settings/index.adaptors';
 export * from './settings/index.types';
 export * from './verifications/index.adaptor';
 export * from './verifications/index.type';
 export * from './proofRequests/index.adaptors';
 export * from './proofRequests/index.types';
+
+export interface CustomError {
+  response: { data: { error: string } };
+}
 
 export interface SuccessRes {
   message?: string;

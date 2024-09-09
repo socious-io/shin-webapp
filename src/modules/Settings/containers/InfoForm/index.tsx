@@ -12,7 +12,7 @@ import { useInfoForm } from './useInfoForm';
 const InfoForm = () => {
   const {
     data: { translate, register, avatarImg, nameErrors, email },
-    operations: { handleSubmit, onSubmit, setAttachment },
+    operations: { handleSubmit, onSubmit, setAttachment, setAttachmentUrl },
   } = useInfoForm();
 
   return (
@@ -27,7 +27,9 @@ const InfoForm = () => {
           fileTypes={['PNG', 'JPG', 'GIF']}
           maxFileNumbers={1}
           maxFileSize={2}
+          showFileName={false}
           setAttachments={setAttachment}
+          setAttachmentsUrl={setAttachmentUrl}
         />
       </div>
       <div className={css['section2']}>

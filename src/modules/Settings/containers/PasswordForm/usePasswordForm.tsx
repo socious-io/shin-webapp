@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { changePasswordAdaptor, PasswordReq } from 'src/core/adaptors';
@@ -24,6 +25,7 @@ const schema = yup
 
 export const usePasswordForm = () => {
   const { t: translate } = useTranslation();
+  const [errorMessage, setErrorMessage] = useState('');
   const {
     register,
     handleSubmit,
@@ -34,9 +36,9 @@ export const usePasswordForm = () => {
   });
 
   const onSubmit = async formData => {
-    console.log('submit', formData);
-    await changePasswordAdaptor(formData);
+    const { error } = await changePasswordAdaptor(formData);
+    error && setErrorMessage(error);
   };
 
-  return { data: { translate, register, errors }, operations: { handleSubmit, onSubmit } };
+  return { data: { translate, register, errors, errorMessage }, operations: { handleSubmit, onSubmit } };
 };

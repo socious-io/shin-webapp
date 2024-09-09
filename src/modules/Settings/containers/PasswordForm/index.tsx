@@ -7,7 +7,7 @@ import { usePasswordForm } from './usePasswordForm';
 
 const PasswordForm = () => {
   const {
-    data: { translate, register, errors },
+    data: { translate, register, errors, errorMessage },
     operations: { handleSubmit, onSubmit },
   } = usePasswordForm();
 
@@ -45,6 +45,7 @@ const PasswordForm = () => {
         placeholder={translate('settings-password.confirm')}
         errors={errors['confirmPass']?.message ? [errors['confirmPass'].message.toString()] : undefined}
       />
+      {errorMessage && <span className="text-Error-500 text-sm">{errorMessage}</span>}
       <Divider className="mx-[-1.5rem]" />
       <Button color="primary" type="submit" customStyle="self-end">
         {translate('settings-password.save-button')}

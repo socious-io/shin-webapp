@@ -9,7 +9,7 @@ export interface ProfileReq {
   avatar_id?: string;
   avatar?: Media;
   phone?: string;
-  status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
+  status?: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
 }
 
 export interface User extends ProfileReq {
