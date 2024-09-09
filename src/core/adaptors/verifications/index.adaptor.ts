@@ -5,6 +5,8 @@ import {
   updateVerification,
   VerificationReq,
   deleteVerification,
+  VerificationRes,
+  connectVerification,
 } from 'src/core/api';
 
 import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
@@ -107,5 +109,17 @@ export const deleteVerificationAdaptor = async (id: string): Promise<AdaptorRes<
     };
   } catch {
     return { data: null, error: 'Error in update verification API call' };
+  }
+};
+
+export const connectVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationRes>> => {
+  try {
+    const res = await connectVerification(id);
+    return {
+      data: res,
+      error: null,
+    };
+  } catch {
+    return { data: null, error: 'Error in connect verification API call' };
   }
 };

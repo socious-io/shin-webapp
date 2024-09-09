@@ -7,7 +7,7 @@ import { ProofRequestModal } from 'src/modules/Verifications/components/ProofReq
 import { useProofRequest } from './useProofRequest';
 
 export const ProofRequest = () => {
-  const { connectUrl, loading, verificationStatus, setVerificationStatus, verification, translate } = useProofRequest();
+  const { verificationStatus, setVerificationStatus, verification, translate } = useProofRequest();
   return (
     <>
       <ProofRequestModal
@@ -17,8 +17,7 @@ export const ProofRequest = () => {
         }}
         title={verification?.name || ''}
         subtitle={verification?.description || ''}
-        shortLink={connectUrl}
-        loading={loading}
+        shortLink={verification?.connection_url}
       />
       <Modal
         open={verificationStatus === 'succeed'}

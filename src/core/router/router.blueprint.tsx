@@ -10,6 +10,7 @@ import {
   getSchemasAdaptor,
   getVerificationByIdAdaptor,
   getVerificationsAdaptor,
+  connectVerificationAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -262,7 +263,7 @@ export const blueprint: RouteObject[] = [
     path: 'proof-request/:id',
     loader: async ({ params }) => {
       if (params.id) {
-        const data = await getVerificationByIdAdaptor(params.id);
+        const data = await connectVerificationAdaptor(params.id);
         return data;
       }
     },

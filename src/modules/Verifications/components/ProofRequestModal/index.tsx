@@ -40,7 +40,15 @@ export const ProofRequestModal: React.FC<ProofRequestProps> = ({
             {!shortLink && loading && <CircularProgress size="4rem" sx={{ color: variables.color_primary_600 }} />}
             {!shortLink && loading === undefined && <img src={qrCode} alt="QR Code" height={240} width={240} />}
           </div>
-          <Button variant="contained" color="primary" fullWidth>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={() => {
+              const newTab = window.open(shortLink, '_blank');
+              newTab?.focus();
+            }}
+          >
             {translate('proof-btn')}
           </Button>
         </div>

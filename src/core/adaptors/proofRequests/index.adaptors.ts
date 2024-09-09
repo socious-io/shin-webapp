@@ -1,12 +1,14 @@
-import { AdaptorRes } from '..';
-import { CheckVerificationRes, RequestVerificationRes } from './index.types';
+import { checkVerification, VerificationRes } from 'src/core/api';
 
-const requestVerificationAdaptor = async (): Promise<AdaptorRes<RequestVerificationRes>> => {
+import { CheckVerificationRes, RequestVerificationRes } from './index.types';
+import { AdaptorRes } from '..';
+
+const checkVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationRes>> => {
   try {
-    // TODO: call request verificationAPI
+    const res = await checkVerification(id);
     return {
       error: null,
-      data: { shortURL: 'app.socious.io' },
+      data: res,
     };
   } catch {
     return {
@@ -16,50 +18,26 @@ const requestVerificationAdaptor = async (): Promise<AdaptorRes<RequestVerificat
   }
 };
 
-const checkVerificationAdaptor = async (): Promise<AdaptorRes<CheckVerificationRes>> => {
-  try {
-    // TODO: call check verification API
-    return {
-      error: null,
-      data: { verified: true },
-    };
-  } catch {
-    return {
-      error: 'Error in check verification API call',
-      data: null,
-    };
-  }
-};
-
 export const verifyActionAdaptor = async (
-  setConnectUrl: (val: string) => void,
-  setLoading: (val: boolean) => void,
+  id: string,
   setVerificationStatus: (val: 'succeed' | 'failed' | 'error') => void,
 ) => {
-  const vc = await requestVerificationAdaptor();
-  if (vc.data) {
-    setConnectUrl(vc.data.shortURL);
-    setLoading(false);
-  }
-
   const interval = setInterval(async () => {
-    const res = await checkVerificationAdaptor();
+    const res = await checkVerificationAdaptor(id);
     if (res.data) {
-      if (res.data.verified) {
-        // const identityRes = await getIdentity();
-        /* if (identityRes.data?.identity) await store.dispatch(setIdentity(identityRes.data.identity)); */
-        setVerificationStatus('succeed');
-      } else {
-        setVerificationStatus('failed');
+      const status = res.data.status;
+      switch (status) {
+        case 'REQUESTED':
+          break;
+        case 'VEIFIED':
+          setVerificationStatus('succeed');
+          clearInterval(interval);
+          break;
+        case 'FAILED':
+          setVerificationStatus('error');
+          clearInterval(interval);
+          break;
       }
-      clearInterval(interval);
-      setLoading(false);
     }
   }, 5000);
-
-  setTimeout(() => {
-    setVerificationStatus('error');
-    setLoading(false);
-    clearInterval(interval);
-  }, 120000);
 };
