@@ -1,7 +1,7 @@
 import { getUser, updatePassword, updateProfile } from 'src/core/api';
 
-import { AdaptorRes, SuccessRes, CustomError } from '..';
 import { PasswordReq, UserProfileReq, UserProfileRes } from './index.types';
+import { AdaptorRes, SuccessRes, CustomError } from '..';
 
 export const getUserProfileAdaptor = async (): Promise<AdaptorRes<UserProfileRes>> => {
   try {

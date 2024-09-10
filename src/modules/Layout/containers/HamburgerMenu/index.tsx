@@ -42,16 +42,19 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ animatable = false, menuI
             onCloseMenu?.();
           }}
         />
+
         <div className={css['profile']}>
-          <AvatarLabelGroup
-            account={{
-              id: userProfile.id,
-              name: `${userProfile.firstName} ${userProfile.lastName}`,
-              type: 'users',
-              email: userProfile.email,
-            }}
-            customStyle="px-2"
-          />
+          <div className={css['avatar']}>
+            <AvatarLabelGroup
+              account={{
+                id: userProfile.id,
+                name: `${userProfile.firstName} ${userProfile.lastName}`,
+                type: 'users',
+                email: userProfile.email,
+              }}
+              customStyle="px-2"
+            />
+          </div>
           <IconButton
             iconName="log-out-01"
             iconSize={20}

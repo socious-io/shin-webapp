@@ -54,4 +54,9 @@ $menu-width-mobile: 19.375rem;
         padding-top: 1.5rem;
         border-top: 1px solid $color-grey-200;
     }
+
+    .avatar {
+        flex-grow: 1;
+        overflow: hidden;
+    }
 }
