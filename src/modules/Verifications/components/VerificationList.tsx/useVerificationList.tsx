@@ -27,13 +27,13 @@ export const useVerificationList = (
           navigate(`/verifications/edit/${id}`);
         },
       },
-      {
-        iconName: 'clock-fast-forward',
-        label: translate('ver-cell-History'),
-        action: () => {
-          return;
-        },
-      },
+      // {
+      //   iconName: 'clock-fast-forward',
+      //   label: translate('ver-cell-History'),
+      //   action: () => {
+      //     return;
+      //   },
+      // },
       {
         iconName: 'trash-01',
         label: translate('ver-cell-delete'),
