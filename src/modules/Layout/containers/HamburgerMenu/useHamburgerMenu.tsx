@@ -53,6 +53,7 @@ export const useHamburgerMenu = () => {
     cleanAuthParams();
     dispatch(clearUserProfile());
     dispatch(clearOrgProfile());
+    navigate('/sign-in');
   };
 
   return {

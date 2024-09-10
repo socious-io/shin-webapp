@@ -8,10 +8,7 @@ import Navbar from './containers/Navbar';
 import css from './index.module.scss';
 
 const Layout = () => {
-  const isAuth = useSelector((state: RootState) => state.user.isAuthenticated);
   const [openMenu, setOpenMenu] = useState(false);
-
-  if (!isAuth) return <Navigate to="/sign-in" />;
 
   return (
     <div className={css['container']}>
