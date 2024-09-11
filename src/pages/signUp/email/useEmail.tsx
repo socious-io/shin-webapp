@@ -20,7 +20,8 @@ const schema = yup
 
 export const useEmail = () => {
   const navigate = useNavigate();
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -36,23 +37,21 @@ export const useEmail = () => {
   const email = watch('email');
 
   const preRegisterCheck = async () => {
-    setDisabled(true);
+    setLoading(true);
     const res = await preRegister(email);
     if (res.error) {
       setError('email', {
         type: 'manual',
         message: res.error,
       });
-      return;
     }
     if (res.data?.email !== 'AVAILABLE') {
       setError('email', {
         type: 'manual',
         message: 'Email already exists',
       });
-      return;
     }
-    setDisabled(false);
+    setLoading(false);
   };
   const onContinue = async () => {
     setDisabled(true);
@@ -89,5 +88,6 @@ export const useEmail = () => {
     getValues,
     onContinue,
     disabled,
+    loading,
   };
 };

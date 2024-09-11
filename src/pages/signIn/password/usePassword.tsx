@@ -42,6 +42,10 @@ export const usePassword = () => {
 
       if (res.error) {
         setLoading(false);
+        setError('password', {
+          type: 'manual',
+          message: res.error,
+        });
         return;
       }
       if (res.data) {
