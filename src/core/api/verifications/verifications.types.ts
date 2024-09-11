@@ -2,10 +2,22 @@ import { SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
 
+export interface VerificationAttributeReq {
+  attribute_id: string;
+  operator: 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
+  value: string;
+}
+
 export interface VerificationReq {
   name: string;
   description: string;
   schema_id: string;
+  attributes: VerificationAttributeReq[];
+}
+
+export interface VerificationAttributeRes extends VerificationAttributeReq {
+  id: string;
+  created_at: Date;
 }
 
 export interface VerificationRes extends VerificationReq {
@@ -16,6 +28,7 @@ export interface VerificationRes extends VerificationReq {
   connection_id?: string;
   present_id?: string;
   status: 'REQUESTED' | 'VEIFIED' | 'FAILED';
+  attributes: VerificationAttributeRes[];
   body: any;
   created_at: Date;
   updated_at: Date;
