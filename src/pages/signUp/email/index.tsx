@@ -1,15 +1,17 @@
+import { CircularProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import logo from 'src/assets/logo/logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import { Link } from 'src/modules/General/components/Link';
+import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue, disabled, isValid } = useEmail();
+  const { register, errors, handleSubmit, onContinue, disabled, isValid, loading } = useEmail();
   const { t: translate } = useTranslation();
 
   return (
@@ -34,8 +36,12 @@ export const Email = () => {
                 errors={errors['email']?.message ? [errors['email']?.message.toString()] : undefined}
               />
               <div className="flex flex-col gap-4">
-                <Button color="primary" onClick={handleSubmit(onContinue)} disabled={disabled || !isValid}>
-                  {translate('primary-btn-label')}
+                <Button color="primary" onClick={handleSubmit(onContinue)} disabled={disabled || !isValid || loading}>
+                  {loading ? (
+                    <CircularProgress size="32px" sx={{ color: variables.color_white }} />
+                  ) : (
+                    translate('primary-btn-label')
+                  )}
                 </Button>
                 {/* <Button color="primary" variant="outlined" style={{ display: 'flex', gap: '12px' }}>
                   <img src={'/images/logo/socious-logo.svg'} alt="" />
