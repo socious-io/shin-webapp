@@ -20,7 +20,7 @@ const schema = yup
 
 export const useEmail = () => {
   const navigate = useNavigate();
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const {
     register,
