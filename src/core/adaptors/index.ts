@@ -32,3 +32,8 @@ export type AdaptorRes<T = null> = {
   data: T | null;
   error: string | null;
 };
+
+export interface OptionType {
+  label: string;
+  value: string;
+}

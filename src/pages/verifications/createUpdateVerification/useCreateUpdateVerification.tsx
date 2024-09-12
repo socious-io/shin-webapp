@@ -5,12 +5,17 @@ import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import {
   AdaptorRes,
+  Attribute,
   createVerificationAdaptor,
   getSchemasAdaptor,
+  OperatorValue,
+  OptionType,
+  Schema,
   SuccessRes,
   updateVerificationAdaptor,
   UpdateVerificationReq,
   Verification,
+  VerificationAttribute,
   VerificationReqAdaptor,
 } from 'src/core/adaptors';
 import * as yup from 'yup';
@@ -32,8 +37,11 @@ export const useCreateUpdateVerification = () => {
   const navigate = useNavigate();
   const loaderData = useLoaderData() as AdaptorRes<Verification>;
   const verification = loaderData?.data;
+  const [schemaRes, setSchemaRes] = useState<Schema[]>([]);
   const [schemaList, setSchemaList] = useState<{ label: string; value: string }[]>([]);
   const [openPreview, setOpenPreview] = useState(false);
+  const [attributes, setAttributes] = useState<OptionType[]>([]);
+  const [addedAttributes, setAddedAttributes] = useState<VerificationAttribute[]>([]);
 
   const {
     register,
@@ -67,6 +75,7 @@ export const useCreateUpdateVerification = () => {
         message: res.error,
       });
     else if (res.data) {
+      setSchemaRes(res.data.items);
       const options = res.data.items.map(item => {
         return { value: item.id, label: item.name };
       });
@@ -81,6 +90,17 @@ export const useCreateUpdateVerification = () => {
 
   const onSelectSchema = schema => {
     setValue('schema', schema, { shouldValidate: true });
+    const selectedSchema = schemaRes.find(item => item.id === schema.value);
+    selectedSchema?.attributes &&
+      setAttributes(
+        selectedSchema.attributes.map(item => {
+          return {
+            value: item.id,
+            label: item.description || item.name,
+          };
+        }),
+      );
+    setAddedAttributes([]);
   };
 
   const onCancel = () => {
@@ -113,6 +133,31 @@ export const useCreateUpdateVerification = () => {
   const name = watch('name');
   const description = watch('description');
 
+  const onChangeAttribute = (index: number, attribute?: OptionType, operator?: OptionType, value?: string | number) => {
+    setAddedAttributes(prevAttributes =>
+      prevAttributes.map((atr, i) => {
+        if (i !== index) return atr;
+        return {
+          ...atr,
+          ...(attribute && { id: attribute.value, name: attribute.label }),
+          ...(operator && { operator: operator.value as OperatorValue }),
+          ...(value !== undefined && { value }),
+        };
+      }),
+    );
+  };
+  const handleClickAddAttribute = () => {
+    setAddedAttributes([
+      ...addedAttributes,
+      {
+        id: '',
+        name: '',
+        operator: 'EQUAL',
+        value: '',
+      },
+    ]);
+  };
+
   return {
     data: {
       errors,
@@ -122,6 +167,8 @@ export const useCreateUpdateVerification = () => {
       openPreview,
       name,
       description,
+      attributes,
+      addedAttributes,
     },
     operation: {
       register,
@@ -131,6 +178,8 @@ export const useCreateUpdateVerification = () => {
       handleSubmit,
       setOpenPreview,
       translate,
+      onChangeAttribute,
+      handleClickAddAttribute,
     },
   };
 };

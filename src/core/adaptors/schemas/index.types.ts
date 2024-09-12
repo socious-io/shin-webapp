@@ -6,6 +6,7 @@ export type AttributeOption = {
 };
 
 export type Attribute = {
+  id: string;
   name: string;
   option: AttributeOption;
   description?: string;

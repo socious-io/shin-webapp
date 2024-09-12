@@ -97,17 +97,19 @@ const SearchDropdown: React.FC<SelectProps> = ({
   };
   return (
     <div className={`${css.container} ${containerClassName}`}>
-      <div className={css.labelContainer}>
-        <label
-          htmlFor={id}
-          className={css.label}
-          onClick={handleLabelClick}
-          aria-describedby={id}
-          id={`searchDropdown-${id}`}
-        >
-          {label}
-        </label>
-      </div>
+      {label && (
+        <div className={css.labelContainer}>
+          <label
+            htmlFor={id}
+            className={css.label}
+            onClick={handleLabelClick}
+            aria-describedby={id}
+            id={`searchDropdown-${id}`}
+          >
+            {label}
+          </label>
+        </div>
+      )}
       {!isAsync ? (
         <Select
           id={id}

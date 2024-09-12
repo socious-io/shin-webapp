@@ -25,3 +25,12 @@ export interface VerificationReqAdaptor {
 export interface UpdateVerificationReq extends VerificationReqAdaptor {
   id: string;
 }
+
+export type OperatorValue = 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
+
+export interface VerificationAttribute {
+  id: string;
+  name: string;
+  operator: OperatorValue;
+  value: string | number;
+}
