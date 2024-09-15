@@ -1,4 +1,5 @@
 import credential from './credentials/credential.json';
+import credentialCreate from './credentials/credentialCreate.json';
 import fileUploader from './fileUploader.json';
 import forgetPassword from './forgetPassword.json';
 import pagination from './general/pagination.json';
@@ -34,5 +35,6 @@ export function generateTranslationFile() {
     verificationCreate,
     proofRequest,
     credential,
+    credentialCreate,
   );
 }
