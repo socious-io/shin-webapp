@@ -1,6 +1,6 @@
 import { checkVerification, VerificationRes } from 'src/core/api';
 
-import { AdaptorRes } from '..';
+import { AdaptorRes, ProofRequestStatus } from '..';
 
 const checkVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationRes>> => {
   try {
@@ -17,26 +17,25 @@ const checkVerificationAdaptor = async (id: string): Promise<AdaptorRes<Verifica
   }
 };
 
-export const verifyActionAdaptor = async (
-  id: string,
-  setVerificationStatus: (val: 'succeed' | 'failed' | 'error') => void,
-) => {
+export const verifyActionAdaptor = async (id: string): Promise<ProofRequestStatus> => {
+  let checkedStatus = '';
   const interval = setInterval(async () => {
-    const res = await checkVerificationAdaptor(id);
-    if (res.data) {
-      const status = res.data.status;
+    const { data } = await checkVerificationAdaptor(id);
+    if (data) {
+      const status = data.status;
       switch (status) {
         case 'REQUESTED':
           break;
         case 'VEIFIED':
-          setVerificationStatus('succeed');
+          checkedStatus = 'succeed';
           clearInterval(interval);
           break;
         case 'FAILED':
-          setVerificationStatus('error');
+          checkedStatus = 'error';
           clearInterval(interval);
           break;
       }
     }
   }, 5000);
+  return checkedStatus as ProofRequestStatus;
 };
