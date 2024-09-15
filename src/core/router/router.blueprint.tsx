@@ -12,6 +12,7 @@ import {
   getVerificationsAdaptor,
   connectVerificationAdaptor,
   getCredentialsAdaptor,
+  getRecipientsAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -24,16 +25,34 @@ export const blueprint: RouteObject[] = [
         children: [
           {
             path: 'credentials',
-            loader: async () => {
-              const { data } = await getCredentialsAdaptor();
-              return { credentialList: data };
-            },
-            async lazy() {
-              const { Credentials } = await import('src/pages/credentials');
-              return {
-                Component: Credentials,
-              };
-            },
+            children: [
+              {
+                path: 'create',
+                loader: async () => {
+                  const [schemas, recipients] = await Promise.all([getSchemasAdaptor(), getRecipientsAdaptor()]);
+                  return { schemaList: schemas.data, recipientList: recipients.data };
+                },
+                async lazy() {
+                  const { Create } = await import('src/pages/credentials/create');
+                  return {
+                    Component: Create,
+                  };
+                },
+              },
+              {
+                path: '',
+                loader: async () => {
+                  const { data } = await getCredentialsAdaptor();
+                  return { credentialList: data };
+                },
+                async lazy() {
+                  const { Credentials } = await import('src/pages/credentials');
+                  return {
+                    Component: Credentials,
+                  };
+                },
+              },
+            ],
           },
           {
             path: 'schemas',
