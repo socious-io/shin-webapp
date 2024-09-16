@@ -21,8 +21,7 @@ export const Verification = () => {
           <div className="text-center">
             <div className={css['header__title']}>{translate('ver-h1')}</div>
             <div className={css['header__subtitle1']}>{translate('ver-h2')}</div>
-            {/* TODO: Get email from server */}
-            <div className={css['header__subtitle2']}>test@socious.com</div>
+            <div className={css['header__subtitle2']}>{email}</div>
           </div>
         </div>
         <OTP
