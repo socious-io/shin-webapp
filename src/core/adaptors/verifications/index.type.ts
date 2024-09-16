@@ -33,4 +33,5 @@ export interface VerificationAttribute {
   name: string;
   operator: OperatorValue;
   value: string | number;
+  errors?: Record<'attribute' | 'operator' | 'value', string>;
 }

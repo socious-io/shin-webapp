@@ -8,7 +8,14 @@ import css from './index.module.scss';
 import { AttributeProps } from './index.types';
 import { useAttribute } from './useAttribute';
 
-const Attribute: React.FC<AttributeProps> = ({ index, options, selectedAttribute, onChangeAttribute }) => {
+const Attribute: React.FC<AttributeProps> = ({
+  index,
+  options,
+  selectedAttribute,
+  onChangeAttribute,
+  onDeleteAttribute,
+  errors,
+}) => {
   const {
     selected,
     onSelectAttribute,
@@ -27,6 +34,7 @@ const Attribute: React.FC<AttributeProps> = ({ index, options, selectedAttribute
           isSearchable
           onChange={onSelectAttribute}
           containerClassName="flex-1 w-full"
+          errors={errors['attribute'] ? [errors['attribute']] : undefined}
         />
         <SearchDropdown
           value={selectedOperator}
@@ -34,15 +42,17 @@ const Attribute: React.FC<AttributeProps> = ({ index, options, selectedAttribute
           isSearchable
           onChange={onSelectOperator}
           containerClassName="flex-1 w-full"
+          errors={errors['operator'] ? [errors['operator']] : undefined}
         />
         <Input
           value={attributeValue}
           onChange={e => handleChangeValue(e.target.value)}
           containerClassName="flex-1 w-full"
+          errors={errors['value'] ? [errors['value']] : undefined}
         />
       </div>
-      <button className={css['container__delete']}>
-        <Icon name="trash-03" fontSize={20} color={variables.color_grey_700} />
+      <button className={css['container__delete']} onClick={() => onDeleteAttribute(index)}>
+        <Icon name="trash-03" fontSize={20} color={variables.color_grey_700} className="!cursor-pointer" />
       </button>
     </div>
   );

@@ -25,7 +25,7 @@ export const useAttribute = (
 
   const onSelectOperator = option => {
     setSelectedOperator(option);
-    onChangeAttribute(index, (operator = option));
+    onChangeAttribute(index, undefined, option);
   };
 
   const handleChangeValue = (val: string) => {

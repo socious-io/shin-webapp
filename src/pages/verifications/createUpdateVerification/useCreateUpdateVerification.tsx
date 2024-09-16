@@ -108,6 +108,7 @@ export const useCreateUpdateVerification = () => {
   };
 
   const onSubmit = async () => {
+    if (addedAttributes.filter(item => item.errors && Object.keys(item.errors).map(e => e)).length) return;
     const { name, description, schema } = getValues();
     let res: AdaptorRes<SuccessRes> | null = null;
     if (verification?.id) {
@@ -137,15 +138,31 @@ export const useCreateUpdateVerification = () => {
     setAddedAttributes(prevAttributes =>
       prevAttributes.map((atr, i) => {
         if (i !== index) return atr;
+
+        const errors = {
+          attribute: atr.errors?.attribute || '',
+          operator: atr.errors?.operator || '',
+          value: atr.errors?.value || '',
+        };
+
+        if (!atr.id) errors['attribute'] = 'Required';
+        if (attribute && prevAttributes.some(item => item.id === attribute.value))
+          errors['attribute'] = 'This attribute is duplicate';
+        if (!atr.operator) errors['operator'] = 'Required';
+        if (!atr.value) errors['value'] = 'Required';
+
         return {
           ...atr,
           ...(attribute && { id: attribute.value, name: attribute.label }),
           ...(operator && { operator: operator.value as OperatorValue }),
           ...(value !== undefined && { value }),
+          errors,
         };
       }),
     );
   };
+  const onDeleteAttribute = (index: number) => setAddedAttributes(prev => prev.filter((_, i) => i !== index));
+
   const handleClickAddAttribute = () => {
     setAddedAttributes([
       ...addedAttributes,
@@ -180,6 +197,7 @@ export const useCreateUpdateVerification = () => {
       translate,
       onChangeAttribute,
       handleClickAddAttribute,
+      onDeleteAttribute,
     },
   };
 };

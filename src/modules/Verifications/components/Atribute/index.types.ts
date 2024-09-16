@@ -5,4 +5,6 @@ export interface AttributeProps {
   options: OptionType[];
   selectedAttribute?: OptionType;
   onChangeAttribute: (index: number, attribute?: OptionType, operator?: OptionType, value?: string | number) => void;
+  onDeleteAttribute: (index: number) => void;
+  errors: Record<'attribute' | 'operator' | 'value', string>;
 }

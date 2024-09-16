@@ -10,7 +10,7 @@
         flex-grow: 1;
         display: flex;
         gap: 1rem;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
 
         @media (max-width: $md) {

@@ -21,6 +21,7 @@ export const CreateUpdateVerification = () => {
       setOpenPreview,
       translate,
       onChangeAttribute,
+      onDeleteAttribute,
       handleClickAddAttribute,
     },
   } = useCreateUpdateVerification();
@@ -106,7 +107,14 @@ export const CreateUpdateVerification = () => {
               />
               <div className={css['section__subtitle']}>Attributes</div>
               {addedAttributes.map((item, index) => (
-                <Attribute key={index} index={index} options={attributes} onChangeAttribute={onChangeAttribute} />
+                <Attribute
+                  key={index}
+                  index={index}
+                  options={attributes}
+                  onChangeAttribute={onChangeAttribute}
+                  onDeleteAttribute={onDeleteAttribute}
+                  errors={item.errors || { attribute: '', operator: '', value: '' }}
+                />
               ))}
               <button className={css['section__attribute']} disabled={!schema} onClick={handleClickAddAttribute}>
                 <Icon name="plus" fontSize={20} color={variables.color_grey_600} />
