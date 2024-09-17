@@ -4,11 +4,10 @@ import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
-import Input from 'src/modules/General/components/Input';
-import Modal from 'src/modules/General/components/Modal';
 import Pagination from 'src/modules/General/components/Pagination';
 import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
+import CopyLinkModal from 'src/modules/General/containers/CopyLinkModal';
 
 import css from './index.module.scss';
 import { VerificationListProps } from './index.type';
@@ -150,31 +149,16 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems, s
           },
         ]}
       />
-
-      <Modal
-        open={openModal?.name === 'copy' && openModal.open}
-        handleClose={() => setOpenModal({ name: 'copy', open: false })}
-        icon={<FeaturedIcon type="modern" theme="gray" iconName="link-01" size="lg" />}
-        title={translate('ver-copy-modal-title')}
-        subTitle={translate('ver-copy-modal-subtitle')}
-        mobileFullHeight={false}
-        mobileCentered
-        headerDivider={false}
-        inlineTitle={false}
-      >
-        <div className={css['copy__container']}>
-          <Input
-            id="copy-url"
-            value={url}
-            postfix={
-              <button id="copy-button" className={css['copy__btn']} onClick={handleCopy}>
-                <Icon name="copy-01" fontSize={20} className="text-Gray-light-mode-700" />
-                <span>{translate('ver-copy-modal-btn')}</span>
-              </button>
-            }
-          />
-        </div>
-      </Modal>
+      {url && (
+        <CopyLinkModal
+          open={openModal?.name === 'copy' && openModal.open}
+          handleClose={() => setOpenModal({ name: 'copy', open: false })}
+          title={translate('ver-copy-modal-title')}
+          subtitle={translate('ver-copy-modal-subtitle')}
+          link={url}
+          onCopy={handleCopy}
+        />
+      )}
     </>
   );
 };
