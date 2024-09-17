@@ -34,7 +34,7 @@ const Attribute: React.FC<AttributeProps> = ({
           isSearchable
           onChange={onSelectAttribute}
           containerClassName="flex-1 w-full"
-          errors={errors['attribute'] ? [errors['attribute']] : undefined}
+          errors={errors && errors['id']?.message ? [errors['id'].message] : undefined}
         />
         <SearchDropdown
           value={selectedOperator}
@@ -42,13 +42,13 @@ const Attribute: React.FC<AttributeProps> = ({
           isSearchable
           onChange={onSelectOperator}
           containerClassName="flex-1 w-full"
-          errors={errors['operator'] ? [errors['operator']] : undefined}
+          errors={errors && errors['operator']?.message ? [errors['operator'].message] : undefined}
         />
         <Input
           value={attributeValue}
           onChange={e => handleChangeValue(e.target.value)}
           containerClassName="flex-1 w-full"
-          errors={errors['value'] ? [errors['value']] : undefined}
+          errors={errors && errors['value']?.message ? [errors['value'].message] : undefined}
         />
       </div>
       <button className={css['container__delete']} onClick={() => onDeleteAttribute(index)}>

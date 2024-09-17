@@ -4,7 +4,11 @@ export interface AttributeProps {
   index: number;
   options: OptionType[];
   selectedAttribute?: OptionType;
-  onChangeAttribute: (index: number, attribute?: OptionType, operator?: OptionType, value?: string | number) => void;
+  onChangeAttribute: (index: number, attribute?: OptionType, operator?: OptionType, value?: string) => void;
   onDeleteAttribute: (index: number) => void;
-  errors: Record<'attribute' | 'operator' | 'value', string>;
+  errors?: {
+    id?: { message?: string };
+    name?: { message?: string };
+    value?: { message?: string };
+  };
 }

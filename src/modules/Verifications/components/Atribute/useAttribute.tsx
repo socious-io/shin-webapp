@@ -4,7 +4,7 @@ import { OptionType } from 'src/core/adaptors';
 export const useAttribute = (
   index: number,
   options: OptionType[],
-  onChangeAttribute: (index: number, attribute?: OptionType, operator?: OptionType, value?: string | number) => void,
+  onChangeAttribute: (index: number, attribute?: OptionType, operator?: OptionType, value?: string) => void,
   attribute?: OptionType,
   operator?: OptionType,
 ) => {

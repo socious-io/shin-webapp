@@ -2,10 +2,19 @@ import { SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
 
+export type VerificationOperatorType = 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
+
+export interface Attribute {
+  attribute_id: string;
+  operator: VerificationOperatorType;
+  value: string;
+}
+
 export interface VerificationReq {
   name: string;
   description: string;
   schema_id: string;
+  attributes: Attribute[];
 }
 
 export interface VerificationRes extends VerificationReq {

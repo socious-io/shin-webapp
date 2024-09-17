@@ -11,7 +11,17 @@ import { useCreateUpdateVerification } from './useCreateUpdateVerification';
 
 export const CreateUpdateVerification = () => {
   const {
-    data: { errors, schemaList, schema, verification, openPreview, name, description, attributes, addedAttributes },
+    data: {
+      errors,
+      schemaList,
+      schema,
+      verification,
+      openPreview,
+      name,
+      description,
+      attributes,
+      verificationAttributes,
+    },
     operation: {
       register,
       onSelectSchema,
@@ -33,7 +43,6 @@ export const CreateUpdateVerification = () => {
       </div>
     );
   };
-
   const actionButtons = (
     <div className={css['header__action']}>
       <Button variant="outlined" color="primary" onClick={onCancel}>
@@ -106,14 +115,14 @@ export const CreateUpdateVerification = () => {
                 containerClassName="w-full md:w-[20rem]"
               />
               <div className={css['section__subtitle']}>Attributes</div>
-              {addedAttributes.map((item, index) => (
+              {verificationAttributes?.map((item, index) => (
                 <Attribute
                   key={index}
                   index={index}
                   options={attributes}
                   onChangeAttribute={onChangeAttribute}
                   onDeleteAttribute={onDeleteAttribute}
-                  errors={item.errors || { attribute: '', operator: '', value: '' }}
+                  errors={errors['attributes']?.[index]}
                 />
               ))}
               <button className={css['section__attribute']} disabled={!schema} onClick={handleClickAddAttribute}>
