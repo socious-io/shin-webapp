@@ -1,4 +1,3 @@
-import React from 'react';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import { Link } from 'src/modules/General/components/Link';
 import Modal from 'src/modules/General/components/Modal';
@@ -7,21 +6,25 @@ import { ProofRequestModal } from 'src/modules/Verifications/components/ProofReq
 import { useProofRequest } from './useProofRequest';
 
 export const ProofRequest = () => {
-  const { verificationStatus, setVerificationStatus, verification, translate } = useProofRequest();
+  const {
+    data: { translate, data, dataStatus },
+    operations: { setDataStatus },
+  } = useProofRequest();
+
   return (
     <>
       <ProofRequestModal
-        open={!verificationStatus}
+        open={!dataStatus}
         handleClose={() => {
           return;
         }}
-        title={verification?.name || ''}
-        subtitle={verification?.description || ''}
-        shortLink={verification?.connection_url}
+        title={data?.name || ''}
+        subtitle={data?.description || ''}
+        shortLink={data?.connection_url}
       />
       <Modal
-        open={verificationStatus === 'succeed'}
-        handleClose={() => setVerificationStatus(undefined)}
+        open={dataStatus === 'succeed'}
+        handleClose={() => setDataStatus('')}
         icon={<FeaturedIcon iconName="check-circle" theme="success" size="xl" type="light-circle" />}
         title={translate('proof-succeed')}
         subTitle={translate('proof-succeed-desc')}
@@ -33,8 +36,8 @@ export const ProofRequest = () => {
         </div>
       </Modal>
       <Modal
-        open={verificationStatus === 'error'}
-        handleClose={() => setVerificationStatus(undefined)}
+        open={dataStatus === 'error'}
+        handleClose={() => setDataStatus('')}
         icon={<FeaturedIcon iconName="alert-circle" theme="warning" size="xl" type="light-circle" />}
         title={translate('proof-error')}
         subTitle={translate('proof-error-desc')}
@@ -45,10 +48,9 @@ export const ProofRequest = () => {
           <Link label={translate('proof-try-again')} href="/" />
         </div>
       </Modal>
-
       <Modal
-        open={verificationStatus === 'failed'}
-        handleClose={() => setVerificationStatus(undefined)}
+        open={dataStatus === 'failed'}
+        handleClose={() => setDataStatus('')}
         icon={<FeaturedIcon iconName="alert-circle" theme="error" size="xl" type="light-circle" />}
         title={translate('proof-failed')}
         subTitle="proof-failed-desc"
