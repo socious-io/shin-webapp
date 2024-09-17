@@ -12,7 +12,18 @@ import css from './index.module.scss';
 
 export const Verification = () => {
   const { t: translate } = useTranslation();
-  const { onSubmit, otpValue, setOtpValue, email, resendCode, isValid, loading, navigateToSignIn } = useVerification();
+  const {
+    onSubmit,
+    otpValue,
+    setOtpValue,
+    email,
+    resendCode,
+    isValid,
+    loading,
+    navigateToSignIn,
+    codeExpired,
+    errorMessage,
+  } = useVerification();
   return (
     <div className={`${css['layout']} py-12 px-4 md:pt-24 md:pb-12 md:px-8`}>
       <div className={`${css['container']} w-full md:w-[360px]`}>
@@ -24,12 +35,7 @@ export const Verification = () => {
             <div className={css['header__subtitle2']}>{email}</div>
           </div>
         </div>
-        <OTP
-          errorMessage={'Incorrect verification code entered'}
-          isValid={isValid}
-          value={otpValue}
-          setValue={setOtpValue}
-        />
+        <OTP errorMessage={errorMessage} isValid={isValid} value={otpValue} setValue={setOtpValue} />
         <Button disabled={!(otpValue.length === 6)} color="primary" block onClick={onSubmit}>
           {loading ? (
             <CircularProgress size="32px" sx={{ color: variables.color_white }} />
@@ -40,7 +46,7 @@ export const Verification = () => {
         <div className={css['resend']}>
           <div className={css['resend__text']}>{translate('ver-not-receive')}</div>
 
-          <Button color="primary" variant="text" onClick={resendCode}>
+          <Button color="primary" variant="text" onClick={resendCode} disabled={!codeExpired}>
             {translate('ver-resend')}
           </Button>
         </div>
