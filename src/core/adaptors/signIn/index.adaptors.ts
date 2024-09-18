@@ -1,7 +1,7 @@
 import { GoogleAuthRes, login } from 'src/core/api';
 
-import { AdaptorRes } from '..';
 import { authAdaptorRes } from './index.types';
+import { AdaptorRes } from '..';
 
 export const signIn = async (email: string, password: string): Promise<AdaptorRes<authAdaptorRes>> => {
   try {
@@ -10,10 +10,10 @@ export const signIn = async (email: string, password: string): Promise<AdaptorRe
       data: res as authAdaptorRes,
       error: null,
     };
-  } catch {
+  } catch (e: any) {
     return {
       data: null,
-      error: 'Error in SignIn API call',
+      error: e.response?.data?.error || 'Error in SignIn API call',
     };
   }
 };

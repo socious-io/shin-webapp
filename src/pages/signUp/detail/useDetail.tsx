@@ -1,9 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { details, DetailsReq } from 'src/core/adaptors';
-import { setUserProfile } from 'src/store/reducers/user.reducer';
+import { passwordPattern } from 'src/core/helpers/regexs';
 import * as yup from 'yup';
 
 const schema = yup
@@ -12,12 +11,15 @@ const schema = yup
     name: yup.string().trim().required('Required'),
     lastName: yup.string().trim().required('Required'),
     jobTitle: yup.string(),
-    password: yup.string().required('Required'),
+    password: yup
+      .string()
+      .required('Required')
+      .min(8, 'Minimum 8 characters')
+      .matches(passwordPattern, 'Password complexity is week'),
   })
   .required();
 
 export const useDetail = () => {
-  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const email = searchParams.get('email') || '';
   const navigate = useNavigate();
@@ -42,7 +44,6 @@ export const useDetail = () => {
       jobTitle,
     };
     const res = await details(param);
-    // dispatch(setUserProfile(res.data));
     if (res.error) {
       setError('password', {
         type: 'manual',
