@@ -112,7 +112,6 @@ export const useCreateUpdateVerification = () => {
   }, [verification]);
 
   const onSelectSchema = schema => {
-    if (schema.value === getValues().schema.value) return;
     setValue('schema', schema, { shouldValidate: true });
     const selectedSchema = schemaRes.find(item => item.id === schema.value);
     selectedSchema?.attributes &&

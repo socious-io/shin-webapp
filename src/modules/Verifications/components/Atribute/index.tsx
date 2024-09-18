@@ -24,7 +24,7 @@ const Attribute: React.FC<AttributeProps> = ({
     onSelectOperator,
     attributeValue,
     handleChangeValue,
-  } = useAttribute(index, options, onChangeAttribute, selectedAttribute);
+  } = useAttribute(index, onChangeAttribute, selectedAttribute);
   return (
     <div className={css['container']}>
       <div className={css['container__inputs']}>

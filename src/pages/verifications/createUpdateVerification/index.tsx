@@ -123,6 +123,7 @@ export const CreateUpdateVerification = () => {
                   onChangeAttribute={onChangeAttribute}
                   onDeleteAttribute={onDeleteAttribute}
                   errors={errors['attributes']?.[index]}
+                  selectedAttribute={item}
                 />
               ))}
               <button className={css['section__attribute']} disabled={!schema} onClick={handleClickAddAttribute}>

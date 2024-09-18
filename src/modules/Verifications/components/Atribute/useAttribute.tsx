@@ -1,23 +1,25 @@
 import { useState } from 'react';
-import { OptionType } from 'src/core/adaptors';
+import { OptionType, VerificationAttribute } from 'src/core/adaptors';
 
 export const useAttribute = (
   index: number,
-  options: OptionType[],
   onChangeAttribute: (index: number, attribute?: OptionType, operator?: OptionType, value?: string) => void,
-  attribute?: OptionType,
-  operator?: OptionType,
+  attribute?: VerificationAttribute,
 ) => {
-  const [selected, setSelected] = useState(attribute);
-  const [selectedOperator, setSelectedOperator] = useState(operator);
-  const [attributeValue, setAttributeValue] = useState('');
-
   const operators: OptionType[] = [
     { value: 'EQUAL', label: 'Is equal to' },
     { value: 'NOT', label: 'Is not' },
     { value: 'BIGGER', label: 'Is greater than' },
     { value: 'SMALLER', label: 'Is less than' },
   ];
+
+  const [selected, setSelected] = useState<OptionType>({ label: attribute?.name || '', value: attribute?.id || '' });
+  const [selectedOperator, setSelectedOperator] = useState<OptionType>({
+    value: attribute?.operator || '',
+    label: attribute ? operators.find(item => item.value === attribute.operator)?.label || '' : '',
+  });
+  const [attributeValue, setAttributeValue] = useState(attribute?.value || '');
+
   const onSelectAttribute = attribute => {
     setSelected(attribute);
     onChangeAttribute(index, attribute);
