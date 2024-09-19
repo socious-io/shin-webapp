@@ -1,0 +1,62 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    width: 100%;
+    display: flex;
+    border-radius: $radius-xl;
+    padding: 1.5rem;
+    gap: 1rem;
+    background-color: $color-white;
+    border: 1px solid $color-grey-300;
+    align-items: flex-start;
+
+    @media (max-width: $md) {
+        flex-direction: column;
+        padding: 1.25rem;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        color: $color-grey-700;
+        margin-bottom: 0.25rem;
+    }
+
+    &__subtitle {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        color: $color-grey-600;
+        margin-bottom: 0.75rem;
+    }
+
+    .btn {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &--error {
+            color: $color-error-700;
+        }
+
+        &--warning {
+            color: $color-warning-700;
+        }
+
+        &--success {
+            color: $color-primary-700;
+        }
+
+        &--gray {
+            color: $color-grey-600;
+        }
+    }
+}

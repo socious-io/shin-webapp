@@ -5,11 +5,15 @@ import { AdaptorRes, OrgProfileReq, OrgProfileRes, SuccessRes } from '..';
 export const getOrgProfileAdaptor = async (orgId: string): Promise<AdaptorRes<OrgProfileRes>> => {
   try {
     const org = await getOrg(orgId);
-    const res = {
+    const res: OrgProfileRes = {
+      id: orgId,
+      // TODO: read from API result when attribute is added
+      verificationStatus: 'undone',
       logo: { url: org.logo?.url || '', id: org.logo_id || '' },
       did: org?.did || '',
       name: org.name,
       description: org?.description || '',
+      isVerified: org?.is_verified,
     };
     return { data: res, error: null };
   } catch (error) {

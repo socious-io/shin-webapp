@@ -22,7 +22,6 @@ import {
 export const getCredentialsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<CredentialsRes>> => {
   try {
     const { results, total = 0 } = await getCredentials({ page, limit });
-
     const items = results?.length
       ? results.map(credential => ({
           id: credential.id,
@@ -162,5 +161,20 @@ export const connectCredentialAdaptor = async (credentialId: string): Promise<Ad
     };
   } catch {
     return { data: null, error: 'Error in connecting credential' };
+  }
+};
+
+export const verifyOrganizationAdaptor = async (): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    // TODO: call verify org API
+    return {
+      data: { message: 'succeed' },
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in verify organization API call',
+    };
   }
 };

@@ -42,10 +42,13 @@ export const blueprint: RouteObject[] = [
                 },
               },
               {
-                path: '',
-                loader: async () => {
-                  const { data } = await getCredentialsAdaptor();
-                  return { credentialList: data };
+                path: ':orgId',
+                loader: async ({ params }) => {
+                  const [credentialRes, orgProfileRes] = await Promise.all([
+                    getCredentialsAdaptor(),
+                    getOrgProfileAdaptor(params.orgId || ''),
+                  ]);
+                  return { credentialList: credentialRes.data, orgProfile: orgProfileRes.data };
                 },
                 async lazy() {
                   const { Credentials } = await import('src/pages/credentials');

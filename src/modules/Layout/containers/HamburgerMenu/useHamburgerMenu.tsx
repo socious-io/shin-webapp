@@ -22,7 +22,7 @@ export const useHamburgerMenu = () => {
       id: 'credentials',
       iconName: 'shield-tick',
       title: 'Credentials',
-      path: '/credentials',
+      path: `/credentials/${orgProfileId}`,
     },
     {
       id: 'schemas',
