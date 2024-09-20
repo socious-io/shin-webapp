@@ -67,10 +67,7 @@ export const useCreateSchema = ref => {
 
   const onSubmit = async (formData: SchemaReq) => {
     const { error } = await createSchemaAdaptor(formData);
-    if (error) {
-      console.log(error);
-      return;
-    }
+    if (error) return;
     setOpenPublishModal(false);
     backToSchemasPage();
   };
