@@ -1,17 +1,19 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Modal from 'src/modules/General/components/Modal';
 
 import { SuccessModalProps } from './index.type';
 
 const SuccessModal: React.FC<SuccessModalProps> = ({ open, handleClose }) => {
+  const { t: translate } = useTranslation();
   return (
     <Modal
       open={open}
       handleClose={handleClose}
       icon={<FeaturedIcon type="light-circle" theme="success" size="lg" iconName="check-circle" />}
-      title="Your documents have been sent"
-      subTitle="Our verification team will take 1-3 days to process your verification request. An email and notification will be sent to you upon successful verification and you will then be able to issue credentials."
+      title={translate('kyb-success-modal-title')}
+      subTitle={translate('kyb-success-modal-subtitle')}
       mobileFullHeight={false}
       mobileCentered={false}
       headerDivider={false}

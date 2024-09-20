@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { useTranslation } from 'react-i18next';
 import jpg from 'src/assets/icons/file-jpg.svg';
 import pdf from 'src/assets/icons/file-pdf.svg';
 import png from 'src/assets/icons/file-png.svg';
@@ -14,6 +15,7 @@ export const useFileUploader = (
   setShowFiles?: (files: File[]) => void,
   showFiles?: File[],
 ) => {
+  const { t: translate } = useTranslation();
   const [error, setError] = useState('');
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -116,5 +118,6 @@ export const useFileUploader = (
     uploading,
     progress,
     files,
+    translate,
   };
 };

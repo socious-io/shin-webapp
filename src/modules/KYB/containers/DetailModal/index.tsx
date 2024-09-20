@@ -11,15 +11,15 @@ import { useDetailModal } from './useDetailModal';
 const DetailModal: React.FC<DetailModalProps> = ({ open, handleClose, handleSuccess }) => {
   const {
     data: { loading, files },
-    operations: { handleContinue, setFiles },
+    operations: { handleContinue, setFiles, translate },
   } = useDetailModal(handleSuccess);
   const footerJSX = (
     <div className={css['footer']}>
       <Button variant="contained" color="primary" fullWidth onClick={handleContinue} disabled={!files.length}>
-        Continue
+        {translate('kyb-continue')}
       </Button>
       <Button variant="outlined" color="primary" fullWidth onClick={handleClose}>
-        Cancel
+        {translate('kyb-cancel')}
       </Button>
     </div>
   );
@@ -28,8 +28,8 @@ const DetailModal: React.FC<DetailModalProps> = ({ open, handleClose, handleSucc
       open={open}
       handleClose={handleClose}
       icon={<FeaturedIcon type="light-circle" theme="primary" size="lg" iconName="upload-cloud-02" />}
-      title="Send your organization details"
-      subTitle="Please upload your company registration document, like a certificate or equivalent."
+      title={translate('kyb-detail-modal-title')}
+      subTitle={translate('kyb-detail-modal-subtitle')}
       footer={footerJSX}
       mobileFullHeight={false}
       mobileCentered

@@ -1,26 +1,27 @@
+import { useTranslation } from 'react-i18next';
+
 export const useVerifyModal = () => {
+  const { t: translate } = useTranslation();
   const steps = [
     {
-      title: 'Send your organization details',
-      subtitle:
-        'Send a company registration document such as a company certificate/equivalent along with your organization name',
+      title: translate('kyb-verify-step-1-title'),
+      subtitle: translate('kyb-verify-step-1-subtitle'),
       iconName: 'mail-01',
       displayDivider: true,
     },
     {
-      title: 'Wait for processing',
-      subtitle: 'Our verification team will take 1-3 days to process your verification request.',
+      title: translate('kyb-verify-step-2-title'),
+      subtitle: translate('kyb-verify-step-2-subtitle'),
       iconName: 'hourglass-03',
       displayDivider: true,
     },
     {
-      title: 'Verification complete',
-      subtitle:
-        'An email and notification will be sent to you upon successful verification and you will then be able to issue credentials.',
+      title: translate('kyb-verify-step-3-title'),
+      subtitle: translate('kyb-verify-step-3-subtitle'),
       iconName: 'stars-02',
       displayDivider: false,
     },
   ];
 
-  return { data: { steps } };
+  return { data: { steps }, operations: { translate } };
 };

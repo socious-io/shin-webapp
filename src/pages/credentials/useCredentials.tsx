@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { getOrgProfileAdaptor, OrgProfileRes } from 'src/core/adaptors';
+import { getOrgProfileAdaptor, OrgProfileRes, VerificationStatus } from 'src/core/adaptors';
 import IssuedList from 'src/modules/Credential/containers/IssuedList';
 import Banner from 'src/modules/KYB/containers/Banner';
 
 export const useCredentials = () => {
   const { orgProfile } = useLoaderData() as { orgProfile: OrgProfileRes };
   const [isVerified, setIsVerified] = useState(orgProfile.isVerified);
-  const [verificationStatus, setVerificationStatus] = useState<'success' | 'pending' | 'failed' | 'undone'>(
-    orgProfile.verificationStatus,
-  );
+  const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>(orgProfile.verificationStatus);
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const [dismissed, setDismissed] = useState(Boolean(localStorage.getItem('dismissed-alert')));
@@ -24,9 +22,9 @@ export const useCredentials = () => {
         return (
           <Banner
             iconName="alert-circle"
-            title="Verify your organization"
-            subtitle="Get your organization verified to issue credentials."
-            primaryBtnLabel="Verify now"
+            title={translate('kyb-verify')}
+            subtitle={translate('kyb-verify-subtitle')}
+            primaryBtnLabel={translate('kyb-verify-btn')}
             primaryBtnAction={() => {
               setOpenModal({ name: 'verify', open: true });
             }}
@@ -37,9 +35,9 @@ export const useCredentials = () => {
         return (
           <Banner
             iconName="alert-circle"
-            title="Verification issue"
-            subtitle="There was an issue with your application."
-            primaryBtnLabel="More details"
+            title={translate('kyb-failed')}
+            subtitle={translate('kyb-failed-subtitle')}
+            primaryBtnLabel={translate('kyb-failed-label')}
             primaryBtnAction={() => {
               return;
             }}
@@ -50,9 +48,9 @@ export const useCredentials = () => {
         return (
           <Banner
             iconName="alert-circle"
-            title="Verification pending"
-            subtitle="We reviewing your submitted documents, we will notify you once it is complete."
-            primaryBtnLabel="Check your verification status"
+            title={translate('kyb-pending')}
+            subtitle={translate('kyb-pending-subtitle')}
+            primaryBtnLabel={translate('kyb-pending-btn')}
             primaryBtnAction={() => {
               return;
             }}
@@ -64,12 +62,12 @@ export const useCredentials = () => {
           return (
             <Banner
               iconName="check-circle"
-              title="Your organization has been successfully verified"
-              subtitle="You can now issue credentials."
-              primaryBtnLabel="Issue credential"
+              title={translate('kyb-success')}
+              subtitle={translate('kyb-success-subtitle')}
+              primaryBtnLabel={translate('kyb-success-btn')}
               primaryBtnAction={onCreateCredential}
               theme="success"
-              secondaryBtnLabel="Dismiss"
+              secondaryBtnLabel={translate('kyb-success-dismiss')}
               secondaryBtnAction={() => {
                 localStorage.setItem('dismissed-alert', 'true');
                 setDismissed(false);
@@ -97,7 +95,6 @@ export const useCredentials = () => {
     const res = await getOrgProfileAdaptor(orgProfile.id);
     if (res.data) {
       setIsVerified(res.data.isVerified || false);
-      // TODO: get from API
       setVerificationStatus(res.data.verificationStatus);
     }
     setOpenModal({ name: 'verify', open: false });

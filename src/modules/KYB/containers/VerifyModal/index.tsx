@@ -11,14 +11,15 @@ import { useVerifyModal } from './useVerifyModal';
 const VerifyModal: React.FC<VerifyModalProps> = ({ open, handleClose, handleContinue }) => {
   const {
     data: { steps },
+    operations: { translate },
   } = useVerifyModal();
   const footer = (
     <div className={css['footer']}>
       <Button variant="contained" color="primary" fullWidth onClick={handleContinue}>
-        Continue
+        {translate('kyb-continue')}
       </Button>
       <Button variant="outlined" color="primary" fullWidth onClick={handleClose}>
-        Cancel
+        {translate('kyb-cancel')}
       </Button>
     </div>
   );
@@ -27,8 +28,8 @@ const VerifyModal: React.FC<VerifyModalProps> = ({ open, handleClose, handleCont
       open={open}
       handleClose={handleClose}
       icon={<FeaturedIcon type="light-circle" theme="success" size="lg" iconName="check-verified-03" />}
-      title="Verify your organization"
-      subTitle="Get your organization verified to issue credentials."
+      title={translate('kyb-verify-modal-title')}
+      subTitle={translate('kyb-verify-modal-subtitle')}
       mobileFullHeight={false}
       mobileCentered
       headerDivider
