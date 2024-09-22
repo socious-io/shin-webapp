@@ -45,7 +45,7 @@ export const useProfile = () => {
       dispatch(setOrgProfile(res.data));
     }
     if (!res.error) {
-      navigate('/verifications');
+      navigate('/');
     }
   };
 

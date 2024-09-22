@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -45,6 +45,10 @@ export const useHamburgerMenu = () => {
       path: `/organization/${orgProfileId}`,
     },
   ];
+
+  useEffect(() => {
+    setSelectedItem(pathname.replace('/', ''));
+  }, [pathname]);
 
   const handleNavigate = (selected: string, path: string) => {
     setSelectedItem(selected);
