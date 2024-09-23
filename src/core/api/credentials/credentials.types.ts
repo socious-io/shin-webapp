@@ -1,3 +1,4 @@
+import { Organization } from '../organizations/organizations.types';
 import { RecipientRes } from '../recipients/recipients.types';
 import { SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
@@ -21,6 +22,7 @@ export interface CredentialRes extends CredentialReq {
   schema: SchemaRes;
   created: User;
   recipient: RecipientRes;
+  organization: Organization;
   connection_url?: string;
   connection_id?: string;
   status: 'ISSUED' | 'CLAIMED' | 'FAILED';

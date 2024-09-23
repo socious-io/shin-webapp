@@ -12,6 +12,9 @@ import {
   getVerificationsAdaptor,
   connectVerificationAdaptor,
   getCredentialsAdaptor,
+  getRecipientsAdaptor,
+  connectCredentialAdaptor,
+  verifyActionAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -24,16 +27,34 @@ export const blueprint: RouteObject[] = [
         children: [
           {
             path: 'credentials',
-            loader: async () => {
-              const { data } = await getCredentialsAdaptor();
-              return { credentialList: data };
-            },
-            async lazy() {
-              const { Credentials } = await import('src/pages/credentials');
-              return {
-                Component: Credentials,
-              };
-            },
+            children: [
+              {
+                path: 'create',
+                loader: async () => {
+                  const [schemas, recipients] = await Promise.all([getSchemasAdaptor(), getRecipientsAdaptor()]);
+                  return { schemaList: schemas.data, recipientList: recipients.data };
+                },
+                async lazy() {
+                  const { Create } = await import('src/pages/credentials/create');
+                  return {
+                    Component: Create,
+                  };
+                },
+              },
+              {
+                path: '',
+                loader: async () => {
+                  const { data } = await getCredentialsAdaptor();
+                  return { credentialList: data };
+                },
+                async lazy() {
+                  const { Credentials } = await import('src/pages/credentials');
+                  return {
+                    Component: Credentials,
+                  };
+                },
+              },
+            ],
           },
           {
             path: 'schemas',
@@ -274,19 +295,43 @@ export const blueprint: RouteObject[] = [
     errorElement: <ErrorBoundary />,
   },
   {
-    path: 'proof-request/:id',
-    loader: async ({ params }) => {
-      if (params.id) {
-        const data = await connectVerificationAdaptor(params.id);
-        return data;
-      }
-    },
-    async lazy() {
-      const { ProofRequest } = await import('src/pages/proofRequest/index');
-      return {
-        Component: ProofRequest,
-      };
-    },
+    path: 'proof-request',
+    children: [
+      {
+        path: 'credential/:id',
+        loader: async ({ params }) => {
+          if (params.id) {
+            const { data } = await connectCredentialAdaptor(params.id);
+            return { data };
+          }
+        },
+        async lazy() {
+          const { ProofRequest } = await import('src/pages/proofRequest/index');
+          return {
+            Component: ProofRequest,
+          };
+        },
+      },
+      {
+        path: 'verification/:id',
+        loader: async ({ params }) => {
+          if (params.id) {
+            let status = '';
+            const { data } = await connectVerificationAdaptor(params.id);
+            if (data?.id) {
+              status = await verifyActionAdaptor(data.id);
+            }
+            return { data, status };
+          }
+        },
+        async lazy() {
+          const { ProofRequest } = await import('src/pages/proofRequest/index');
+          return {
+            Component: ProofRequest,
+          };
+        },
+      },
+    ],
   },
   {
     path: '*',
@@ -295,7 +340,7 @@ export const blueprint: RouteObject[] = [
 ];
 
 function DefaultRoute() {
-  return <Navigate to="/verifications" />;
+  return <Navigate to="/credentials" />;
 }
 
 function ErrorBoundary() {

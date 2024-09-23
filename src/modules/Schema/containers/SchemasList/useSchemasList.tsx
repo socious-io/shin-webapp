@@ -33,11 +33,7 @@ export const useSchemasList = () => {
 
   const onChangePage = async (newPage: number) => {
     setPage(newPage);
-    const { data, error } = await getSchemasAdaptor(newPage);
-    if (error) {
-      console.log(error);
-      return;
-    }
+    const { data } = await getSchemasAdaptor(newPage);
     data && setCurrentSchemaList(data);
   };
 
@@ -56,17 +52,9 @@ export const useSchemasList = () => {
   const onDeleteSchema = async () => {
     if (openModal.rowId) {
       const { error } = await deleteSchemaAdaptor(openModal.rowId);
-      if (error) {
-        console.log(error);
-        return;
-      }
+      if (error) return;
       const filteredList = currentList.filter(p => p.id !== openModal.rowId);
-      if (filteredList.length === 0 && page > 1) {
-        setPage(page - 1);
-        onChangePage(page - 1);
-      } else {
-        onChangePage(page);
-      }
+      onChangePage(filteredList.length === 0 && page > 1 ? page - 1 : page);
       handleCloseModal();
     }
   };

@@ -10,7 +10,7 @@ import { useHamburgerMenu } from './useHamburgerMenu';
 
 const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ animatable = false, menuIsOpened = false, onCloseMenu }) => {
   const {
-    data: { menuItems, selectedItem, userProfile },
+    data: { translate, menuItems, selectedItem, userProfile },
     operations: { handleNavigate, onLogout },
   } = useHamburgerMenu();
 
@@ -35,7 +35,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ animatable = false, menuI
       <div className={css['container__bottom']}>
         <LinkItem
           iconName="settings-01"
-          title="Settings"
+          title={translate('layout-settings')}
           isSelected={selectedItem === 'settings'}
           onClick={() => {
             handleNavigate('settings', '/settings');
