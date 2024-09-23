@@ -1,0 +1,26 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+
+    &__inputs {
+        flex-grow: 1;
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        justify-content: center;
+
+        @media (max-width: $md) {
+            flex-direction: column;
+        }
+    }
+
+    &__delete {
+        padding: 0.75rem;
+        border: none;
+        cursor: pointer;
+    }
+}

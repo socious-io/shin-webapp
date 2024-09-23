@@ -9,8 +9,8 @@ import {
   connectVerification,
 } from 'src/core/api';
 
-import { AdaptorRes, SuccessRes } from '..';
 import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
+import { AdaptorRes, SuccessRes } from '..';
 
 export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
   try {
@@ -23,6 +23,7 @@ export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<Ada
         createdBy: `${item.user.first_name} ${item.user.last_name}`,
         creationDate: item.created_at,
         schema: item.schema,
+        attributes: [],
       };
     });
     const data: VerificationsRes = {
@@ -52,6 +53,13 @@ export const getVerificationByIdAdaptor = async (id: string): Promise<AdaptorRes
       creationDate: res.created_at,
       description: res.description,
       schema: res.schema,
+      attributes: res.attributes?.map(item => {
+        return {
+          id: item.attribute_id,
+          operator: item.operator,
+          value: item.value,
+        };
+      }),
     };
 
     return {
@@ -72,6 +80,10 @@ export const createVerificationAdaptor = async (param: VerificationReqAdaptor): 
       name: param.name,
       description: param.description || '',
       schema_id: param.schemaId,
+      attributes: param.attributes.map(atr => {
+        const { id, operator, value } = atr;
+        return { attribute_id: id, operator, value };
+      }),
     });
     return {
       data: { message: 'succeed' },
@@ -88,6 +100,10 @@ export const updateVerificationAdaptor = async (param: UpdateVerificationReq): P
       name: param.name,
       description: param.description || '',
       schema_id: param.schemaId,
+      attributes: param.attributes.map(atr => {
+        const { id, operator, value } = atr;
+        return { attribute_id: id, operator, value };
+      }),
     };
     await updateVerification(param.id, payload);
     return {

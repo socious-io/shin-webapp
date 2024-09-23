@@ -2,6 +2,7 @@ import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
+import Attribute from 'src/modules/Verifications/components/Atribute';
 import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
@@ -10,8 +11,29 @@ import { useCreateUpdateVerification } from './useCreateUpdateVerification';
 
 export const CreateUpdateVerification = () => {
   const {
-    data: { errors, schemaList, schema, verification, openPreview, name, description },
-    operation: { register, onSelectSchema, onCancel, onSubmit, handleSubmit, setOpenPreview, translate },
+    data: {
+      errors,
+      schemaList,
+      schema,
+      verification,
+      openPreview,
+      name,
+      description,
+      attributes,
+      verificationAttributes,
+    },
+    operation: {
+      register,
+      onSelectSchema,
+      onCancel,
+      onSubmit,
+      handleSubmit,
+      setOpenPreview,
+      translate,
+      onChangeAttribute,
+      onDeleteAttribute,
+      handleClickAddAttribute,
+    },
   } = useCreateUpdateVerification();
   const renderRowTitle = (title, subtitle) => {
     return (
@@ -21,7 +43,6 @@ export const CreateUpdateVerification = () => {
       </div>
     );
   };
-
   const actionButtons = (
     <div className={css['header__action']}>
       <Button variant="outlined" color="primary" onClick={onCancel}>
@@ -80,18 +101,36 @@ export const CreateUpdateVerification = () => {
           </div>
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-credential'), translate('ver-create-credential-desc'))}
-            <SearchDropdown
-              id="schema"
-              name="schema"
-              value={schema}
-              label={translate('ver-create-schema-lbl')}
-              placeholder={translate('ver-create-schema-placeholder')}
-              options={schemaList}
-              isSearchable
-              onChange={onSelectSchema}
-              errors={errors['schema']?.value?.message ? [errors['schema']?.value?.message.toString()] : undefined}
-              containerClassName="w-full md:w-[20rem]"
-            />
+            <div className={css['section__schema']}>
+              <SearchDropdown
+                id="schema"
+                name="schema"
+                value={schema}
+                label={translate('ver-create-schema-lbl')}
+                placeholder={translate('ver-create-schema-placeholder')}
+                options={schemaList}
+                isSearchable
+                onChange={onSelectSchema}
+                errors={errors['schema']?.value?.message ? [errors['schema']?.value?.message.toString()] : undefined}
+                containerClassName="w-full md:w-[20rem]"
+              />
+              <div className={css['section__subtitle']}>Attributes</div>
+              {verificationAttributes?.map((item, index) => (
+                <Attribute
+                  key={index}
+                  index={index}
+                  options={attributes}
+                  onChangeAttribute={onChangeAttribute}
+                  onDeleteAttribute={onDeleteAttribute}
+                  errors={errors['attributes']?.[index]}
+                  selectedAttribute={item}
+                />
+              ))}
+              <button className={css['section__attribute']} disabled={!schema} onClick={handleClickAddAttribute}>
+                <Icon name="plus" fontSize={20} color={variables.color_grey_600} />
+                Add an attribute
+              </button>
+            </div>
           </div>
           <div className={css['section__row']}>{actionButtons}</div>
         </div>

@@ -2,9 +2,10 @@ import { SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
 
+export type VerificationOperatorType = 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
 export interface VerificationAttributeReq {
   attribute_id: string;
-  operator: 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
+  operator: VerificationOperatorType;
   value: string;
 }
 
