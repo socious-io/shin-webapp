@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import star from 'src/assets/icons/star.svg';
 import shinLogo from 'src/assets/images/logo/logo.svg';
 import Icon from 'src/modules/General/components/Icon';
 
@@ -27,7 +28,9 @@ const SignInLayout: React.FC<SignInLayoutProps> = ({ children }) => {
         <div className="pr-16">
           <div className={css['section__title']}>{translate('picture-desc')}</div>
           <div className={css['section__stars']}>
-            {[...Array(5).map(i => <Icon key={i} name="Star" fontSize={20} className="text-Gray-light-mode-900" />)]}
+            {[...Array(5)].map(i => (
+              <img key={i} src={star} />
+            ))}
           </div>
         </div>
         <div className={css['section__image']} />

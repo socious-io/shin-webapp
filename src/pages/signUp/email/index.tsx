@@ -1,5 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import star from 'src/assets/icons/star.svg';
 import logo from 'src/assets/logo/logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
@@ -85,7 +86,9 @@ export const Email = () => {
         <div className="pr-16">
           <div className={css['section__title']}>{translate('picture-desc')}</div>
           <div className={css['section__stars']}>
-            {[...Array(5).map(i => <Icon key={i} name="Star" fontSize={20} className="text-Gray-light-mode-900" />)]}
+            {[...Array(5)].map(i => (
+              <img key={i} src={star} />
+            ))}
           </div>
         </div>
         <div className={css['section__image']} />
