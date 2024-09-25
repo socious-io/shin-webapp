@@ -19,9 +19,12 @@ export async function login(payload: LoginReq): Promise<AuthRes> {
 export async function register(payload: RegisterReq): Promise<SuccessRes> {
   return (await post<SuccessRes>('auth/register', payload)).data;
 }
-
 export async function sendOTP(payload: OTPReq): Promise<SuccessRes> {
   return (await post<SuccessRes>('auth/otp', payload)).data;
+}
+
+export async function resendOTP(payload: OTPReq): Promise<SuccessRes> {
+  return (await post<SuccessRes>('otp/resend', payload)).data;
 }
 
 export async function verifyOTP(payload: VerifyOTPReq): Promise<AuthRes> {
