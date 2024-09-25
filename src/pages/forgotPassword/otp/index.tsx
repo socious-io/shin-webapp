@@ -11,27 +11,36 @@ import css from './index.module.scss';
 import { useForgetPasswordOTP } from './useForgetPasswordOTP';
 
 export const ForgetPasswordOTP = () => {
-  const { t } = useTranslation();
+  const { t: translate } = useTranslation();
   const { email, handleBack, isValid, otpValue, setOtpValue, loading, onSubmit, resendCode } = useForgetPasswordOTP();
   return (
     <EmptyPageLayout
       headerIcon={<FeaturedIcon type="modern" theme="gray" size="xl" iconName="mail-01" />}
-      title={t('ver-h1')}
-      subtitle={t('ver-h2')}
+      title={translate('ver-h1')}
+      subtitle={translate('ver-h2')}
       subtitle2={email}
-      backLinkLabel={t('ver-back')}
+      backLinkLabel={translate('ver-back')}
       backLinkAction={handleBack}
     >
       <div className="flex flex-col gap-6">
-        <OTP errorMessage={t('ver-error-incorrect')} isValid={isValid} value={otpValue} setValue={setOtpValue} />
+        <OTP
+          errorMessage={translate('ver-error-incorrect')}
+          isValid={isValid}
+          value={otpValue}
+          setValue={setOtpValue}
+        />
         <Button disabled={!(otpValue.length === 6)} color="primary" block onClick={onSubmit}>
-          {loading ? <CircularProgress size="32px" sx={{ color: variables.color_white }} /> : t('ver-btn-label')}
+          {loading ? (
+            <CircularProgress size="32px" sx={{ color: variables.color_white }} />
+          ) : (
+            translate('password-reset')
+          )}
         </Button>
         <div className={css['resend']}>
-          <div className={css['resend__text']}>{t('ver-not-receive')}</div>
+          <div className={css['resend__text']}>{translate('ver-not-receive')}</div>
 
           <Button color="primary" variant="text" onClick={resendCode}>
-            {t('ver-resend')}
+            {translate('ver-resend')}
           </Button>
         </div>
       </div>
