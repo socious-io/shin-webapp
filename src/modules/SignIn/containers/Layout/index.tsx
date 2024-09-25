@@ -29,7 +29,9 @@ const SignInLayout: React.FC<SignInLayoutProps> = ({ children }) => {
           <div className={css['section__title']}>{translate('picture-desc')}</div>
           <div className={css['section__stars']}>
             {[...Array(5)].map(i => (
-              <img key={i} src={star} />
+              //TODO: Test after icon pack is updated and remove comment if this is working
+              // <img key={i} src={star} />
+              <Icon key={i} name="start-filled" fontSize={20} className="text-Gray-light-mode-900" />
             ))}
           </div>
         </div>
