@@ -29,6 +29,7 @@ const schema = yup
     }),
     attributes: yup
       .array()
+      .min(1, 'Add at least one attribute')
       .of(
         yup.object().shape({
           id: yup.string().required('Required'),
@@ -40,7 +41,7 @@ const schema = yup
           value: yup.string().required('Required'),
         }),
       )
-      .required(),
+      .required('Required'),
   })
   .required();
 
@@ -53,6 +54,7 @@ export const useCreateUpdateVerification = () => {
   const [schemaList, setSchemaList] = useState<{ label: string; value: string }[]>([]);
   const [openPreview, setOpenPreview] = useState(false);
   const [attributes, setAttributes] = useState<OptionType[]>([]);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const {
     register,
     handleSubmit,
@@ -149,10 +151,14 @@ export const useCreateUpdateVerification = () => {
         schemaId: schema.value,
         attributes,
       };
+
       res = await createVerificationAdaptor(param);
     }
 
-    if (!res?.error) navigate('/verifications');
+    setOpenSnackbar(true);
+    if (!res?.error) {
+      navigate('/verifications');
+    }
   };
 
   const name = watch('name');
@@ -197,6 +203,7 @@ export const useCreateUpdateVerification = () => {
       description,
       attributes,
       verificationAttributes: getValues().attributes,
+      openSnackbar,
     },
     operation: {
       register,
@@ -209,6 +216,7 @@ export const useCreateUpdateVerification = () => {
       onChangeAttribute,
       handleClickAddAttribute,
       onDeleteAttribute,
+      setOpenSnackbar,
     },
   };
 };

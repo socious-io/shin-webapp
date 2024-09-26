@@ -2,6 +2,7 @@ import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
+import CustomSnackbar from 'src/modules/General/components/Snackbar';
 import Attribute from 'src/modules/Verifications/components/Atribute';
 import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
 import variables from 'src/styles/constants/_exports.module.scss';
@@ -21,6 +22,7 @@ export const CreateUpdateVerification = () => {
       description,
       attributes,
       verificationAttributes,
+      openSnackbar,
     },
     operation: {
       register,
@@ -33,6 +35,7 @@ export const CreateUpdateVerification = () => {
       onChangeAttribute,
       onDeleteAttribute,
       handleClickAddAttribute,
+      setOpenSnackbar,
     },
   } = useCreateUpdateVerification();
   const renderRowTitle = (title, subtitle) => {
@@ -130,6 +133,7 @@ export const CreateUpdateVerification = () => {
                 <Icon name="plus" fontSize={20} color={variables.color_grey_600} />
                 Add an attribute
               </button>
+              <p className={css['section__error']}>{errors['attributes']?.message}</p>
             </div>
           </div>
           <div className={css['section__row']}>{actionButtons}</div>
@@ -141,6 +145,18 @@ export const CreateUpdateVerification = () => {
         title={name}
         subtitle={description || ''}
       />
+      <CustomSnackbar
+        open={openSnackbar}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        containerClassName={css['snackbar']}
+        autoHideDuration={5000}
+      >
+        <div className={css['snackbar__content']}>
+          <Icon name="tick" color={variables.color_primary_700} />
+          {translate('schema-copy-snackbar')}
+        </div>
+      </CustomSnackbar>
     </>
   );
 };

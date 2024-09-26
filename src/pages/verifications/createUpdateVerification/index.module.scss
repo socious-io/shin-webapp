@@ -105,5 +105,26 @@
             font-weight: 500;
             line-height: 20px;
         }
+
+        &__error {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            text-align: left;
+            margin-top: 6px;
+            color: $color-error-500;
+        }
+    }
+}
+
+.snackbar {
+    background-color: $color-primary-100;
+
+    &__content {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+        font-weight: 500;
+        color: $color-primary-700;
     }
 }
