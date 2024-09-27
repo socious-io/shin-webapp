@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import {
   AdaptorRes,
@@ -16,6 +17,8 @@ import {
   VerificationReqAdaptor,
 } from 'src/core/adaptors';
 import { VerificationOperatorType } from 'src/core/api';
+import FeaturedIconOutlined from 'src/modules/General/components/FeaturedIconOutlined';
+import { setNotificationState } from 'src/store/reducers/notification.reducer';
 import * as yup from 'yup';
 
 const schema = yup
@@ -47,6 +50,7 @@ const schema = yup
 
 export const useCreateUpdateVerification = () => {
   const { t: translate } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const loaderData = useLoaderData() as AdaptorRes<Verification>;
   const verification = loaderData?.data;
@@ -54,7 +58,6 @@ export const useCreateUpdateVerification = () => {
   const [schemaList, setSchemaList] = useState<{ label: string; value: string }[]>([]);
   const [openPreview, setOpenPreview] = useState(false);
   const [attributes, setAttributes] = useState<OptionType[]>([]);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const {
     register,
     handleSubmit,
@@ -155,7 +158,12 @@ export const useCreateUpdateVerification = () => {
       res = await createVerificationAdaptor(param);
     }
 
-    setOpenSnackbar(true);
+    const notification = {
+      display: true,
+      title: 'New verification created',
+      icon: <FeaturedIconOutlined iconName="check-circle" size="md" theme="success" />,
+    };
+    dispatch(setNotificationState(notification));
     if (!res?.error) {
       navigate('/verifications');
     }
@@ -203,7 +211,6 @@ export const useCreateUpdateVerification = () => {
       description,
       attributes,
       verificationAttributes: getValues().attributes,
-      openSnackbar,
     },
     operation: {
       register,
@@ -216,7 +223,6 @@ export const useCreateUpdateVerification = () => {
       onChangeAttribute,
       handleClickAddAttribute,
       onDeleteAttribute,
-      setOpenSnackbar,
     },
   };
 };
