@@ -1,6 +1,5 @@
 import { CircularProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import star from 'src/assets/icons/star.svg';
 import logo from 'src/assets/logo/logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';

@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import star from 'src/assets/icons/star.svg';
 import shinLogo from 'src/assets/images/logo/logo.svg';
 import Icon from 'src/modules/General/components/Icon';
 
