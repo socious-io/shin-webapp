@@ -12,7 +12,7 @@ import css from './index.module.scss';
 
 export const Profile = () => {
   const { t: translate } = useTranslation();
-  const { register, errors, img, setAttachment, descInputHeight, handleSubmit, onSubmit } = useProfile();
+  const { register, errors, img, setAttachment, descInputHeight, handleSubmit, onSubmit, length } = useProfile();
   return (
     <StepperLayout activeStep={1}>
       <div className={css['container']}>
@@ -45,6 +45,8 @@ export const Profile = () => {
             multiline
             customHeight={descInputHeight}
             maxRows={7}
+            hints={[{ hint: `${length}/160`, hide: false }]}
+            hintCustomClass="!text-right"
           />
         </div>
         <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>

@@ -20,6 +20,7 @@ export interface InputProps extends DefaultProps {
   customHeight?: string;
   register?: any;
   hints?: Array<{ hint: string; hide: boolean }>;
+  hintCustomClass?: string;
   startIcon?: ReactNode;
   postfix?: string | ReactNode;
   postfixDropdown?: DropdownProps;

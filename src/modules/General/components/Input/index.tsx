@@ -26,6 +26,7 @@ const Input: React.FC<InputProps> = ({
   postfixDropdown,
   onEnter,
   containerClassName = '',
+  hintCustomClass,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -136,7 +137,7 @@ const Input: React.FC<InputProps> = ({
         ))}
       {hints &&
         hints.map((hint, index) => (
-          <p key={index} className={`${css.hintMsg} ${css.msg}`}>
+          <p key={index} className={`${css.hintMsg} ${css.msg} ${hintCustomClass}`}>
             {!hint.hide && hint.hint}
           </p>
         ))}

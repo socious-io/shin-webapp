@@ -3,6 +3,9 @@ import Auth from 'src/modules/Auth';
 import Base from 'src/modules/Base';
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
+import store from 'src/store';
+import { setOrgProfile } from 'src/store/reducers/org.reducer';
+import { setUserProfile } from 'src/store/reducers/user.reducer';
 
 import {
   getOrgProfileAdaptor,
@@ -15,12 +18,17 @@ import {
   getRecipientsAdaptor,
   connectCredentialAdaptor,
   verifyActionAdaptor,
+  getOrgIdAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
   {
     element: <Base />,
+    loader: async () => {
+      const authenticated = await isAuthenticated();
+      return authenticated;
+    },
     children: [
       {
         element: <Layout />,
@@ -168,89 +176,6 @@ export const blueprint: RouteObject[] = [
         ],
       },
       {
-        element: <Auth />,
-        children: [
-          {
-            path: 'sign-in',
-            children: [
-              {
-                path: '',
-                async lazy() {
-                  const { Email } = await import('src/pages/signIn/email');
-                  return {
-                    Component: Email,
-                  };
-                },
-              },
-              {
-                path: 'password',
-                async lazy() {
-                  const { Password } = await import('src/pages/signIn/password');
-                  return {
-                    Component: Password,
-                  };
-                },
-              },
-              {
-                path: 'oauth',
-                children: [
-                  {
-                    path: 'google',
-                    async lazy() {
-                      const { GoogleOauth2 } = await import('src/pages/oauth/google');
-                      return {
-                        Component: GoogleOauth2,
-                      };
-                    },
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            path: 'sign-up',
-            children: [
-              {
-                path: '',
-                async lazy() {
-                  const { Email } = await import('src/pages/signUp/email');
-                  return {
-                    Component: Email,
-                  };
-                },
-              },
-              {
-                path: 'verification',
-                async lazy() {
-                  const { Verification } = await import('src/pages/signUp/verification');
-                  return {
-                    Component: Verification,
-                  };
-                },
-              },
-              {
-                path: 'detail',
-                async lazy() {
-                  const { Detail } = await import('src/pages/signUp/detail');
-                  return {
-                    Component: Detail,
-                  };
-                },
-              },
-              {
-                path: 'profile',
-                async lazy() {
-                  const { Profile } = await import('src/pages/signUp/profile');
-                  return {
-                    Component: Profile,
-                  };
-                },
-              },
-            ],
-          },
-        ],
-      },
-      {
         path: 'forget-password',
         children: [
           {
@@ -334,6 +259,93 @@ export const blueprint: RouteObject[] = [
     ],
   },
   {
+    element: <Auth />,
+    loader: async () => {
+      const authenticated = await isAuthenticated();
+      return authenticated;
+    },
+    children: [
+      {
+        path: 'sign-in',
+        children: [
+          {
+            path: '',
+            async lazy() {
+              const { Email } = await import('src/pages/signIn/email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
+            path: 'password',
+            async lazy() {
+              const { Password } = await import('src/pages/signIn/password');
+              return {
+                Component: Password,
+              };
+            },
+          },
+          {
+            path: 'oauth',
+            children: [
+              {
+                path: 'google',
+                async lazy() {
+                  const { GoogleOauth2 } = await import('src/pages/oauth/google');
+                  return {
+                    Component: GoogleOauth2,
+                  };
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'sign-up',
+        children: [
+          {
+            path: '',
+            async lazy() {
+              const { Email } = await import('src/pages/signUp/email');
+              return {
+                Component: Email,
+              };
+            },
+          },
+          {
+            path: 'verification',
+            async lazy() {
+              const { Verification } = await import('src/pages/signUp/verification');
+              return {
+                Component: Verification,
+              };
+            },
+          },
+          {
+            path: 'detail',
+            async lazy() {
+              const { Detail } = await import('src/pages/signUp/detail');
+              return {
+                Component: Detail,
+              };
+            },
+          },
+          {
+            path: 'profile',
+            async lazy() {
+              const { Profile } = await import('src/pages/signUp/profile');
+              return {
+                Component: Profile,
+              };
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
     path: '*',
     element: <div>Page not found :(</div>,
   },
@@ -348,5 +360,18 @@ function ErrorBoundary() {
   if (error?.response?.status === 401) return <Navigate to="/sign-in" />;
   return <FallBack />;
 }
+
+const isAuthenticated = async () => {
+  const userResponse = await getUserProfileAdaptor();
+  if (!userResponse.data) return false;
+  else if (userResponse.data) {
+    store.dispatch(setUserProfile(userResponse.data));
+    const orgResponse = await getOrgIdAdaptor();
+    if (orgResponse.error == null && orgResponse.data != null) {
+      store.dispatch(setOrgProfile(orgResponse.data));
+    }
+    return true;
+  }
+};
 
 export const routes = createBrowserRouter(blueprint);
