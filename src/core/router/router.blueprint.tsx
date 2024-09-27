@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux';
 import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react-router-dom';
 import Auth from 'src/modules/Auth';
 import Base from 'src/modules/Base';
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
-import store, { RootState } from 'src/store';
+import store from 'src/store';
 import { setOrgProfile } from 'src/store/reducers/org.reducer';
 import { setUserProfile } from 'src/store/reducers/user.reducer';
 
@@ -363,8 +362,6 @@ function ErrorBoundary() {
 }
 
 const isAuthenticated = async () => {
-  const authenticated = useSelector((state: RootState) => state.user.isAuthenticated);
-  if (authenticated) return true;
   const userResponse = await getUserProfileAdaptor();
   if (!userResponse.data) return false;
   else if (userResponse.data) {
