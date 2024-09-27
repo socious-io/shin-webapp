@@ -21,7 +21,7 @@ export const useInfoForm = () => {
   const { t: translate } = useTranslation();
   const dispatch = useDispatch();
   const { userProfile } = (useLoaderData() as { userProfile: UserProfileRes }) || {};
-  const { id: avatarId = '', url: avatarImage = '' } = userProfile.avatar || {};
+  const { id: avatarId = '', url: avatarImage = '' } = userProfile?.avatar || {};
   const [attachment, setAttachment] = useState<string[]>([avatarId]);
   const [attachmentUrl, setAttachmentUrl] = useState<string[]>([avatarImage]);
   const {
@@ -37,9 +37,9 @@ export const useInfoForm = () => {
 
   const initializeValues = () => {
     const initialVal = {
-      firstName: userProfile.firstName || '',
-      lastName: userProfile.lastName || '',
-      jobTitle: userProfile.jobTitle || '',
+      firstName: userProfile?.firstName || '',
+      lastName: userProfile?.lastName || '',
+      jobTitle: userProfile?.jobTitle || '',
     };
     setAttachment([avatarId]);
     setAttachmentUrl([avatarImage]);
@@ -58,7 +58,7 @@ export const useInfoForm = () => {
   };
 
   return {
-    data: { translate, register, avatarImg: attachmentUrl[0], nameErrors, email: userProfile.email },
+    data: { translate, register, avatarImg: attachmentUrl[0], nameErrors, email: userProfile?.email || '' },
     operations: { handleSubmit, onSubmit, setAttachment, setAttachmentUrl },
   };
 };

@@ -22,6 +22,14 @@
     "confirm": "Confirm password",
     "save-button": "Save password"
   },
+  "settings-language": {
+    "title": "Language",
+    "dropdown-title": "Choose language",
+    "dropdown-subtitle": "Select your default language.",
+    "save-button": "Save changes",
+    "english": "English",
+    "japanese": "Japanese"
+  },
   "settings-remove": {
     "title": "Remove account"
   }

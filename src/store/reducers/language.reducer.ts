@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface langState {
+export interface LangState {
   language: 'en' | 'jp';
 }
 
 const initialState = {
-  language: 'en',
-} as langState;
+  language: localStorage.getItem('i18nextLng') || 'en',
+} as LangState;
 
 export const languageSlice = createSlice({
   name: 'language',
   initialState,
   reducers: {
     setLanguage: (state, action) => {
-      state.language = action.payload.items;
+      state.language = action.payload;
     },
   },
 });

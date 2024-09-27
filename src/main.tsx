@@ -2,12 +2,14 @@ import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import ReactDOM from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Helmet } from 'react-helmet';
+import { Provider } from 'react-redux';
 import { init } from 'src/core/helpers/datadog';
 
 import App from './App';
 import './styles/main.scss';
 import { FallBack } from './pages/fallback';
 import { logError } from './pages/fallback/index.services';
+import store from './store';
 
 const VERSION = '7.0.0';
 init(VERSION);
@@ -21,7 +23,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <title>Shin</title>
     </Helmet>
     <ErrorBoundary fallback={<FallBack />} onError={logError}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ErrorBoundary>
   </>,
 );
