@@ -24,7 +24,7 @@ export async function sendOTP(payload: OTPReq): Promise<SuccessRes> {
 }
 
 export async function resendOTP(payload: OTPReq): Promise<SuccessRes> {
-  return (await post<SuccessRes>('otp/resend', payload)).data;
+  return (await post<SuccessRes>('auth/otp/resend', payload)).data;
 }
 
 export async function verifyOTP(payload: VerifyOTPReq): Promise<AuthRes> {
