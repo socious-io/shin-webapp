@@ -13,7 +13,7 @@ const schema = yup
   .object()
   .shape({
     orgName: yup.string().trim().required('Required'),
-    description: yup.string(),
+    description: yup.string().max(160, 'Too long'),
   })
   .required();
 
@@ -26,6 +26,7 @@ export const useProfile = () => {
     handleSubmit,
     formState: { errors, isValid },
     getValues,
+    watch,
   } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
@@ -50,6 +51,7 @@ export const useProfile = () => {
   };
 
   const descInputHeight = isTouchDevice() ? '188px' : '128px';
+  const length = (watch('description') || '').length;
   return {
     register,
     handleSubmit,
@@ -60,5 +62,6 @@ export const useProfile = () => {
     setAttachment,
     descInputHeight,
     onSubmit,
+    length,
   };
 };
