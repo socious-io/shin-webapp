@@ -29,7 +29,7 @@ export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<Ada
     const data: VerificationsRes = {
       items,
       page,
-      totalCount: 7,
+      totalCount: res.total,
     };
     return {
       data,

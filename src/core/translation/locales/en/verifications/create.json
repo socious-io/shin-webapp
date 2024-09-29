@@ -11,7 +11,7 @@
   "ver-create-description-desc": "Describe the purpose of the credential request for both the requester and the credential holder.",
   "ver-create-description-placeholder": "Enter a description...",
   "ver-create-credential": "Credential requests",
-  "ver-create-credential-desc": "A verification can return as either valid or invalid.Define what constitutes a valid verification. Fields must match the credential schema exactly.",
+  "ver-create-credential-desc": "A verification can return as either valid or invalid. Define what constitutes a valid verification. Fields must match the credential schema exactly.",
   "ver-create-schema-lbl": "Schema is equal to",
   "ver-create-schema-placeholder": "Enter or select a schema"
 }
