@@ -1,4 +1,5 @@
-export type VerificationStatus = 'success' | 'pending' | 'failed' | 'undone';
+import { VerificationStatus } from 'src/core/api';
+
 export interface OrgProfileRes {
   id: string;
   logo: { url?: string; id?: string };
@@ -6,7 +7,7 @@ export interface OrgProfileRes {
   name: string;
   description?: string;
   isVerified?: boolean;
-  verificationStatus: VerificationStatus;
+  verificationStatus: VerificationStatus | null;
 }
 
 export interface OrgProfileReq {

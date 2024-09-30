@@ -7,8 +7,7 @@ export const getOrgProfileAdaptor = async (orgId: string): Promise<AdaptorRes<Or
     const org = await getOrg(orgId);
     const res: OrgProfileRes = {
       id: orgId,
-      // TODO: read from API result when attribute is added
-      verificationStatus: 'undone',
+      verificationStatus: org.verification_status,
       logo: { url: org.logo?.url || '', id: org.logo_id || '' },
       did: org?.did || '',
       name: org.name,

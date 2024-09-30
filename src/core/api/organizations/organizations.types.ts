@@ -7,6 +7,7 @@ export interface OrganizationReq {
   logo_id?: string;
 }
 
+export type VerificationStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 export interface Organization extends OrganizationReq {
   id: string;
   did?: string;
@@ -15,6 +16,7 @@ export interface Organization extends OrganizationReq {
   is_verified: boolean;
   created_at: Date;
   updated_at: Date;
+  verification_status: VerificationStatus | null;
 }
 
 export interface OrganizationRes extends PaginateRes {

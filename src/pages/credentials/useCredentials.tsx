@@ -1,81 +1,88 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { getOrgProfileAdaptor, OrgProfileRes, VerificationStatus } from 'src/core/adaptors';
+import { getOrgProfileAdaptor, OrgProfileRes } from 'src/core/adaptors';
+import { VerificationStatus } from 'src/core/api';
 import IssuedList from 'src/modules/Credential/containers/IssuedList';
 import Banner from 'src/modules/KYB/containers/Banner';
 
 export const useCredentials = () => {
   const { orgProfile } = useLoaderData() as { orgProfile: OrgProfileRes };
   const [isVerified, setIsVerified] = useState(orgProfile.isVerified);
-  const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>(orgProfile.verificationStatus);
+  const [verificationStatus, setVerificationStatus] = useState<VerificationStatus | null>(
+    orgProfile.verificationStatus,
+  );
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const [dismissed, setDismissed] = useState(Boolean(localStorage.getItem('dismissed-alert')));
-  const [openModal, setOpenModal] = useState<{ name: 'verify' | 'detail' | 'success'; open: boolean }>();
+  const [openModal, setOpenModal] = useState<{
+    name: 'verify' | 'detail' | 'success' | 'pending' | 'rejected';
+    open: boolean;
+  }>();
 
-  const onCreateCredential = () => navigate('create');
+  const onCreateCredential = () => navigate('../create');
 
   const displayBanner = () => {
-    switch (verificationStatus) {
-      case 'undone':
-        return (
-          <Banner
-            iconName="alert-circle"
-            title={translate('kyb-verify')}
-            subtitle={translate('kyb-verify-subtitle')}
-            primaryBtnLabel={translate('kyb-verify-btn')}
-            primaryBtnAction={() => {
-              setOpenModal({ name: 'verify', open: true });
-            }}
-            theme="warning"
-          />
-        );
-      case 'failed':
-        return (
-          <Banner
-            iconName="alert-circle"
-            title={translate('kyb-failed')}
-            subtitle={translate('kyb-failed-subtitle')}
-            primaryBtnLabel={translate('kyb-failed-label')}
-            primaryBtnAction={() => {
-              return;
-            }}
-            theme="error"
-          />
-        );
-      case 'pending':
-        return (
-          <Banner
-            iconName="alert-circle"
-            title={translate('kyb-pending')}
-            subtitle={translate('kyb-pending-subtitle')}
-            primaryBtnLabel={translate('kyb-pending-btn')}
-            primaryBtnAction={() => {
-              return;
-            }}
-            theme="warning"
-          />
-        );
-      case 'success':
-        if (!dismissed)
+    if (!verificationStatus)
+      return (
+        <Banner
+          iconName="alert-circle"
+          title={translate('kyb-verify')}
+          subtitle={translate('kyb-verify-subtitle')}
+          primaryBtnLabel={translate('kyb-verify-btn')}
+          primaryBtnAction={() => {
+            setOpenModal({ name: 'verify', open: true });
+          }}
+          theme="warning"
+        />
+      );
+    else
+      switch (verificationStatus) {
+        case 'REJECTED':
           return (
             <Banner
-              iconName="check-circle"
-              title={translate('kyb-success')}
-              subtitle={translate('kyb-success-subtitle')}
-              primaryBtnLabel={translate('kyb-success-btn')}
-              primaryBtnAction={onCreateCredential}
-              theme="success"
-              secondaryBtnLabel={translate('kyb-success-dismiss')}
-              secondaryBtnAction={() => {
-                localStorage.setItem('dismissed-alert', 'true');
-                setDismissed(false);
+              iconName="alert-circle"
+              title={translate('kyb-failed')}
+              subtitle={translate('kyb-failed-subtitle')}
+              primaryBtnLabel={translate('kyb-failed-label')}
+              primaryBtnAction={() => {
+                setOpenModal({ name: 'rejected', open: true });
               }}
+              theme="error"
             />
           );
-        return <></>;
-    }
+        case 'PENDING':
+          return (
+            <Banner
+              iconName="alert-circle"
+              title={translate('kyb-pending')}
+              subtitle={translate('kyb-pending-subtitle')}
+              primaryBtnLabel={translate('kyb-pending-btn')}
+              primaryBtnAction={() => {
+                setOpenModal({ name: 'pending', open: true });
+              }}
+              theme="warning"
+            />
+          );
+        case 'APPROVED':
+          if (!dismissed)
+            return (
+              <Banner
+                iconName="check-circle"
+                title={translate('kyb-success')}
+                subtitle={translate('kyb-success-subtitle')}
+                primaryBtnLabel={translate('kyb-success-btn')}
+                primaryBtnAction={onCreateCredential}
+                theme="success"
+                secondaryBtnLabel={translate('kyb-success-dismiss')}
+                secondaryBtnAction={() => {
+                  localStorage.setItem('dismissed-alert', 'true');
+                  setDismissed(false);
+                }}
+              />
+            );
+          return <></>;
+      }
   };
 
   const getIssuedListComponent = () => {

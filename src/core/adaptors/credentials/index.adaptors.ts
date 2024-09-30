@@ -8,6 +8,7 @@ import {
   getRecipients,
   updateRecipient,
 } from 'src/core/api';
+import { requestKYB } from 'src/core/api/kyb/kyb.api';
 
 import {
   AdaptorRes,
@@ -164,9 +165,9 @@ export const connectCredentialAdaptor = async (credentialId: string): Promise<Ad
   }
 };
 
-export const verifyOrganizationAdaptor = async (): Promise<AdaptorRes<SuccessRes>> => {
+export const verifyOrganization = async (orgId: string, documents: string[]): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    // TODO: call verify org API
+    await requestKYB(orgId, { documents });
     return {
       data: { message: 'succeed' },
       error: null,
