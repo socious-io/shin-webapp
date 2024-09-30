@@ -45,10 +45,7 @@ export const useAddRecipientModal = (onAddRecipient: () => void, recipient?: Rec
 
   const onSubmit = async (formData: RecipientReq) => {
     const { error } = await addOrUpdateRecipientAdaptor(formData, recipient?.id || '');
-    if (error) {
-      console.log(error);
-      return;
-    }
+    if (error) return;
     onAddRecipient();
     reset();
   };

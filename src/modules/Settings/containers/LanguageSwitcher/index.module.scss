@@ -1,0 +1,45 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    @include flex(normal, normal, column);
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: $color-white;
+    border: 1px solid $color-grey-200;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-xs;
+    max-width: 43.75rem;
+
+    @media (max-width: $md) {
+        gap: 1.25rem;
+        padding: 1.25rem 1rem;
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .title {
+        line-height: 24px;
+        font-size: 16px;
+        font-weight: 600;
+        color: $color-grey-700;
+    }
+
+    .section {
+        @include flex(normal, normal, column);
+        gap: 0.5rem;
+
+        &__title,
+        &__subtitle {
+            color: $color-grey-700;
+            line-height: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        &__subtitle {
+            color: $color-grey-600;
+            font-weight: 400;
+        }
+    }
+}

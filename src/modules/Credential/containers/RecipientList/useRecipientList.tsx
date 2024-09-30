@@ -18,11 +18,7 @@ export const useRecipientList = (selectedRecipient: string, onSelectRecipient: (
 
   const onChangePage = async (newPage: number) => {
     setPage(newPage);
-    const { data, error } = await getRecipientsAdaptor(newPage);
-    if (error) {
-      console.log(error);
-      return;
-    }
+    const { data } = await getRecipientsAdaptor(newPage);
     data && setCurrentRecipientList(data);
   };
 
@@ -41,17 +37,9 @@ export const useRecipientList = (selectedRecipient: string, onSelectRecipient: (
     const hasRecipient = selectedRecipient || openModal?.recipientId;
     if (hasRecipient) {
       const { error } = await deleteRecipientAdaptor(hasRecipient);
-      if (error) {
-        console.log(error);
-        return;
-      }
-      const filteredList = currentList.filter(list => list.id !== selectedRecipient);
-      if (filteredList.length === 0 && page > 1) {
-        setPage(page - 1);
-        onChangePage(page - 1);
-      } else {
-        onChangePage(page);
-      }
+      if (error) return;
+      const filteredList = currentList.filter(list => list.id !== hasRecipient);
+      onChangePage(filteredList.length === 0 && page > 1 ? page - 1 : page);
       onSelectRecipient('');
       handleCloseModal();
     }
@@ -63,13 +51,13 @@ export const useRecipientList = (selectedRecipient: string, onSelectRecipient: (
     data: { translate, currentList, page, totalPage, selectedRecipient, openModal },
     operations: {
       onChangePage,
-      onSelectRecipient,
       onAddRecipientClick,
       handleCloseModal,
       onAddRecipient,
       onDeleteClick,
       onDeleteCredential,
       onEditClick,
+      onSelectRecipient,
     },
   };
 };

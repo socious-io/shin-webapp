@@ -59,10 +59,7 @@ export const useCreate = () => {
       selectedRecipient,
       claims,
     });
-    if (error) {
-      console.log(error);
-      return;
-    }
+    if (error) return;
     navigate('/credentials');
   };
 

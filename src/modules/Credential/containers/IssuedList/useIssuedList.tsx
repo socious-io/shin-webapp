@@ -27,7 +27,7 @@ export const useIssuedList = () => {
   const totalPage = Math.ceil((currentCredentialList?.total || 1) / (currentCredentialList?.limit || 10));
 
   const status: Record<CredentialStatus, StatusProps> = {
-    ISSUED: { label: 'Issued', theme: 'warning' },
+    ISSUED: { label: translate('credential-status.issued'), theme: 'warning' },
     PENDING: { label: translate('credential-status.pending'), theme: 'warning' },
     ACTIVE: { label: translate('credential-status.active'), theme: 'success' },
     REVOKED: { label: translate('credential-status.revoked'), theme: 'error' },
@@ -35,11 +35,7 @@ export const useIssuedList = () => {
 
   const onChangePage = async (newPage: number) => {
     setPage(newPage);
-    const { data, error } = await getCredentialsAdaptor(newPage);
-    if (error) {
-      console.log(error);
-      return;
-    }
+    const { data } = await getCredentialsAdaptor(newPage);
     data && setCurrentCredentialList(data);
   };
 
@@ -59,10 +55,7 @@ export const useIssuedList = () => {
   const onRevokeCredential = async () => {
     if (selectedCredential) {
       const { error } = await revokeCredentialAdaptor(selectedCredential);
-      if (error) {
-        console.log(error);
-        return;
-      }
+      if (error) return;
       const revokedList = currentList.map(list =>
         list.id === selectedCredential ? { ...list, status: 'REVOKED' as CredentialStatus } : list,
       );
@@ -77,17 +70,9 @@ export const useIssuedList = () => {
   const onDeleteCredential = async () => {
     if (selectedCredential) {
       const { error } = await deleteCredentialAdaptor(selectedCredential);
-      if (error) {
-        console.log(error);
-        return;
-      }
+      if (error) return;
       const filteredList = currentList.filter(list => list.id !== selectedCredential);
-      if (filteredList.length === 0 && page > 1) {
-        setPage(page - 1);
-        onChangePage(page - 1);
-      } else {
-        onChangePage(page);
-      }
+      onChangePage(filteredList.length === 0 && page > 1 ? page - 1 : page);
       setSelectedCredential('');
       handleCloseModal();
     }

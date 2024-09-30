@@ -1,7 +1,7 @@
-import { createOrg, preregister, register, sendOTP, updatePassword, updateProfile, verifyOTP } from 'src/core/api';
+import { createOrg, preregister, register, resendOTP, updatePassword, updateProfile, verifyOTP } from 'src/core/api';
 
-import { AdaptorRes, SuccessRes, UserProfileRes } from '..';
 import { DetailsReq, OtpConfirmRes, PreRegisterRes, ProfileReq } from './index.types';
+import { AdaptorRes, SuccessRes, UserProfileRes } from '..';
 
 export const preRegister = async (email: string): Promise<AdaptorRes<PreRegisterRes>> => {
   try {
@@ -34,7 +34,7 @@ export const registerAdaptor = async (email: string, password?: string): Promise
 
 export const sendOtp = async (email): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    await sendOTP({ email });
+    await resendOTP({ email });
     return {
       data: {
         message: 'succeed',

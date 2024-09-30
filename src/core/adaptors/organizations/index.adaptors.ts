@@ -43,7 +43,7 @@ export const getOrgIdAdaptor = async (): Promise<AdaptorRes<string>> => {
   try {
     const { results = [] } = await getOrgs();
     return {
-      data: results[0]?.id || '',
+      data: results && results.length ? results[0]?.id || '' : '',
       error: null,
     };
   } catch (error) {
