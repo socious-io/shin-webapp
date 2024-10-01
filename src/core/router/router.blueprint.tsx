@@ -182,45 +182,6 @@ export const blueprint: RouteObject[] = [
     errorElement: <ErrorBoundary />,
   },
   {
-    path: 'proof-request',
-    children: [
-      {
-        path: 'credential/:id',
-        loader: async ({ params }) => {
-          if (params.id) {
-            const { data } = await connectCredentialAdaptor(params.id);
-            return { data };
-          }
-        },
-        async lazy() {
-          const { ProofRequest } = await import('src/pages/proofRequest/index');
-          return {
-            Component: ProofRequest,
-          };
-        },
-      },
-      {
-        path: 'verification/:id',
-        loader: async ({ params }) => {
-          if (params.id) {
-            let status = '';
-            const { data } = await connectVerificationAdaptor(params.id);
-            if (data?.id) {
-              status = await verifyActionAdaptor(data.id);
-            }
-            return { data, status };
-          }
-        },
-        async lazy() {
-          const { ProofRequest } = await import('src/pages/proofRequest/index');
-          return {
-            Component: ProofRequest,
-          };
-        },
-      },
-    ],
-  },
-  {
     element: <Auth />,
     loader: async () => {
       const authenticated = await isAuthenticated();
@@ -345,6 +306,46 @@ export const blueprint: RouteObject[] = [
             },
           },
         ],
+      },
+    ],
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: 'connect',
+    children: [
+      {
+        path: 'credential/:id',
+        loader: async ({ params }) => {
+          if (params.id) {
+            const { data } = await connectCredentialAdaptor(params.id);
+            return { data };
+          }
+        },
+        async lazy() {
+          const { ProofRequest } = await import('src/pages/proofRequest/index');
+          return {
+            Component: ProofRequest,
+          };
+        },
+      },
+      {
+        path: 'verification/:id',
+        loader: async ({ params }) => {
+          if (params.id) {
+            let status = '';
+            const { data } = await connectVerificationAdaptor(params.id);
+            if (data?.id) {
+              status = await verifyActionAdaptor(data.id);
+            }
+            return { data, status };
+          }
+        },
+        async lazy() {
+          const { ProofRequest } = await import('src/pages/proofRequest/index');
+          return {
+            Component: ProofRequest,
+          };
+        },
       },
     ],
   },
