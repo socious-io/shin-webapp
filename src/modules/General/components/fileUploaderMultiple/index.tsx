@@ -2,12 +2,12 @@ import { CircularProgress, LinearProgress, Typography } from '@mui/material';
 import React from 'react';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './fileUploaderMultiple.module.scss';
-import { FileUploaderMultipleProps } from './fileUploaderMultiple.types';
+import css from './index.module.scss';
+import { FileUploaderMultipleProps } from './index.types';
 import { useFileUploader } from './useFileUploaderMultiple';
 import Icon from '../Icon';
 
-export const FileUploaderMultiple: React.FC<FileUploaderMultipleProps> = ({
+const FileUploaderMultiple: React.FC<FileUploaderMultipleProps> = ({
   fileTypes,
   maxFileNumbers = 1,
   maxSize = 10,
@@ -79,7 +79,7 @@ export const FileUploaderMultiple: React.FC<FileUploaderMultipleProps> = ({
                             deleteFile(index);
                             onDeleteFile?.(index);
                           }}
-                          className="!cursor-pointer"
+                          cursor="pointer"
                         />
                       </div>
                       <span className={css['file__size']}>{readableFileSize(item.size)}</span>
@@ -99,3 +99,5 @@ export const FileUploaderMultiple: React.FC<FileUploaderMultipleProps> = ({
     </>
   );
 };
+
+export default FileUploaderMultiple;

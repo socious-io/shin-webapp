@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'src/modules/General/components/Button';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
-import { FileUploaderMultiple } from 'src/modules/General/components/fileUploaderMultiple';
+import FileUploaderMultiple from 'src/modules/General/components/fileUploaderMultiple';
 import Modal from 'src/modules/General/components/Modal';
 
 import css from './index.module.scss';

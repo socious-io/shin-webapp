@@ -1,5 +1,5 @@
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
-import { Link } from 'src/modules/General/components/Link';
+import Link from 'src/modules/General/components/Link';
 import Modal from 'src/modules/General/components/Modal';
 import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
 

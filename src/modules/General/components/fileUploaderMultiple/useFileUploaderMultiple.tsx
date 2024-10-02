@@ -20,6 +20,7 @@ export const useFileUploader = (
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [files, setFiles] = useState<File[]>(showFiles || []);
+  const KB = 1024;
 
   const getAcceptedFileTypes = () => {
     const types = [
@@ -53,10 +54,10 @@ export const useFileUploader = (
   };
 
   const readableFileSize = (fileSize: number) => {
-    const sizeInKb = fileSize / 1024;
+    const sizeInKb = fileSize / KB;
 
-    if (sizeInKb > 1024) {
-      return `${(sizeInKb / 1024).toFixed(2)} MB`;
+    if (sizeInKb > KB) {
+      return `${(sizeInKb / KB).toFixed(2)} MB`;
     } else {
       return `${sizeInKb.toFixed(2)} KB`;
     }
@@ -73,7 +74,7 @@ export const useFileUploader = (
       setError('');
       const requests: Promise<AdaptorRes<UploadMediaRes>>[] = [];
       acceptedFiles.forEach(f => {
-        if (f.size > maxSize * 1024 * 1024) {
+        if (f.size > maxSize * KB * KB) {
           setError(`Max file size is ${maxSize}mb`);
           return;
         } else {
