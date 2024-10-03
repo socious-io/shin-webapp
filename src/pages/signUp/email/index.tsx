@@ -4,7 +4,7 @@ import logo from 'src/assets/logo/logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
-import { Link } from 'src/modules/General/components/Link';
+import Link from 'src/modules/General/components/Link';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
