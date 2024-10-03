@@ -18,24 +18,32 @@ const checkVerificationAdaptor = async (id: string): Promise<AdaptorRes<Verifica
 };
 
 export const verifyActionAdaptor = async (id: string): Promise<ProofRequestStatus> => {
-  let checkedStatus = '';
-  const interval = setInterval(async () => {
+  let checkedStatus: ProofRequestStatus = '';
+  const checkStatus = async (): Promise<ProofRequestStatus> => {
     const { data } = await checkVerificationAdaptor(id);
     if (data) {
       const status = data.status;
       switch (status) {
         case 'REQUESTED':
-          break;
+          return new Promise(resolve => {
+            setTimeout(async () => {
+              resolve(await checkStatus()); // Re-check after 5 seconds
+            }, 5000);
+          });
         case 'VERIFIED':
           checkedStatus = 'succeed';
-          clearInterval(interval);
-          break;
+          return checkedStatus;
         case 'FAILED':
           checkedStatus = 'error';
-          clearInterval(interval);
-          break;
+          return checkedStatus;
+        default:
+          throw new Error('Unknown status received');
       }
+    } else {
+      throw new Error('No data received from verification');
     }
-  }, 5000);
-  return checkedStatus as ProofRequestStatus;
+  };
+
+  // Start checking the status and return the result
+  return await checkStatus();
 };

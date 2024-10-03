@@ -79,7 +79,7 @@ export const useIssuedList = () => {
   };
 
   const onCopyClick = (credentialId: string) => {
-    const copyUrl = `${config.appBaseURL}/proof-request/credential/${credentialId}`;
+    const copyUrl = `${config.appBaseURL}/connect/credential/${credentialId}`;
     setUrl(copyUrl);
     setOpenModal({ name: 'copy', open: true });
   };
