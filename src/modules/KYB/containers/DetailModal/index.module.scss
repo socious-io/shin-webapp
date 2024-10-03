@@ -1,0 +1,13 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.footer {
+    width: 100%;
+    padding: 2rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    @media (max-width: $md) {
+        padding: 1.5rem 1rem 1.25rem;
+    }
+}

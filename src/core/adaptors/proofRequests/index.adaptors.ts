@@ -26,7 +26,7 @@ export const verifyActionAdaptor = async (id: string): Promise<ProofRequestStatu
       switch (status) {
         case 'REQUESTED':
           break;
-        case 'VEIFIED':
+        case 'VERIFIED':
           checkedStatus = 'succeed';
           clearInterval(interval);
           break;

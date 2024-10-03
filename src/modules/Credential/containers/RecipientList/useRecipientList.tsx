@@ -48,7 +48,7 @@ export const useRecipientList = (selectedRecipient: string, onSelectRecipient: (
   const onEditClick = (recipientId: string) => setOpenModal({ name: 'add', open: true, recipientId });
 
   return {
-    data: { translate, currentList, page, totalPage, openModal },
+    data: { translate, currentList, page, totalPage, selectedRecipient, openModal },
     operations: {
       onChangePage,
       onAddRecipientClick,
@@ -57,6 +57,7 @@ export const useRecipientList = (selectedRecipient: string, onSelectRecipient: (
       onDeleteClick,
       onDeleteCredential,
       onEditClick,
+      onSelectRecipient,
     },
   };
 };

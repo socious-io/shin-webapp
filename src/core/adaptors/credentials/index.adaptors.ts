@@ -8,6 +8,7 @@ import {
   getRecipients,
   updateRecipient,
 } from 'src/core/api';
+import { requestKYB } from 'src/core/api/kyb/kyb.api';
 
 import {
   AdaptorRes,
@@ -22,7 +23,6 @@ import {
 export const getCredentialsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<CredentialsRes>> => {
   try {
     const { results, total = 0 } = await getCredentials({ page, limit });
-
     const items = results?.length
       ? results.map(credential => ({
           id: credential.id,
@@ -162,5 +162,20 @@ export const connectCredentialAdaptor = async (credentialId: string): Promise<Ad
     };
   } catch {
     return { data: null, error: 'Error in connecting credential' };
+  }
+};
+
+export const verifyOrganization = async (orgId: string, documents: string[]): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    await requestKYB(orgId, { documents });
+    return {
+      data: { message: 'succeed' },
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in verify organization API call',
+    };
   }
 };

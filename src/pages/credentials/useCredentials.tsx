@@ -1,16 +1,43 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import IssuedList from 'src/modules/Credential/containers/IssuedList';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { getOrgProfileAdaptor, OrgProfileRes } from 'src/core/adaptors';
+import { VerificationStatus } from 'src/core/api';
+import IssuedTab from 'src/modules/Credential/containers/IssuedTab';
 
 export const useCredentials = () => {
+  const { orgProfile } = useLoaderData() as { orgProfile: OrgProfileRes };
+  const [isVerified, setIsVerified] = useState(orgProfile.isVerified);
+  const [verificationStatus, setVerificationStatus] = useState<VerificationStatus | null>(
+    orgProfile.verificationStatus,
+  );
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
-  const tabs = [{ label: translate('credential-tab1'), content: <IssuedList /> }];
+  const [openModal, setOpenModal] = useState<{
+    name: 'verify' | 'detail' | 'success' | 'pending' | 'rejected';
+    open: boolean;
+  }>();
 
-  const onCreateCredential = () => navigate('create');
+  const onCreateCredential = () => navigate('../create');
+
+  const tabs = [
+    {
+      label: translate('credential-tab1'),
+      content: <IssuedTab setOpenModal={setOpenModal} verificationStatus={verificationStatus} />,
+    },
+  ];
+
+  const onComplete = async () => {
+    const res = await getOrgProfileAdaptor(orgProfile.id);
+    if (res?.data) {
+      setIsVerified(res.data.isVerified || false);
+      setVerificationStatus(res.data.verificationStatus);
+    }
+    setOpenModal({ name: 'verify', open: false });
+  };
 
   return {
-    data: { translate, tabs },
-    operations: { onCreateCredential },
+    data: { translate, tabs, isVerified, openModal },
+    operations: { onCreateCredential, verificationStatus, setOpenModal, onComplete },
   };
 };
