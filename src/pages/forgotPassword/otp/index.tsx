@@ -12,7 +12,8 @@ import { useForgetPasswordOTP } from './useForgetPasswordOTP';
 
 export const ForgetPasswordOTP = () => {
   const { t: translate } = useTranslation();
-  const { email, handleBack, isValid, otpValue, setOtpValue, loading, onSubmit, resendCode } = useForgetPasswordOTP();
+  const { email, handleBack, isValid, otpValue, setOtpValue, loading, onSubmit, resendCode, codeExpired } =
+    useForgetPasswordOTP();
   return (
     <EmptyPageLayout
       headerIcon={<FeaturedIcon type="modern" theme="gray" size="xl" iconName="mail-01" />}
@@ -39,7 +40,7 @@ export const ForgetPasswordOTP = () => {
         <div className={css['resend']}>
           <div className={css['resend__text']}>{translate('ver-not-receive')}</div>
 
-          <Button color="primary" variant="text" onClick={resendCode}>
+          <Button color="primary" variant="text" onClick={resendCode} disabled={!codeExpired}>
             {translate('ver-resend')}
           </Button>
         </div>
