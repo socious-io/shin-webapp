@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { otpConfirm, sendOtp } from 'src/core/adaptors';
 import { nonPermanentStorage } from 'src/core/storage/non-permanent';
@@ -10,6 +10,8 @@ export const useForgetPasswordOTP = () => {
   const [otpValue, setOtpValue] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [codeExpired, setCodeExpired] = useState(false);
+  const EXPIRE_TIME = 120000;
 
   const onSubmit = async () => {
     const res = await otpConfirm(email, otpValue);
@@ -27,7 +29,15 @@ export const useForgetPasswordOTP = () => {
       navigate(`/forget-password/new-password`);
     }
   };
+  const checkCodeExpired = () => {
+    setTimeout(() => {
+      setCodeExpired(true);
+    }, EXPIRE_TIME);
+  };
+
   const resendCode = async () => {
+    setCodeExpired(false);
+    checkCodeExpired();
     setLoading(true);
     const res = await sendOtp(email);
     if (res.error) setIsValid(false);
@@ -36,9 +46,13 @@ export const useForgetPasswordOTP = () => {
     }
   };
 
+  useEffect(() => {
+    checkCodeExpired();
+  }, []);
+
   const handleBack = () => {
     navigate('/sign-in');
   };
 
-  return { email, handleBack, isValid, otpValue, setOtpValue, loading, onSubmit, resendCode };
+  return { email, handleBack, isValid, otpValue, setOtpValue, loading, onSubmit, resendCode, codeExpired };
 };
