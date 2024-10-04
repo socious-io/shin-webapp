@@ -67,11 +67,7 @@ export const Email = () => {
             </div>
             <div className="text-center">
               <span className={css['layout__subtitle']}>{translate('accept')}</span>
-              <Link
-                href="https://webapp2.dev.socious.io/privacy-policy/"
-                label={translate('terms-of-use')}
-                target="_blank"
-              />
+              <Link href="https://app.socious.io/privacy-policy/" label={translate('terms-of-use')} target="_blank" />
               <span className={css['layout__subtitle']}>{translate('and')}</span>
               <Link
                 href="https://app.socious.io/terms-conditions/"
