@@ -65,6 +65,15 @@ export const blueprint: RouteObject[] = [
                   };
                 },
               },
+              {
+                path: '',
+                async lazy() {
+                  const { Empty } = await import('src/pages/credentials/empty');
+                  return {
+                    Component: Empty,
+                  };
+                },
+              },
             ],
           },
           {
