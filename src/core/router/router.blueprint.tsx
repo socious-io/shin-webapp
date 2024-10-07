@@ -264,15 +264,6 @@ export const blueprint: RouteObject[] = [
               };
             },
           },
-          {
-            path: 'profile',
-            async lazy() {
-              const { Profile } = await import('src/pages/signUp/profile');
-              return {
-                Component: Profile,
-              };
-            },
-          },
         ],
       },
     ],
@@ -358,6 +349,17 @@ export const blueprint: RouteObject[] = [
       },
     ],
   },
+
+  {
+    path: 'sign-up/profile',
+    async lazy() {
+      const { Profile } = await import('src/pages/signUp/profile');
+      return {
+        Component: Profile,
+      };
+    },
+  },
+
   {
     path: '*',
     element: <div>Page not found :(</div>,
