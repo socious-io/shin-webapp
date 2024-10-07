@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import {
   AdaptorRes,
@@ -16,6 +17,8 @@ import {
   VerificationReqAdaptor,
 } from 'src/core/adaptors';
 import { VerificationOperatorType } from 'src/core/api';
+import FeaturedIconOutlined from 'src/modules/General/components/FeaturedIconOutlined';
+import { setNotificationState } from 'src/store/reducers/notification.reducer';
 import * as yup from 'yup';
 
 const schema = yup
@@ -29,6 +32,7 @@ const schema = yup
     }),
     attributes: yup
       .array()
+      .min(1, 'Add at least one attribute')
       .of(
         yup.object().shape({
           id: yup.string().required('Required'),
@@ -40,12 +44,13 @@ const schema = yup
           value: yup.string().required('Required'),
         }),
       )
-      .required(),
+      .required('Required'),
   })
   .required();
 
 export const useCreateUpdateVerification = () => {
   const { t: translate } = useTranslation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const loaderData = useLoaderData() as AdaptorRes<Verification>;
   const verification = loaderData?.data;
@@ -149,10 +154,19 @@ export const useCreateUpdateVerification = () => {
         schemaId: schema.value,
         attributes,
       };
+
       res = await createVerificationAdaptor(param);
     }
 
-    if (!res?.error) navigate('/verifications');
+    const notification = {
+      display: true,
+      title: 'New verification created',
+      icon: <FeaturedIconOutlined iconName="check-circle" size="md" theme="success" />,
+    };
+    dispatch(setNotificationState(notification));
+    if (!res?.error) {
+      navigate('/verifications');
+    }
   };
 
   const name = watch('name');

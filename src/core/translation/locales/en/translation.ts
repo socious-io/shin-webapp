@@ -1,9 +1,11 @@
 import credential from './credentials/credential.json';
 import credentialCreate from './credentials/credentialCreate.json';
+import credentialEmpty from './credentials/credentialEmpty.json';
 import fileUploader from './fileUploader.json';
 import forgetPassword from './forgetPassword.json';
 import layout from './general/layout.json';
 import pagination from './general/pagination.json';
+import kyb from './kyb/kyb.json';
 import orgProfile from './organizations/organizations.json';
 import schema from './schemas/schema.json';
 import schemaCreate from './schemas/schemaCreate.json';
@@ -40,5 +42,7 @@ export function generateTranslationFile() {
     signUp,
     credential,
     credentialCreate,
+    credentialEmpty,
+    kyb,
   );
 }

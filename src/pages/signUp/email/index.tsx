@@ -4,7 +4,7 @@ import logo from 'src/assets/logo/logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
-import { Link } from 'src/modules/General/components/Link';
+import Link from 'src/modules/General/components/Link';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -67,9 +67,13 @@ export const Email = () => {
             </div>
             <div className="text-center">
               <span className={css['layout__subtitle']}>{translate('accept')}</span>
-              <Link href="/sign-in" label={translate('terms-of-use')} target="_blank" />
+              <Link href="https://app.socious.io/privacy-policy/" label={translate('terms-of-use')} target="_blank" />
               <span className={css['layout__subtitle']}>{translate('and')}</span>
-              <Link href="/sign-in" label={translate('privacy-policy')} target="_blank" />
+              <Link
+                href="https://app.socious.io/terms-conditions/"
+                label={translate('privacy-policy')}
+                target="_blank"
+              />
             </div>
           </div>
         </div>
@@ -85,7 +89,9 @@ export const Email = () => {
         <div className="pr-16">
           <div className={css['section__title']}>{translate('picture-desc')}</div>
           <div className={css['section__stars']}>
-            {[...Array(5).map(i => <Icon key={i} name="Star" fontSize={20} className="text-Gray-light-mode-900" />)]}
+            {[...Array(5)].map(i => (
+              <Icon key={i} name="star-filled" fontSize={20} className="text-Gray-light-mode-900" />
+            ))}
           </div>
         </div>
         <div className={css['section__image']} />

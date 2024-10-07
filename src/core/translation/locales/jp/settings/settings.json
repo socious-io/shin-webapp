@@ -22,6 +22,14 @@
     "confirm": "パスワードを確認",
     "save-button": "パスワードを保存"
   },
+  "settings-language": {
+    "title": "言語",
+    "dropdown-title": "言語を選択",
+    "dropdown-subtitle": "デフォルトの言語を選択してください。",
+    "save-button": "変更を保存",
+    "english": "英語",
+    "japanese": "日本語"
+  },
   "settings-remove": {
     "title": "アカウントを削除"
   }

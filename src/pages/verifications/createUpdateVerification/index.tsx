@@ -35,6 +35,7 @@ export const CreateUpdateVerification = () => {
       handleClickAddAttribute,
     },
   } = useCreateUpdateVerification();
+
   const renderRowTitle = (title, subtitle) => {
     return (
       <div className={css['section__label']}>
@@ -130,6 +131,7 @@ export const CreateUpdateVerification = () => {
                 <Icon name="plus" fontSize={20} color={variables.color_grey_600} />
                 Add an attribute
               </button>
+              <p className={css['section__error']}>{errors['attributes']?.message}</p>
             </div>
           </div>
           <div className={css['section__row']}>{actionButtons}</div>

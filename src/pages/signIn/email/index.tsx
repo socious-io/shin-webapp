@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
 import Input from 'src/modules/General/components/Input';
-import { Link } from 'src/modules/General/components/Link';
+import Link from 'src/modules/General/components/Link';
 import SignInLayout from 'src/modules/SignIn/containers/Layout';
 
 import css from './index.module.scss';
@@ -59,9 +59,9 @@ export const Email = () => {
           </div>
           <div className="text-center">
             <span className={css['form__subtitle']}>{translate('accept')}</span>
-            <Link href="/" label={translate('terms-of-use')} target="_blank" />
+            <Link href="https://app.socious.io/privacy-policy/" label={translate('terms-of-use')} target="_blank" />
             <span className={css['form__subtitle']}>{translate('and')}</span>
-            <Link href="/" label={translate('privacy-policy')} target="_blank" />
+            <Link href="https://app.socious.io/terms-conditions/" label={translate('privacy-policy')} target="_blank" />
           </div>
         </div>
       </div>

@@ -5,11 +5,14 @@ import { AdaptorRes, OrgProfileReq, OrgProfileRes, SuccessRes } from '..';
 export const getOrgProfileAdaptor = async (orgId: string): Promise<AdaptorRes<OrgProfileRes>> => {
   try {
     const org = await getOrg(orgId);
-    const res = {
+    const res: OrgProfileRes = {
+      id: orgId,
+      verificationStatus: org.verification_status,
       logo: { url: org.logo?.url || '', id: org.logo_id || '' },
       did: org?.did || '',
       name: org.name,
       description: org?.description || '',
+      isVerified: org?.is_verified,
     };
     return { data: res, error: null };
   } catch (error) {
@@ -40,7 +43,7 @@ export const getOrgIdAdaptor = async (): Promise<AdaptorRes<string>> => {
   try {
     const { results = [] } = await getOrgs();
     return {
-      data: results[0]?.id || '',
+      data: results && results.length ? results[0]?.id || '' : '',
       error: null,
     };
   } catch (error) {
