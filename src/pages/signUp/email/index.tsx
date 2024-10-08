@@ -11,7 +11,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue, disabled, isValid, loading } = useEmail();
+  const { register, errors, handleSubmit, onContinue, disabled, loading } = useEmail();
   const { t: translate } = useTranslation();
 
   return (
@@ -36,7 +36,7 @@ export const Email = () => {
                 errors={errors['email']?.message ? [errors['email']?.message.toString()] : undefined}
               />
               <div className="flex flex-col gap-4">
-                <Button color="primary" onClick={handleSubmit(onContinue)} disabled={disabled || !isValid || loading}>
+                <Button color="primary" onClick={handleSubmit(onContinue)} disabled={disabled || loading}>
                   {loading ? (
                     <CircularProgress size="32px" sx={{ color: variables.color_white }} />
                   ) : (
