@@ -25,10 +25,11 @@ export interface CredentialRes extends CredentialReq {
   organization: Organization;
   connection_url?: string;
   connection_id?: string;
-  status: 'ISSUED' | 'CLAIMED' | 'FAILED';
+  status: 'CREATED' | 'ISSUED' | 'CLAIMED' | 'FAILED' | 'REVOKED';
   created_at: Date;
   updated_at: Date;
   expired_at?: Date;
+  revoked_at?: Date;
   connection_at?: Date;
 }
 
