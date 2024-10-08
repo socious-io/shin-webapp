@@ -21,6 +21,7 @@ export const useProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [attachment, setAttachment] = useState<string[]>([]);
+  const [attachmentUrl, setAttachmentUrl] = useState<string[]>([]);
   const {
     register,
     handleSubmit,
@@ -58,8 +59,9 @@ export const useProfile = () => {
     errors,
     isValid,
     getValues,
-    img: attachment[0],
+    img: attachmentUrl[0],
     setAttachment,
+    setAttachmentUrl,
     descInputHeight,
     onSubmit,
     length,
