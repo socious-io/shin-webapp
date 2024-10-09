@@ -28,6 +28,7 @@ export interface SchemaRes extends Omit<SchemaReq, 'description'> {
   deleteable: boolean;
   created: User;
   created_at: Date;
+  issue_disabled: boolean;
 }
 
 export interface SchemaListRes extends PaginateRes {
