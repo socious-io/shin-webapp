@@ -88,7 +88,7 @@ export const useIssuedList = () => {
     navigator.clipboard.writeText(url);
   };
 
-  const onCreateCredential = () => navigate('create');
+  const onCreateCredential = () => navigate('../create');
 
   return {
     data: { translate, currentList, page, totalPage, selectedCredential, status, openModal, url },
