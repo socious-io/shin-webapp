@@ -89,7 +89,7 @@ export const useIssuedList = () => {
     navigator.clipboard.writeText(url);
   };
 
-  const onCreateCredential = () => navigate('create');
+  const onCreateCredential = () => navigate('../create');
 
   const selectedStatus = currentList.find(item => item.id === selectedCredential)?.status;
   const disableRevoke = !selectedStatus || !['ISSUED', 'CLAIMED'].includes(selectedStatus);

@@ -20,6 +20,7 @@ export const useCreate = () => {
     title: schema.name,
     description: schema?.description || '',
     value: schema.id,
+    disabled: schema.disabled,
   }));
   const schemaAttributes = selectedSchemaDetail?.attributes || [];
   const schemaInfo = { title: selectedSchemaDetail?.name || '', description: selectedSchemaDetail?.description || '' };

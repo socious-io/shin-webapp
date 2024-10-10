@@ -11,6 +11,7 @@ export interface CardRadioButtonProps {
 export type CardRadioButtonItem = {
   value: string;
   title: string;
+  disabled: boolean;
   description?: string;
   icon?: ReactNode;
   radioSize?: 'small' | 'medium';
