@@ -6,6 +6,7 @@ import {
   deleteRecipient,
   getCredentials,
   getRecipients,
+  revokeCredential,
   updateRecipient,
 } from 'src/core/api';
 import { requestKYB } from 'src/core/api/kyb/kyb.api';
@@ -72,7 +73,7 @@ export const createCredentialAdaptor = async (payload: CredentialReq): Promise<A
 
 export const revokeCredentialAdaptor = async (credentialId: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
-    //TODO: API call with credentialId
+    await revokeCredential(credentialId);
     return { data: { message: 'succeed' }, error: null };
   } catch (error) {
     console.error('Error in revoking credential', error);

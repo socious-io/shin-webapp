@@ -31,6 +31,7 @@ export const useIssuedList = () => {
     PENDING: { label: translate('credential-status.pending'), theme: 'warning' },
     ACTIVE: { label: translate('credential-status.active'), theme: 'success' },
     REVOKED: { label: translate('credential-status.revoked'), theme: 'error' },
+    CREATED: { label: translate('credential-status.created'), theme: 'warning' },
   };
 
   const onChangePage = async (newPage: number) => {

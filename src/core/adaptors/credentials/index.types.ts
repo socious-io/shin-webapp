@@ -1,6 +1,6 @@
 import { CredentialClaims, PaginateRes } from 'src/core/api';
 
-export type CredentialStatus = 'ACTIVE' | 'PENDING' | 'REVOKED' | 'ISSUED';
+export type CredentialStatus = 'ACTIVE' | 'PENDING' | 'REVOKED' | 'ISSUED' | 'CREATED';
 
 export type Credential = {
   id: string;
