@@ -5,7 +5,7 @@ import { formatDate } from 'src/core/helpers/relative-time';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
-import CustomSnackbar from 'src/modules/General/components/Snackbar';
+// import CustomSnackbar from 'src/modules/General/components/Snackbar';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 import EmptyBox from 'src/modules/General/containers/EmptyBox';
 import variables from 'src/styles/constants/_exports.module.scss';
@@ -16,17 +16,8 @@ import SchemaDetailModal from '../SchemaDetailModal';
 
 const SchemasList: React.FC = () => {
   const {
-    data: { translate, currentList, page, totalPage, openModal, openSnackbar, viewData },
-    operations: {
-      onView,
-      onCopy,
-      onDelete,
-      onChangePage,
-      handleCloseModal,
-      setOpenSnackbar,
-      onDeleteSchema,
-      onCreateSchema,
-    },
+    data: { translate, currentList, page, totalPage, openModal, viewData },
+    operations: { onView, onDelete, onChangePage, handleCloseModal, onDeleteSchema, onCreateSchema },
   } = useSchemasList();
 
   const columns = useMemo<ColumnDef<Schema>[]>(
@@ -80,14 +71,14 @@ const SchemasList: React.FC = () => {
                 containerClass="flex-1"
                 onClick={() => onView(rowId)}
               />
-              <Icon
+              {/* <Icon
                 name="copy-05"
                 fontSize={20}
                 color={variables.color_grey_600}
                 cursor="pointer"
                 containerClass="flex-1"
                 onClick={() => onCopy(rowId)}
-              />
+              /> */}
               {deletableItem ? (
                 <Icon
                   name="trash-01"
@@ -186,7 +177,7 @@ const SchemasList: React.FC = () => {
           data={viewData}
         />
       )}
-      <CustomSnackbar
+      {/* <CustomSnackbar
         open={openSnackbar}
         onClose={() => setOpenSnackbar(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -197,7 +188,7 @@ const SchemasList: React.FC = () => {
           <Icon name="tick" color={variables.color_primary_700} />
           {translate('schema-copy-snackbar')}
         </div>
-      </CustomSnackbar>
+      </CustomSnackbar> */}
     </>
   ) : (
     <EmptyBox
