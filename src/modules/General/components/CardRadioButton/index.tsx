@@ -19,8 +19,11 @@ const CardRadioButton: React.FC<CardRadioButtonProps> = ({
       {items.map(item => (
         <div
           key={item.title}
-          className={`${css['container']} ${selectedValue === item.value && css['container--selected']} ${containerClassName}`}
-          onClick={() => setSelectedValue(item.value)}
+          className={`${css['container']} 
+          ${selectedValue === item.value && !item.disabled && css['container--selected']} 
+          ${item.disabled && css['container--disabled']} 
+          ${containerClassName}`}
+          onClick={() => !item.disabled && setSelectedValue(item.value)}
         >
           {item.icon}
           <div className={css['content']}>
@@ -33,6 +36,7 @@ const CardRadioButton: React.FC<CardRadioButtonProps> = ({
             onChange={handleChange}
             value={item.value}
             checked={selectedValue === item.value}
+            disabled={item.disabled}
             className="p-0"
           />
         </div>
