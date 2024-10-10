@@ -5,4 +5,5 @@ export interface ProofRequestProps {
   subtitle: string;
   shortLink?: string;
   loading?: boolean;
+  disableButton?: boolean;
 }
