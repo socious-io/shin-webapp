@@ -19,7 +19,7 @@ import { useIssuedList } from './useIssuedList';
 
 const IssuedList = () => {
   const {
-    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal, url },
+    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal, url, disableRevoke },
     operations: {
       onChangePage,
       onSelectCredential,
@@ -108,8 +108,8 @@ const IssuedList = () => {
         <div className={css['buttons']}>
           <Button
             variant="outlined"
-            color={!selectedCredential ? 'inherit' : 'secondary'}
-            disabled={!selectedCredential}
+            color={disableRevoke ? 'inherit' : 'secondary'}
+            disabled={disableRevoke}
             onClick={onRevokeClick}
           >
             {translate('credential-revoke-button')}
