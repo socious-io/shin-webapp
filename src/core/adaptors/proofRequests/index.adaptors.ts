@@ -24,7 +24,8 @@ export const verifyActionAdaptor = async (id: string): Promise<ProofRequestStatu
     if (data) {
       const status = data.status;
       switch (status) {
-        case ('REQUESTED', 'CREATED'):
+        case 'REQUESTED':
+        case 'CREATED':
           return new Promise(resolve => {
             setTimeout(async () => {
               resolve(await checkStatus()); // Re-check after 5 seconds
