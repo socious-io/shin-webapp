@@ -1,33 +1,33 @@
 import { SCHEMA_ATTRIBUTES } from 'src/constants/SCHEMA';
 import { createSchema, deleteSchema, getSchemas, SchemaAttributeType } from 'src/core/api';
 
-import { Schema, SchemaReq, SchemaRes } from './index.types';
 import { AdaptorRes, SuccessRes } from '..';
+import { Schema, SchemaReq, SchemaRes } from './index.types';
 
 export const getSchemasAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<SchemaRes>> => {
   try {
     const { results, total } = await getSchemas({ page, limit });
+
     const items = results?.length
-      ? results
-          .filter(schema => !schema.issue_disabled)
-          .map(schema => ({
-            id: schema.id,
-            name: schema.name,
-            description: schema.description || '',
-            deletable: schema.deleteable,
-            created:
-              (schema.created?.first_name || schema.created?.last_name
-                ? `${schema.created.first_name} ${schema.created.last_name}`
-                : schema.created?.username) || '',
-            created_at: new Date(schema.created_at),
-            attributes: schema.attributes.map(attribute => ({
-              ...attribute,
-              option: {
-                value: attribute.type,
-                label: SCHEMA_ATTRIBUTES.find(schema => schema.value === attribute.type)?.label,
-              },
-            })),
-          }))
+      ? results.map(schema => ({
+          id: schema.id,
+          name: schema.name,
+          description: schema.description || '',
+          deletable: schema.deleteable,
+          disabled: schema.issue_disabled,
+          created:
+            (schema.created?.first_name || schema.created?.last_name
+              ? `${schema.created.first_name} ${schema.created.last_name}`
+              : schema.created?.username) || '',
+          created_at: new Date(schema.created_at),
+          attributes: schema.attributes.map(attribute => ({
+            ...attribute,
+            option: {
+              value: attribute.type,
+              label: SCHEMA_ATTRIBUTES.find(schema => schema.value === attribute.type)?.label,
+            },
+          })),
+        }))
       : [];
 
     return {
@@ -59,6 +59,7 @@ export const createSchemaAdaptor = async (payload: SchemaReq): Promise<AdaptorRe
       ...schema,
       description: schema.description || '',
       deletable: schema.deleteable,
+      disabled: schema.issue_disabled,
       created:
         (schema.created?.first_name || schema.created?.last_name
           ? `${schema.created.first_name} ${schema.created?.last_name}`

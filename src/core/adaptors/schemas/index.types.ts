@@ -17,6 +17,7 @@ export type Schema = {
   name: string;
   description: string;
   deletable: boolean;
+  disabled: boolean;
   created: string;
   created_at: Date;
   attributes: Attribute[];
