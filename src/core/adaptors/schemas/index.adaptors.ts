@@ -14,6 +14,7 @@ export const getSchemasAdaptor = async (page = 1, limit = 10): Promise<AdaptorRe
           name: schema.name,
           description: schema.description || '',
           deletable: schema.deleteable,
+          disabled: schema.issue_disabled,
           created:
             (schema.created?.first_name || schema.created?.last_name
               ? `${schema.created.first_name} ${schema.created.last_name}`
@@ -58,6 +59,7 @@ export const createSchemaAdaptor = async (payload: SchemaReq): Promise<AdaptorRe
       ...schema,
       description: schema.description || '',
       deletable: schema.deleteable,
+      disabled: schema.issue_disabled,
       created:
         (schema.created?.first_name || schema.created?.last_name
           ? `${schema.created.first_name} ${schema.created?.last_name}`

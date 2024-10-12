@@ -291,12 +291,8 @@ export const blueprint: RouteObject[] = [
         path: 'verification/:id',
         loader: async ({ params }) => {
           if (params.id) {
-            let status = '';
             const { data } = await connectVerificationAdaptor(params.id);
-            if (data?.id) {
-              status = await verifyActionAdaptor(data.id);
-            }
-            return { data, status };
+            return { data };
           }
         },
         async lazy() {

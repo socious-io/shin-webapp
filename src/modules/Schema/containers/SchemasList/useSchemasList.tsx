@@ -20,7 +20,7 @@ export const useSchemasList = () => {
     open: false,
     rowId: '',
   });
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  // const [openSnackbar, setOpenSnackbar] = useState(false);
   const viewData = currentList.find(list => list.id === openModal.rowId) || null;
 
   const handleCloseModal = () => {
@@ -41,11 +41,11 @@ export const useSchemasList = () => {
     setOpenModal({ name: 'view', open: true, rowId });
   };
 
-  const onCopy = (rowId: string) => {
-    const copiedRow = currentList.find(list => list.id === rowId);
-    navigator.clipboard.writeText(JSON.stringify(copiedRow));
-    setOpenSnackbar(true);
-  };
+  // const onCopy = (rowId: string) => {
+  //   const copiedRow = currentList.find(list => list.id === rowId);
+  //   navigator.clipboard.writeText(JSON.stringify(copiedRow));
+  //   setOpenSnackbar(true);
+  // };
 
   const onDelete = (rowId: string) => setOpenModal({ name: 'delete', open: true, rowId });
 
@@ -68,16 +68,13 @@ export const useSchemasList = () => {
       page,
       totalPage,
       openModal,
-      openSnackbar,
       viewData,
     },
     operations: {
       onView,
-      onCopy,
       onDelete,
       onChangePage,
       handleCloseModal,
-      setOpenSnackbar,
       onDeleteSchema,
       onCreateSchema,
     },

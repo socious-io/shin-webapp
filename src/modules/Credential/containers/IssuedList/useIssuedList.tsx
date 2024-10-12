@@ -31,6 +31,7 @@ export const useIssuedList = () => {
     PENDING: { label: translate('credential-status.pending'), theme: 'warning' },
     ACTIVE: { label: translate('credential-status.active'), theme: 'success' },
     REVOKED: { label: translate('credential-status.revoked'), theme: 'error' },
+    CREATED: { label: translate('credential-status.created'), theme: 'warning' },
   };
 
   const onChangePage = async (newPage: number) => {
@@ -88,10 +89,13 @@ export const useIssuedList = () => {
     navigator.clipboard.writeText(url);
   };
 
-  const onCreateCredential = () => navigate('create');
+  const onCreateCredential = () => navigate('../create');
+
+  const selectedStatus = currentList.find(item => item.id === selectedCredential)?.status;
+  const disableRevoke = !selectedStatus || !['ISSUED', 'CLAIMED'].includes(selectedStatus);
 
   return {
-    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal, url },
+    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal, url, disableRevoke },
     operations: {
       onChangePage,
       onSelectCredential,

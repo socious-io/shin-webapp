@@ -142,6 +142,7 @@ export const CreateUpdateVerification = () => {
         handleClose={() => setOpenPreview(false)}
         title={name}
         subtitle={description || ''}
+        disableButton
       />
     </>
   );

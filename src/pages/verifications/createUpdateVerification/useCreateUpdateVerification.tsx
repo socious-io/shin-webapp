@@ -32,7 +32,6 @@ const schema = yup
     }),
     attributes: yup
       .array()
-      .min(1, 'Add at least one attribute')
       .of(
         yup.object().shape({
           id: yup.string().required('Required'),

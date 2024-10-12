@@ -7,7 +7,7 @@ export interface OrganizationReq {
   logo_id?: string;
 }
 
-export type VerificationStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
+export type VerificationStatus = 'PENDING' | 'APPROVED' | 'REJECTED' | 'CREATED';
 export interface Organization extends OrganizationReq {
   id: string;
   did?: string;

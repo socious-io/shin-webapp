@@ -1,5 +1,5 @@
 import { CredentialReq, CredentialRes, CredentialListRes } from './credentials.types';
-import { post, del, get, put } from '../http';
+import { post, del, get, put, patch } from '../http';
 import { PaginateReq, SuccessRes } from '../types';
 
 export async function createCredential(payload: CredentialReq): Promise<CredentialRes> {
@@ -8,6 +8,10 @@ export async function createCredential(payload: CredentialReq): Promise<Credenti
 
 export async function updateCredential(id: string, payload: CredentialReq): Promise<CredentialRes> {
   return (await put<CredentialRes>(`credentials/${id}`, payload)).data;
+}
+
+export async function revokeCredential(id: string): Promise<CredentialRes> {
+  return (await patch<CredentialRes>(`credentials/${id}/revoke`)).data;
 }
 
 export async function getCredential(id: string): Promise<CredentialRes> {

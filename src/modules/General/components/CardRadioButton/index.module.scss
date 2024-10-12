@@ -17,6 +17,13 @@
         border: solid 2px $color-primary-600;
     }
 
+    &--disabled {
+        background-color: $color-grey-200;
+        &:hover {
+            box-shadow: none;
+        }
+    }
+
     .content {
         display: flex;
         flex-direction: column;

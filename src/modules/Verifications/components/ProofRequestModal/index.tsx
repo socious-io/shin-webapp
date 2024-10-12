@@ -20,6 +20,7 @@ export const ProofRequestModal: React.FC<ProofRequestProps> = ({
   subtitle,
   shortLink,
   loading,
+  disableButton = false,
 }) => {
   const { t: translate } = useTranslation();
   return (
@@ -48,6 +49,7 @@ export const ProofRequestModal: React.FC<ProofRequestProps> = ({
               const newTab = window.open(shortLink, '_blank');
               newTab?.focus();
             }}
+            disabled={disableButton}
           >
             {translate('proof-btn')}
           </Button>

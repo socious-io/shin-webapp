@@ -1,17 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLoaderData } from 'react-router-dom';
-import { ProofRequestStatus } from 'src/core/adaptors';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { ProofRequestStatus, verifyActionAdaptor } from 'src/core/adaptors';
 import { CredentialRes, VerificationRes } from 'src/core/api';
 
 export const useProofRequest = () => {
   const { t: translate } = useTranslation();
-  const { data, status } =
+  const navigate = useNavigate();
+  const { data } =
     (useLoaderData() as {
-      data: VerificationRes | CredentialRes;
-      status?: ProofRequestStatus;
+      data: VerificationRes;
     }) || {};
-  const [dataStatus, setDataStatus] = useState<ProofRequestStatus | ''>(status || '');
+  const [dataStatus, setDataStatus] = useState<ProofRequestStatus | ''>('');
+
+  useEffect(() => {
+    const getStatus = async () => {
+      if (data?.id) {
+        const res = await verifyActionAdaptor(data.id);
+        setDataStatus(res);
+      }
+    };
+    getStatus();
+  }, [data]);
 
   return {
     data: {
@@ -19,6 +29,6 @@ export const useProofRequest = () => {
       data,
       dataStatus,
     },
-    operations: { setDataStatus },
+    operations: { setDataStatus, navigate },
   };
 };

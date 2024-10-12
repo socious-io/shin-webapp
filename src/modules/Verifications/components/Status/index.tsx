@@ -6,14 +6,16 @@ import { StatusProps, StatusValue } from './index.types';
 
 const Status: React.FC<StatusProps> = ({ status }) => {
   const theme: Record<StatusValue, ChipTheme> = {
-    REQUESTED: 'grey_blue',
-    VEIFIED: 'success',
+    CREATED: 'grey_blue',
+    REQUESTED: 'warning',
+    VERIFIED: 'success',
     FAILED: 'error',
   };
 
   const label: Record<StatusValue, string> = {
+    CREATED: 'Created',
     REQUESTED: 'Requested',
-    VEIFIED: 'Verified',
+    VERIFIED: 'Verified',
     FAILED: 'Failed',
   };
 

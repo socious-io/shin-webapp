@@ -12,7 +12,8 @@ import css from './index.module.scss';
 
 export const Profile = () => {
   const { t: translate } = useTranslation();
-  const { register, errors, img, setAttachment, descInputHeight, handleSubmit, onSubmit, length } = useProfile();
+  const { register, errors, img, setAttachment, descInputHeight, handleSubmit, onSubmit, length, setAttachmentUrl } =
+    useProfile();
   return (
     <StepperLayout activeStep={1}>
       <div className={css['container']}>
@@ -24,6 +25,8 @@ export const Profile = () => {
             maxFileNumbers={1}
             maxFileSize={2}
             setAttachments={setAttachment}
+            setAttachmentsUrl={setAttachmentUrl}
+            showFileName={false}
           />
         </div>
         <div className="flex flex-col gap-6">

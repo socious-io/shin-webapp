@@ -20,12 +20,12 @@ const schema = yup
 
 export const useEmail = () => {
   const navigate = useNavigate();
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     getValues,
     setError,
     watch,
@@ -44,13 +44,12 @@ export const useEmail = () => {
         type: 'manual',
         message: res.error,
       });
-    }
-    if (res.data?.email !== 'AVAILABLE') {
+    } else if (res.data?.email !== 'AVAILABLE') {
       setError('email', {
         type: 'manual',
         message: 'Email already exists',
       });
-    }
+    } else setDisabled(false);
     setLoading(false);
   };
   const onContinue = async () => {
@@ -66,6 +65,7 @@ export const useEmail = () => {
   };
 
   useEffect(() => {
+    setDisabled(true);
     const checkEmailValidity = debounce(async () => {
       const isValidEmail = await trigger('email');
       if (isValidEmail) {
@@ -84,7 +84,6 @@ export const useEmail = () => {
     register,
     handleSubmit,
     errors,
-    isValid,
     getValues,
     onContinue,
     disabled,

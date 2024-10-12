@@ -30,6 +30,10 @@ export async function put<T>(uri: string, payload: unknown, config?: AxiosReques
   return http.put<T>(uri, removedEmptyProps(payload), config);
 }
 
+export async function patch<T>(uri: string, payload?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  return http.patch<T>(uri, removedEmptyProps(payload), config);
+}
+
 export async function get<T>(uri: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
   if (!config) config = {};
 

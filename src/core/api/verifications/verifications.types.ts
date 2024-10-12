@@ -28,7 +28,7 @@ export interface VerificationRes extends VerificationReq {
   connection_url?: string;
   connection_id?: string;
   present_id?: string;
-  status: 'REQUESTED' | 'VERIFIED' | 'FAILED';
+  status: 'CREATED' | 'REQUESTED' | 'VERIFIED' | 'FAILED';
   attributes: VerificationAttributeRes[];
   body: any;
   created_at: Date;

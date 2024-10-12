@@ -11,7 +11,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue, disabled, isValid, loading } = useEmail();
+  const { register, errors, handleSubmit, onContinue, disabled, loading } = useEmail();
   const { t: translate } = useTranslation();
 
   return (
@@ -36,7 +36,7 @@ export const Email = () => {
                 errors={errors['email']?.message ? [errors['email']?.message.toString()] : undefined}
               />
               <div className="flex flex-col gap-4">
-                <Button color="primary" onClick={handleSubmit(onContinue)} disabled={disabled || !isValid || loading}>
+                <Button color="primary" onClick={handleSubmit(onContinue)} disabled={disabled || loading}>
                   {loading ? (
                     <CircularProgress size="32px" sx={{ color: variables.color_white }} />
                   ) : (
@@ -67,13 +67,9 @@ export const Email = () => {
             </div>
             <div className="text-center">
               <span className={css['layout__subtitle']}>{translate('accept')}</span>
-              <Link href="https://app.socious.io/privacy-policy/" label={translate('terms-of-use')} target="_blank" />
+              <Link href="https://app.socious.io/terms-conditions/" label={translate('terms-of-use')} target="_blank" />
               <span className={css['layout__subtitle']}>{translate('and')}</span>
-              <Link
-                href="https://app.socious.io/terms-conditions/"
-                label={translate('privacy-policy')}
-                target="_blank"
-              />
+              <Link href="https://app.socious.io/privacy-policy/" label={translate('privacy-policy')} target="_blank" />
             </div>
           </div>
         </div>
