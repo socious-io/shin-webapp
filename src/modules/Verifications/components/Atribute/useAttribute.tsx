@@ -8,12 +8,26 @@ export const useAttribute = (
   onChangeAttribute: (index: number, attribute?: AttributeOption, operator?: OptionType, value?: string) => void,
   attribute?: VerificationAttribute,
 ) => {
-  const operators: OptionType[] = [
-    { value: 'EQUAL', label: 'Is equal to' },
-    { value: 'NOT', label: 'Is not' },
-    { value: 'BIGGER', label: 'Is greater than' },
-    { value: 'SMALLER', label: 'Is less than' },
+  const operators = [
+    { types: ['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'], value: 'EQUAL', label: 'Is equal to' },
+    { types: ['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'], value: 'NOT', label: 'Is not' },
+    { types: ['NUMBER', 'DATETIME'], value: 'BIGGER', label: 'Is greater than' },
+    { types: ['NUMBER', 'DATETIME'], value: 'SMALLER', label: 'Is less than' },
   ];
+
+  const getOperatorOptionValue = (type: string) => {
+    const options = operators
+      .filter(item => item.types.includes(type))
+      .map(item => {
+        const { label, value } = item;
+        return { label, value };
+      });
+    return options;
+  };
+
+  const [operatorOptions, setOperatorOptions] = useState<OptionType[]>(
+    getOperatorOptionValue(attribute?.type || 'TEXT'),
+  );
 
   const [selected, setSelected] = useState<OptionType>({ label: attribute?.name || '', value: attribute?.id || '' });
   const [selectedOperator, setSelectedOperator] = useState<OptionType>({
@@ -25,6 +39,7 @@ export const useAttribute = (
   const onSelectAttribute = attribute => {
     setSelected(attribute);
     onChangeAttribute(index, attribute);
+    setOperatorOptions(getOperatorOptionValue(attribute.type));
   };
 
   const onSelectOperator = option => {
@@ -40,10 +55,10 @@ export const useAttribute = (
   return {
     selected,
     onSelectAttribute,
-    operators,
     selectedOperator,
     onSelectOperator,
     attributeValue,
     handleChangeValue,
+    operatorOptions,
   };
 };

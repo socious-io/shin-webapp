@@ -20,7 +20,7 @@ const Attribute: React.FC<AttributeProps> = ({
   const {
     selected,
     onSelectAttribute,
-    operators,
+    operatorOptions,
     selectedOperator,
     onSelectOperator,
     attributeValue,
@@ -39,7 +39,7 @@ const Attribute: React.FC<AttributeProps> = ({
         />
         <SearchDropdown
           value={selectedOperator}
-          options={operators}
+          options={operatorOptions}
           isSearchable
           onChange={onSelectOperator}
           containerClassName="flex-1 w-full"

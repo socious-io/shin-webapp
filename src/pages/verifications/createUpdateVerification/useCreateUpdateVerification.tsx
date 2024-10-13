@@ -24,10 +24,10 @@ import { setNotificationState } from 'src/store/reducers/notification.reducer';
 import * as yup from 'yup';
 
 const valueValidation = {
-  URL: yup.string().required('Required').matches(urlPattern, 'Must be a valid URL'),
-  NUMBER: yup.number().typeError('Must be a numeric value').required('Required'),
-  EMAIL: yup.string().required('Required').matches(emailPattern, 'Must be a valid Email'),
-  TEXT: yup.string().required('Required'),
+  URL: yup.string().nullable().matches(urlPattern, { message: 'Must be a valid URL', excludeEmptyString: true }),
+  NUMBER: yup.number().typeError('Must be a numeric value'),
+  EMAIL: yup.string().nullable().matches(emailPattern, { message: 'Must be a valid Email', excludeEmptyString: true }),
+  TEXT: yup.string(),
   BOOLEAN: yup.boolean().typeError('Required').required('Required'),
   DATETIME: yup.date().typeError('Must be a date value').required('Required'),
 };
@@ -58,7 +58,6 @@ const schema = yup
           value: yup
             .mixed()
             .oneOf([yup.number(), yup.string(), yup.date(), yup.boolean()])
-            .required('Required')
             .when(['type'], type => {
               return valueValidation[type[0] || yup.string().required('Required')];
             }),

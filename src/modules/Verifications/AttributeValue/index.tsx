@@ -27,13 +27,7 @@ const AttributeValue: React.FC<AttributeValueProps> = ({ type, value, onChange, 
           errors={error ? [error] : undefined}
         />
       )}
-      {type === 'DATETIME' && (
-        <DateTimePicker
-          // value={value}
-          onChange={onChange}
-          errorMessage={error}
-        />
-      )}
+      {type === 'DATETIME' && <DateTimePicker value={value || null} onChange={onChange} errorMessage={error} />}
     </div>
   );
 };
