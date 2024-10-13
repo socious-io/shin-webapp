@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { OptionType, VerificationAttribute } from 'src/core/adaptors';
 
+import { AttributeOption } from './index.types';
+
 export const useAttribute = (
   index: number,
-  onChangeAttribute: (index: number, attribute?: OptionType, operator?: OptionType, value?: string) => void,
+  onChangeAttribute: (index: number, attribute?: AttributeOption, operator?: OptionType, value?: string) => void,
   attribute?: VerificationAttribute,
 ) => {
   const operators: OptionType[] = [

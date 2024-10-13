@@ -7,10 +7,11 @@ import variables from 'src/styles/constants/_exports.module.scss';
 import css from './index.module.scss';
 import { AttributeProps } from './index.types';
 import { useAttribute } from './useAttribute';
+import AttributeValue from '../../AttributeValue';
 
 const Attribute: React.FC<AttributeProps> = ({
   index,
-  options,
+  attributeOptions,
   selectedAttribute,
   onChangeAttribute,
   onDeleteAttribute,
@@ -30,7 +31,7 @@ const Attribute: React.FC<AttributeProps> = ({
       <div className={css['container__inputs']}>
         <SearchDropdown
           value={selected}
-          options={options}
+          options={attributeOptions}
           isSearchable
           onChange={onSelectAttribute}
           containerClassName="flex-1 w-full"
@@ -44,11 +45,12 @@ const Attribute: React.FC<AttributeProps> = ({
           containerClassName="flex-1 w-full"
           errors={errors && errors['operator']?.message ? [errors['operator'].message] : undefined}
         />
-        <Input
+        <AttributeValue
           value={attributeValue}
-          onChange={e => handleChangeValue(e.target.value)}
+          type={selectedAttribute?.type || 'TEXT'}
+          onChange={handleChangeValue}
           containerClassName="flex-1 w-full"
-          errors={errors && errors['value']?.message ? [errors['value'].message] : undefined}
+          error={errors?.value?.message}
         />
       </div>
       <button className={css['container__delete']} onClick={() => onDeleteAttribute(index)}>

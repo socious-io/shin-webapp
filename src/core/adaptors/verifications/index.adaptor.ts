@@ -55,9 +55,8 @@ export const getVerificationByIdAdaptor = async (id: string): Promise<AdaptorRes
       schema: res.schema,
       attributes: res.attributes?.map(item => {
         return {
+          ...item,
           id: item.attribute_id,
-          operator: item.operator,
-          value: item.value,
         };
       }),
     };
@@ -81,8 +80,8 @@ export const createVerificationAdaptor = async (param: VerificationReqAdaptor): 
       description: param.description || '',
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
-        const { id, operator, value } = atr;
-        return { attribute_id: id, operator, value };
+        const { id, operator, value, type } = atr;
+        return { attribute_id: id, operator, value: value.toString(), type };
       }),
     });
     return {
@@ -101,8 +100,8 @@ export const updateVerificationAdaptor = async (param: UpdateVerificationReq): P
       description: param.description || '',
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
-        const { id, operator, value } = atr;
-        return { attribute_id: id, operator, value };
+        const { id, operator, value, type } = atr;
+        return { attribute_id: id, operator, value: value.toString(), type };
       }),
     };
     await updateVerification(param.id, payload);

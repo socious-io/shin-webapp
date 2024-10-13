@@ -120,7 +120,7 @@ export const CreateUpdateVerification = () => {
                 <Attribute
                   key={index}
                   index={index}
-                  options={attributes}
+                  attributeOptions={attributes}
                   onChangeAttribute={onChangeAttribute}
                   onDeleteAttribute={onDeleteAttribute}
                   errors={errors['attributes']?.[index]}
