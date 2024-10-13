@@ -1,4 +1,4 @@
-export type StatusValue = 'REQUESTED' | 'VEIFIED' | 'FAILED';
+export type StatusValue = 'CREATED' | 'REQUESTED' | 'VERIFIED' | 'FAILED';
 export interface StatusProps {
   status: StatusValue;
 }

@@ -9,8 +9,8 @@ import {
   connectVerification,
 } from 'src/core/api';
 
-import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
 import { AdaptorRes, SuccessRes } from '..';
+import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
 
 export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
   try {
@@ -19,6 +19,7 @@ export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<Ada
       return {
         id: item.id,
         name: item.name,
+        status: item.status,
         proofId: item.present_id,
         createdBy: `${item.user.first_name} ${item.user.last_name}`,
         creationDate: item.created_at,
