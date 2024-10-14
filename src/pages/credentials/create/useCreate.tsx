@@ -11,7 +11,7 @@ export const useCreate = () => {
   const schemas = schemaList?.items || [];
   const [step, setStep] = useState(0);
   const [claims, setClaims] = useState<CredentialClaims[]>([]);
-  const [selectedSchema, setSelectedSchema] = useState(schemas[0]?.id || '');
+  const [selectedSchema, setSelectedSchema] = useState((schemas[0]?.disabled ? schemas[1]?.id : schemas[0]?.id) || '');
   const [selectedRecipient, setSelectedRecipient] = useState('');
   const selectedSchemaDetail = schemas.find(schema => schema.id === selectedSchema);
   const formRef = useRef<{ submitForm: () => void }>(null);
