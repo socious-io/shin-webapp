@@ -1,0 +1,29 @@
+{
+  "integration-header": "Integrations",
+  "integration-subheader": "Manage your integrations here.",
+  "integration-add-button": "Add",
+  "integration-cancel-button": "Cancel",
+  "integration-save-button": "Save",
+  "integration-empty-subheader": "No integrations set up yet.",
+  "integration-add": {
+    "title": "Add integration",
+    "title-edit": "Edit integration",
+    "input-label": "Name",
+    "input-hint": "Enter a name to differentiate between your integrations."
+  },
+  "integration-table": {
+    "name": "Name",
+    "base-url": "Base URL",
+    "api-key": "API key",
+    "secret-key": "Secret key",
+    "click-copy": "Click to copy"
+  },
+  "integration-menu": {
+    "rename": "Rename",
+    "delete": "Delete"
+  },
+  "integration-delete": {
+    "title": "Delete",
+    "subtitle": "Are you sure you wish to delete this integration? This action cannot be undone."
+  }
+}
