@@ -8,6 +8,11 @@ $nav-height: 4rem;
     height: 100vh;
     display: flex;
     position: relative;
+    overflow: auto;
+
+    &--open {
+        overflow: hidden;
+    }
 
     .content {
         width: calc(100% - $menu-width);
