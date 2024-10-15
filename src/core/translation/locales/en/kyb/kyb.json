@@ -23,11 +23,12 @@
     "kyb-verify-step-3-title": "Verification complete",
     "kyb-verify-step-3-subtitle": "An email and notification will be sent to you upon successful verification and you will then be able to issue credentials.",
     "kyb-detail-modal-title": "Send your organization details",
-    "kyb-detail-modal-subtitle": "Please upload your company registration document, like a certificate or equivalent.",
+    "kyb-detail-modal-subtitle": "Send a company registration document such as a company certificate/equivalent along with your organization name",
     "kyb-success-modal-title": "Your documents have been sent",
     "kyb-success-modal-subtitle": "Our verification team will take 1-3 days to process your verification request. An email and notification will be sent to you upon successful verification and you will then be able to issue credentials.",
     "kyb-pending-modal-title": "We are processing your verification",
     "kyb-pending-modal-subtitle": "An email and notification will be sent to you upon successful verification and you will then be able to issue credentials.",
     "kyb-rejected-modal-title": "There was an issue with your application",
-    "kyb-rejected-modal-subtitle": "Our team will be contact with you by email. If your request is urgent please contact us directly at info@socious.io."
+    "kyb-rejected-modal-subtitle": "Our team will be contact with you by email. If your request is urgent please contact us directly at info@socious.io.",
+    "kyb-send-button": "Send"
 }
