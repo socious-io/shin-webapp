@@ -1,0 +1,71 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.table {
+    @include flex(normal, normal, column);
+    border: 1px solid $color-grey-200;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
+    min-width: fit-content;
+
+    .header {
+        border-bottom: 1px solid $color-grey-200;
+        border-radius: $radius-xl;
+        background-color: $color-grey-50;
+        height: 2.75rem;
+
+        &__item {
+            color: $color-grey-600;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            vertical-align: middle;
+        }
+    }
+
+    .row {
+        cursor: pointer;
+
+        & + .row {
+            border-top: 1px solid $color-grey-200;
+        }
+    }
+
+    .col {
+        color: $color-grey-600;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 1.5rem;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 11.25rem;
+
+        &--darker {
+            color: $color-grey-900;
+        }
+
+        &__link {
+            font-weight: 500;
+            color: $color-primary-700;
+            text-decoration: underline;
+        }
+    }
+
+    .col__actions {
+        @include flex(center, center);
+        color: $color-grey-600;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 1.5rem;
+        vertical-align: middle;
+        max-width: 11.25rem;
+    }
+
+    &__pagination {
+        border-top: 1px solid $color-grey-200;
+        border-radius: 0;
+        padding: 0.75rem 1.5rem;
+    }
+}
