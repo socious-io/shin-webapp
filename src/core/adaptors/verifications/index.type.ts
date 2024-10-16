@@ -32,6 +32,6 @@ export interface VerificationAttribute {
   id: string;
   name?: string;
   operator: VerificationOperatorType;
-  value: string | number | boolean | Date;
+  value: string;
   type: SchemaAttributeType;
 }

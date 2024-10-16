@@ -9,8 +9,8 @@ import {
   connectVerification,
 } from 'src/core/api';
 
-import { AdaptorRes, SuccessRes } from '..';
 import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
+import { AdaptorRes, SuccessRes } from '..';
 
 export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
   try {
@@ -82,7 +82,7 @@ export const createVerificationAdaptor = async (param: VerificationReqAdaptor): 
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
         const { id, operator, value, type } = atr;
-        return { attribute_id: id, operator, value: value.toString(), type };
+        return { attribute_id: id, operator, value: value || '', type };
       }),
     });
     return {
@@ -102,7 +102,7 @@ export const updateVerificationAdaptor = async (param: UpdateVerificationReq): P
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
         const { id, operator, value, type } = atr;
-        return { attribute_id: id, operator, value: value.toString(), type };
+        return { attribute_id: id, operator, value: value || '', type };
       }),
     };
     await updateVerification(param.id, payload);

@@ -109,7 +109,8 @@ export const useCreateUpdateVerification = () => {
       description: verification.description,
       schema: { value: selectedSchema?.id, label: selectedSchema?.name },
       attributes: verification.attributes?.map(item => {
-        return { ...item, name: selectedSchema?.attributes.find(atr => atr.id === item.id)?.name };
+        const schemaAttribute = selectedSchema?.attributes.find(atr => atr.id === item.id);
+        return { ...item, name: schemaAttribute?.name, type: schemaAttribute?.type || 'TEXT' };
       }),
     };
     reset(initialVal);
@@ -165,7 +166,9 @@ export const useCreateUpdateVerification = () => {
         name,
         description,
         schemaId: schema.value,
-        attributes: attributes,
+        attributes: attributes.map(item => {
+          return { ...item, value: (item.value || '').toString() };
+        }),
       };
       res = await updateVerificationAdaptor(param);
     } else {
@@ -173,7 +176,9 @@ export const useCreateUpdateVerification = () => {
         name,
         description,
         schemaId: schema.value,
-        attributes,
+        attributes: attributes.map(item => {
+          return { ...item, value: (item.value || '').toString() };
+        }),
       };
 
       res = await createVerificationAdaptor(param);
@@ -230,6 +235,10 @@ export const useCreateUpdateVerification = () => {
     setValue('attributes', newAttributes, { shouldValidate: true });
   };
 
+  const verificationAttributes = getValues().attributes?.map(item => {
+    return { ...item, value: (item?.value || '').toString() };
+  });
+
   return {
     data: {
       errors,
@@ -240,7 +249,7 @@ export const useCreateUpdateVerification = () => {
       name,
       description,
       attributes,
-      verificationAttributes: getValues().attributes,
+      verificationAttributes,
     },
     operation: {
       register,

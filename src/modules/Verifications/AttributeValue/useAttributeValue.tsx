@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
-export const useAttributeValue = (onChange: (value: string) => void) => {
+export const useAttributeValue = (value: string, onChange: (value: string) => void) => {
   const booleanOptions = [
-    { label: 'Yes', value: true },
-    { label: 'No', value: false },
+    { label: 'Yes', value: 'true' },
+    { label: 'No', value: 'false' },
   ];
 
+  const selectedBooleanOption = booleanOptions.find(item => item.value === value);
   const onChangeBoolean = option => {
     onChange(option.value);
   };
 
-  return { booleanOptions, onChangeBoolean };
+  return { booleanOptions, onChangeBoolean, selectedBooleanOption };
 };
