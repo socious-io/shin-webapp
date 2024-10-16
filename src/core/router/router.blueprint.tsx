@@ -17,8 +17,8 @@ import {
   getCredentialsAdaptor,
   getRecipientsAdaptor,
   connectCredentialAdaptor,
-  verifyActionAdaptor,
   getOrgIdAdaptor,
+  getIntegrationsAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -144,6 +144,19 @@ export const blueprint: RouteObject[] = [
                 },
               },
             ],
+          },
+          {
+            path: 'integrations',
+            loader: async () => {
+              const { data } = await getIntegrationsAdaptor(1, 10);
+              return data;
+            },
+            async lazy() {
+              const { Integrations } = await import('src/pages/integrations');
+              return {
+                Component: Integrations,
+              };
+            },
           },
           {
             path: 'organization',

@@ -39,6 +39,12 @@ export const useHamburgerMenu = () => {
       path: '/verifications',
     },
     {
+      id: 'integrations',
+      iconName: 'code-snippet-02',
+      title: translate('layout-integrations'),
+      path: '/integrations',
+    },
+    {
       id: 'organization-profile',
       iconName: 'building-06',
       title: translate('layout-org-profile'),

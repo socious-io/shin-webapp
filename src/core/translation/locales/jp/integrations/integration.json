@@ -1,0 +1,29 @@
+{
+  "integration-header": "連携",
+  "integration-subheader": "ここで連携を管理できます。",
+  "integration-add-button": "追加",
+  "integration-cancel-button": "キャンセル",
+  "integration-save-button": "保存",
+  "integration-empty-subheader": "まだ連携が設定されていません。",
+  "integration-add": {
+    "title": "連携を追加",
+    "title-edit": "連携を編集",
+    "input-label": "名前",
+    "input-hint": "連携を区別するための名前を入力してください。"
+  },
+  "integration-table": {
+    "name": "名前",
+    "base-url": "ベースURL",
+    "api-key": "APIキー",
+    "secret-key": "シークレットキー",
+    "click-copy": "クリックしてコピー"
+  },
+  "integration-menu": {
+    "rename": "名前を変更",
+    "delete": "削除"
+  },
+  "integration-delete": {
+    "title": "削除",
+    "subtitle": "この連携を削除してもよろしいですか？この操作は取り消せません。"
+  }
+}
