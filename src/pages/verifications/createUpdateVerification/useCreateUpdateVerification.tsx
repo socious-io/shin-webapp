@@ -19,7 +19,7 @@ import {
 import { SchemaAttributeType, VerificationOperatorType } from 'src/core/api';
 import { emailPattern, urlPattern } from 'src/core/helpers/regexs';
 import FeaturedIconOutlined from 'src/modules/General/components/FeaturedIconOutlined';
-import { AttributeOption } from 'src/modules/Verifications/components/Atribute/index.types';
+import { AttributeOption } from 'src/modules/Verifications/containers/Atribute/index.types';
 import { setNotificationState } from 'src/store/reducers/notification.reducer';
 import * as yup from 'yup';
 

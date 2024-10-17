@@ -7,7 +7,7 @@ import variables from 'src/styles/constants/_exports.module.scss';
 import css from './index.module.scss';
 import { AttributeProps } from './index.types';
 import { useAttribute } from './useAttribute';
-import AttributeValue from '../../AttributeValue';
+import AttributeValue from '../AttributeValue';
 
 const Attribute: React.FC<AttributeProps> = ({
   index,

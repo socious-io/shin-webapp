@@ -9,9 +9,21 @@ import { useAttributeValue } from './useAttributeValue';
 
 const AttributeValue: React.FC<AttributeValueProps> = ({ type, value, onChange, containerClassName, error }) => {
   const { booleanOptions, onChangeBoolean, selectedBooleanOption } = useAttributeValue(value, onChange);
+  const inputs = {
+    BOOLEAN: (
+      <SearchDropdown
+        options={booleanOptions}
+        isSearchable
+        onChange={onChangeBoolean}
+        errors={error ? [error] : undefined}
+        value={selectedBooleanOption}
+      />
+    ),
+    DATETIME: <DateTimePicker value={dayjs(value)} onChange={onChange} errorMessage={error} />,
+  };
   return (
     <div className={containerClassName}>
-      {(type === 'TEXT' || type === 'NUMBER' || type === 'URL' || type == 'EMAIL') && (
+      {inputs[type] || (
         <Input
           value={value}
           onChange={e => onChange(e.target.value)}
@@ -20,7 +32,16 @@ const AttributeValue: React.FC<AttributeValueProps> = ({ type, value, onChange, 
           type={type === 'NUMBER' ? 'number' : 'text'}
         />
       )}
-      {type === 'BOOLEAN' && (
+      {/* {(type === 'TEXT' || type === 'NUMBER' || type === 'URL' || type == 'EMAIL') && (
+        <Input
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          containerClassName="flex-1 w-full"
+          errors={error ? [error] : undefined}
+          type={type === 'NUMBER' ? 'number' : 'text'}
+        />
+      )} */}
+      {/* {type === 'BOOLEAN' && (
         <SearchDropdown
           options={booleanOptions}
           isSearchable
@@ -29,7 +50,7 @@ const AttributeValue: React.FC<AttributeValueProps> = ({ type, value, onChange, 
           value={selectedBooleanOption}
         />
       )}
-      {type === 'DATETIME' && <DateTimePicker value={dayjs(value)} onChange={onChange} errorMessage={error} />}
+      {type === 'DATETIME' && <DateTimePicker value={dayjs(value)} onChange={onChange} errorMessage={error} />} */}
     </div>
   );
 };
