@@ -16,3 +16,5 @@ export * from './organizations/organizations.types';
 export * from './organizations/organizations.api';
 export * from './media/media.types';
 export * from './media/media.api';
+export * from './integrations/integrations.types';
+export * from './integrations/integrations.api';
