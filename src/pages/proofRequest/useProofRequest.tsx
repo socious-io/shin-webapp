@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { ProofRequestStatus, verifyActionAdaptor } from 'src/core/adaptors';
 import { CredentialRes, VerificationRes } from 'src/core/api';
+import { RootState } from 'src/store';
+import { OrgState } from 'src/store/reducers/org.reducer';
 
 export const useProofRequest = () => {
   const { t: translate } = useTranslation();
@@ -12,6 +15,17 @@ export const useProofRequest = () => {
       data: VerificationRes;
     }) || {};
   const [dataStatus, setDataStatus] = useState<ProofRequestStatus | ''>('');
+
+  const orgProfileId = useSelector<RootState, OrgState>(state => state.org).id || '';
+  const { pathname } = useLocation();
+
+  let returnURL = '';
+
+  if (pathname.includes('credential')) {
+    returnURL = `/credentials/${orgProfileId}`;
+  } else if (pathname.includes('verification')) {
+    returnURL = '/verifications';
+  }
 
   useEffect(() => {
     const getStatus = async () => {
@@ -28,6 +42,7 @@ export const useProofRequest = () => {
       translate,
       data,
       dataStatus,
+      returnURL,
     },
     operations: { setDataStatus, navigate },
   };
