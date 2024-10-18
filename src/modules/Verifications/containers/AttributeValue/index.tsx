@@ -32,25 +32,6 @@ const AttributeValue: React.FC<AttributeValueProps> = ({ type, value, onChange, 
           type={type === 'NUMBER' ? 'number' : 'text'}
         />
       )}
-      {/* {(type === 'TEXT' || type === 'NUMBER' || type === 'URL' || type == 'EMAIL') && (
-        <Input
-          value={value}
-          onChange={e => onChange(e.target.value)}
-          containerClassName="flex-1 w-full"
-          errors={error ? [error] : undefined}
-          type={type === 'NUMBER' ? 'number' : 'text'}
-        />
-      )} */}
-      {/* {type === 'BOOLEAN' && (
-        <SearchDropdown
-          options={booleanOptions}
-          isSearchable
-          onChange={onChangeBoolean}
-          errors={error ? [error] : undefined}
-          value={selectedBooleanOption}
-        />
-      )}
-      {type === 'DATETIME' && <DateTimePicker value={dayjs(value)} onChange={onChange} errorMessage={error} />} */}
     </div>
   );
 };
