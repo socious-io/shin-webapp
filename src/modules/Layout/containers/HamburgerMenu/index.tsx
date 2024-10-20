@@ -51,6 +51,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ animatable = false, menuI
                 name: `${userProfile.firstName} ${userProfile.lastName}`,
                 type: 'users',
                 email: userProfile.email,
+                img: userProfile.avatar.url,
               }}
               customStyle="px-2"
             />
