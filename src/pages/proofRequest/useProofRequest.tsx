@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { ProofRequestStatus, verifyActionAdaptor } from 'src/core/adaptors';
 import { CredentialRes, VerificationRes } from 'src/core/api';
 
 export const useProofRequest = () => {
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const connectVerification = pathname.includes('verification');
   const { data } =
     (useLoaderData() as {
-      data: VerificationRes;
+      data: VerificationRes | CredentialRes;
     }) || {};
   const [dataStatus, setDataStatus] = useState<ProofRequestStatus | ''>('');
 
@@ -20,7 +22,7 @@ export const useProofRequest = () => {
         setDataStatus(res);
       }
     };
-    getStatus();
+    connectVerification && getStatus();
   }, [data]);
 
   return {

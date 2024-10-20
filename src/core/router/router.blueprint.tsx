@@ -294,7 +294,7 @@ export const blueprint: RouteObject[] = [
           }
         },
         async lazy() {
-          const { ProofRequest } = await import('src/pages/proofRequest/index');
+          const { ProofRequest } = await import('src/pages/proofRequest');
           return {
             Component: ProofRequest,
           };
@@ -309,7 +309,7 @@ export const blueprint: RouteObject[] = [
           }
         },
         async lazy() {
-          const { ProofRequest } = await import('src/pages/proofRequest/index');
+          const { ProofRequest } = await import('src/pages/proofRequest');
           return {
             Component: ProofRequest,
           };
