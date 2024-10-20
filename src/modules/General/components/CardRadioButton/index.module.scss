@@ -18,10 +18,11 @@
     }
 
     &--disabled {
-        background-color: $color-grey-200;
-        &:hover {
-            box-shadow: none;
-        }
+        display: none;
+        // background-color: $color-grey-200;
+        // &:hover {
+        //     box-shadow: none;
+        // }
     }
 
     .content {
