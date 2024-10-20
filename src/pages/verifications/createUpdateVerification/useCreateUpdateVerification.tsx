@@ -16,10 +16,21 @@ import {
   Verification,
   VerificationReqAdaptor,
 } from 'src/core/adaptors';
-import { VerificationOperatorType } from 'src/core/api';
+import { SchemaAttributeType, VerificationOperatorType } from 'src/core/api';
+import { emailPattern, urlPattern } from 'src/core/helpers/regexs';
 import FeaturedIconOutlined from 'src/modules/General/components/FeaturedIconOutlined';
+import { AttributeOption } from 'src/modules/Verifications/containers/Atribute/index.types';
 import { setNotificationState } from 'src/store/reducers/notification.reducer';
 import * as yup from 'yup';
+
+const valueValidation = {
+  URL: yup.string().nullable().matches(urlPattern, { message: 'Must be a valid URL', excludeEmptyString: true }),
+  NUMBER: yup.number().typeError('Must be a numeric value'),
+  EMAIL: yup.string().nullable().matches(emailPattern, { message: 'Must be a valid Email', excludeEmptyString: true }),
+  TEXT: yup.string(),
+  BOOLEAN: yup.boolean().typeError('Required').required('Required'),
+  DATETIME: yup.date().typeError('Must be a date value').required('Required'),
+};
 
 const schema = yup
   .object()
@@ -36,11 +47,20 @@ const schema = yup
         yup.object().shape({
           id: yup.string().required('Required'),
           name: yup.string().required('Required'),
+          type: yup
+            .string()
+            .oneOf(['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'] as SchemaAttributeType[])
+            .required(),
           operator: yup
             .mixed<VerificationOperatorType>()
             .oneOf(['EQUAL', 'NOT', 'BIGGER', 'SMALLER'])
             .required('Required'),
-          value: yup.string().required('Required'),
+          value: yup
+            .mixed()
+            .oneOf([yup.number(), yup.string(), yup.date(), yup.boolean()])
+            .when(['type'], type => {
+              return valueValidation[type[0] || yup.string().required('Required')];
+            }),
         }),
       )
       .required('Required'),
@@ -56,7 +76,7 @@ export const useCreateUpdateVerification = () => {
   const [schemaRes, setSchemaRes] = useState<Schema[]>([]);
   const [schemaList, setSchemaList] = useState<{ label: string; value: string }[]>([]);
   const [openPreview, setOpenPreview] = useState(false);
-  const [attributes, setAttributes] = useState<OptionType[]>([]);
+  const [attributes, setAttributes] = useState<AttributeOption[]>([]);
   const {
     register,
     handleSubmit,
@@ -80,6 +100,7 @@ export const useCreateUpdateVerification = () => {
           return {
             value: item.id,
             label: item.description || item.name,
+            type: item.type,
           };
         }),
       );
@@ -88,7 +109,8 @@ export const useCreateUpdateVerification = () => {
       description: verification.description,
       schema: { value: selectedSchema?.id, label: selectedSchema?.name },
       attributes: verification.attributes?.map(item => {
-        return { ...item, name: selectedSchema?.attributes.find(atr => atr.id === item.id)?.name };
+        const schemaAttribute = selectedSchema?.attributes.find(atr => atr.id === item.id);
+        return { ...item, name: schemaAttribute?.name, type: schemaAttribute?.type || 'TEXT' };
       }),
     };
     reset(initialVal);
@@ -124,6 +146,7 @@ export const useCreateUpdateVerification = () => {
           return {
             value: item.id,
             label: item.description || item.name,
+            type: item.type,
           };
         }),
       );
@@ -143,7 +166,9 @@ export const useCreateUpdateVerification = () => {
         name,
         description,
         schemaId: schema.value,
-        attributes: attributes,
+        attributes: attributes.map(item => {
+          return { ...item, value: (item.value || '').toString() };
+        }),
       };
       res = await updateVerificationAdaptor(param);
     } else {
@@ -151,7 +176,9 @@ export const useCreateUpdateVerification = () => {
         name,
         description,
         schemaId: schema.value,
-        attributes,
+        attributes: attributes.map(item => {
+          return { ...item, value: (item.value || '').toString() };
+        }),
       };
 
       res = await createVerificationAdaptor(param);
@@ -171,14 +198,22 @@ export const useCreateUpdateVerification = () => {
   const name = watch('name');
   const description = watch('description');
 
-  const onChangeAttribute = (index: number, attribute?: OptionType, operator?: OptionType, value?: string) => {
+  const onChangeAttribute = (
+    index: number,
+    attribute?: AttributeOption,
+    operator?: OptionType,
+    value?: string | Date | boolean,
+  ) => {
     const newAttributes = getValues().attributes;
     if (attribute !== undefined) {
       newAttributes[index].id = attribute.value;
       newAttributes[index].name = attribute.label;
+      newAttributes[index].type = attribute.type;
     }
     if (operator !== undefined) newAttributes[index].operator = operator.value as VerificationOperatorType;
-    if (value !== undefined) newAttributes[index].value = value;
+    if (value !== undefined) {
+      newAttributes[index].value = value;
+    }
     setValue('attributes', newAttributes, { shouldValidate: true });
   };
   const onDeleteAttribute = (index: number) => {
@@ -194,10 +229,15 @@ export const useCreateUpdateVerification = () => {
         name: '',
         operator: 'EQUAL' as VerificationOperatorType,
         value: '',
+        type: 'TEXT' as SchemaAttributeType,
       },
     ];
     setValue('attributes', newAttributes, { shouldValidate: true });
   };
+
+  const verificationAttributes = getValues().attributes?.map(item => {
+    return { ...item, value: (item?.value || '').toString() };
+  });
 
   return {
     data: {
@@ -209,7 +249,7 @@ export const useCreateUpdateVerification = () => {
       name,
       description,
       attributes,
-      verificationAttributes: getValues().attributes,
+      verificationAttributes,
     },
     operation: {
       register,

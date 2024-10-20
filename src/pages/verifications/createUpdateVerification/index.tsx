@@ -2,8 +2,8 @@ import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
-import Attribute from 'src/modules/Verifications/components/Atribute';
-import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
+import Attribute from 'src/modules/Verifications/containers/Atribute';
+import { ProofRequestModal } from 'src/modules/Verifications/containers/ProofRequestModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -120,7 +120,7 @@ export const CreateUpdateVerification = () => {
                 <Attribute
                   key={index}
                   index={index}
-                  options={attributes}
+                  attributeOptions={attributes}
                   onChangeAttribute={onChangeAttribute}
                   onDeleteAttribute={onDeleteAttribute}
                   errors={errors['attributes']?.[index]}

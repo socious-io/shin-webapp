@@ -1,4 +1,4 @@
-import { SchemaRes, VerificationOperatorType } from 'src/core/api';
+import { SchemaAttributeType, SchemaRes, VerificationOperatorType } from 'src/core/api';
 
 export interface Verification {
   id: string;
@@ -33,4 +33,5 @@ export interface VerificationAttribute {
   name?: string;
   operator: VerificationOperatorType;
   value: string;
+  type: SchemaAttributeType;
 }

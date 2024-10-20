@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Notification from 'src/modules/General/components/Notification';
-import EmptyVerifications from 'src/modules/Verifications/components/EmptyVerfications.tsx';
 import VerificationList from 'src/modules/Verifications/components/VerificationList.tsx';
+import EmptyVerifications from 'src/modules/Verifications/containers/EmptyVerfications.tsx';
 
 import css from './index.module.scss';
 import { useVerifications } from './useVerifications';

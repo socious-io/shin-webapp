@@ -9,8 +9,8 @@ import {
   connectVerification,
 } from 'src/core/api';
 
-import { AdaptorRes, SuccessRes } from '..';
 import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
+import { AdaptorRes, SuccessRes } from '..';
 
 export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
   try {
@@ -56,9 +56,8 @@ export const getVerificationByIdAdaptor = async (id: string): Promise<AdaptorRes
       schema: res.schema,
       attributes: res.attributes?.map(item => {
         return {
+          ...item,
           id: item.attribute_id,
-          operator: item.operator,
-          value: item.value,
         };
       }),
     };
@@ -82,8 +81,8 @@ export const createVerificationAdaptor = async (param: VerificationReqAdaptor): 
       description: param.description || '',
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
-        const { id, operator, value } = atr;
-        return { attribute_id: id, operator, value };
+        const { id, operator, value, type } = atr;
+        return { attribute_id: id, operator, value: value || '', type };
       }),
     });
     return {
@@ -102,8 +101,8 @@ export const updateVerificationAdaptor = async (param: UpdateVerificationReq): P
       description: param.description || '',
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
-        const { id, operator, value } = atr;
-        return { attribute_id: id, operator, value };
+        const { id, operator, value, type } = atr;
+        return { attribute_id: id, operator, value: value || '', type };
       }),
     };
     await updateVerification(param.id, payload);

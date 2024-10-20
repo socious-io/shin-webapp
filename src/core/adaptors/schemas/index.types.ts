@@ -1,4 +1,4 @@
-import { PaginateRes } from 'src/core/api';
+import { PaginateRes, SchemaAttributeType } from 'src/core/api';
 
 export type AttributeOption = {
   value: string;
@@ -10,6 +10,7 @@ export type Attribute = {
   name: string;
   option: AttributeOption;
   description?: string;
+  type: SchemaAttributeType;
 };
 
 export type Schema = {

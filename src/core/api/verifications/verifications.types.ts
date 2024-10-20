@@ -1,4 +1,4 @@
-import { SchemaRes } from '../schemas/schemas.types';
+import { SchemaAttributeType, SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
 
@@ -7,6 +7,7 @@ export interface VerificationAttributeReq {
   attribute_id: string;
   operator: VerificationOperatorType;
   value: string;
+  type: SchemaAttributeType;
 }
 
 export interface VerificationReq {
