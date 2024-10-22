@@ -60,10 +60,13 @@ export const useVerificationList = (
     if (!selectedId) return;
     const res = await deleteVerificationAdaptor(selectedId);
     if (res.error) return;
-    const verificationRes = await getVerificationsAdaptor(page, PER_PAGE);
+    const newPage = list.length === 1 && page > 1 ? page - 1 : page;
+    const verificationRes = await getVerificationsAdaptor(newPage, PER_PAGE);
     if (verificationRes.error) return;
     setOpenModal({ name: 'delete', open: false });
     setList(verificationRes.data?.items || []);
+    setTotal(Math.ceil((verificationRes.data?.totalCount || 0) / PER_PAGE));
+    setPage(newPage);
   };
 
   const handleOpenCopy = (id: string) => {

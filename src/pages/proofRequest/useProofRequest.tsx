@@ -3,21 +3,22 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { ProofRequestStatus, verifyActionAdaptor } from 'src/core/adaptors';
-import { CredentialRes, VerificationRes } from 'src/core/api';
+import { CredentialRes, VerificationIndividualRes } from 'src/core/api';
 import { RootState } from 'src/store';
 import { OrgState } from 'src/store/reducers/org.reducer';
 
 export const useProofRequest = () => {
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const connectVerification = pathname.includes('verification');
   const { data } =
     (useLoaderData() as {
-      data: VerificationRes;
+      data: VerificationIndividualRes | CredentialRes;
     }) || {};
   const [dataStatus, setDataStatus] = useState<ProofRequestStatus | ''>('');
 
   const orgProfileId = useSelector<RootState, OrgState>(state => state.org).id || '';
-  const { pathname } = useLocation();
 
   let returnURL = '';
 
@@ -34,7 +35,7 @@ export const useProofRequest = () => {
         setDataStatus(res);
       }
     };
-    getStatus();
+    connectVerification && getStatus();
   }, [data]);
 
   return {

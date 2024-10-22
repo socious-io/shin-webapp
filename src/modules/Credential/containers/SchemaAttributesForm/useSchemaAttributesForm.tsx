@@ -53,6 +53,7 @@ export const useSchemaAttributesForm = (
         name: key,
         value: formData[key],
       })) || [];
+
     onSubmitClaims(claims);
   };
 
