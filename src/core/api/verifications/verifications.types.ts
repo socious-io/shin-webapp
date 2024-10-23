@@ -1,3 +1,4 @@
+import { VerificationStatus } from '../organizations/organizations.types';
 import { RecipientRes } from '../recipients/recipients.types';
 import { SchemaAttributeType, SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
@@ -30,7 +31,11 @@ export interface VerificationAttributeRes extends VerificationAttributeReq {
 
 export interface VerificationIndividualRes {
   id: string;
+  name: string;
+  description: string;
+  schema_id: string;
   recipient: RecipientRes;
+  user_id: string;
   user: User;
   verification: VerificationAttributeRes;
   connection_url?: string;
@@ -47,8 +52,17 @@ export interface VerificationIndividualRes {
 export interface VerificationRes extends VerificationReq {
   id: string;
   schema: SchemaRes;
+  schema_id: string;
+  user_id: string;
   user: User;
+  present_id?: string;
+  connection_id?: string;
+  connection_url?: string;
   attributes: VerificationAttributeRes[];
+  status: VerificationStatus;
+  validation_error?: string;
+  connection_at?: Date;
+  verified_at?: Date;
   created_at: Date;
   updated_at: Date;
 }

@@ -5,8 +5,8 @@ import {
   updateVerification,
   VerificationReq,
   deleteVerification,
-  VerificationRes,
   connectVerification,
+  VerificationIndividualRes,
 } from 'src/core/api';
 
 import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
@@ -128,7 +128,7 @@ export const deleteVerificationAdaptor = async (id: string): Promise<AdaptorRes<
   }
 };
 
-export const connectVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationRes>> => {
+export const connectVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationIndividualRes>> => {
   try {
     const res = await connectVerification(id);
     return {

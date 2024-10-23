@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form';
 import { Attribute } from 'src/core/adaptors';
 import { beautifyText } from 'src/core/helpers/texts';
 import Checkbox from 'src/modules/General/components/Checkbox';
+import DatePicker from 'src/modules/General/components/DatePicker';
 import DateTimePicker from 'src/modules/General/components/DateTimePicker';
 import Input from 'src/modules/General/components/Input';
 
@@ -14,6 +15,7 @@ const SchemaAttributesForm = forwardRef<FormHandles, SchemaAttributesFormProps>(
   ({ schemaAttributes, schemaInfo, onSubmitClaims }, ref) => {
     const {
       data: { register, control, errors, formRef },
+      operations: { areEqual },
     } = useSchemaAttributesForm(schemaAttributes, onSubmitClaims, ref);
 
     const generateOptionJSX = (attribute: Attribute) => ({
@@ -23,7 +25,7 @@ const SchemaAttributesForm = forwardRef<FormHandles, SchemaAttributesFormProps>(
           name={attribute.name}
           control={control}
           render={({ field: { onChange, value } }) => (
-            <DateTimePicker
+            <DatePicker
               id={attribute.name}
               label={beautifyText(attribute.name)}
               value={value}
@@ -62,7 +64,11 @@ const SchemaAttributesForm = forwardRef<FormHandles, SchemaAttributesFormProps>(
                 register={register}
                 label={beautifyText(attribute.name)}
                 placeholder={beautifyText(attribute.name)}
-                hints={attribute?.description ? [{ hint: attribute.description, hide: false }] : undefined}
+                hints={
+                  attribute?.description && !areEqual(attribute.description, attribute.name)
+                    ? [{ hint: attribute.description, hide: false }]
+                    : undefined
+                }
                 errors={
                   errors[attribute.name]?.message ? [errors[attribute.name]?.message?.toString() || ''] : undefined
                 }

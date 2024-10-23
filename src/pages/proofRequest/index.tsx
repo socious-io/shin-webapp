@@ -7,7 +7,7 @@ import { useProofRequest } from './useProofRequest';
 
 export const ProofRequest = () => {
   const {
-    data: { translate, data, dataStatus },
+    data: { translate, data, dataStatus, returnURL },
     operations: { setDataStatus, navigate },
   } = useProofRequest();
 
@@ -15,7 +15,7 @@ export const ProofRequest = () => {
     <>
       <ProofRequestModal
         open={!dataStatus}
-        handleClose={() => navigate('/verifications')}
+        handleClose={() => navigate(returnURL)}
         title={data?.name || ''}
         subtitle={data?.description || ''}
         shortLink={data?.connection_url}
