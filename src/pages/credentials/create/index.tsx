@@ -4,6 +4,7 @@ import SchemaAttributesForm from 'src/modules/Credential/containers/SchemaAttrib
 import SelectSchema from 'src/modules/Credential/containers/SelectSchema';
 import Button from 'src/modules/General/components/Button';
 import PaginationDotGroup from 'src/modules/General/components/PaginationDotGroup';
+import PaginationNumbers from 'src/modules/General/components/PaginationNumbers';
 
 import css from './index.module.scss';
 import { useCreate } from './useCreate';
@@ -15,13 +16,15 @@ export const Create = () => {
       step,
       schemaRadioItems,
       selectedSchema,
+      totalPage,
+      page,
       schemaAttributes,
       schemaInfo,
       formRef,
       selectedRecipient,
       disabledButton,
     },
-    operations: { onCancelCreate, setSelectedSchema, handleContinue, onSubmitClaims, onSelectRecipient },
+    operations: { onCancelCreate, setSelectedSchema, onChangePage, handleContinue, onSubmitClaims, onSelectRecipient },
   } = useCreate();
 
   const content = {
@@ -59,6 +62,7 @@ export const Create = () => {
         customStyle={css['pagination']}
       />
       <div className={css['content']}>{content[step]}</div>
+      {step === 0 && <PaginationNumbers count={totalPage} page={page} onChange={(_, p) => onChangePage(p)} />}
       <Divider />
       <div className={css['buttons']}>
         <Button color="primary" variant="outlined" onClick={onCancelCreate}>
