@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { Controller } from 'react-hook-form';
 import { Attribute } from 'src/core/adaptors';
-import { areEqual, beautifyText } from 'src/core/helpers/texts';
+import { beautifyText } from 'src/core/helpers/texts';
 import Checkbox from 'src/modules/General/components/Checkbox';
 import DatePicker from 'src/modules/General/components/DatePicker';
 import DateTimePicker from 'src/modules/General/components/DateTimePicker';
@@ -15,6 +15,7 @@ const SchemaAttributesForm = forwardRef<FormHandles, SchemaAttributesFormProps>(
   ({ schemaAttributes, schemaInfo, onSubmitClaims }, ref) => {
     const {
       data: { register, control, errors, formRef },
+      operations: { areEqual },
     } = useSchemaAttributesForm(schemaAttributes, onSubmitClaims, ref);
 
     const generateOptionJSX = (attribute: Attribute) => ({
