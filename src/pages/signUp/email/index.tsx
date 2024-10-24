@@ -1,6 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import logo from 'src/assets/logo/logo.svg';
+import SociousLogo from 'src/assets/logo/socious-logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
@@ -11,7 +12,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue, disabled, loading } = useEmail();
+  const { register, errors, handleSubmit, onContinue, disabled, loading, continueWithSocious } = useEmail();
   const { t: translate } = useTranslation();
 
   return (
@@ -43,20 +44,16 @@ export const Email = () => {
                     translate('primary-btn-label')
                   )}
                 </Button>
-                {/* <Button color="primary" variant="outlined" style={{ display: 'flex', gap: '12px' }}>
-                  <img src={'/images/logo/socious-logo.svg'} alt="" />
-                  {translate('socious-login')}
-                </Button> */}
-                {/* <Button
-                  color="primary"
+                <Button
                   variant="outlined"
-                  // onClick={() => {
-                  //     tried();
-                  //     navigate(`/oauth/google${event.name && `?event_name=${event.name}`}`);
-                  // }}
-                  customStyle='flex gap-3'
+                  color="primary"
+                  startIcon={<img src={SociousLogo} alt="socious-logo" width={24} height={24} />}
+                  onClick={continueWithSocious}
                 >
-                  <img src={'/icons/google.svg'} alt="" />
+                  {translate('socious-login')}
+                </Button>
+                {/* <Button color="primary" variant="outlined" onClick={continueWithGoogle}>
+                  <img src={'/icons/google.svg'} alt="google-logo" width={24} height={24} />
                   {translate('google-login')}
                 </Button> */}
               </div>
