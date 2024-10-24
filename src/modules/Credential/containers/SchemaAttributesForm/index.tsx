@@ -3,7 +3,6 @@ import { Controller } from 'react-hook-form';
 import { Attribute } from 'src/core/adaptors';
 import { beautifyText } from 'src/core/helpers/texts';
 import Checkbox from 'src/modules/General/components/Checkbox';
-import DatePicker from 'src/modules/General/components/DatePicker';
 import DateTimePicker from 'src/modules/General/components/DateTimePicker';
 import Input from 'src/modules/General/components/Input';
 
@@ -25,7 +24,7 @@ const SchemaAttributesForm = forwardRef<FormHandles, SchemaAttributesFormProps>(
           name={attribute.name}
           control={control}
           render={({ field: { onChange, value } }) => (
-            <DatePicker
+            <DateTimePicker
               id={attribute.name}
               label={beautifyText(attribute.name)}
               value={value}
