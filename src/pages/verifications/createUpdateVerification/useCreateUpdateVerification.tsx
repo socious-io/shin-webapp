@@ -113,7 +113,6 @@ export const useCreateUpdateVerification = () => {
         return { ...item, name: schemaAttribute?.name, type: schemaAttribute?.type || 'TEXT' };
       }),
     };
-    console.log('test log initial val', initialVal);
     reset(initialVal);
   };
 
