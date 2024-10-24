@@ -1,22 +1,28 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { createCredentialAdaptor, SchemaRes } from 'src/core/adaptors';
+import { createCredentialAdaptor, getSchemasAdaptor, SchemaRes } from 'src/core/adaptors';
 import { CredentialClaims } from 'src/core/api';
 
 export const useCreate = () => {
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const { schemaList } = (useLoaderData() as { schemaList: SchemaRes }) || {};
-  const schemas = schemaList?.items || [];
   const [step, setStep] = useState(0);
+  const [currentSchemaList, setCurrentSchemaList] = useState(schemaList);
+  const currentList = currentSchemaList?.items || [];
+  const totalPage = Math.ceil((currentSchemaList?.total || 1) / (currentSchemaList?.limit || 10));
+  const [page, setPage] = useState(1);
   const [claims, setClaims] = useState<CredentialClaims[]>([]);
-  const [selectedSchema, setSelectedSchema] = useState((schemas[0]?.disabled ? schemas[1]?.id : schemas[0]?.id) || '');
+  const [selectedSchema, setSelectedSchema] = useState(
+    (currentList[0]?.disabled ? currentList[1]?.id : currentList[0]?.id) || '',
+  );
   const [selectedRecipient, setSelectedRecipient] = useState('');
-  const selectedSchemaDetail = schemas.find(schema => schema.id === selectedSchema);
+  const selectedSchemaDetail = currentList.find(schema => schema.id === selectedSchema);
   const formRef = useRef<{ submitForm: () => void }>(null);
 
-  const schemaRadioItems = schemas.map(schema => ({
+  const schemaRadioItems = currentList.map(schema => ({
+    id: schema.id,
     title: schema.name,
     description: schema?.description || '',
     value: schema.id,
@@ -64,18 +70,26 @@ export const useCreate = () => {
     navigate('/credentials');
   };
 
+  const onChangePage = async (newPage: number) => {
+    setPage(newPage);
+    const { data } = await getSchemasAdaptor(newPage);
+    data && setCurrentSchemaList(data);
+  };
+
   return {
     data: {
       translate,
       step,
       schemaRadioItems,
       selectedSchema,
+      totalPage,
+      page,
       schemaAttributes,
       schemaInfo,
       formRef,
       selectedRecipient,
       disabledButton,
     },
-    operations: { onCancelCreate, setSelectedSchema, handleContinue, onSubmitClaims, onSelectRecipient },
+    operations: { onCancelCreate, setSelectedSchema, onChangePage, handleContinue, onSubmitClaims, onSelectRecipient },
   };
 };

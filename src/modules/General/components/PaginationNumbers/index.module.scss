@@ -1,0 +1,25 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+@mixin Font {
+    font-size: 14px;
+    line-height: 20px;
+    color: $color-grey-700;
+}
+
+.container {
+    width: 100%;
+    @include flex(space-between, center);
+}
+
+.button {
+    @include flex(center, center);
+    @include Font;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.numbers {
+    @include flex(center, center);
+    flex-grow: 1;
+}

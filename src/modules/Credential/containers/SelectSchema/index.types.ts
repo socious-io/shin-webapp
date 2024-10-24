@@ -1,4 +1,5 @@
 type SchemaRadioItems = {
+  id: string;
   title: string;
   description?: string;
   value: string;
