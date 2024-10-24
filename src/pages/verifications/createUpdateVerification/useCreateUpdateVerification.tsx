@@ -108,7 +108,7 @@ export const useCreateUpdateVerification = () => {
       name: verification.name,
       description: verification.description,
       schema: { value: selectedSchema?.id, label: selectedSchema?.name },
-      attributes: verification.attributes?.map(item => {
+      attributes: (verification.attributes || []).map(item => {
         const schemaAttribute = selectedSchema?.attributes.find(atr => atr.id === item.id);
         return { ...item, name: schemaAttribute?.name, type: schemaAttribute?.type || 'TEXT' };
       }),
