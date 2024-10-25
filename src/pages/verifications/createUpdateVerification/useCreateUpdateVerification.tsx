@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { t as translate } from 'i18next';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -24,29 +25,35 @@ import { setNotificationState } from 'src/store/reducers/notification.reducer';
 import * as yup from 'yup';
 
 const valueValidation = {
-  URL: yup.string().nullable().matches(urlPattern, { message: 'Must be a valid URL', excludeEmptyString: true }),
-  NUMBER: yup.number().typeError('Must be a numeric value'),
-  EMAIL: yup.string().nullable().matches(emailPattern, { message: 'Must be a valid Email', excludeEmptyString: true }),
+  URL: yup
+    .string()
+    .nullable()
+    .matches(urlPattern, { message: translate('ver-error-valid-url'), excludeEmptyString: true }),
+  NUMBER: yup.number().typeError(translate('ver-error-numeric')),
+  EMAIL: yup
+    .string()
+    .nullable()
+    .matches(emailPattern, { message: translate('ver-error-valid-email'), excludeEmptyString: true }),
   TEXT: yup.string(),
-  BOOLEAN: yup.boolean().typeError('Required').required('Required'),
-  DATETIME: yup.date().typeError('Must be a date value').required('Required'),
+  BOOLEAN: yup.boolean().typeError(translate('ver-error-required')).required(translate('ver-error-required')),
+  DATETIME: yup.date().typeError(translate('ver-error-valid-date')).required(translate('ver-error-required')),
 };
 
 const schema = yup
   .object()
   .shape({
-    name: yup.string().required('Required'),
+    name: yup.string().required(translate('ver-error-required')),
     description: yup.string(),
     schema: yup.object().shape({
       label: yup.string().required(),
-      value: yup.string().required('Required'),
+      value: yup.string().required(translate('ver-error-required')),
     }),
     attributes: yup
       .array()
       .of(
         yup.object().shape({
-          id: yup.string().required('Required'),
-          name: yup.string().required('Required'),
+          id: yup.string().required(translate('ver-error-required')),
+          name: yup.string().required(translate('ver-error-required')),
           type: yup
             .string()
             .oneOf(['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'] as SchemaAttributeType[])
@@ -54,16 +61,16 @@ const schema = yup
           operator: yup
             .mixed<VerificationOperatorType>()
             .oneOf(['EQUAL', 'NOT', 'BIGGER', 'SMALLER'])
-            .required('Required'),
+            .required(translate('ver-error-required')),
           value: yup
             .mixed()
             .oneOf([yup.number(), yup.string(), yup.date(), yup.boolean()])
             .when(['type'], type => {
-              return valueValidation[type[0] || yup.string().required('Required')];
+              return valueValidation[type[0] || yup.string().required(translate('ver-error-required'))];
             }),
         }),
       )
-      .required('Required'),
+      .required(translate('ver-error-required')),
   })
   .required();
 
