@@ -18,7 +18,7 @@ const CardRadioButton: React.FC<CardRadioButtonProps> = ({
     <RadioGroup className={`gap-3 ${customStyle}`}>
       {items.map(item => (
         <div
-          key={item.title}
+          key={item.id}
           className={`${css['container']} 
           ${selectedValue === item.value && !item.disabled && css['container--selected']} 
           ${item.disabled && css['container--disabled']} 
@@ -31,7 +31,7 @@ const CardRadioButton: React.FC<CardRadioButtonProps> = ({
             <div className={css['content__desc']}>{item.description}</div>
           </div>
           <Radio
-            id={item.title}
+            id={item.id}
             size={item?.radioSize || 'medium'}
             onChange={handleChange}
             value={item.value}
