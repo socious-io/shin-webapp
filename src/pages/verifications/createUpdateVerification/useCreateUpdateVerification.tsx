@@ -117,7 +117,7 @@ export const useCreateUpdateVerification = () => {
   };
 
   const initializeValues = async () => {
-    const res = await getSchemasAdaptor(1, 10);
+    const res = await getSchemasAdaptor(1, 25);
     if (res.error)
       setError('schema', {
         type: 'manual',
