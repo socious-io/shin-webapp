@@ -13,8 +13,10 @@ export async function createVerification(payload: VerificationReq): Promise<Veri
   return (await post<VerificationRes>('verifications', payload)).data;
 }
 
-export async function createVerificationIndividual(payload: VerificationIndividualReq): Promise<VerificationRes> {
-  return (await post<VerificationRes>('verifications/individual', payload)).data;
+export async function createVerificationIndividuals(
+  payload: VerificationIndividualReq,
+): Promise<VerificationIndividualRes> {
+  return (await post<VerificationIndividualRes>('verifications/individual', payload)).data;
 }
 
 export async function updateVerification(id: string, payload: VerificationReq): Promise<VerificationRes> {
