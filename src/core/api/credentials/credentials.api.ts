@@ -5,6 +5,8 @@ import {
   CredentialRecipientReq,
   CredentialIds,
   SendCredentialsReq,
+  ImportFileReq,
+  ImportFileRes,
 } from './credentials.types';
 import { post, del, get, put, patch } from '../http';
 import { FilterReq, PaginateReq, SuccessRes } from '../types';
@@ -34,7 +36,7 @@ export async function connectCredential(id: string): Promise<CredentialRes> {
 }
 
 export async function getCredentials(params: PaginateReq, filters?: FilterReq): Promise<CredentialListRes> {
-  return (await get<CredentialListRes>(`credentials`, { params }, filters)).data;
+  return (await get<CredentialListRes>('credentials', { params }, filters)).data;
 }
 
 export async function deleteCredential(id: string): Promise<SuccessRes> {
@@ -51,4 +53,24 @@ export async function createCredentialWithRecipient(payload: CredentialRecipient
 
 export async function sendCredentials(payload: SendCredentialsReq): Promise<SuccessRes> {
   return (await post<SuccessRes>('credentials/notify/via-schema', payload)).data;
+}
+
+export async function importCSVFile(payload: ImportFileReq): Promise<ImportFileRes> {
+  const { file, ...rest } = payload;
+  const formData = new FormData();
+  formData.append('file', file);
+  for (const key in rest) {
+    if (rest[key] !== undefined) {
+      formData.append(key, String(rest[key]));
+    }
+  }
+  return (await post<ImportFileRes>('credentials/import', formData)).data;
+}
+
+export async function getImportStatus(id: string): Promise<ImportFileRes> {
+  return (await get<ImportFileRes>(`credentials/import/${id}`)).data;
+}
+
+export async function downloadSample(id: string): Promise<string> {
+  return (await get<string>(`credentials/import/download-sample/${id}`)).data;
 }

@@ -50,3 +50,14 @@ export interface SendCredentialsReq {
   schema_id: string;
   message?: string;
 }
+
+export interface ImportFileReq {
+  file: File;
+  schema_id: string;
+}
+
+export interface ImportFileRes {
+  id: string;
+  total_count: number;
+  status: 'INITIATED' | 'COMPLETED';
+}
