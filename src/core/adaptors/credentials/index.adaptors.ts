@@ -3,11 +3,15 @@ import {
   createCredential,
   createCredentialWithRecipient,
   createRecipient,
+  CredentialRes,
   deleteCredential,
   deleteCredentials,
   deleteRecipient,
+  downloadSample,
   getCredentials,
+  getImportStatus,
   getRecipients,
+  importCSVFile,
   revokeCredential,
   revokeCredentials,
   sendCredentials,
@@ -22,6 +26,9 @@ import {
   CredentialReq,
   CredentialsRes,
   CredentialStatus,
+  ImportStatus,
+  ImportFileReq,
+  ImportFileRes,
   RecipientReq,
   RecipientRes,
   SendCredentialReq,
@@ -185,8 +192,7 @@ export const deleteRecipientAdaptor = async (recipientId: string): Promise<Adapt
   }
 };
 
-//FIXME: any replace with Credential res (name, description, id, connection_url, status)
-export const connectCredentialAdaptor = async (credentialId: string): Promise<AdaptorRes<any>> => {
+export const connectCredentialAdaptor = async (credentialId: string): Promise<AdaptorRes<CredentialRes>> => {
   try {
     const res = await connectCredential(credentialId);
     return {
@@ -245,5 +251,54 @@ export const sendCredentialsAdaptors = async (payload: SendCredentialReq) => {
   } catch (error) {
     console.error('Error in sending the credentials to recipients', error);
     return { data: null, error: 'Error in sending the credentials to recipients' };
+  }
+};
+
+export const importCSVFileAdaptor = async (payload: ImportFileReq): Promise<AdaptorRes<ImportFileRes>> => {
+  try {
+    const res = await importCSVFile(payload);
+    const data = {
+      id: res.id,
+      total: res.total_count,
+    };
+    return {
+      data,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in importing CSV files',
+    };
+  }
+};
+
+export const getImportStatusAdaptor = async (importId: string): Promise<AdaptorRes<ImportStatus>> => {
+  try {
+    const res = await getImportStatus(importId);
+    return {
+      data: res.status,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in downloading sample CSV',
+    };
+  }
+};
+
+export const downloadSampleAdaptor = async (schemaId: string): Promise<AdaptorRes<string>> => {
+  try {
+    const res = await downloadSample(schemaId);
+    return {
+      data: res,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in downloading sample CSV',
+    };
   }
 };
