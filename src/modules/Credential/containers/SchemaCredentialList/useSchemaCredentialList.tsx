@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CredentialsRes, deleteCredentialAdaptor } from 'src/core/adaptors';
+import { CredentialsRes, deleteCredentialAdaptor, getImportStatusAdaptor } from 'src/core/adaptors';
 
 export const useSchemaCredentialList = (
   schemaCredentialList: CredentialsRes | null,
@@ -8,8 +8,10 @@ export const useSchemaCredentialList = (
 ) => {
   const { t: translate } = useTranslation();
   const currentList = schemaCredentialList?.items || [];
+  const importId = localStorage.getItem('import_id') || '';
+  const [importingLoading, setImportingLoading] = useState(!!importId);
   const [openModal, setOpenModal] = useState<{
-    name: 'add' | 'delete' | '';
+    name: 'import' | 'add' | 'delete' | '';
     open: boolean;
     credentialId?: string;
   }>({
@@ -19,6 +21,25 @@ export const useSchemaCredentialList = (
   });
   const [page, setPage] = useState(1);
   const totalPage = Math.ceil((schemaCredentialList?.total || 1) / (schemaCredentialList?.limit || 10));
+  const STATUS_REQ = 5000;
+
+  const getImportFilesStatus = useCallback(async () => {
+    const { error, data: status } = await getImportStatusAdaptor(importId);
+    if (error) return;
+    if (status === 'COMPLETED') {
+      localStorage.removeItem('import_id');
+      setImportingLoading(false);
+      handleCloseModal();
+      onUpdateSchemaCredentialList(page);
+    }
+  }, [importId, page]);
+
+  useEffect(() => {
+    if (!importId) return;
+    getImportFilesStatus();
+    const interval = setInterval(getImportFilesStatus, STATUS_REQ);
+    return () => clearInterval(interval);
+  }, [importId, getImportFilesStatus]);
 
   const onChangePage = async (newPage: number) => {
     setPage(newPage);
@@ -26,6 +47,13 @@ export const useSchemaCredentialList = (
   };
 
   const handleCloseModal = () => setOpenModal({ name: '', open: false, credentialId: '' });
+
+  const onImportCSVClick = () => setOpenModal({ name: 'import', open: true });
+
+  const onImportFiles = (importId: string) => {
+    localStorage.setItem('import_id', importId);
+    setImportingLoading(true);
+  };
 
   const onAddCredentialRecipientClick = () => setOpenModal({ name: 'add', open: true });
 
@@ -48,9 +76,11 @@ export const useSchemaCredentialList = (
   };
 
   return {
-    data: { translate, currentList, page, totalPage, openModal },
+    data: { translate, currentList, importingLoading, page, totalPage, openModal },
     operations: {
       onChangePage,
+      onImportCSVClick,
+      onImportFiles,
       onAddCredentialRecipientClick,
       onAddCredentialRecipient,
       handleCloseModal,

@@ -1,4 +1,4 @@
-import { Divider } from '@mui/material';
+import { CircularProgress, Divider } from '@mui/material';
 import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { Credential } from 'src/core/adaptors';
@@ -14,6 +14,7 @@ import css from './index.module.scss';
 import { useSchemaCredentialList } from './useSchemaCredentialList';
 import CredentialRecipientModal from '../CredentialRecipientModal';
 import { SchemaCredentialListProps } from './index.types';
+import ImportCSVModal from '../ImportCSVModal';
 
 const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
   selectedSchema,
@@ -21,9 +22,11 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
   onUpdateSchemaCredentialList,
 }) => {
   const {
-    data: { translate, currentList, page, totalPage, openModal },
+    data: { translate, currentList, importingLoading, page, totalPage, openModal },
     operations: {
       onChangePage,
+      onImportCSVClick,
+      onImportFiles,
       onAddCredentialRecipientClick,
       onAddCredentialRecipient,
       handleCloseModal,
@@ -97,6 +100,9 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
         </div>
         <Divider />
         <div className={css['buttons']}>
+          <Button variant="outlined" color="primary" disabled={importingLoading} onClick={onImportCSVClick}>
+            {translate('credential-step2.import-button')}
+          </Button>
           <Button variant="outlined" color="primary" onClick={onAddCredentialRecipientClick}>
             {translate('credential-step2.add-button')}
           </Button>
@@ -147,11 +153,24 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
               )}
             </table>
           </div>
-          <div className={css['table__pagination']}>
-            <Pagination page={page} count={totalPage} onChange={(_, p) => onChangePage(p)} />
-          </div>
+          {importingLoading ? (
+            <div className={css['table__loading']}>
+              <CircularProgress size="0.75rem" color="primary" thickness={6} />
+              {translate('credential-step2.import.uploaded-loading')}
+            </div>
+          ) : (
+            <div className={css['table__pagination']}>
+              <Pagination page={page} count={totalPage} onChange={(_, p) => onChangePage(p)} />
+            </div>
+          )}
         </div>
       </div>
+      <ImportCSVModal
+        open={openModal.name === 'import' && openModal.open}
+        handleClose={handleCloseModal}
+        selectedSchema={selectedSchema}
+        onImportFiles={onImportFiles}
+      />
       <CredentialRecipientModal
         open={openModal.name === 'add' && openModal.open}
         handleClose={handleCloseModal}
