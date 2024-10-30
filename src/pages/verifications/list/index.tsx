@@ -10,7 +10,10 @@ import { useVerifications } from './useVerifications';
 
 export const Verifications = () => {
   const { t: translate } = useTranslation();
-  const { list, setList, handleCreate, totalCount, notification, onCloseNotification } = useVerifications();
+  const {
+    data: { list, totalCount, notification },
+    operations: { setList, handleCreate, onCloseNotification },
+  } = useVerifications();
   return (
     <>
       <div className={css['container']}>

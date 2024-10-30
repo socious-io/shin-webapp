@@ -7,9 +7,17 @@ import {
   deleteVerification,
   connectVerification,
   VerificationIndividualRes,
+  getVerificationIndividuals,
 } from 'src/core/api';
 
-import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
+import {
+  UpdateVerificationReq,
+  Verification,
+  VerificationIndividualAdaptor,
+  VerificationIndividualAdaptorList,
+  VerificationReqAdaptor,
+  VerificationsRes,
+} from './index.type';
 import { AdaptorRes, SuccessRes } from '..';
 
 export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
@@ -128,14 +136,46 @@ export const deleteVerificationAdaptor = async (id: string): Promise<AdaptorRes<
   }
 };
 
-export const connectVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationIndividualRes>> => {
+export const connectVerificationAdaptor = async (
+  individualId: string,
+): Promise<AdaptorRes<VerificationIndividualRes>> => {
   try {
-    const res = await connectVerification(id);
+    const res = await connectVerification(individualId);
     return {
       data: res,
       error: null,
     };
   } catch {
     return { data: null, error: 'Error in connect verification API call' };
+  }
+};
+
+export const getVerificationHistory = async (
+  id: string,
+  page: number,
+): Promise<AdaptorRes<VerificationIndividualAdaptorList>> => {
+  try {
+    const apiRes = await getVerificationIndividuals(id, { page, limit: 10 });
+    const data = apiRes.results.map(item => {
+      return {
+        id: item.id,
+        individualId: item.user_id,
+        connectionUrl: item.connection_url,
+        status: item.status,
+        createDate: item.created_at,
+      };
+    });
+
+    const res: VerificationIndividualAdaptorList = {
+      ...apiRes,
+      results: data,
+    };
+
+    return {
+      data: res,
+      error: null,
+    };
+  } catch {
+    return { data: null, error: 'Error in getVerificationIndividuals API call' };
   }
 };

@@ -11,7 +11,6 @@ export const useVerifications = () => {
   const [list, setList] = useState(data?.items);
   const dispatch = useDispatch();
   const notification = useSelector<RootState, NotificationState>(state => state.notification);
-
   const handleCreate = () => {
     navigate('/verifications/create');
   };
@@ -19,5 +18,8 @@ export const useVerifications = () => {
   const onCloseNotification = () => {
     dispatch(setNotificationState({ title: '', display: false }));
   };
-  return { list, setList, handleCreate, totalCount: data?.totalCount, notification, onCloseNotification };
+  return {
+    data: { list, totalCount: data?.totalCount, notification },
+    operations: { setList, handleCreate, onCloseNotification },
+  };
 };

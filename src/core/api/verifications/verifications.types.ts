@@ -5,6 +5,8 @@ import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
 
 export type VerificationOperatorType = 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
+export type StatusValue = 'CREATED' | 'REQUESTED' | 'VERIFIED' | 'FAILED';
+
 export interface VerificationAttributeReq {
   attribute_id: string;
   operator: VerificationOperatorType;
@@ -41,7 +43,7 @@ export interface VerificationIndividualRes {
   connection_url?: string;
   connection_id?: string;
   present_id?: string;
-  status: 'CREATED' | 'REQUESTED' | 'VERIFIED' | 'FAILED';
+  status: StatusValue;
   body: any;
   created_at: Date;
   updated_at: Date;

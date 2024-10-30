@@ -8,16 +8,15 @@ import Pagination from 'src/modules/General/components/Pagination';
 import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 import CopyLinkModal from 'src/modules/General/containers/CopyLinkModal';
+import HistorySlider from 'src/modules/Verifications/containers/HistorySlider';
 
 import css from './index.module.scss';
 import { VerificationListProps } from './index.type';
 import { useVerificationList } from './useVerificationList';
-import Status from '../Status';
-import { StatusValue } from '../Status/index.types';
 
 const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems, setList }) => {
   const {
-    data: { page, total, getMenuItems, openModal, url },
+    data: { page, total, getMenuItems, openModal, url, selectedId },
     operations: { setPage, setOpenModal, handleDelete, handleOpenCopy, handleCopy, translate },
   } = useVerificationList(list, setList, totalItems);
 
@@ -28,16 +27,6 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems, s
         header: translate('ver-col-name'),
         accessorKey: 'name',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
-      },
-      {
-        id: 'status',
-        header: translate('ver-col-status'),
-        accessorKey: 'status',
-        cell: ({ getValue }: { getValue: Getter<string> }) => {
-          const status = getValue();
-          if (status) return <Status status={status as StatusValue} />;
-          return '';
-        },
       },
       {
         id: 'proofId',
@@ -157,6 +146,13 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems, s
           subtitle={translate('ver-copy-modal-subtitle')}
           link={url}
           onCopy={handleCopy}
+        />
+      )}
+      {openModal?.name === 'history' && openModal.open && (
+        <HistorySlider
+          verificationId={selectedId}
+          open={openModal?.name === 'history' && openModal.open}
+          handleClose={() => setOpenModal({ name: 'history', open: false })}
         />
       )}
     </>
