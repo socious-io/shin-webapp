@@ -13,5 +13,14 @@
   "ver-create-credential": "Credential requests",
   "ver-create-credential-desc": "A verification can return as either valid or invalid. Define what constitutes a valid verification. Fields must match the credential schema exactly.",
   "ver-create-schema-lbl": "Schema is equal to",
-  "ver-create-schema-placeholder": "Enter or select a schema"
+  "ver-create-schema-placeholder": "Enter or select a schema",
+  "ver-operator-equal": "Is equal to",
+  "ver-operator-not": "Is not",
+  "ver-operator-greater": "Is greater than",
+  "ver-operator-less": "Is less than",
+  "ver-error-valid-url": "Must be a valid URL",
+  "ver-error-numeric": "Must be a numeric value",
+  "ver-error-valid-email": "Must be a valid Email",
+  "ver-error-valid-date": "Must be a date value",
+  "ver-error-required": "Required"
 }

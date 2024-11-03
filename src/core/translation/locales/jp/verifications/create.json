@@ -13,5 +13,14 @@
   "ver-create-credential": "資格情報リクエスト",
   "ver-create-credential-desc": "検証は有効または無効として返されます。有効な検証を構成するものを定義します。フィールドは資格情報スキーマと正確に一致する必要があります。",
   "ver-create-schema-lbl": "スキーマが等しい",
-  "ver-create-schema-placeholder": "スキーマを入力または選択"
+  "ver-create-schema-placeholder": "スキーマを入力または選択",
+  "ver-operator-equal": "等しい",
+  "ver-operator-not": "等しくない",
+  "ver-operator-greater": "より大きい",
+  "ver-operator-less": "より小さい",
+  "ver-error-valid-url": "有効なURLである必要があります",
+  "ver-error-numeric": "数値である必要があります",
+  "ver-error-valid-email": "有効なメールアドレスである必要があります",
+  "ver-error-valid-date": "日付の値である必要があります",
+  "ver-error-required": "必須"
 }

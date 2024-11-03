@@ -31,7 +31,7 @@
         vertical-align: middle;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 11.25rem;
+        max-width: 14.375rem;
         color: $color-grey-900;
 
         &--gray {
@@ -46,6 +46,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            min-width: fit-content;
         }
 
         &__btn {
@@ -56,6 +57,7 @@
             padding-bottom: 0 !important;
             display: flex;
             gap: 0.25rem;
+            min-width: fit-content;
         }
     }
 

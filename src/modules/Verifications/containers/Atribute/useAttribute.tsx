@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { OptionType, VerificationAttribute } from 'src/core/adaptors';
 
 import { AttributeOption } from './index.types';
@@ -8,11 +9,20 @@ export const useAttribute = (
   onChangeAttribute: (index: number, attribute?: AttributeOption, operator?: OptionType, value?: string) => void,
   attribute?: VerificationAttribute,
 ) => {
+  const { t: translate } = useTranslation();
   const operators = [
-    { types: ['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'], value: 'EQUAL', label: 'Is equal to' },
-    { types: ['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'], value: 'NOT', label: 'Is not' },
-    { types: ['NUMBER', 'DATETIME'], value: 'BIGGER', label: 'Is greater than' },
-    { types: ['NUMBER', 'DATETIME'], value: 'SMALLER', label: 'Is less than' },
+    {
+      types: ['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'],
+      value: 'EQUAL',
+      label: translate('ver-operator-equal'),
+    },
+    {
+      types: ['TEXT', 'NUMBER', 'BOOLEAN', 'URL', 'EMAIL', 'DATETIME'],
+      value: 'NOT',
+      label: translate('ver-operator-not'),
+    },
+    { types: ['NUMBER', 'DATETIME'], value: 'BIGGER', label: translate('ver-operator-greater') },
+    { types: ['NUMBER', 'DATETIME'], value: 'SMALLER', label: translate('ver-operator-less') },
   ];
 
   const getOperatorOptionValue = (type: string) => {

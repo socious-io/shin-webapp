@@ -18,10 +18,10 @@ export const Create = () => {
           <h2 className={css['top__subtitle']}>{translate('schema-create-subheader')}</h2>
         </div>
         <div className={css['top__buttons']}>
-          <Button color="primary" variant="outlined" onClick={onCancelCreateSchema}>
+          <Button color="primary" variant="outlined" onClick={onCancelCreateSchema} customStyle="min-w-fit">
             {translate('schema-cancel-button')}
           </Button>
-          <Button color="primary" type="submit" onClick={handlePublish}>
+          <Button color="primary" type="submit" onClick={handlePublish} customStyle="min-w-fit">
             {translate('schema-publish-button')}
           </Button>
         </div>

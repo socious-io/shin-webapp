@@ -19,5 +19,14 @@
     "add-field": "Add field"
   },
   "schema-confirm-title": "Confirmation",
-  "schema-confirm-subtitle": "Please review your schema before publishing. Once published, it cannot be edited. However, you will be able to duplicate the schema to make changes to a copy."
+  "schema-confirm-subtitle": "Please review your schema before publishing. Once published, it cannot be edited. However, you will be able to duplicate the schema to make changes to a copy.",
+  "schema-attribute": {
+    "TEXT": "Text",
+    "NUMBER": "Number",
+    "BOOLEAN": "Boolean",
+    "URL": "URL",
+    "DATETIME": "Date",
+    "EMAIL": "Email"
+  },
+  "schema-required-error": "This field is required"
 }
