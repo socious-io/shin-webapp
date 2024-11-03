@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import PreviewCredential from 'src/modules/Credential/containers/PreviewCredential';
 import SchemaCredentialList from 'src/modules/Credential/containers/SchemaCredentialList';
 import SelectSchema from 'src/modules/Credential/containers/SelectSchema';
 import Button from 'src/modules/General/components/Button';
@@ -18,17 +19,18 @@ export const Create = () => {
       schemaRadioItems,
       selectedSchema,
       selectedSchemaDetail,
-      selectedCredentials,
+      schemaCredentialList,
       disabledButton,
       formRef,
+      schemaCredentialDetail,
     },
     operations: {
       onCancelCreate,
       handleContinue,
       onChangePage,
       setSelectedSchema,
-      onSelectCredential,
-      onSelectAllCredentials,
+      onUpdateSchemaCredentialList,
+      onSendCredential,
     },
   } = useCreate();
 
@@ -43,20 +45,25 @@ export const Create = () => {
     1: selectedSchemaDetail && (
       <SchemaCredentialList
         selectedSchema={selectedSchemaDetail}
-        selectedCredentials={selectedCredentials}
-        onSelectCredential={onSelectCredential}
-        onSelectAllCredentials={onSelectAllCredentials}
+        schemaCredentialList={schemaCredentialList}
+        onUpdateSchemaCredentialList={onUpdateSchemaCredentialList}
       />
     ),
-    2: <p>Not developed yet</p>,
+    2: (
+      <PreviewCredential ref={formRef} credentialDetail={schemaCredentialDetail} onSendCredential={onSendCredential} />
+    ),
   };
 
   return (
     <div className={css['container']}>
       <PaginationDotGroup
         shape="oval"
-        titles={[translate('credential-step1-title'), translate('credential-step2-title')]}
-        count={2}
+        titles={[
+          translate('credential-step1-title'),
+          translate('credential-step2-title'),
+          translate('credential-step3-title'),
+        ]}
+        count={3}
         active={step}
         size="xs"
         transparent
