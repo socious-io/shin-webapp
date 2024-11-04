@@ -14,7 +14,7 @@ export const useVerificationList = (
   const [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const [total, setTotal] = useState(Math.ceil(totalItems / PER_PAGE));
-  const [openModal, setOpenModal] = useState<{ name: 'delete' | 'copy'; open: boolean }>();
+  const [openModal, setOpenModal] = useState<{ name: 'delete' | 'copy' | 'history'; open: boolean }>();
   const [selectedId, setSelectedId] = useState('');
   const [url, setUrl] = useState('');
   const navigate = useNavigate();
@@ -27,13 +27,13 @@ export const useVerificationList = (
           navigate(`/verifications/edit/${id}`);
         },
       },
-      // {
-      //   iconName: 'clock-fast-forward',
-      //   label: translate('ver-cell-History'),
-      //   action: () => {
-      //     return;
-      //   },
-      // },
+      {
+        iconName: 'clock-fast-forward',
+        label: translate('ver-cell-History'),
+        action: () => {
+          handleOpenHistory(id);
+        },
+      },
       {
         iconName: 'trash-01',
         label: translate('ver-cell-delete'),
@@ -79,6 +79,11 @@ export const useVerificationList = (
     navigator.clipboard.writeText(url);
   };
 
+  const handleOpenHistory = async (verificationId: string) => {
+    setSelectedId(verificationId);
+    setOpenModal({ name: 'history', open: true });
+  };
+
   return {
     data: {
       list,
@@ -87,6 +92,7 @@ export const useVerificationList = (
       getMenuItems,
       openModal,
       url,
+      selectedId,
     },
     operations: {
       setPage,

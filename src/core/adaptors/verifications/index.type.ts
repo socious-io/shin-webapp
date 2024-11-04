@@ -1,4 +1,4 @@
-import { SchemaAttributeType, SchemaRes, VerificationOperatorType } from 'src/core/api';
+import { PaginateRes, SchemaAttributeType, SchemaRes, StatusValue, VerificationOperatorType } from 'src/core/api';
 
 export interface Verification {
   id: string;
@@ -34,4 +34,16 @@ export interface VerificationAttribute {
   operator: VerificationOperatorType;
   value: string;
   type: SchemaAttributeType;
+}
+
+export interface VerificationIndividualAdaptor {
+  id: string;
+  individualId: string;
+  connectionUrl?: string;
+  status: StatusValue;
+  createDate: Date;
+}
+
+export interface VerificationIndividualAdaptorList extends PaginateRes {
+  results: VerificationIndividualAdaptor[];
 }
