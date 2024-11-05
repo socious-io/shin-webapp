@@ -12,3 +12,7 @@ export interface PaginateRes {
   total: number;
   limit: number;
 }
+
+export interface FilterReq extends PaginateReq {
+  [key: string]: any;
+}
