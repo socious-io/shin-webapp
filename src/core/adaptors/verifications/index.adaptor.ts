@@ -8,8 +8,12 @@ import {
   connectVerification,
   VerificationIndividualRes,
   getVerificationIndividuals,
+  createVerificationIndividuals,
+  VerificationIndividualReq,
 } from 'src/core/api';
+import { v4 as uuidv4 } from 'uuid';
 
+import { AdaptorRes, SuccessRes } from '..';
 import {
   UpdateVerificationReq,
   Verification,
@@ -18,7 +22,6 @@ import {
   VerificationReqAdaptor,
   VerificationsRes,
 } from './index.type';
-import { AdaptorRes, SuccessRes } from '..';
 
 export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
   try {
@@ -177,5 +180,20 @@ export const getVerificationHistory = async (
     };
   } catch {
     return { data: null, error: 'Error in getVerificationIndividuals API call' };
+  }
+};
+
+export const createVerificationIndividualAdaptor = async (
+  verificationId: string,
+): Promise<AdaptorRes<VerificationIndividualRes>> => {
+  try {
+    const payload: VerificationIndividualReq = {
+      customer_id: uuidv4(),
+      verification_id: verificationId,
+    };
+    const res = await createVerificationIndividuals(payload);
+    return { data: res, error: null };
+  } catch {
+    return { data: null, error: 'Error in createVerificationIndividuals API call' };
   }
 };

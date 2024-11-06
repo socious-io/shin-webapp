@@ -19,6 +19,7 @@ import {
   connectCredentialAdaptor,
   getOrgIdAdaptor,
   getIntegrationsAdaptor,
+  createVerificationIndividualAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -297,6 +298,21 @@ export const blueprint: RouteObject[] = [
           const { ProofRequest } = await import('src/pages/proofRequest');
           return {
             Component: ProofRequest,
+          };
+        },
+      },
+      {
+        path: 'redirect/:id',
+        loader: async ({ params }) => {
+          if (params.id) {
+            const { data } = await createVerificationIndividualAdaptor(params.id);
+            return { data };
+          }
+        },
+        async lazy() {
+          const { RedirectToVerification } = await import('src/pages/verifications/redirectToVerification');
+          return {
+            Component: RedirectToVerification,
           };
         },
       },
