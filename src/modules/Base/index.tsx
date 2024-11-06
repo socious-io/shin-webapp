@@ -1,9 +1,19 @@
 import { Navigate, Outlet, useLoaderData } from 'react-router-dom';
 
-const Base = () => {
+import { BaseProps } from './index.types';
+
+const Base: React.FC<BaseProps> = ({ isAuthRoute }) => {
   const authenticated = useLoaderData();
-  if (authenticated) return <Outlet />;
-  else return <Navigate to="/sign-in" />;
+  const password = localStorage.getItem('password') || '';
+
+  if (authenticated) {
+    if (password === 'PASSWORD_NOT_SET') {
+      return <Outlet />;
+    }
+    return isAuthRoute ? <Navigate to="/" /> : <Outlet />;
+  }
+
+  return isAuthRoute ? <Outlet /> : <Navigate to="/sign-in" />;
 };
 
 export default Base;
