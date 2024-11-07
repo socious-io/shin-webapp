@@ -45,24 +45,24 @@ const HistorySlider: React.FC<HistorySliderProps> = ({ open, handleClose, verifi
           <div className={css['col--gray']}>{formatDate(getValue())}</div>
         ),
       },
-      {
-        id: 'actions',
-        header: '',
-        accessorKey: 'individualId',
-        cell: ({ getValue }: { getValue: Getter<string> }) => (
-          <div className={css['col__actions']}>
-            <Button
-              variant="outlined"
-              color="primary"
-              customStyle={css['col__btn']}
-              onClick={() => handleOpenCopy(getValue())}
-            >
-              <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
-              {translate('ver-cell-copy-link')}
-            </Button>
-          </div>
-        ),
-      },
+      // {
+      //   id: 'actions',
+      //   header: '',
+      //   accessorKey: 'individualId',
+      //   cell: ({ getValue }: { getValue: Getter<string> }) => (
+      //     <div className={css['col__actions']}>
+      //       <Button
+      //         variant="outlined"
+      //         color="primary"
+      //         customStyle={css['col__btn']}
+      //         onClick={() => handleOpenCopy(getValue())}
+      //       >
+      //         <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
+      //         {translate('ver-cell-copy-link')}
+      //       </Button>
+      //     </div>
+      //   ),
+      // },
     ],
     [history],
   );

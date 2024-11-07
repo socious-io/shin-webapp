@@ -16,7 +16,7 @@ export async function createVerification(payload: VerificationReq): Promise<Veri
 export async function createVerificationIndividuals(
   payload: VerificationIndividualReq,
 ): Promise<VerificationIndividualRes> {
-  return (await post<VerificationIndividualRes>('verifications/individual', payload)).data;
+  return (await post<VerificationIndividualRes>('verifications/individuals', payload)).data;
 }
 
 export async function updateVerification(id: string, payload: VerificationReq): Promise<VerificationRes> {
