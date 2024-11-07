@@ -1,0 +1,33 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .card {
+        padding: 1rem 1rem 1.5rem;
+        border-radius: $radius-xl;
+        border: 1px solid $color-grey-200;
+        display: flex;
+        gap: 0.75rem;
+
+        &--selected {
+            border: 1px solid $color-primary-600;
+        }
+
+        &__title {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5rem;
+            color: $color-grey-700;
+        }
+
+        &__subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+            color: $color-grey-600;
+        }
+    }
+}
