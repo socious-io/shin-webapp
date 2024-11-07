@@ -32,20 +32,20 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems, s
         id: 'proofId',
         header: translate('ver-col-proof'),
         accessorKey: 'proofId',
-        cell: ({ getValue }: { getValue: Getter<string> }) => <div className={css['col--gray']}>{getValue()}</div>,
+        cell: ({ getValue }: { getValue: Getter<string> }) => <span className={css['col--gray']}>{getValue()}</span>,
       },
       {
         id: 'createdBy',
         header: translate('ver-col-created-by'),
         accessorKey: 'createdBy',
-        cell: ({ getValue }: { getValue: Getter<string> }) => <div className={css['col--bold']}>{getValue()}</div>,
+        cell: ({ getValue }: { getValue: Getter<string> }) => <span className={css['col--bold']}>{getValue()}</span>,
       },
       {
         id: 'creationDate',
         header: translate('ver-col-create-date'),
         accessorKey: 'creationDate',
         cell: ({ getValue }: { getValue: Getter<string> }) => (
-          <div className={css['col--gray']}>{formatDate(getValue())}</div>
+          <span className={css['col--gray']}>{formatDate(getValue())}</span>
         ),
       },
       {
