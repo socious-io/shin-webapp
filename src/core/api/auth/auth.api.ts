@@ -8,6 +8,7 @@ import {
   ForgetPasswordReq,
   PreregisterReq,
   PreRegisterRes,
+  SociousAuthRes,
 } from './auth.types';
 import { post, put } from '../http';
 import { SuccessRes } from '../types';
@@ -45,4 +46,9 @@ export async function preregister(payload: PreregisterReq): Promise<PreRegisterR
 
 export async function refresh(payload: RefreshReq): Promise<AuthRes> {
   return (await post<AuthRes>('auth/refresh', payload)).data;
+}
+
+export async function loginSocious(access_token: string): Promise<SociousAuthRes> {
+  return (await post<SociousAuthRes>('auth/socious', {}, { headers: { Authorization: `Bearer ${access_token}` } }))
+    .data;
 }

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import SociousLogo from 'src/assets/logo/socious-logo.svg';
 import Button from 'src/modules/General/components/Button';
 import Input from 'src/modules/General/components/Input';
 import Link from 'src/modules/General/components/Link';
@@ -8,7 +9,7 @@ import css from './index.module.scss';
 import { useEmail } from './useEmail';
 
 export const Email = () => {
-  const { register, errors, handleSubmit, onContinue } = useEmail();
+  const { register, errors, handleSubmit, onContinue, continueWithSocious } = useEmail();
   const { t: translate } = useTranslation();
 
   return (
@@ -34,23 +35,18 @@ export const Email = () => {
               <Button color="primary" onClick={handleSubmit(onContinue)}>
                 {translate('primary-btn-label')}
               </Button>
-              {/* <Button color="primary" variant="outlined" style={{ display: 'flex', gap: '12px' }}>
-                <img src={sociousLogo} alt="" />
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<img src={SociousLogo} alt="socious-logo" width={24} height={24} />}
+                onClick={continueWithSocious}
+              >
                 {translate('socious-login')}
               </Button>
-              <Button
-                color="primary"
-                variant="outlined"
-                onClick={continueWithGoogle}
-                // onClick={() => {
-                //     tried();
-                //     navigate(`/oauth/google${event.name && `?event_name=${event.name}`}`);
-                // }}
-                customStyle="flex gap-3"
-              >
-                <img src={'/icons/google.svg'} alt="" />
-                {translate('google-login')}
-              </Button> */}
+              {/* <Button color="primary" variant="outlined" onClick={continueWithGoogle}>
+                  <img src={'/icons/google.svg'} alt="google-logo" width={24} height={24} />
+                  {translate('google-login')}
+                </Button> */}
             </div>
           </div>
           <div className="text-center">

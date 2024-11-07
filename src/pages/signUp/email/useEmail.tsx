@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { preRegister, registerAdaptor, sendOtp } from 'src/core/adaptors';
+import { preRegister, registerAdaptor } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
@@ -80,6 +80,10 @@ export const useEmail = () => {
     };
   }, [email, trigger]);
 
+  const continueWithSocious = () => navigate('/oauth/socious');
+
+  const continueWithGoogle = () => navigate('/oauth/google');
+
   return {
     register,
     handleSubmit,
@@ -88,5 +92,7 @@ export const useEmail = () => {
     onContinue,
     disabled,
     loading,
+    continueWithSocious,
+    continueWithGoogle,
   };
 };
