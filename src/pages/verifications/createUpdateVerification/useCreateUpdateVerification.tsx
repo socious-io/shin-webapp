@@ -15,6 +15,7 @@ import {
   UpdateVerificationReq,
   Verification,
   VerificationReqAdaptor,
+  verificationType,
 } from 'src/core/adaptors';
 import { SchemaAttributeType, VerificationOperatorType } from 'src/core/api';
 import { emailPattern, urlPattern } from 'src/core/helpers/regexs';
@@ -58,6 +59,7 @@ export const useCreateUpdateVerification = () => {
         label: yup.string().required(),
         value: yup.string().required(translate('ver-error-required')),
       }),
+      type: yup.string().oneOf(['reusable', 'singleUse']).required(translate('ver-error-required')),
       attributes: yup
         .array()
         .of(
@@ -165,7 +167,7 @@ export const useCreateUpdateVerification = () => {
   };
 
   const onSubmit = async () => {
-    const { name, description, schema, attributes } = getValues();
+    const { name, description, schema, attributes, type } = getValues();
     let res: AdaptorRes<SuccessRes> | null = null;
     if (verification?.id) {
       const param: UpdateVerificationReq = {
@@ -173,6 +175,7 @@ export const useCreateUpdateVerification = () => {
         name,
         description,
         schemaId: schema.value,
+        type,
         attributes: attributes.map(item => {
           return { ...item, value: (item.value || '').toString() };
         }),
@@ -183,6 +186,7 @@ export const useCreateUpdateVerification = () => {
         name,
         description,
         schemaId: schema.value,
+        type,
         attributes: attributes.map(item => {
           return { ...item, value: (item.value || '').toString() };
         }),
@@ -246,6 +250,10 @@ export const useCreateUpdateVerification = () => {
     return { ...item, value: (item?.value || '').toString() };
   });
 
+  const selectType = (val: verificationType) => {
+    setValue('type', val, { shouldValidate: true });
+  };
+
   return {
     data: {
       errors,
@@ -257,6 +265,7 @@ export const useCreateUpdateVerification = () => {
       description,
       attributes,
       verificationAttributes,
+      type: getValues().type,
     },
     operation: {
       register,
@@ -269,6 +278,7 @@ export const useCreateUpdateVerification = () => {
       onChangeAttribute,
       handleClickAddAttribute,
       onDeleteAttribute,
+      selectType,
     },
   };
 };

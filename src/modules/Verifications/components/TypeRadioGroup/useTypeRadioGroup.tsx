@@ -1,4 +1,4 @@
-import { verificationType } from './index.type';
+import { verificationType } from 'src/core/adaptors';
 
 export const useTypeRadioGroup = () => {
   const cardItems = [
