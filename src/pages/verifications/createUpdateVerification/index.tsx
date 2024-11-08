@@ -76,7 +76,7 @@ export const CreateUpdateVerification = () => {
           {actionButtons}
         </div>
         <div className={css['section']}>
-          <TypeRadioGroup selected={type} setSelected={selectType} />
+          <TypeRadioGroup selected={type} setSelected={selectType} error={errors['type']?.message} />
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-name'), translate('ver-create-name-desc'))}
             <Input

@@ -33,4 +33,14 @@
             color: $color-grey-600;
         }
     }
+
+    &__error {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: left;
+        margin-top: 6px;
+        color: $color-error-500;
+    }
 }
