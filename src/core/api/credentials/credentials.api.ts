@@ -1,4 +1,11 @@
-import { CredentialReq, CredentialRes, CredentialListRes, CredentialRecipientReq } from './credentials.types';
+import {
+  CredentialReq,
+  CredentialRes,
+  CredentialListRes,
+  CredentialRecipientReq,
+  CredentialIds,
+  SendCredentialsReq,
+} from './credentials.types';
 import { post, del, get, put, patch } from '../http';
 import { FilterReq, PaginateReq, SuccessRes } from '../types';
 
@@ -12,6 +19,10 @@ export async function updateCredential(id: string, payload: CredentialReq): Prom
 
 export async function revokeCredential(id: string): Promise<CredentialRes> {
   return (await patch<CredentialRes>(`credentials/${id}/revoke`)).data;
+}
+
+export async function revokeCredentials(payload: CredentialIds): Promise<SuccessRes> {
+  return (await patch<SuccessRes>('credentials/revoke', payload)).data;
 }
 
 export async function getCredential(id: string): Promise<CredentialRes> {
@@ -30,6 +41,14 @@ export async function deleteCredential(id: string): Promise<SuccessRes> {
   return (await del<SuccessRes>(`credentials/${id}`)).data;
 }
 
+export async function deleteCredentials(payload: CredentialIds): Promise<SuccessRes> {
+  return (await post<SuccessRes>('credentials/delete', payload)).data;
+}
+
 export async function createCredentialWithRecipient(payload: CredentialRecipientReq): Promise<CredentialRes> {
   return (await post<CredentialRes>('credentials/with-recipient', payload)).data;
+}
+
+export async function sendCredentials(payload: SendCredentialsReq): Promise<SuccessRes> {
+  return (await post<SuccessRes>('credentials/notify/via-schema', payload)).data;
 }

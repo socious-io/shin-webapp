@@ -1,6 +1,6 @@
 import { CredentialClaims, PaginateRes } from 'src/core/api';
 
-export type CredentialStatus = 'ACTIVE' | 'PENDING' | 'REVOKED' | 'ISSUED' | 'CREATED';
+export type CredentialStatus = 'ACTIVE' | 'PENDING' | 'REVOKED' | 'ISSUED' | 'CREATED' | 'CLAIMED';
 
 export type Credential = {
   id: string;
@@ -44,3 +44,8 @@ export type RecipientReq = {
 };
 
 export type CredentialRecipientReq = Omit<CredentialReq, 'selectedRecipient'> & RecipientReq;
+
+export interface SendCredentialReq {
+  schema_id: string;
+  message?: string;
+}
