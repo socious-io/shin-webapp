@@ -3,9 +3,9 @@ import { t as translate } from 'i18next';
 import { useImperativeHandle, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { SCHEMA_ATTRIBUTES } from 'src/constants/SCHEMA';
-import { AttributeOption, createSchemaAdaptor, SchemaReq } from 'src/core/adaptors';
+import { AdaptorRes, AttributeOption, createSchemaAdaptor, Schema, SchemaReq } from 'src/core/adaptors';
 import * as yup from 'yup';
 
 const schema = yup
@@ -34,6 +34,7 @@ const schema = yup
 
 export const useCreateSchema = ref => {
   const navigate = useNavigate();
+  const defaultSchema = (useLoaderData() as AdaptorRes<Schema>)?.data;
   const { t: translate } = useTranslation();
   const [openPublishModal, setOpenPublishModal] = useState(false);
   const {
@@ -46,17 +47,28 @@ export const useCreateSchema = ref => {
   } = useForm<SchemaReq>({
     mode: 'all',
     resolver: yupResolver(schema),
-    defaultValues: {
-      attributes: [{ name: '', option: { value: '' }, description: '' }],
-    },
+    defaultValues: defaultSchema
+      ? {
+          ...defaultSchema,
+          attributes: defaultSchema.attributes.map(item => {
+            return {
+              name: item.name,
+              description: item.description,
+              option: item.option,
+            };
+          }),
+        }
+      : {
+          attributes: [{ name: '', option: { value: '' }, description: '' }],
+        },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'attributes',
   });
-  const attributes = watch('attributes');
 
+  const attributes = watch('attributes');
   const backToSchemasPage = () => navigate('/schemas');
 
   useImperativeHandle(ref, () => ({

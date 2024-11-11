@@ -1,5 +1,5 @@
 import { SCHEMA_ATTRIBUTES } from 'src/constants/SCHEMA';
-import { createSchema, deleteSchema, getSchemas, SchemaAttributeType } from 'src/core/api';
+import { createSchema, deleteSchema, getSchemas, SchemaAttributeType, getSchema } from 'src/core/api';
 
 import { AdaptorRes, SuccessRes } from '..';
 import { Schema, SchemaReq, SchemaRes } from './index.types';
@@ -86,5 +86,36 @@ export const deleteSchemaAdaptor = async (schemaId: string): Promise<AdaptorRes<
   } catch (error) {
     console.error('Error in deleting Schema ', error);
     return { data: null, error: 'Error in deleting Schema' };
+  }
+};
+
+export const getSchemaAdaptor = async (id: string): Promise<AdaptorRes<Schema>> => {
+  try {
+    const schema = await getSchema(id);
+
+    return {
+      data: {
+        ...schema,
+        deletable: schema.deleteable,
+        disabled: schema.issue_disabled,
+        description: schema.description || '',
+        created:
+          (schema.created?.first_name || schema.created?.last_name
+            ? `${schema.created.first_name} ${schema.created.last_name}`
+            : schema.created?.username) || '',
+        created_at: new Date(schema.created_at),
+        attributes: schema.attributes.map(attribute => ({
+          ...attribute,
+          option: {
+            value: attribute.type,
+            label: SCHEMA_ATTRIBUTES.find(schema => schema.value === attribute.type)?.label,
+          },
+        })),
+      },
+      error: null,
+    };
+  } catch (error) {
+    console.error('Error in getting Schema: ', error);
+    return { data: null, error: 'Error in getting Schema data' };
   }
 };
