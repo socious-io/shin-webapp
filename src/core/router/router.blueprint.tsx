@@ -295,12 +295,6 @@ export const blueprint: RouteObject[] = [
     children: [
       {
         path: 'credential/:id',
-        loader: async ({ params }) => {
-          if (params.id) {
-            const { data } = await connectCredentialAdaptor(params.id);
-            return { data };
-          }
-        },
         async lazy() {
           const { ProofRequest } = await import('src/pages/proofRequest');
           return {
@@ -310,12 +304,6 @@ export const blueprint: RouteObject[] = [
       },
       {
         path: 'verification/:id',
-        loader: async ({ params }) => {
-          if (params.id) {
-            const { data } = await connectVerificationAdaptor(params.id);
-            return { data };
-          }
-        },
         async lazy() {
           const { ProofRequest } = await import('src/pages/proofRequest');
           return {

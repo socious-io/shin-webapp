@@ -1,8 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
-import { ProofRequestStatus, verifyActionAdaptor } from 'src/core/adaptors';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {
+  connectCredentialAdaptor,
+  connectVerificationAdaptor,
+  ProofRequestStatus,
+  verifyActionAdaptor,
+} from 'src/core/adaptors';
 import { CredentialRes, VerificationIndividualRes } from 'src/core/api';
 import { RootState } from 'src/store';
 import { OrgState } from 'src/store/reducers/org.reducer';
@@ -11,22 +16,27 @@ export const useProofRequest = () => {
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const connectVerification = pathname.includes('verification');
-  const { data } =
-    (useLoaderData() as {
-      data: VerificationIndividualRes | CredentialRes;
-    }) || {};
+  const { id: connectId } = useParams();
+  const [data, setData] = useState<CredentialRes | VerificationIndividualRes>();
   const [dataStatus, setDataStatus] = useState<ProofRequestStatus | ''>('');
-
   const orgProfileId = useSelector<RootState, OrgState>(state => state.org).id || '';
+  const EXPIRED_QR_CODE = 120_000;
+  const isVerification = pathname.includes('verification');
+  const returnURL = isVerification ? '/verifications' : `/credentials/${orgProfileId}`;
 
-  let returnURL = '';
+  const getConnectData = useCallback(async () => {
+    if (!connectId) return;
+    const { data } = isVerification
+      ? await connectVerificationAdaptor(connectId)
+      : await connectCredentialAdaptor(connectId);
+    data && setData(data);
+  }, [connectId, isVerification]);
 
-  if (pathname.includes('credential')) {
-    returnURL = `/credentials/${orgProfileId}`;
-  } else if (pathname.includes('verification')) {
-    returnURL = '/verifications';
-  }
+  useEffect(() => {
+    getConnectData();
+    const interval = setInterval(getConnectData, EXPIRED_QR_CODE);
+    return () => clearInterval(interval);
+  }, [getConnectData]);
 
   useEffect(() => {
     const getStatus = async () => {
@@ -35,7 +45,7 @@ export const useProofRequest = () => {
         setDataStatus(res);
       }
     };
-    connectVerification && getStatus();
+    isVerification && getStatus();
   }, [data]);
 
   return {
