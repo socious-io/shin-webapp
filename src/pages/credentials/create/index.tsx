@@ -18,11 +18,18 @@ export const Create = () => {
       schemaRadioItems,
       selectedSchema,
       selectedSchemaDetail,
-      selectedCredential,
+      selectedCredentials,
       disabledButton,
       formRef,
     },
-    operations: { onCancelCreate, handleContinue, onChangePage, setSelectedSchema, onSelectCredential },
+    operations: {
+      onCancelCreate,
+      handleContinue,
+      onChangePage,
+      setSelectedSchema,
+      onSelectCredential,
+      onSelectAllCredentials,
+    },
   } = useCreate();
 
   const content = {
@@ -36,8 +43,9 @@ export const Create = () => {
     1: selectedSchemaDetail && (
       <SchemaCredentialList
         selectedSchema={selectedSchemaDetail}
-        selectedCredential={selectedCredential}
+        selectedCredentials={selectedCredentials}
         onSelectCredential={onSelectCredential}
+        onSelectAllCredentials={onSelectAllCredentials}
       />
     ),
     2: <p>Not developed yet</p>,

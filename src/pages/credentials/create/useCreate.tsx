@@ -15,10 +15,10 @@ export const useCreate = () => {
   const [selectedSchema, setSelectedSchema] = useState(
     (currentList[0]?.disabled ? currentList[1]?.id : currentList[0]?.id) || '',
   );
-  const [selectedCredential, setSelectedCredential] = useState('');
+  const [selectedCredentials, setSelectedCredentials] = useState<string[]>([]);
   const selectedSchemaDetail = currentList.find(schema => schema.id === selectedSchema);
   const formRef = useRef<{ submitForm: () => void }>(null);
-  const disabledButton = step === 1 && !selectedCredential;
+  const disabledButton = step === 1 && !selectedCredentials.length;
 
   const schemaRadioItems = currentList.map(schema => ({
     id: schema.id,
@@ -42,12 +42,17 @@ export const useCreate = () => {
   };
 
   const onSelectCredential = (id: string) => {
-    //FIXME: for now because bulk action is out of scope of this PR
-    if (selectedCredential === id) {
-      setSelectedCredential('');
-    } else {
-      setSelectedCredential(id);
-    }
+    setSelectedCredentials(selected =>
+      selected.includes(id) ? selected.filter(credential => credential !== id) : [...selected, id],
+    );
+  };
+
+  const onSelectAllCredentials = (checked: boolean, schemaCredentials: Credential[]) => {
+    if (checked) {
+      const ids = schemaCredentials.map(list => list.id);
+      const allSelected = [...new Set([...selectedCredentials, ...ids])];
+      setSelectedCredentials(allSelected);
+    } else setSelectedCredentials([]);
   };
 
   const onSendCredential = async () => {
@@ -70,10 +75,17 @@ export const useCreate = () => {
       schemaRadioItems,
       selectedSchema,
       selectedSchemaDetail,
-      selectedCredential,
+      selectedCredentials,
       disabledButton,
       formRef,
     },
-    operations: { onCancelCreate, handleContinue, onChangePage, setSelectedSchema, onSelectCredential },
+    operations: {
+      onCancelCreate,
+      handleContinue,
+      onChangePage,
+      setSelectedSchema,
+      onSelectCredential,
+      onSelectAllCredentials,
+    },
   };
 };

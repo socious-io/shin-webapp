@@ -17,8 +17,9 @@ import { SchemaCredentialListProps } from './index.types';
 
 const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
   selectedSchema,
-  selectedCredential,
+  selectedCredentials,
   onSelectCredential,
+  onSelectAllCredentials,
 }) => {
   const {
     data: { translate, currentList, page, totalPage, status, openModal },
@@ -30,7 +31,7 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
       onDeleteClick,
       onDeleteCredential,
     },
-  } = useSchemaCredentialList(selectedSchema.id, selectedCredential, onSelectCredential);
+  } = useSchemaCredentialList(selectedSchema.id, selectedCredentials, onSelectCredential);
 
   const columns = useMemo<ColumnDef<Credential>[]>(
     () => [
@@ -98,8 +99,8 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
           </Button>
           <Button
             variant="outlined"
-            color={!selectedCredential ? 'inherit' : 'primary'}
-            disabled={!selectedCredential || !currentList.length}
+            color={!selectedCredentials.length ? 'inherit' : 'primary'}
+            disabled={!selectedCredentials.length || !currentList.length}
             onClick={onDeleteClick}
           >
             {translate('credential-step2.delete-button')}
@@ -113,7 +114,18 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
                   <tr key={headerGroup.id}>
                     {headerGroup.headers.map(header => (
                       <th id={header.id} key={header.id} className={css['table__item']}>
-                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {header.id === 'recipient_name' ? (
+                          <div className="flex justify-start items-center gap-3 text-Gray-light-mode-600">
+                            <Checkbox
+                              id="select-all"
+                              disabled={!currentList.length}
+                              onChange={e => onSelectAllCredentials(e.target.checked, currentList)}
+                            />
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                          </div>
+                        ) : (
+                          flexRender(header.column.columnDef.header, header.getContext())
+                        )}
                       </th>
                     ))}
                   </tr>
@@ -133,7 +145,7 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
                                   {item && (
                                     <Checkbox
                                       id={item.id}
-                                      checked={selectedCredential === item.id}
+                                      checked={selectedCredentials.includes(item.id)}
                                       onChange={() => onSelectCredential(item.id)}
                                     />
                                   )}

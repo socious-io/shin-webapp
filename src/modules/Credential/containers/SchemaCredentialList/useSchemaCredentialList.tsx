@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CredentialsRes, CredentialStatus, deleteCredentialAdaptor, getCredentialsAdaptor } from 'src/core/adaptors';
+import { CredentialsRes, CredentialStatus, deleteCredentialsAdaptor, getCredentialsAdaptor } from 'src/core/adaptors';
 import { StatusProps } from 'src/modules/General/components/Status/index.types';
 
 export const useSchemaCredentialList = (
   selectedSchemaId: string,
-  selectedCredential: string,
+  selectedCredentials: string[],
   onSelectCredential: (credentialId: string) => void,
 ) => {
   const { t: translate } = useTranslation();
@@ -50,10 +50,10 @@ export const useSchemaCredentialList = (
   const onDeleteClick = () => setOpenModal({ name: 'delete', open: true });
 
   const onDeleteCredential = async () => {
-    if (selectedCredential) {
-      const { error } = await deleteCredentialAdaptor(selectedCredential);
+    if (selectedCredentials) {
+      const { error } = await deleteCredentialsAdaptor(selectedCredentials);
       if (error) return;
-      const filteredList = currentList.filter(list => list.id !== selectedCredential);
+      const filteredList = currentList.filter(list => !selectedCredentials.includes(list.id));
       onChangePage(filteredList.length === 0 && page > 1 ? page - 1 : page);
       onSelectCredential('');
       handleCloseModal();
