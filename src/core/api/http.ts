@@ -15,10 +15,10 @@ export const http = axios.create({
 });
 
 export async function getAuthHeaders(): Promise<{ Authorization: string }> {
-  const token = await nonPermanentStorage.get('access_token');
-  const prefix = await nonPermanentStorage.get('token_type');
+  const token = (await nonPermanentStorage.get('access_token')) || '';
+  const prefix = (await nonPermanentStorage.get('token_type')) || 'Bearer';
   return {
-    Authorization: `${prefix} ${token}`,
+    Authorization: token && prefix ? `${prefix} ${token}` : '',
   };
 }
 

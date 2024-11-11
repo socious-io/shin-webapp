@@ -52,3 +52,7 @@ export interface PreRegisterRes {
 export interface GoogleAuthRes extends AuthRes {
   registered?: boolean;
 }
+
+export interface SociousAuthRes extends AuthRes {
+  registered?: boolean;
+}

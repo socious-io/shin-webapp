@@ -1,5 +1,4 @@
 import { Navigate, RouteObject, createBrowserRouter, useRouteError } from 'react-router-dom';
-import Auth from 'src/modules/Auth';
 import Base from 'src/modules/Base';
 import Layout from 'src/modules/Layout';
 import { FallBack } from 'src/pages/fallback';
@@ -25,7 +24,7 @@ import {
 export const blueprint: RouteObject[] = [
   { path: '/', element: <DefaultRoute /> },
   {
-    element: <Base />,
+    element: <Base isAuthRoute={false} />,
     loader: async () => {
       const authenticated = await isAuthenticated();
       return authenticated;
@@ -205,7 +204,7 @@ export const blueprint: RouteObject[] = [
     errorElement: <ErrorBoundary />,
   },
   {
-    element: <Auth />,
+    element: <Base isAuthRoute={true} />,
     loader: async () => {
       const authenticated = await isAuthenticated();
       return authenticated;
@@ -231,20 +230,6 @@ export const blueprint: RouteObject[] = [
                 Component: Password,
               };
             },
-          },
-          {
-            path: 'oauth',
-            children: [
-              {
-                path: 'google',
-                async lazy() {
-                  const { GoogleOauth2 } = await import('src/pages/oauth/google');
-                  return {
-                    Component: GoogleOauth2,
-                  };
-                },
-              },
-            ],
           },
         ],
       },
@@ -275,6 +260,29 @@ export const blueprint: RouteObject[] = [
               const { Detail } = await import('src/pages/signUp/detail');
               return {
                 Component: Detail,
+              };
+            },
+          },
+        ],
+      },
+      {
+        path: 'oauth',
+        children: [
+          {
+            path: 'google',
+            async lazy() {
+              const { GoogleOauth } = await import('src/pages/oauth/google');
+              return {
+                Component: GoogleOauth,
+              };
+            },
+          },
+          {
+            path: 'socious',
+            async lazy() {
+              const { SociousOauth } = await import('src/pages/oauth/socious');
+              return {
+                Component: SociousOauth,
               };
             },
           },
@@ -374,7 +382,6 @@ export const blueprint: RouteObject[] = [
       },
     ],
   },
-
   {
     path: 'sign-up/profile',
     async lazy() {
@@ -384,7 +391,6 @@ export const blueprint: RouteObject[] = [
       };
     },
   },
-
   {
     path: '*',
     element: <div>Page not found :(</div>,

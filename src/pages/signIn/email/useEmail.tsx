@@ -23,7 +23,6 @@ export const useEmail = () => {
     handleSubmit,
     formState: { errors, isValid },
     getValues,
-    setError,
   } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
@@ -33,9 +32,9 @@ export const useEmail = () => {
     navigate(`/sign-in/password?email=${getValues().email}`);
   };
 
-  const continueWithGoogle = () => {
-    navigate(`/oauth/google`);
-  };
+  const continueWithSocious = () => navigate('/oauth/socious');
+
+  const continueWithGoogle = () => navigate('/oauth/google');
 
   return {
     register,
@@ -44,6 +43,7 @@ export const useEmail = () => {
     isValid,
     getValues,
     onContinue,
+    continueWithSocious,
     continueWithGoogle,
   };
 };
