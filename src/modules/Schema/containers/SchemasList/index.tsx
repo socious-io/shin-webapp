@@ -17,7 +17,7 @@ import SchemaDetailModal from '../SchemaDetailModal';
 const SchemasList: React.FC = () => {
   const {
     data: { translate, currentList, page, totalPage, openModal, viewData },
-    operations: { onView, onDelete, onChangePage, handleCloseModal, onDeleteSchema, onCreateSchema },
+    operations: { onView, onDelete, onChangePage, handleCloseModal, onDeleteSchema, onCreateSchema, onCopy },
   } = useSchemasList();
 
   const columns = useMemo<ColumnDef<Schema>[]>(
@@ -71,14 +71,14 @@ const SchemasList: React.FC = () => {
                 containerClass="flex-1"
                 onClick={() => onView(rowId)}
               />
-              {/* <Icon
+              <Icon
                 name="copy-05"
                 fontSize={20}
                 color={variables.color_grey_600}
                 cursor="pointer"
                 containerClass="flex-1"
                 onClick={() => onCopy(rowId)}
-              /> */}
+              />
               {deletableItem ? (
                 <Icon
                   name="trash-01"

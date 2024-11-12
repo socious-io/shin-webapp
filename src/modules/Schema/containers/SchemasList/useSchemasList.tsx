@@ -41,11 +41,9 @@ export const useSchemasList = () => {
     setOpenModal({ name: 'view', open: true, rowId });
   };
 
-  // const onCopy = (rowId: string) => {
-  //   const copiedRow = currentList.find(list => list.id === rowId);
-  //   navigator.clipboard.writeText(JSON.stringify(copiedRow));
-  //   setOpenSnackbar(true);
-  // };
+  const onCopy = (id: string) => {
+    navigate(`create/${id}`);
+  };
 
   const onDelete = (rowId: string) => setOpenModal({ name: 'delete', open: true, rowId });
 
@@ -77,6 +75,7 @@ export const useSchemasList = () => {
       handleCloseModal,
       onDeleteSchema,
       onCreateSchema,
+      onCopy,
     },
   };
 };
