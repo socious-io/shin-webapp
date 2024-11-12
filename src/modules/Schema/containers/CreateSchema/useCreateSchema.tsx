@@ -54,7 +54,7 @@ export const useCreateSchema = ref => {
             return {
               name: item.name,
               description: item.description,
-              option: item.option,
+              option: { value: item.option.value, label: translate(`schema-attribute.${item.option.value}`) },
             };
           }),
         }
