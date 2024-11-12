@@ -11,6 +11,18 @@ export interface Verification {
   attributes: VerificationAttribute[];
 }
 
+export interface ReusableVerification {
+  id: string;
+  name: string;
+  proofId?: string;
+  createdBy: string;
+  creationDate: Date;
+  usage?: number;
+  description?: string;
+  schema: SchemaRes;
+  attributes: VerificationAttribute[];
+}
+
 export interface VerificationsRes {
   items: Verification[];
   page: number;

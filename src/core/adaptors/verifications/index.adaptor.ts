@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { AdaptorRes, SuccessRes } from '..';
 import {
+  ReusableVerification,
   UpdateVerificationReq,
   Verification,
   VerificationIndividualAdaptor,
@@ -23,7 +24,44 @@ import {
   VerificationsRes,
 } from './index.type';
 
-export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
+export const getReusableVerificationsAdaptor = async (
+  page = 1,
+  limit = 10,
+): Promise<AdaptorRes<ReusableVerification>> => {
+  try {
+    const res = await getVerificationsAPI({ page, limit });
+    const items: ReusableVerification[] = res.results.map(item => {
+      return {
+        id: item.id,
+        name: item.name,
+        status: item.status,
+        proofId: item.present_id,
+        createdBy: `${item.user.first_name} ${item.user.last_name}`,
+        creationDate: item.created_at,
+        schema: item.schema,
+        attributes: [],
+        // FIXME: get value from API
+        usage: 0,
+      };
+    });
+    const data: VerificationsRes = {
+      items,
+      page,
+      totalCount: res.total,
+    };
+    return {
+      data,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'error in get verifications API call',
+    };
+  }
+};
+
+export const getSingleUseVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
   try {
     const res = await getVerificationsAPI({ page, limit });
     const items: Verification[] = res.results.map(item => {
