@@ -70,7 +70,7 @@ export const useVerificationList = (
   };
 
   const handleOpenCopy = (id: string) => {
-    const copyUrl = `${config.appBaseURL}/connect/verification/${id}`;
+    const copyUrl = `${config.appBaseURL}/connect/redirect/${id}`;
     setUrl(copyUrl);
     setOpenModal({ name: 'copy', open: true });
   };
