@@ -11,7 +11,6 @@ import {
   createVerificationIndividuals,
   VerificationIndividualReq,
 } from 'src/core/api';
-import { v4 as uuidv4 } from 'uuid';
 
 import { AdaptorRes, SuccessRes } from '..';
 import {
@@ -226,7 +225,7 @@ export const createVerificationIndividualAdaptor = async (
 ): Promise<AdaptorRes<VerificationIndividualRes>> => {
   try {
     const payload: VerificationIndividualReq = {
-      customer_id: uuidv4(),
+      customer_id: '111-111-11',
       verification_id: verificationId,
     };
     const res = await createVerificationIndividuals(payload);

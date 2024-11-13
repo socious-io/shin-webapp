@@ -12,13 +12,12 @@ import {
   getSchemasAdaptor,
   getVerificationByIdAdaptor,
   getVerificationsAdaptor,
-  connectVerificationAdaptor,
   getCredentialsAdaptor,
   getRecipientsAdaptor,
-  connectCredentialAdaptor,
   getOrgIdAdaptor,
   getIntegrationsAdaptor,
   createVerificationIndividualAdaptor,
+  getSchemaAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -81,12 +80,32 @@ export const blueprint: RouteObject[] = [
             children: [
               {
                 path: 'create',
-                async lazy() {
-                  const { Create } = await import('src/pages/schemas/create');
-                  return {
-                    Component: Create,
-                  };
-                },
+                children: [
+                  {
+                    path: '',
+                    async lazy() {
+                      const { Create } = await import('src/pages/schemas/create');
+                      return {
+                        Component: Create,
+                      };
+                    },
+                  },
+                  {
+                    path: ':id',
+                    loader: async ({ params }) => {
+                      if (params.id) {
+                        const data = await getSchemaAdaptor(params.id);
+                        return data;
+                      }
+                    },
+                    async lazy() {
+                      const { Create } = await import('src/pages/schemas/create');
+                      return {
+                        Component: Create,
+                      };
+                    },
+                  },
+                ],
               },
               {
                 path: '',

@@ -101,7 +101,7 @@ const VerificationList: React.FC<VerificationListProps> = ({ list, totalItems, s
               return (
                 <tr key={row.id} className="cursor-pointer">
                   {row.getVisibleCells().map(cell => (
-                    <td className={css['col']} key={cell.id}>
+                    <td className={`${css['col']} ${cell.id.includes('actions') && '!overflow-visible'}`} key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
