@@ -18,5 +18,11 @@
   "ver-delete-modal-title": "削除",
   "ver-delete-modal-subtitle": "この検証テンプレートと関連するすべてのリクエストを削除してもよろしいですか？この操作は元に戻せません。",
   "ver-delete-modal-cancel": "キャンセル",
-  "ver-delete-modal-btn": "削除"
+  "ver-delete-modal-btn": "削除",
+  "ver-col-usage": "使用状況",
+  "ver-reusable-title": "再利用可能な検証",
+  "ver-single-use-title": "一回限りの検証",
+  "ver-col-active-links": "アクティブリンク",
+  "ver-col-completed": "完了済み",
+  "ver-generate-link": "リンクを生成"
 }

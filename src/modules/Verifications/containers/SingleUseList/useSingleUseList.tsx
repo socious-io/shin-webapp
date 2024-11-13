@@ -1,18 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  deleteVerificationAdaptor,
-  getReusableVerificationsAdaptor,
-  ReusableVerification,
-  ReusableVerificationsRes,
-  SingleUseVerificationsRes,
-  Verification,
-  VerificationsRes,
-} from 'src/core/adaptors';
+import { deleteVerificationAdaptor, getSingleUseVerificationsAdaptor, SingleUseVerification } from 'src/core/adaptors';
 
-export const useReusableList = (
-  list: ReusableVerification[],
-  setList: (val: ReusableVerification[]) => void,
+export const useSingleUseList = (
+  list: SingleUseVerification[],
+  setList: (val: SingleUseVerification[]) => void,
   totalItems: number,
   setOpenModal: (val: { name: 'delete' | 'copy' | 'history'; open: boolean }) => void,
   selectedId?: string,
@@ -24,7 +16,7 @@ export const useReusableList = (
   const [total, setTotal] = useState(Math.ceil(totalItems / PER_PAGE));
 
   const fetchMore = async () => {
-    const res = await getReusableVerificationsAdaptor(page, PER_PAGE);
+    const res = await getSingleUseVerificationsAdaptor(page, PER_PAGE);
     if (!res.data) return;
     setList(res.data.items);
     setTotal(Math.ceil(res.data.totalCount / PER_PAGE));
@@ -39,7 +31,7 @@ export const useReusableList = (
     const res = await deleteVerificationAdaptor(selectedId);
     if (res.error) return;
     const newPage = list.length === 1 && page > 1 ? page - 1 : page;
-    const verificationRes = await getReusableVerificationsAdaptor(newPage, PER_PAGE);
+    const verificationRes = await getSingleUseVerificationsAdaptor(newPage, PER_PAGE);
     if (verificationRes.error) return;
     setOpenModal({ name: 'delete', open: false });
     setList(verificationRes.data?.items || []);
@@ -51,7 +43,6 @@ export const useReusableList = (
     data: {
       page,
       total,
-      list,
     },
     operations: {
       setPage,

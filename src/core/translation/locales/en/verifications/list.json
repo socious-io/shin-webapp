@@ -19,5 +19,11 @@
   "ver-delete-modal-title": "Delete",
   "ver-delete-modal-subtitle": "Are you sure you wish to delete this verification template and all associated requests? This action cannot be undone.",
   "ver-delete-modal-cancel": "Cancel",
-  "ver-delete-modal-btn": "Delete"
+  "ver-delete-modal-btn": "Delete",
+  "ver-col-usage": "Usage",
+  "ver-reusable-title": "Reusable Verifications",
+  "ver-single-use-title": "Single-use Verifications",
+  "ver-col-active-links": "Active Links",
+  "ver-col-completed": "Completed",
+  "ver-generate-link": "Generate link"
 }

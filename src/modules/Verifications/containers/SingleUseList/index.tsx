@@ -9,10 +9,10 @@ import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 
 import css from './index.module.scss';
-import { ReusableListProps } from './index.types';
-import { useReusableList } from './useReusableList';
+import { SingleUseListProps } from './index.types';
+import { useSingleUseList } from './useSingleUseList';
 
-const ReusableList: React.FC<ReusableListProps> = ({
+const SingleUseList: React.FC<SingleUseListProps> = ({
   list,
   setList,
   totalItems,
@@ -25,7 +25,7 @@ const ReusableList: React.FC<ReusableListProps> = ({
   const {
     data: { page, total },
     operations: { setPage, handleDelete, translate },
-  } = useReusableList(list, setList, totalItems, setOpenModal, selectedId);
+  } = useSingleUseList(list, setList, totalItems, setOpenModal, selectedId);
 
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
@@ -42,9 +42,15 @@ const ReusableList: React.FC<ReusableListProps> = ({
         cell: ({ getValue }: { getValue: Getter<string> }) => <div className={css['col--gray']}>{getValue()}</div>,
       },
       {
-        id: 'usage',
-        header: translate('ver-col-usage'),
-        accessorKey: 'usage',
+        id: 'activeLinks',
+        header: translate('ver-col-active-links'),
+        accessorKey: 'activeLinks',
+        cell: ({ getValue }: { getValue: Getter<string> }) => <div className={css['col--gray']}>{getValue()}</div>,
+      },
+      {
+        id: 'completed',
+        header: translate('ver-col-completed'),
+        accessorKey: 'completed',
         cell: ({ getValue }: { getValue: Getter<string> }) => <div className={css['col--gray']}>{getValue()}</div>,
       },
       {
@@ -73,10 +79,10 @@ const ReusableList: React.FC<ReusableListProps> = ({
               customStyle={css['col__btn']}
               onClick={() => handleOpenCopy(getValue())}
             >
-              <Icon name="link-01" fontSize={20} className="text-Gray-light-mode-700" />
-              {translate('ver-cell-copy-link')}
+              <Icon name="plus" fontSize={20} className="text-Gray-light-mode-700" />
+              {translate('ver-generate-link')}
             </Button>
-            <ThreeDotButton menuItems={getMenuItems(getValue(), 'reusable')} />
+            <ThreeDotButton menuItems={getMenuItems(getValue(), 'singleUse')} />
           </div>
         ),
       },
@@ -91,7 +97,7 @@ const ReusableList: React.FC<ReusableListProps> = ({
   return (
     <>
       <div className={css['container']}>
-        <div className={css['container__title']}>{translate('ver-reusable-title')}</div>
+        <div className={css['container__title']}>{translate('ver-single-use-title')}</div>
         <div className={css['table']}>
           <table className="w-full rounded-lg">
             <thead className={css['header']}>
@@ -161,4 +167,4 @@ const ReusableList: React.FC<ReusableListProps> = ({
   );
 };
 
-export default ReusableList;
+export default SingleUseList;

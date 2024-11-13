@@ -15,21 +15,23 @@ import {
 import { AdaptorRes, SuccessRes } from '..';
 import {
   ReusableVerification,
+  ReusableVerificationsRes,
+  SingleUseVerification,
+  SingleUseVerificationsRes,
   UpdateVerificationReq,
   Verification,
   VerificationIndividualAdaptor,
   VerificationIndividualAdaptorList,
   VerificationReqAdaptor,
-  VerificationsRes,
 } from './index.type';
 
 export const getReusableVerificationsAdaptor = async (
   page = 1,
   limit = 10,
-): Promise<AdaptorRes<ReusableVerification>> => {
+): Promise<AdaptorRes<ReusableVerificationsRes>> => {
   try {
     const res = await getVerificationsAPI({ page, limit });
-    const items: ReusableVerification[] = res.results.map(item => {
+    const items: Verification[] = res.results.map(item => {
       return {
         id: item.id,
         name: item.name,
@@ -39,11 +41,9 @@ export const getReusableVerificationsAdaptor = async (
         creationDate: item.created_at,
         schema: item.schema,
         attributes: [],
-        // FIXME: get value from API
-        usage: 0,
       };
     });
-    const data: VerificationsRes = {
+    const data: ReusableVerificationsRes = {
       items,
       page,
       totalCount: res.total,
@@ -60,10 +60,13 @@ export const getReusableVerificationsAdaptor = async (
   }
 };
 
-export const getSingleUseVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
+export const getSingleUseVerificationsAdaptor = async (
+  page = 1,
+  limit = 10,
+): Promise<AdaptorRes<SingleUseVerificationsRes>> => {
   try {
     const res = await getVerificationsAPI({ page, limit });
-    const items: Verification[] = res.results.map(item => {
+    const items: SingleUseVerification[] = res.results.map(item => {
       return {
         id: item.id,
         name: item.name,
@@ -75,7 +78,7 @@ export const getSingleUseVerificationsAdaptor = async (page = 1, limit = 10): Pr
         attributes: [],
       };
     });
-    const data: VerificationsRes = {
+    const data: SingleUseVerificationsRes = {
       items,
       page,
       totalCount: res.total,

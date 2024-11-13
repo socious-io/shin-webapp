@@ -1,6 +1,19 @@
 @import 'src/styles/utilities/_mixins.scss';
 @import 'src/styles/constants/_primitives.scss';
 
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 28px;
+        color: $color-grey-900;
+    }
+}
+
 .table {
     @include flex(normal, normal, column);
     border: 1px solid $color-grey-200;
