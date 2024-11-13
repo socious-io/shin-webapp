@@ -1,8 +1,10 @@
-import { ReactNode } from 'react';
+import { SlideProps as MUISlideProps } from '@mui/material';
 
-export type SliderProps = {
-  children: ReactNode;
+export interface SliderProps extends MUISlideProps {
   open: boolean;
   onClose: () => void;
-  title: string;
-};
+  title?: string;
+  showHeader?: boolean;
+  containerClassName?: string;
+  contentClassName?: string;
+}

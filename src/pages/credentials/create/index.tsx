@@ -1,6 +1,5 @@
 import { Divider } from '@mui/material';
-import RecipientList from 'src/modules/Credential/containers/RecipientList';
-import SchemaAttributesForm from 'src/modules/Credential/containers/SchemaAttributesForm';
+import SchemaCredentialList from 'src/modules/Credential/containers/SchemaCredentialList';
 import SelectSchema from 'src/modules/Credential/containers/SelectSchema';
 import Button from 'src/modules/General/components/Button';
 import PaginationDotGroup from 'src/modules/General/components/PaginationDotGroup';
@@ -14,17 +13,16 @@ export const Create = () => {
     data: {
       translate,
       step,
-      schemaRadioItems,
-      selectedSchema,
       totalPage,
       page,
-      schemaAttributes,
-      schemaInfo,
-      formRef,
-      selectedRecipient,
+      schemaRadioItems,
+      selectedSchema,
+      selectedSchemaDetail,
+      selectedCredential,
       disabledButton,
+      formRef,
     },
-    operations: { onCancelCreate, setSelectedSchema, onChangePage, handleContinue, onSubmitClaims, onSelectRecipient },
+    operations: { onCancelCreate, handleContinue, onChangePage, setSelectedSchema, onSelectCredential },
   } = useCreate();
 
   const content = {
@@ -35,30 +33,27 @@ export const Create = () => {
         onSelectSchema={setSelectedSchema}
       />
     ),
-    1: selectedSchema && (
-      <SchemaAttributesForm
-        ref={formRef}
-        schemaAttributes={schemaAttributes}
-        schemaInfo={schemaInfo}
-        onSubmitClaims={onSubmitClaims}
+    1: selectedSchemaDetail && (
+      <SchemaCredentialList
+        selectedSchema={selectedSchemaDetail}
+        selectedCredential={selectedCredential}
+        onSelectCredential={onSelectCredential}
       />
     ),
-    2: <RecipientList selectedRecipient={selectedRecipient} onSelectRecipient={onSelectRecipient} />,
+    2: <p>Not developed yet</p>,
   };
 
   return (
     <div className={css['container']}>
       <PaginationDotGroup
         shape="oval"
-        titles={[
-          translate('credential-step1-title'),
-          translate('credential-step2-title'),
-          translate('credential-step3-title'),
-        ]}
-        count={3}
+        titles={[translate('credential-step1-title'), translate('credential-step2-title')]}
+        count={2}
         active={step}
         size="xs"
         transparent
+        highlightPrevSteps
+        containerClassName="flex-col md:flex-row"
         customStyle={css['pagination']}
       />
       <div className={css['content']}>{content[step]}</div>
@@ -69,7 +64,7 @@ export const Create = () => {
           {translate('credential-cancel-button')}
         </Button>
         <Button color="primary" onClick={handleContinue} disabled={disabledButton}>
-          {step !== 2 ? translate('credential-continue-button') : translate('credential-send-button')}
+          {step === 0 ? translate('credential-continue-button') : translate('credential-send-button')}
         </Button>
       </div>
     </div>

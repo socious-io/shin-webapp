@@ -12,12 +12,12 @@ import {
   getSchemasAdaptor,
   getVerificationByIdAdaptor,
   getVerificationsAdaptor,
-  connectVerificationAdaptor,
   getCredentialsAdaptor,
   getRecipientsAdaptor,
-  connectCredentialAdaptor,
   getOrgIdAdaptor,
   getIntegrationsAdaptor,
+  createVerificationIndividualAdaptor,
+  getSchemaAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -38,8 +38,8 @@ export const blueprint: RouteObject[] = [
               {
                 path: 'create',
                 loader: async () => {
-                  const [schemas, recipients] = await Promise.all([getSchemasAdaptor(), getRecipientsAdaptor()]);
-                  return { schemaList: schemas.data, recipientList: recipients.data };
+                  const { data } = await getSchemasAdaptor();
+                  return { schemaList: data };
                 },
                 async lazy() {
                   const { Create } = await import('src/pages/credentials/create');
@@ -80,12 +80,32 @@ export const blueprint: RouteObject[] = [
             children: [
               {
                 path: 'create',
-                async lazy() {
-                  const { Create } = await import('src/pages/schemas/create');
-                  return {
-                    Component: Create,
-                  };
-                },
+                children: [
+                  {
+                    path: '',
+                    async lazy() {
+                      const { Create } = await import('src/pages/schemas/create');
+                      return {
+                        Component: Create,
+                      };
+                    },
+                  },
+                  {
+                    path: ':id',
+                    loader: async ({ params }) => {
+                      if (params.id) {
+                        const data = await getSchemaAdaptor(params.id);
+                        return data;
+                      }
+                    },
+                    async lazy() {
+                      const { Create } = await import('src/pages/schemas/create');
+                      return {
+                        Component: Create,
+                      };
+                    },
+                  },
+                ],
               },
               {
                 path: '',
@@ -295,12 +315,6 @@ export const blueprint: RouteObject[] = [
     children: [
       {
         path: 'credential/:id',
-        loader: async ({ params }) => {
-          if (params.id) {
-            const { data } = await connectCredentialAdaptor(params.id);
-            return { data };
-          }
-        },
         async lazy() {
           const { ProofRequest } = await import('src/pages/proofRequest');
           return {
@@ -309,13 +323,22 @@ export const blueprint: RouteObject[] = [
         },
       },
       {
-        path: 'verification/:id',
+        path: 'redirect/:id',
         loader: async ({ params }) => {
           if (params.id) {
-            const { data } = await connectVerificationAdaptor(params.id);
+            const { data } = await createVerificationIndividualAdaptor(params.id);
             return { data };
           }
         },
+        async lazy() {
+          const { RedirectToVerification } = await import('src/pages/verifications/redirectToVerification');
+          return {
+            Component: RedirectToVerification,
+          };
+        },
+      },
+      {
+        path: 'verification/:id',
         async lazy() {
           const { ProofRequest } = await import('src/pages/proofRequest');
           return {

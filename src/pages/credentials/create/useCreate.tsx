@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { createCredentialAdaptor, getSchemasAdaptor, SchemaRes } from 'src/core/adaptors';
-import { CredentialClaims } from 'src/core/api';
 
 export const useCreate = () => {
   const { t: translate } = useTranslation();
@@ -13,13 +12,13 @@ export const useCreate = () => {
   const currentList = currentSchemaList?.items || [];
   const totalPage = Math.ceil((currentSchemaList?.total || 1) / (currentSchemaList?.limit || 10));
   const [page, setPage] = useState(1);
-  const [claims, setClaims] = useState<CredentialClaims[]>([]);
   const [selectedSchema, setSelectedSchema] = useState(
     (currentList[0]?.disabled ? currentList[1]?.id : currentList[0]?.id) || '',
   );
-  const [selectedRecipient, setSelectedRecipient] = useState('');
+  const [selectedCredential, setSelectedCredential] = useState('');
   const selectedSchemaDetail = currentList.find(schema => schema.id === selectedSchema);
   const formRef = useRef<{ submitForm: () => void }>(null);
+  const disabledButton = step === 1 && !selectedCredential;
 
   const schemaRadioItems = currentList.map(schema => ({
     id: schema.id,
@@ -28,15 +27,13 @@ export const useCreate = () => {
     value: schema.id,
     disabled: schema.disabled,
   }));
-  const schemaAttributes = selectedSchemaDetail?.attributes || [];
-  const schemaInfo = { title: selectedSchemaDetail?.name || '', description: selectedSchemaDetail?.description || '' };
-  const disabledButton = step === 2 ? !selectedRecipient : false;
 
   const onCancelCreate = () => navigate('/credentials');
 
   const handleContinue = () => {
-    if (step === 1 && formRef.current) {
-      formRef.current.submitForm();
+    if (step === 0) {
+      setStep(step + 1);
+      navigate(`?schema=${selectedSchema}`);
     } else if (step === 2) {
       onSendCredential();
     } else {
@@ -44,29 +41,17 @@ export const useCreate = () => {
     }
   };
 
-  const onSubmitClaims = (claims: CredentialClaims[]) => {
-    setClaims(claims);
-    setStep(step + 1);
-  };
-
-  const onSelectRecipient = (id: string) => {
+  const onSelectCredential = (id: string) => {
     //FIXME: for now because bulk action is out of scope of this PR
-    if (selectedRecipient === id) {
-      setSelectedRecipient('');
+    if (selectedCredential === id) {
+      setSelectedCredential('');
     } else {
-      setSelectedRecipient(id);
+      setSelectedCredential(id);
     }
   };
 
   const onSendCredential = async () => {
-    const { error } = await createCredentialAdaptor({
-      name: selectedSchemaDetail?.name || '',
-      description: selectedSchemaDetail?.description || '',
-      selectedSchema,
-      selectedRecipient,
-      claims,
-    });
-    if (error) return;
+    //TODO: send credential on step 3
     navigate('/credentials');
   };
 
@@ -80,16 +65,15 @@ export const useCreate = () => {
     data: {
       translate,
       step,
-      schemaRadioItems,
-      selectedSchema,
       totalPage,
       page,
-      schemaAttributes,
-      schemaInfo,
-      formRef,
-      selectedRecipient,
+      schemaRadioItems,
+      selectedSchema,
+      selectedSchemaDetail,
+      selectedCredential,
       disabledButton,
+      formRef,
     },
-    operations: { onCancelCreate, setSelectedSchema, onChangePage, handleContinue, onSubmitClaims, onSelectRecipient },
+    operations: { onCancelCreate, handleContinue, onChangePage, setSelectedSchema, onSelectCredential },
   };
 };

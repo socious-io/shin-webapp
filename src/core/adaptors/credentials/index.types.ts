@@ -42,3 +42,5 @@ export type RecipientReq = {
   firstName: string;
   lastName: string;
 };
+
+export type CredentialRecipientReq = Omit<CredentialReq, 'selectedRecipient'> & RecipientReq;

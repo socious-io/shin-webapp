@@ -24,7 +24,6 @@ export const Verifications = () => {
           </div>
           <Button color="primary" onClick={handleCreate}>
             <Icon fontSize={20} name="plus" className="text-Base-White" />
-
             {translate('ver_create_btn')}
           </Button>
         </div>
