@@ -6,6 +6,7 @@ import { User } from '../users/users.types';
 
 export type VerificationOperatorType = 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
 export type StatusValue = 'CREATED' | 'REQUESTED' | 'VERIFIED' | 'FAILED';
+export type VerificationType = 'SINGLE' | 'MULTI';
 
 export interface VerificationAttributeReq {
   attribute_id: string;
@@ -18,6 +19,7 @@ export interface VerificationReq {
   name: string;
   description: string;
   schema_id: string;
+  type: VerificationType;
   attributes: VerificationAttributeReq[];
 }
 

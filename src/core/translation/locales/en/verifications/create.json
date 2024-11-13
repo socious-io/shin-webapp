@@ -22,5 +22,15 @@
   "ver-error-numeric": "Must be a numeric value",
   "ver-error-valid-email": "Must be a valid Email",
   "ver-error-valid-date": "Must be a date value",
-  "ver-error-required": "Required"
+  "ver-error-required": "Required",
+  "ver-create-reusable": "Reusable Verification",
+  "ver-create-reusable-subtitle": "Create a verification link that can be used multiple times by different users",
+  "ver-create-reusable-item1": "Track all verifications in history",
+  "ver-create-reusable-item2": "Same link can be shared with multiple users",
+  "ver-create-reusable-item3": "Ideal for public verifications",
+  "ver-create-single-use": "Single-use Verification",
+  "ver-create-single-use-subtitle": "Generate unique single-use verification links",
+  "ver-create-single-use-item1": "Create unique links anytime",
+  "ver-create-single-use-item2": "Each link can only be used once",
+  "ver-create-single-use-item3": "Ideal for sharing links with specific individuals"
 }

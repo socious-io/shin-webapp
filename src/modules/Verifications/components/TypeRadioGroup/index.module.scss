@@ -1,0 +1,56 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .card {
+        padding: 1rem 1rem 1.5rem;
+        border-radius: $radius-xl;
+        border: solid 1px transparent;
+        box-shadow: 0px 0px 0px 1px $color-grey-200;
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+
+        &--selected {
+            border: solid 1px $color-primary-600;
+            box-shadow: 0px 0px 0px 1px $color-primary-600;
+        }
+
+        &__title {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5rem;
+            color: $color-grey-700;
+        }
+
+        &__subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+            color: $color-grey-600;
+        }
+
+        &__icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $color-primary-50;
+            border-radius: $radius-xl;
+        }
+    }
+
+    &__error {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: left;
+        margin-top: 6px;
+        color: $color-error-500;
+    }
+}

@@ -2,6 +2,7 @@ import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
+import TypeRadioGroup from 'src/modules/Verifications/components/TypeRadioGroup';
 import Attribute from 'src/modules/Verifications/containers/Atribute';
 import { ProofRequestModal } from 'src/modules/Verifications/containers/ProofRequestModal';
 import variables from 'src/styles/constants/_exports.module.scss';
@@ -21,6 +22,7 @@ export const CreateUpdateVerification = () => {
       description,
       attributes,
       verificationAttributes,
+      type,
     },
     operation: {
       register,
@@ -33,6 +35,7 @@ export const CreateUpdateVerification = () => {
       onChangeAttribute,
       onDeleteAttribute,
       handleClickAddAttribute,
+      selectType,
     },
   } = useCreateUpdateVerification();
 
@@ -73,6 +76,7 @@ export const CreateUpdateVerification = () => {
           {actionButtons}
         </div>
         <div className={css['section']}>
+          <TypeRadioGroup selected={type} setSelected={selectType} error={errors['type']?.message} />
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-name'), translate('ver-create-name-desc'))}
             <Input

@@ -1,5 +1,7 @@
 import { PaginateRes, SchemaAttributeType, SchemaRes, StatusValue, VerificationOperatorType } from 'src/core/api';
 
+export type verificationType = 'reusable' | 'singleUse';
+
 export interface Verification {
   id: string;
   name: string;
@@ -22,6 +24,7 @@ export interface VerificationReqAdaptor {
   description?: string;
   schemaId: string;
   attributes: VerificationAttribute[];
+  type: verificationType;
 }
 
 export interface UpdateVerificationReq extends VerificationReqAdaptor {

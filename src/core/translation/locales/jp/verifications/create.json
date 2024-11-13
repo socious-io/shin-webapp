@@ -22,5 +22,15 @@
   "ver-error-numeric": "数値である必要があります",
   "ver-error-valid-email": "有効なメールアドレスである必要があります",
   "ver-error-valid-date": "日付の値である必要があります",
-  "ver-error-required": "必須"
+  "ver-error-required": "必須",
+  "ver-create-reusable": "再利用可能な認証",
+  "ver-create-reusable-subtitle": "異なるユーザーが複数回使用できる認証リンクを作成",
+  "ver-create-reusable-item1": "すべての認証履歴を追跡",
+  "ver-create-reusable-item2": "同じリンクを複数のユーザーと共有可能",
+  "ver-create-reusable-item3": "公開認証に最適",
+  "ver-create-single-use": "使い捨て認証",
+  "ver-create-single-use-subtitle": "一度だけ使用できるユニークな認証リンクを生成",
+  "ver-create-single-use-item1": "いつでもユニークなリンクを作成",
+  "ver-create-single-use-item2": "各リンクは一度しか使用できない",
+  "ver-create-single-use-item3": "特定の個人とのリンク共有に最適"
 }
