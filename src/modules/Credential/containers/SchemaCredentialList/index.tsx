@@ -1,80 +1,78 @@
 import { Divider } from '@mui/material';
 import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import { Recipient } from 'src/core/adaptors';
+import { Credential } from 'src/core/adaptors';
 import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
 import Checkbox from 'src/modules/General/components/Checkbox';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
-import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
+import Status from 'src/modules/General/components/Status';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
-import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
-import { useRecipientList } from './useRecipientList';
-import AddRecipientModal from '../AddRecipientModal';
-import { RecipientListProps } from './index.types';
+import { useSchemaCredentialList } from './useSchemaCredentialList';
+import CredentialRecipientModal from '../CredentialRecipientModal';
+import { SchemaCredentialListProps } from './index.types';
 
-const RecipientList: React.FC<RecipientListProps> = ({ selectedRecipient, onSelectRecipient }) => {
+const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
+  selectedSchema,
+  selectedCredential,
+  onSelectCredential,
+}) => {
   const {
-    data: { translate, currentList, page, totalPage, openModal },
+    data: { translate, currentList, page, totalPage, status, openModal },
     operations: {
       onChangePage,
-      onAddRecipientClick,
+      onAddCredentialRecipientClick,
+      onAddCredentialRecipient,
       handleCloseModal,
-      onAddRecipient,
       onDeleteClick,
       onDeleteCredential,
-      onEditClick,
     },
-  } = useRecipientList(selectedRecipient, onSelectRecipient);
+  } = useSchemaCredentialList(selectedSchema.id, selectedCredential, onSelectCredential);
 
-  const columns = useMemo<ColumnDef<Recipient>[]>(
+  const columns = useMemo<ColumnDef<Credential>[]>(
     () => [
       {
         id: 'recipient_name',
-        header: translate('credential-step3.table.name'),
-        accessorKey: 'name',
+        header: translate('credential-table.name'),
+        accessorKey: 'recipient_name',
         cell: ({ getValue }: { getValue: Getter<string> }) => <span className={css['col--darker']}>{getValue()}</span>,
       },
       {
-        id: 'email',
-        header: translate('credential-step3.table.email'),
-        accessorKey: 'email',
+        id: 'issuer',
+        header: translate('credential-table.issuer'),
+        accessorKey: 'issuer',
         cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
       },
       {
-        id: 'created_date',
-        header: translate('credential-step3.table.created_date'),
-        accessorKey: 'created_date',
+        id: 'type',
+        header: translate('credential-table.type'),
+        accessorKey: 'type',
+        cell: ({ getValue }: { getValue: Getter<string> }) => getValue(),
+      },
+      {
+        id: 'issuance_date',
+        header: translate('credential-table.issuance-date'),
+        accessorKey: 'issuance_date',
         cell: ({ getValue }: { getValue: Getter<string> }) => formatDate(getValue()),
       },
       {
-        id: 'actions',
-        header: '',
-        accessorKey: 'id',
-        cell: ({ getValue }: { getValue: Getter<string> }) => {
-          const recipientId = getValue();
-          return (
-            <div className={css['col__actions']}>
-              <Icon
-                name="trash-01"
-                fontSize={20}
-                color={variables.color_grey_600}
-                cursor="pointer"
-                onClick={() => onDeleteClick(recipientId)}
-              />
-              <Icon
-                name="edit-01"
-                fontSize={20}
-                color={variables.color_grey_600}
-                cursor="pointer"
-                onClick={() => onEditClick(recipientId)}
-              />
-            </div>
-          );
-        },
+        id: 'expiration_date',
+        header: translate('credential-table.expiration-date'),
+        accessorKey: 'expiration_date',
+        cell: ({ getValue }: { getValue: Getter<string> }) => (getValue() ? formatDate(getValue()) : ''),
+      },
+      {
+        id: 'status',
+        header: translate('credential-table.status'),
+        accessorKey: 'status',
+        cell: ({ getValue }: { getValue: Getter<string> }) => (
+          <div className="flex items-center">
+            <Status {...status[getValue()]} />
+          </div>
+        ),
       },
     ],
     [currentList],
@@ -89,34 +87,35 @@ const RecipientList: React.FC<RecipientListProps> = ({ selectedRecipient, onSele
   return (
     <>
       <div className={css['container']}>
-        <h1 className={css['header']}>{translate('credential-step3-title')}</h1>
+        <div className={css['header']}>
+          <h1 className={css['header__title']}>{translate('credential-step2.header')}</h1>
+          <h2 className={css['header__subtitle']}>{translate('credential-step2.subheader')}</h2>
+        </div>
         <Divider />
         <div className={css['buttons']}>
-          <Button variant="outlined" color="primary" onClick={onAddRecipientClick}>
-            {translate('credential-step3.header')}
+          <Button variant="outlined" color="primary" onClick={onAddCredentialRecipientClick}>
+            {translate('credential-step2.add-button')}
           </Button>
           <Button
             variant="outlined"
-            color={!selectedRecipient ? 'inherit' : 'primary'}
-            disabled={!selectedRecipient || !currentList.length}
-            onClick={() => onDeleteClick()}
+            color={!selectedCredential ? 'inherit' : 'primary'}
+            disabled={!selectedCredential || !currentList.length}
+            onClick={onDeleteClick}
           >
-            {translate('credential-step3.delete-button')}
+            {translate('credential-step2.delete-button')}
           </Button>
         </div>
         <div className={css['table']}>
           <div className="block overflow-auto">
             <table className="w-full rounded-lg">
-              <thead className={css['header']}>
+              <thead className={css['table__header']}>
                 {table.getHeaderGroups().map(headerGroup => (
                   <tr key={headerGroup.id}>
-                    {headerGroup.headers.map(header =>
-                      header.isPlaceholder ? null : (
-                        <th id={header.id} key={header.id} className={css['header__item']}>
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                        </th>
-                      ),
-                    )}
+                    {headerGroup.headers.map(header => (
+                      <th id={header.id} key={header.id} className={css['table__item']}>
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                      </th>
+                    ))}
                   </tr>
                 ))}
               </thead>
@@ -134,8 +133,8 @@ const RecipientList: React.FC<RecipientListProps> = ({ selectedRecipient, onSele
                                   {item && (
                                     <Checkbox
                                       id={item.id}
-                                      checked={selectedRecipient === item.id}
-                                      onChange={() => onSelectRecipient(item.id)}
+                                      checked={selectedCredential === item.id}
+                                      onChange={() => onSelectCredential(item.id)}
                                     />
                                   )}
                                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -153,11 +152,11 @@ const RecipientList: React.FC<RecipientListProps> = ({ selectedRecipient, onSele
               ) : (
                 <tbody>
                   <tr>
-                    <td colSpan={4}>
+                    <td colSpan={6}>
                       <div className={css['table__empty']}>
-                        {translate('credential-step3.empty-table-title')}
+                        {translate('credential-step2.empty-table-title')}
                         <span className={css['table__empty--lighter']}>
-                          {translate('credential-step3.empty-table-subtitle')}
+                          {translate('credential-step2.empty-table-subtitle')}
                         </span>
                       </div>
                     </td>
@@ -171,19 +170,19 @@ const RecipientList: React.FC<RecipientListProps> = ({ selectedRecipient, onSele
           </div>
         </div>
       </div>
-      <AddRecipientModal
+      <CredentialRecipientModal
         open={openModal.name === 'add' && openModal.open}
         handleClose={handleCloseModal}
-        onAddRecipient={onAddRecipient}
-        recipient={currentList.find(list => list.id === openModal?.recipientId)}
+        selectedSchema={selectedSchema}
+        onAddCredentialRecipient={onAddCredentialRecipient}
       />
       <ConfirmModal
         customStyle="max-w-[400px]"
         open={openModal.name === 'delete' && openModal.open}
         handleClose={handleCloseModal}
         icon={<FeaturedIcon iconName="alert-circle" size="lg" type="light-circle" theme="warning" />}
-        confirmHeader={translate('credential-step3.confirm-delete-title')}
-        confirmSubheader={translate('credential-step3.confirm-delete-subtitle')}
+        confirmHeader={translate('credential-step2.confirm-delete-title')}
+        confirmSubheader={translate('credential-step2.confirm-delete-subtitle')}
         buttons={[
           {
             color: 'primary',
@@ -205,4 +204,4 @@ const RecipientList: React.FC<RecipientListProps> = ({ selectedRecipient, onSele
   );
 };
 
-export default RecipientList;
+export default SchemaCredentialList;

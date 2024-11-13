@@ -1,6 +1,7 @@
 import {
   connectCredential,
   createCredential,
+  createCredentialWithRecipient,
   createRecipient,
   deleteCredential,
   deleteRecipient,
@@ -10,9 +11,11 @@ import {
   updateRecipient,
 } from 'src/core/api';
 import { requestKYB } from 'src/core/api/kyb/kyb.api';
+import store from 'src/store';
 
 import {
   AdaptorRes,
+  CredentialRecipientReq,
   CredentialReq,
   CredentialsRes,
   CredentialStatus,
@@ -21,9 +24,14 @@ import {
   SuccessRes,
 } from '..';
 
-export const getCredentialsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<CredentialsRes>> => {
+export const getCredentialsAdaptor = async (
+  page = 1,
+  limit = 10,
+  filters?: { schema_id: string },
+): Promise<AdaptorRes<CredentialsRes>> => {
+  const { email } = store.getState().user.userProfile;
   try {
-    const { results, total = 0 } = await getCredentials({ page, limit });
+    const { results, total = 0 } = await getCredentials({ page, limit }, filters);
     const items = results?.length
       ? results.map(credential => ({
           id: credential.id,
@@ -31,7 +39,7 @@ export const getCredentialsAdaptor = async (page = 1, limit = 10): Promise<Adapt
             credential.recipient?.first_name || credential.recipient?.last_name
               ? `${credential.recipient.first_name} ${credential.recipient.last_name}`
               : '',
-          issuer: credential?.organization?.did || '',
+          issuer: credential?.organization?.name || email || '',
           type: credential.name,
           issuance_date: new Date(credential.created_at),
           expiration_date: credential?.expired_at ? new Date(credential.expired_at) : null,
@@ -178,5 +186,30 @@ export const verifyOrganization = async (orgId: string, documents: string[]): Pr
       data: null,
       error: 'Error in verify organization API call',
     };
+  }
+};
+
+export const addCredentialRecipientAdaptor = async (
+  payload: CredentialRecipientReq,
+): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    const newPayload = {
+      credential: {
+        name: payload.name,
+        description: payload.description,
+        schema_id: payload.selectedSchema,
+        claims: payload.claims,
+      },
+      recipient: {
+        email: payload.email,
+        first_name: payload.firstName,
+        last_name: payload.lastName,
+      },
+    };
+    await createCredentialWithRecipient(newPayload);
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in creating a credential with recipient', error);
+    return { data: null, error: 'Error in creating a credential with recipient' };
   }
 };

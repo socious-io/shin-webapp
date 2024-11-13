@@ -5,5 +5,7 @@ export interface PaginationDotGroupProps {
   count: number;
   transparent?: boolean;
   active: number;
+  highlightPrevSteps?: boolean;
+  containerClassName?: string;
   customStyle?: string;
 }
