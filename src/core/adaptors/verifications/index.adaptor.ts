@@ -30,7 +30,7 @@ export const getReusableVerificationsAdaptor = async (
   limit = 10,
 ): Promise<AdaptorRes<ReusableVerificationsRes>> => {
   try {
-    const res = await getVerificationsAPI({ page, limit });
+    const res = await getVerificationsAPI({ page, limit }, { type: 'MULTI' });
     const items: Verification[] = res.results.map(item => {
       return {
         id: item.id,
@@ -41,6 +41,8 @@ export const getReusableVerificationsAdaptor = async (
         creationDate: item.created_at,
         schema: item.schema,
         attributes: [],
+        // FIXME: Ask BE to add this in API result
+        // usage: 0
       };
     });
     const data: ReusableVerificationsRes = {
@@ -65,7 +67,7 @@ export const getSingleUseVerificationsAdaptor = async (
   limit = 10,
 ): Promise<AdaptorRes<SingleUseVerificationsRes>> => {
   try {
-    const res = await getVerificationsAPI({ page, limit });
+    const res = await getVerificationsAPI({ page, limit }, { type: 'SINGLE' });
     const items: SingleUseVerification[] = res.results.map(item => {
       return {
         id: item.id,
@@ -76,6 +78,9 @@ export const getSingleUseVerificationsAdaptor = async (
         creationDate: item.created_at,
         schema: item.schema,
         attributes: [],
+        // FIXME: Ask BE team to add these attributes in result
+        // activeLinks:0,
+        // completed:0
       };
     });
     const data: SingleUseVerificationsRes = {
