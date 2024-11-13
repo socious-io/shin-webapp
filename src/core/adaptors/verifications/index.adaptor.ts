@@ -94,6 +94,7 @@ export const createVerificationAdaptor = async (param: VerificationReqAdaptor): 
         const { id, operator, value, type } = atr;
         return { attribute_id: id, operator, value: value || '', type };
       }),
+      type: param.type === 'reusable' ? 'MULTI' : 'SINGLE',
     });
     return {
       data: { message: 'succeed' },
@@ -114,6 +115,7 @@ export const updateVerificationAdaptor = async (param: UpdateVerificationReq): P
         const { id, operator, value, type } = atr;
         return { attribute_id: id, operator, value: value || '', type };
       }),
+      type: param.type === 'reusable' ? 'MULTI' : 'SINGLE',
     };
     await updateVerification(param.id, payload);
     return {

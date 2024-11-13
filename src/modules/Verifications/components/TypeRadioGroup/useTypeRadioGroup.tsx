@@ -1,25 +1,27 @@
+import { useTranslation } from 'react-i18next';
 import { verificationType } from 'src/core/adaptors';
 
 export const useTypeRadioGroup = () => {
+  const { t: translate } = useTranslation();
   const cardItems = [
     {
       value: 'reusable' as verificationType,
-      title: 'Reusable Verification',
-      subtitle: 'Create a verification link that can be used multiple times by different users',
+      title: translate('ver-create-reusable'),
+      subtitle: translate('ver-create-reusable-subtitle'),
       items: [
-        'Track all verifications in history',
-        'Same link can be shared with multiple users',
-        'Ideal for public verifications',
+        translate('ver-create-reusable-item1'),
+        translate('ver-create-reusable-item2'),
+        translate('ver-create-reusable-item3'),
       ],
     },
     {
       value: 'singleUse' as verificationType,
-      title: 'Single-use Verification',
-      subtitle: 'Generate unique single-use verification links',
+      title: translate('ver-create-single-use'),
+      subtitle: translate('ver-create-single-use-subtitle'),
       items: [
-        'Create unique links anytime',
-        'Each link can only be used once',
-        'Ideal for sharing links with specific individuals',
+        translate('ver-create-single-use-item1'),
+        translate('ver-create-single-use-item2'),
+        translate('ver-create-single-use-item3'),
       ],
     },
   ];

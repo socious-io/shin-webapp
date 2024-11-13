@@ -1,6 +1,7 @@
 import { Radio, RadioGroup } from '@mui/material';
 import React from 'react';
-import check from 'src/assets/icons/item-check.svg';
+import Icon from 'src/modules/General/components/Icon';
+import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { TypeRadioGroupProps } from './index.type';
@@ -34,7 +35,9 @@ const TypeRadioGroup: React.FC<TypeRadioGroupProps> = ({ selected, setSelected, 
                 <div className="flex flex-col gap-2">
                   {item.items.map(chkItem => (
                     <div key={chkItem} className="flex gap-3">
-                      <img src={check} alt="check" />
+                      <div className={css['card__icon']}>
+                        <Icon name="tick" color={variables.color_primary_600} fontSize={12} />
+                      </div>
                       <div className={css['card__subtitle']}>{chkItem}</div>
                     </div>
                   ))}
