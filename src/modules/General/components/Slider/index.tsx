@@ -1,19 +1,32 @@
 import { Slide } from '@mui/material';
-import React, { useRef } from 'react';
 
 import css from './index.module.scss';
 import { SliderProps } from './index.types';
 import CloseButton from '../CloseButton';
 
-export const Slider: React.FC<SliderProps> = ({ open, onClose, children, title }) => {
+export const Slider: React.FC<SliderProps> = ({
+  open,
+  onClose,
+  children,
+  title,
+  direction = 'left',
+  mountOnEnter = true,
+  unmountOnExit = true,
+  showHeader = true,
+  containerClassName = '',
+  contentClassName = '',
+  ...props
+}) => {
   return (
-    <Slide direction="left" in={open} mountOnEnter unmountOnExit>
-      <div className={css['container']} id="slide-out">
-        <div className={css['container__title']}>
-          {title}
-          <CloseButton handleClose={onClose} customStyle={css['container__close']} />
-        </div>
-        <div className={css['container__content']}>{children}</div>
+    <Slide in={open} direction={direction} mountOnEnter={mountOnEnter} unmountOnExit={unmountOnExit} {...props}>
+      <div className={`${css['container']} ${containerClassName}`} id="slide-out">
+        {showHeader && (
+          <div className={css['header']}>
+            <div className={css['header__title']}>{title}</div>
+            <CloseButton handleClose={onClose} customStyle={css['header__close']} />
+          </div>
+        )}
+        <div className={`${css['content']} ${contentClassName}`}>{children}</div>
       </div>
     </Slide>
   );

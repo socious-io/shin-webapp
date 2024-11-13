@@ -38,8 +38,8 @@ export const blueprint: RouteObject[] = [
               {
                 path: 'create',
                 loader: async () => {
-                  const [schemas, recipients] = await Promise.all([getSchemasAdaptor(), getRecipientsAdaptor()]);
-                  return { schemaList: schemas.data, recipientList: recipients.data };
+                  const { data } = await getSchemasAdaptor();
+                  return { schemaList: data };
                 },
                 async lazy() {
                   const { Create } = await import('src/pages/credentials/create');

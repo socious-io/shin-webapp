@@ -34,12 +34,21 @@ export async function patch<T>(uri: string, payload?: unknown, config?: AxiosReq
   return http.patch<T>(uri, removedEmptyProps(payload), config);
 }
 
-export async function get<T>(uri: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+export async function get<T>(
+  uri: string,
+  config?: AxiosRequestConfig,
+  filters?: Record<string, string>,
+): Promise<AxiosResponse<T>> {
   if (!config) config = {};
+  const newFilters = {};
+  for (const key in filters || {}) {
+    newFilters[`filter.${key}`] = filters?.[key];
+  }
 
   config.params = {
     t: new Date().getTime(),
     ...config?.params,
+    ...newFilters,
   };
 
   return http.get<T>(uri, config);
