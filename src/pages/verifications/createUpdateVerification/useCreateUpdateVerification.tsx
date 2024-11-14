@@ -55,6 +55,7 @@ export const useCreateUpdateVerification = () => {
     .shape({
       name: yup.string().required(translate('ver-error-required')),
       description: yup.string(),
+      message: yup.string(),
       schema: yup.object().shape({
         label: yup.string().required(),
         value: yup.string().required(translate('ver-error-required')),
@@ -167,13 +168,14 @@ export const useCreateUpdateVerification = () => {
   };
 
   const onSubmit = async () => {
-    const { name, description, schema, attributes, type } = getValues();
+    const { name, description, schema, attributes, type, message } = getValues();
     let res: AdaptorRes<SuccessRes> | null = null;
     if (verification?.id) {
       const param: UpdateVerificationReq = {
         id: verification.id,
         name,
         description,
+        message,
         schemaId: schema.value,
         type,
         attributes: attributes.map(item => {
@@ -185,6 +187,7 @@ export const useCreateUpdateVerification = () => {
       const param: VerificationReqAdaptor = {
         name,
         description,
+        message,
         schemaId: schema.value,
         type,
         attributes: attributes.map(item => {
