@@ -25,6 +25,7 @@ export interface VerificationReqAdaptor {
   schemaId: string;
   attributes: VerificationAttribute[];
   type: verificationType;
+  message?: string;
 }
 
 export interface UpdateVerificationReq extends VerificationReqAdaptor {
