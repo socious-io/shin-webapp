@@ -107,11 +107,14 @@ export const CreateUpdateVerification = () => {
               name="description"
               register={register}
               placeholder={translate('ver-create-description-placeholder')}
-              containerClassName="w-full md:w-[32rem]"
               errors={errors['description']?.message ? [errors['description']?.message.toString()] : undefined}
+              multiline
+              customHeight="180px"
+              maxRows={7}
+              containerClassName="w-full"
             />
           </div>
-          <div className={css['section__row']}>
+          {/* <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-message'), translate('ver-create-message-desc'))}
             <Input
               id="message"
@@ -125,7 +128,7 @@ export const CreateUpdateVerification = () => {
               maxRows={7}
               containerClassName="w-full"
             />
-          </div>
+          </div> */}
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-credential'), translate('ver-create-credential-desc'))}
             <div className={css['section__schema']}>
