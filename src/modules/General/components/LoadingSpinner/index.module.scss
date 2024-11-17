@@ -1,0 +1,41 @@
+@import 'src/styles/constants/_primitives.scss';
+
+$total-bars: 8;
+$rotation-step: calc(360deg / $total-bars);
+$animation-delay-step: 0.1s;
+
+.container {
+    position: relative;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 10px;
+
+    .bar {
+        width: 8%;
+        height: 24%;
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        opacity: 0;
+        background: $color-white;
+        border-radius: 50px;
+        animation: opacity 1s linear infinite;
+    }
+
+    @for $i from 1 through $total-bars {
+        .bar-#{$i} {
+            transform: rotate(#{$rotation-step * ($i - 1)}) translate(0, -130%);
+            animation-delay: -#{$animation-delay-step * ($total-bars - $i)};
+        }
+    }
+}
+
+@keyframes opacity {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.25;
+    }
+}
