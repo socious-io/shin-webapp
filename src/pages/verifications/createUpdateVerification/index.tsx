@@ -76,7 +76,17 @@ export const CreateUpdateVerification = () => {
           {actionButtons}
         </div>
         <div className={css['section']}>
-          <TypeRadioGroup selected={type} setSelected={selectType} error={errors['type']?.message} />
+          <div className={css['title']}>
+            <div className={css['title__text']}>{translate('ver-create-type-title')}</div>
+            <div className={css['title__desc']}>{translate('ver-create-type-subtitle')}</div>
+          </div>
+          <div className="mb-6">
+            <TypeRadioGroup selected={type} setSelected={selectType} error={errors['type']?.message} />
+          </div>
+          <div className={css['title']}>
+            <div className={css['title__text']}>{translate('ver-create-detail-title')}</div>
+            <div className={css['title__desc']}>{translate('ver-create-detail-subtitle')}</div>
+          </div>
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-name'), translate('ver-create-name-desc'))}
             <Input
@@ -104,6 +114,21 @@ export const CreateUpdateVerification = () => {
               containerClassName="w-full"
             />
           </div>
+          {/* <div className={css['section__row']}>
+            {renderRowTitle(translate('ver-create-message'), translate('ver-create-message-desc'))}
+            <Input
+              id="message"
+              label=""
+              name="message"
+              register={register}
+              placeholder={translate('ver-create-message-placeholder')}
+              errors={errors['message']?.message ? [errors['message']?.message.toString()] : undefined}
+              multiline
+              customHeight="180px"
+              maxRows={7}
+              containerClassName="w-full"
+            />
+          </div> */}
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-credential'), translate('ver-create-credential-desc'))}
             <div className={css['section__schema']}>
@@ -133,7 +158,7 @@ export const CreateUpdateVerification = () => {
               ))}
               <button className={css['section__attribute']} disabled={!schema} onClick={handleClickAddAttribute}>
                 <Icon name="plus" fontSize={20} color={variables.color_grey_600} />
-                Add an attribute
+                {translate('ver-create-add-attribute')}
               </button>
               <p className={css['section__error']}>{errors['attributes']?.message}</p>
             </div>

@@ -3,7 +3,7 @@
   "ver-create-preview": "Preview",
   "ver-create-btn": "Create",
   "ver-edit-btn": "Edit",
-  "ver-create-title": "Create a verification request",
+  "ver-create-title": "Create a verification",
   "ver-create-name": "Name",
   "ver-create-name-desc": "This will be used for reference only by yourself and the credential holder.",
   "ver-create-name-placeholder": "Add a name",
@@ -32,5 +32,13 @@
   "ver-create-single-use-subtitle": "Generate unique single-use verification links",
   "ver-create-single-use-item1": "Create unique links anytime",
   "ver-create-single-use-item2": "Each link can only be used once",
-  "ver-create-single-use-item3": "Ideal for sharing links with specific individuals"
+  "ver-create-single-use-item3": "Ideal for sharing links with specific individuals",
+  "ver-create-type-title": "Select verification type",
+  "ver-create-type-subtitle": "Choose how you want your verification to be used",
+  "ver-create-detail-title": "Verification details",
+  "ver-create-detail-subtitle": "Configure the verification requirements and how it will appear to users. These settings will define what credentials or attributes need to be verified.",
+  "ver-create-add-attribute": "Add an attribute",
+  "ver-create-message": "Message",
+  "ver-create-message-desc": "Describe the purpose of the credential request for both the requester and the credential holder.",
+  "ver-create-message-placeholder": "Enter a message..."
 }

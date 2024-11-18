@@ -55,6 +55,7 @@ export const useCreateUpdateVerification = () => {
     .shape({
       name: yup.string().required(translate('ver-error-required')),
       description: yup.string(),
+      // message: yup.string(),
       schema: yup.object().shape({
         label: yup.string().required(),
         value: yup.string().required(translate('ver-error-required')),
