@@ -2,9 +2,6 @@ import { SingleUseVerification } from 'src/core/adaptors';
 import { MenuItem } from 'src/modules/General/components/ThreeDotButton/index.type';
 
 export interface SingleUseListProps {
-  list: SingleUseVerification[];
-  setList: (val: SingleUseVerification[]) => void;
-  totalItems: number;
   openModal?: { name: 'delete' | 'copy' | 'history'; open: boolean };
   setOpenModal: (val: { name: 'delete' | 'copy' | 'history'; open: boolean }) => void;
   selectedId?: string;

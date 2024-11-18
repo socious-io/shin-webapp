@@ -21,8 +21,6 @@ export const useVerifications = () => {
   const emptyList = loaderSingleUseList?.totalCount === 0 && loaderReusableList?.totalCount === 0;
   const [openModal, setOpenModal] = useState<{ name: 'delete' | 'copy' | 'history'; open: boolean }>();
   const [selectedId, setSelectedId] = useState('');
-  const [singleUseList, setSingleUseList] = useState(loaderSingleUseList?.items || []);
-  const [reusableList, setReusableList] = useState(loaderSingleUseList?.items || []);
   const [url, setUrl] = useState('');
 
   const getMenuItems = (id: string, tab: 'reusable' | 'singleUse'): MenuItem[] => {
@@ -76,9 +74,6 @@ export const useVerifications = () => {
       label: 'Reusable',
       content: (
         <ReusableList
-          list={reusableList}
-          setList={setReusableList}
-          totalItems={loaderReusableList?.totalCount || 0}
           openModal={openModal}
           setOpenModal={setOpenModal}
           selectedId={selectedId}
@@ -91,9 +86,6 @@ export const useVerifications = () => {
       label: 'Single-use',
       content: (
         <SingleUseList
-          list={singleUseList}
-          setList={setSingleUseList}
-          totalItems={loaderSingleUseList?.totalCount || 0}
           openModal={openModal}
           setOpenModal={setOpenModal}
           selectedId={selectedId}

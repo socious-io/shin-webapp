@@ -11,6 +11,7 @@ export interface Verification {
   description?: string;
   schema: SchemaRes;
   attributes: VerificationAttribute[];
+  type: verificationType;
 }
 
 export interface ReusableVerification extends Verification {

@@ -41,6 +41,7 @@ export const getReusableVerificationsAdaptor = async (
         creationDate: item.created_at,
         schema: item.schema,
         attributes: [],
+        type: 'reusable',
         // FIXME: Ask BE to add this in API result
         // usage: 0
       };
@@ -78,6 +79,7 @@ export const getSingleUseVerificationsAdaptor = async (
         creationDate: item.created_at,
         schema: item.schema,
         attributes: [],
+        type: 'singleUse',
         // FIXME: Ask BE team to add these attributes in result
         // activeLinks:0,
         // completed:0
@@ -116,6 +118,7 @@ export const getVerificationByIdAdaptor = async (id: string): Promise<AdaptorRes
           id: item.attribute_id,
         };
       }),
+      type: res.type === 'SINGLE' ? 'singleUse' : 'reusable',
     };
 
     return {

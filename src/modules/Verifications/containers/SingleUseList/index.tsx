@@ -13,9 +13,6 @@ import { SingleUseListProps } from './index.types';
 import { useSingleUseList } from './useSingleUseList';
 
 const SingleUseList: React.FC<SingleUseListProps> = ({
-  list,
-  setList,
-  totalItems,
   openModal,
   setOpenModal,
   selectedId,
@@ -23,9 +20,9 @@ const SingleUseList: React.FC<SingleUseListProps> = ({
   handleOpenCopy,
 }) => {
   const {
-    data: { page, total },
-    operations: { setPage, handleDelete, translate },
-  } = useSingleUseList(list, setList, totalItems, setOpenModal, selectedId);
+    data: { page, total, list },
+    operations: { handleDelete, translate, fetchMore },
+  } = useSingleUseList(setOpenModal, selectedId);
 
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
@@ -135,7 +132,7 @@ const SingleUseList: React.FC<SingleUseListProps> = ({
             </tbody>
           </table>
           <div className={css['table__pagination']}>
-            <Pagination page={page} count={total} onChange={(_, p) => setPage(p)} />
+            <Pagination page={page} count={total} onChange={(_, p) => fetchMore(p)} />
           </div>
         </div>
       </div>

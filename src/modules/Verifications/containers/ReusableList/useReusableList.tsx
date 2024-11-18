@@ -1,19 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLoaderData } from 'react-router-dom';
 import {
   deleteVerificationAdaptor,
   getReusableVerificationsAdaptor,
-  ReusableVerification,
   ReusableVerificationsRes,
   SingleUseVerificationsRes,
-  Verification,
-  VerificationsRes,
 } from 'src/core/adaptors';
 
 export const useReusableList = (
-  list: ReusableVerification[],
-  setList: (val: ReusableVerification[]) => void,
-  totalItems: number,
   setOpenModal: (val: { name: 'delete' | 'copy' | 'history'; open: boolean }) => void,
   selectedId?: string,
 ) => {
@@ -21,30 +16,32 @@ export const useReusableList = (
 
   const [page, setPage] = useState(1);
   const PER_PAGE = 10;
-  const [total, setTotal] = useState(Math.ceil(totalItems / PER_PAGE));
 
-  const fetchMore = async () => {
-    const res = await getReusableVerificationsAdaptor(page, PER_PAGE);
+  const { reusableList } = useLoaderData() as {
+    reusableList?: ReusableVerificationsRes;
+    singleUseList?: SingleUseVerificationsRes;
+  };
+
+  const [list, setList] = useState(reusableList?.items || []);
+  const [total, setTotal] = useState(Math.ceil((reusableList?.totalCount || 0) / PER_PAGE));
+
+  const fetchMore = async (newPage: number) => {
+    setPage(newPage);
+    const res = await getReusableVerificationsAdaptor(newPage, PER_PAGE);
     if (!res.data) return;
     setList(res.data.items);
     setTotal(Math.ceil(res.data.totalCount / PER_PAGE));
   };
 
-  useEffect(() => {
-    fetchMore();
-  }, [page]);
-
   const handleDelete = async () => {
     if (!selectedId) return;
+
     const res = await deleteVerificationAdaptor(selectedId);
     if (res.error) return;
+
     const newPage = list.length === 1 && page > 1 ? page - 1 : page;
-    const verificationRes = await getReusableVerificationsAdaptor(newPage, PER_PAGE);
-    if (verificationRes.error) return;
+    await fetchMore(newPage);
     setOpenModal({ name: 'delete', open: false });
-    setList(verificationRes.data?.items || []);
-    setTotal(Math.ceil((verificationRes.data?.totalCount || 0) / PER_PAGE));
-    setPage(newPage);
   };
 
   return {
@@ -54,7 +51,7 @@ export const useReusableList = (
       list,
     },
     operations: {
-      setPage,
+      fetchMore,
       handleDelete,
       translate,
     },

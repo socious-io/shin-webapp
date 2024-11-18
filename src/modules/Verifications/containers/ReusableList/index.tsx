@@ -13,9 +13,6 @@ import { ReusableListProps } from './index.types';
 import { useReusableList } from './useReusableList';
 
 const ReusableList: React.FC<ReusableListProps> = ({
-  list,
-  setList,
-  totalItems,
   openModal,
   setOpenModal,
   selectedId,
@@ -23,9 +20,9 @@ const ReusableList: React.FC<ReusableListProps> = ({
   handleOpenCopy,
 }) => {
   const {
-    data: { page, total },
-    operations: { setPage, handleDelete, translate },
-  } = useReusableList(list, setList, totalItems, setOpenModal, selectedId);
+    data: { page, total, list },
+    operations: { fetchMore, handleDelete, translate },
+  } = useReusableList(setOpenModal, selectedId);
 
   const columns = useMemo<ColumnDef<any>[]>(
     () => [
@@ -129,7 +126,7 @@ const ReusableList: React.FC<ReusableListProps> = ({
             </tbody>
           </table>
           <div className={css['table__pagination']}>
-            <Pagination page={page} count={total} onChange={(_, p) => setPage(p)} />
+            <Pagination page={page} count={total} onChange={(_, p) => fetchMore(p)} />
           </div>
         </div>
       </div>
