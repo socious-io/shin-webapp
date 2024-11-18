@@ -14,17 +14,23 @@ import {
 
 import { AdaptorRes, SuccessRes } from '..';
 import {
+  ReusableVerification,
+  ReusableVerificationsRes,
+  SingleUseVerification,
+  SingleUseVerificationsRes,
   UpdateVerificationReq,
   Verification,
   VerificationIndividualAdaptor,
   VerificationIndividualAdaptorList,
   VerificationReqAdaptor,
-  VerificationsRes,
 } from './index.type';
 
-export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
+export const getReusableVerificationsAdaptor = async (
+  page = 1,
+  limit = 10,
+): Promise<AdaptorRes<ReusableVerificationsRes>> => {
   try {
-    const res = await getVerificationsAPI({ page, limit });
+    const res = await getVerificationsAPI({ page, limit }, { type: 'MULTI' });
     const items: Verification[] = res.results.map(item => {
       return {
         id: item.id,
@@ -35,9 +41,51 @@ export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<Ada
         creationDate: item.created_at,
         schema: item.schema,
         attributes: [],
+        type: 'reusable',
+        // FIXME: Ask BE to add this in API result
+        // usage: 0
       };
     });
-    const data: VerificationsRes = {
+    const data: ReusableVerificationsRes = {
+      items,
+      page,
+      totalCount: res.total,
+    };
+    return {
+      data,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'error in get verifications API call',
+    };
+  }
+};
+
+export const getSingleUseVerificationsAdaptor = async (
+  page = 1,
+  limit = 10,
+): Promise<AdaptorRes<SingleUseVerificationsRes>> => {
+  try {
+    const res = await getVerificationsAPI({ page, limit }, { type: 'SINGLE' });
+    const items: SingleUseVerification[] = res.results.map(item => {
+      return {
+        id: item.id,
+        name: item.name,
+        status: item.status,
+        proofId: item.present_id,
+        createdBy: `${item.user.first_name} ${item.user.last_name}`,
+        creationDate: item.created_at,
+        schema: item.schema,
+        attributes: [],
+        type: 'singleUse',
+        // FIXME: Ask BE team to add these attributes in result
+        // activeLinks:0,
+        // completed:0
+      };
+    });
+    const data: SingleUseVerificationsRes = {
       items,
       page,
       totalCount: res.total,
@@ -70,6 +118,7 @@ export const getVerificationByIdAdaptor = async (id: string): Promise<AdaptorRes
           id: item.attribute_id,
         };
       }),
+      type: res.type === 'SINGLE' ? 'singleUse' : 'reusable',
     };
 
     return {

@@ -116,12 +116,13 @@ export const useCreateUpdateVerification = () => {
       );
     const initialVal = {
       name: verification.name,
-      description: verification.description,
+      description: verification.description || '',
       schema: { value: selectedSchema?.id, label: selectedSchema?.name },
       attributes: (verification.attributes || []).map(item => {
         const schemaAttribute = selectedSchema?.attributes.find(atr => atr.id === item.id);
         return { ...item, name: schemaAttribute?.name, type: schemaAttribute?.type || 'TEXT' };
       }),
+      type: verification.type,
     };
     reset(initialVal);
   };

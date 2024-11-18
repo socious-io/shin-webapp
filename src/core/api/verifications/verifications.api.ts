@@ -7,7 +7,7 @@ import {
   VerificationIndividualRes,
 } from './verifications.types';
 import { post, del, get, put } from '../http';
-import { PaginateReq, SuccessRes } from '../types';
+import { FilterReq, PaginateReq, SuccessRes } from '../types';
 
 export async function createVerification(payload: VerificationReq): Promise<VerificationRes> {
   return (await post<VerificationRes>('verifications', payload)).data;
@@ -35,8 +35,8 @@ export async function connectVerification(individualId: string): Promise<Verific
   return (await get<VerificationIndividualRes>(`verifications/${individualId}/connect`)).data;
 }
 
-export async function getVerifications(params: PaginateReq): Promise<VerificationListRes> {
-  return (await get<VerificationListRes>(`verifications`, { params })).data;
+export async function getVerifications(params: PaginateReq, filters?: FilterReq): Promise<VerificationListRes> {
+  return (await get<VerificationListRes>(`verifications`, { params }, filters)).data;
 }
 
 export async function getVerificationIndividuals(

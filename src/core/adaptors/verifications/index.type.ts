@@ -11,12 +11,28 @@ export interface Verification {
   description?: string;
   schema: SchemaRes;
   attributes: VerificationAttribute[];
+  type: verificationType;
 }
 
+export interface ReusableVerification extends Verification {
+  usage?: number;
+}
+
+export interface SingleUseVerification extends Verification {
+  activeLinks?: number;
+  completed?: number;
+}
 export interface VerificationsRes {
-  items: Verification[];
   page: number;
   totalCount: number;
+}
+
+export interface SingleUseVerificationsRes extends VerificationsRes {
+  items: SingleUseVerification[];
+}
+
+export interface ReusableVerificationsRes extends VerificationsRes {
+  items: ReusableVerification[];
 }
 
 export interface VerificationReqAdaptor {

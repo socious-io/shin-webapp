@@ -11,13 +11,14 @@ import {
   getUserProfileAdaptor,
   getSchemasAdaptor,
   getVerificationByIdAdaptor,
-  getVerificationsAdaptor,
   getCredentialsAdaptor,
   getRecipientsAdaptor,
   getOrgIdAdaptor,
   getIntegrationsAdaptor,
   createVerificationIndividualAdaptor,
   getSchemaAdaptor,
+  getSingleUseVerificationsAdaptor,
+  getReusableVerificationsAdaptor,
 } from '../adaptors';
 
 export const blueprint: RouteObject[] = [
@@ -128,8 +129,11 @@ export const blueprint: RouteObject[] = [
               {
                 path: '',
                 loader: async () => {
-                  const data = await getVerificationsAdaptor(1, 10);
-                  return data;
+                  const [singleUseListRes, reusableListRes] = await Promise.all([
+                    getSingleUseVerificationsAdaptor(1, 10),
+                    getReusableVerificationsAdaptor(1, 10),
+                  ]);
+                  return { singleUseList: singleUseListRes.data, reusableList: reusableListRes.data };
                 },
                 async lazy() {
                   const { Verifications } = await import('src/pages/verifications/list');
