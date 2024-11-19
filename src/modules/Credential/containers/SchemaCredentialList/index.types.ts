@@ -1,7 +1,7 @@
-import { Schema } from 'src/core/adaptors';
+import { CredentialsRes, Schema } from 'src/core/adaptors';
 
 export interface SchemaCredentialListProps {
   selectedSchema: Schema;
-  selectedCredential: string;
-  onSelectCredential: (credentialId: string) => void;
+  schemaCredentialList: CredentialsRes | null;
+  onUpdateSchemaCredentialList: (page: number) => void;
 }

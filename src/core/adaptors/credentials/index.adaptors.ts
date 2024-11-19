@@ -4,10 +4,13 @@ import {
   createCredentialWithRecipient,
   createRecipient,
   deleteCredential,
+  deleteCredentials,
   deleteRecipient,
   getCredentials,
   getRecipients,
   revokeCredential,
+  revokeCredentials,
+  sendCredentials,
   updateRecipient,
 } from 'src/core/api';
 import { requestKYB } from 'src/core/api/kyb/kyb.api';
@@ -21,13 +24,14 @@ import {
   CredentialStatus,
   RecipientReq,
   RecipientRes,
+  SendCredentialReq,
   SuccessRes,
 } from '..';
 
 export const getCredentialsAdaptor = async (
   page = 1,
   limit = 10,
-  filters?: { schema_id: string },
+  filters?: { schema_id: string; sent: boolean },
 ): Promise<AdaptorRes<CredentialsRes>> => {
   const { email } = store.getState().user.userProfile;
   try {
@@ -89,6 +93,16 @@ export const revokeCredentialAdaptor = async (credentialId: string): Promise<Ada
   }
 };
 
+export const revokeCredentialsAdaptor = async (credentialIds: string[]): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    await revokeCredentials({ credentials: credentialIds });
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in revoking credentials', error);
+    return { data: null, error: 'Error in revoking credentials' };
+  }
+};
+
 export const deleteCredentialAdaptor = async (credentialId: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
     await deleteCredential(credentialId);
@@ -96,6 +110,16 @@ export const deleteCredentialAdaptor = async (credentialId: string): Promise<Ada
   } catch (error) {
     console.error('Error in deleting credential', error);
     return { data: null, error: 'Error in deleting credential' };
+  }
+};
+
+export const deleteCredentialsAdaptor = async (credentialIds: string[]): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    await deleteCredentials({ credentials: credentialIds });
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in deleting credentials', error);
+    return { data: null, error: 'Error in deleting credentials' };
   }
 };
 
@@ -211,5 +235,15 @@ export const addCredentialRecipientAdaptor = async (
   } catch (error) {
     console.error('Error in creating a credential with recipient', error);
     return { data: null, error: 'Error in creating a credential with recipient' };
+  }
+};
+
+export const sendCredentialsAdaptors = async (payload: SendCredentialReq) => {
+  try {
+    await sendCredentials(payload);
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in sending the credentials to recipients', error);
+    return { data: null, error: 'Error in sending the credentials to recipients' };
   }
 };

@@ -41,3 +41,12 @@ export interface CredentialRecipientReq {
   credential: Omit<CredentialReq, 'recipient_id'>;
   recipient: RecipientReq;
 }
+
+export interface CredentialIds {
+  credentials: string[];
+}
+
+export interface SendCredentialsReq {
+  schema_id: string;
+  message?: string;
+}

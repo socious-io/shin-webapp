@@ -4,11 +4,11 @@ import { useMemo } from 'react';
 import { Credential } from 'src/core/adaptors';
 import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
-import Checkbox from 'src/modules/General/components/Checkbox';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
+import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
-import Status from 'src/modules/General/components/Status';
 import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
+import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import { useSchemaCredentialList } from './useSchemaCredentialList';
@@ -17,11 +17,11 @@ import { SchemaCredentialListProps } from './index.types';
 
 const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
   selectedSchema,
-  selectedCredential,
-  onSelectCredential,
+  schemaCredentialList,
+  onUpdateSchemaCredentialList,
 }) => {
   const {
-    data: { translate, currentList, page, totalPage, status, openModal },
+    data: { translate, currentList, page, totalPage, openModal },
     operations: {
       onChangePage,
       onAddCredentialRecipientClick,
@@ -30,7 +30,7 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
       onDeleteClick,
       onDeleteCredential,
     },
-  } = useSchemaCredentialList(selectedSchema.id, selectedCredential, onSelectCredential);
+  } = useSchemaCredentialList(schemaCredentialList, onUpdateSchemaCredentialList);
 
   const columns = useMemo<ColumnDef<Credential>[]>(
     () => [
@@ -65,13 +65,17 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
         cell: ({ getValue }: { getValue: Getter<string> }) => (getValue() ? formatDate(getValue()) : ''),
       },
       {
-        id: 'status',
-        header: translate('credential-table.status'),
-        accessorKey: 'status',
+        id: 'actions',
+        header: '',
+        accessorKey: 'id',
         cell: ({ getValue }: { getValue: Getter<string> }) => (
-          <div className="flex items-center">
-            <Status {...status[getValue()]} />
-          </div>
+          <Icon
+            name="trash-01"
+            fontSize={20}
+            cursor="pointer"
+            color={variables.color_grey_600}
+            onClick={() => onDeleteClick(getValue())}
+          />
         ),
       },
     ],
@@ -96,14 +100,6 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
           <Button variant="outlined" color="primary" onClick={onAddCredentialRecipientClick}>
             {translate('credential-step2.add-button')}
           </Button>
-          <Button
-            variant="outlined"
-            color={!selectedCredential ? 'inherit' : 'primary'}
-            disabled={!selectedCredential || !currentList.length}
-            onClick={onDeleteClick}
-          >
-            {translate('credential-step2.delete-button')}
-          </Button>
         </div>
         <div className={css['table']}>
           <div className="block overflow-auto">
@@ -111,11 +107,13 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
               <thead className={css['table__header']}>
                 {table.getHeaderGroups().map(headerGroup => (
                   <tr key={headerGroup.id}>
-                    {headerGroup.headers.map(header => (
-                      <th id={header.id} key={header.id} className={css['table__item']}>
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                      </th>
-                    ))}
+                    {headerGroup.headers.map(header =>
+                      header.isPlaceholder ? null : (
+                        <th id={header.id} key={header.id} className={css['table__item']}>
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        </th>
+                      ),
+                    )}
                   </tr>
                 ))}
               </thead>
@@ -124,27 +122,11 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
                   {table.getRowModel().rows.map(row => {
                     return (
                       <tr key={row.id} className={css['row']}>
-                        {row.getVisibleCells().map(cell => {
-                          const item = cell.column.id === 'recipient_name' ? cell.row.original : null;
-                          return (
-                            <td className={css['col']} key={cell.id}>
-                              {cell.column.id === 'recipient_name' ? (
-                                <div className="flex justify-start items-center gap-3">
-                                  {item && (
-                                    <Checkbox
-                                      id={item.id}
-                                      checked={selectedCredential === item.id}
-                                      onChange={() => onSelectCredential(item.id)}
-                                    />
-                                  )}
-                                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </div>
-                              ) : (
-                                flexRender(cell.column.columnDef.cell, cell.getContext())
-                              )}
-                            </td>
-                          );
-                        })}
+                        {row.getVisibleCells().map(cell => (
+                          <td className={css['col']} key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </td>
+                        ))}
                       </tr>
                     );
                   })}
@@ -152,7 +134,7 @@ const SchemaCredentialList: React.FC<SchemaCredentialListProps> = ({
               ) : (
                 <tbody>
                   <tr>
-                    <td colSpan={6}>
+                    <td colSpan={columns.length}>
                       <div className={css['table__empty']}>
                         {translate('credential-step2.empty-table-title')}
                         <span className={css['table__empty--lighter']}>
