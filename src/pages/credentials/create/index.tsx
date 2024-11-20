@@ -25,7 +25,7 @@ export const Create = () => {
       schemaCredentialDetail,
     },
     operations: {
-      onCancelCreate,
+      onBackCreate,
       handleContinue,
       onChangePage,
       setSelectedSchema,
@@ -35,21 +35,21 @@ export const Create = () => {
   } = useCreate();
 
   const content = {
-    0: (
+    1: (
       <SelectSchema
         schemaRadioItems={schemaRadioItems}
         selectedSchema={selectedSchema}
         onSelectSchema={setSelectedSchema}
       />
     ),
-    1: selectedSchemaDetail && (
+    2: selectedSchemaDetail && (
       <SchemaCredentialList
         selectedSchema={selectedSchemaDetail}
         schemaCredentialList={schemaCredentialList}
         onUpdateSchemaCredentialList={onUpdateSchemaCredentialList}
       />
     ),
-    2: (
+    3: (
       <PreviewCredential ref={formRef} credentialDetail={schemaCredentialDetail} onSendCredential={onSendCredential} />
     ),
   };
@@ -64,7 +64,7 @@ export const Create = () => {
           translate('credential-step3-title'),
         ]}
         count={3}
-        active={step}
+        active={step - 1}
         size="xs"
         transparent
         highlightPrevSteps
@@ -72,14 +72,14 @@ export const Create = () => {
         customStyle={css['pagination']}
       />
       <div className={css['content']}>{content[step]}</div>
-      {step === 0 && <PaginationNumbers count={totalPage} page={page} onChange={(_, p) => onChangePage(p)} />}
+      {step === 1 && <PaginationNumbers count={totalPage} page={page} onChange={(_, p) => onChangePage(p)} />}
       <Divider />
       <div className={css['buttons']}>
-        <Button color="primary" variant="outlined" onClick={onCancelCreate}>
-          {translate('credential-cancel-button')}
+        <Button color="primary" variant="outlined" onClick={onBackCreate}>
+          {translate('credential-back-button')}
         </Button>
         <Button color="primary" onClick={handleContinue} disabled={disabledButton}>
-          {step === 0 ? translate('credential-continue-button') : translate('credential-send-button')}
+          {step === 1 ? translate('credential-continue-button') : translate('credential-send-button')}
         </Button>
       </div>
     </div>
