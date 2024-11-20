@@ -273,6 +273,24 @@ export const importCSVFileAdaptor = async (payload: ImportFileReq): Promise<Adap
   }
 };
 
+export const getImportAdaptor = async (importId: string): Promise<AdaptorRes<{ id: string; status: string }>> => {
+  try {
+    const res = await getImportStatus(importId);
+    return {
+      data: {
+        id: res.id,
+        status: res.status,
+      },
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in downloading sample CSV',
+    };
+  }
+};
+
 export const getImportStatusAdaptor = async (importId: string): Promise<AdaptorRes<ImportStatus>> => {
   try {
     const res = await getImportStatus(importId);

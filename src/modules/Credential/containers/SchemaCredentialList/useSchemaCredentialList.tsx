@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CredentialsRes, deleteCredentialAdaptor, getImportStatusAdaptor, ImportFileRes } from 'src/core/adaptors';
+import { CredentialsRes, deleteCredentialAdaptor, getImportAdaptor, ImportFileRes } from 'src/core/adaptors';
 
 export const useSchemaCredentialList = (
   schemaCredentialList: CredentialsRes | null,
@@ -21,25 +21,37 @@ export const useSchemaCredentialList = (
   });
   const [page, setPage] = useState(1);
   const totalPage = Math.ceil((schemaCredentialList?.total || 1) / (schemaCredentialList?.limit || 10));
-  const importId = localStorage.getItem('import_id') || '';
+  const importId: string[] = JSON.parse(localStorage.getItem('import_id') || '[]') || [];
   const STATUS_REQ = 5000;
 
   const getImportFilesStatus = useCallback(async () => {
-    const { data: status, error } = await getImportStatusAdaptor(importId);
-    if (error) return;
-    if (status === 'COMPLETED') {
-      localStorage.removeItem('import_id');
-      importingDetail.total && handleCloseCSVModal();
-      onUpdateSchemaCredentialList(page);
+    const requests = importId.map(id => getImportAdaptor(id));
+    const responses = await Promise.allSettled(requests);
+
+    for (const result of responses) {
+      if (result.status == 'fulfilled') {
+        const {
+          data: { id, status },
+          error,
+        } = result.value;
+        if (error) continue;
+        if (status === 'COMPLETED') {
+          const import_id_stored = localStorage.getItem('import_id');
+          const import_ids: string[] = JSON.parse(import_id_stored || '[]');
+          localStorage.setItem('import_id', JSON.stringify(import_ids.filter(import_id => import_id != id)));
+          importingDetail.total && handleCloseCSVModal();
+          onUpdateSchemaCredentialList(page);
+        }
+      }
     }
   }, [importId, importingDetail]);
 
   useEffect(() => {
-    if (!importId) return;
+    if (importId.length == 0) return;
     getImportFilesStatus();
     const interval = setInterval(getImportFilesStatus, STATUS_REQ);
     return () => clearInterval(interval);
-  }, [importId, getImportFilesStatus]);
+  }, [importId.length, getImportFilesStatus]);
 
   const onChangePage = async (newPage: number) => {
     setPage(newPage);
@@ -57,7 +69,14 @@ export const useSchemaCredentialList = (
 
   const onImportFiles = (res: ImportFileRes) => {
     const { id = '', total = 0 } = res || {};
-    localStorage.setItem('import_id', id);
+
+    let import_ids: string[] = [];
+    const import_id_stored = localStorage.getItem('import_id');
+    if (import_id_stored != null) {
+      import_ids = JSON.parse(import_id_stored);
+    }
+    import_ids.push(id);
+    localStorage.setItem('import_id', JSON.stringify(import_ids));
     setImportingDetail({ loading: true, total });
   };
 
