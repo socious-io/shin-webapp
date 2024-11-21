@@ -49,3 +49,15 @@ export interface SendCredentialReq {
   schema_id: string;
   message?: string;
 }
+
+export interface ImportFileReq {
+  file: File;
+  schema_id: string;
+}
+
+export interface ImportFileRes {
+  id: string;
+  total: number;
+}
+
+export type ImportStatus = 'INITIATED' | 'COMPLETED';

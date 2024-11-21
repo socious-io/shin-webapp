@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   CredentialsRes,
   getCredentialsAdaptor,
+  getSchemaAdaptor,
   getSchemasAdaptor,
+  Schema,
   SchemaRes,
   sendCredentialsAdaptors,
 } from 'src/core/adaptors';
@@ -12,15 +14,19 @@ import {
 export const useCreate = () => {
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { schemaList } = (useLoaderData() as { schemaList: SchemaRes }) || {};
-  const [step, setStep] = useState(0);
+  const formRef = useRef<{ submitForm: () => void }>(null);
+  const defaultStep = Number(searchParams.get('step') || 1);
+  const [step, setStep] = useState(defaultStep);
   const [currentSchemaList, setCurrentSchemaList] = useState(schemaList);
+  const [page, setPage] = useState(1);
   const currentList = currentSchemaList?.items || [];
   const totalPage = Math.ceil((currentSchemaList?.total || 1) / (currentSchemaList?.limit || 10));
-  const [page, setPage] = useState(1);
-  const [selectedSchema, setSelectedSchema] = useState(
-    (currentList[0]?.disabled ? currentList[1]?.id : currentList[0]?.id) || '',
-  );
+  const defaultSchemaId =
+    searchParams.get('schema') || (currentList[0]?.disabled ? currentList[1]?.id : currentList[0]?.id) || '';
+  const [selectedSchemaId, setSelectedSchemaId] = useState(defaultSchemaId);
+  const [selectedSchemaDetail, setSelectedSchemaDetail] = useState<Schema>();
   const [schemaCredentialList, setSchemaCredentialList] = useState<CredentialsRes | null>(null);
   const schemaRadioItems = currentList.map(schema => ({
     id: schema.id,
@@ -29,34 +35,44 @@ export const useCreate = () => {
     value: schema.id,
     disabled: schema.disabled,
   }));
-  const selectedSchemaDetail = currentList.find(schema => schema.id === selectedSchema);
-  const formRef = useRef<{ submitForm: () => void }>(null);
   const schemaCredentialDetail = {
     name: selectedSchemaDetail?.name || '',
     issuer: schemaCredentialList?.items[0]?.issuer || '',
   };
-  const disabledButton = step == 1 && !(schemaCredentialList?.items || []).length;
+  const disabledButton = step == 2 && !(schemaCredentialList?.items || []).length;
 
   useEffect(() => {
-    if (step === 1) onUpdateSchemaCredentialList(1);
+    if (step === 2) {
+      getSelectedSchemaDetail(selectedSchemaId);
+      onUpdateSchemaCredentialList(1);
+    }
   }, [step]);
 
-  const onCancelCreate = () => navigate('/credentials');
+  const navigateToStep = (newStep: number) => {
+    setStep(newStep);
+    const path = newStep === 1 ? '/credentials/create' : `?schema=${selectedSchemaId}&step=${newStep}`;
+    navigate(path);
+  };
+
+  const onBackCreate = () => navigateToStep(step - 1);
 
   const handleContinue = () => {
-    if (step === 0) {
-      setStep(step + 1);
-      navigate(`?schema=${selectedSchema}`);
-    } else if (step === 2 && formRef.current) {
+    if (step === 3 && formRef.current) {
       formRef.current.submitForm();
-    } else {
-      setStep(step + 1);
+      return;
     }
+    navigateToStep(step + 1);
+  };
+
+  const getSelectedSchemaDetail = async (schemaId: string) => {
+    const { data, error } = await getSchemaAdaptor(schemaId);
+    if (error) return;
+    data && setSelectedSchemaDetail(data);
   };
 
   const onUpdateSchemaCredentialList = async (newPage: number) => {
     const { data } = await getCredentialsAdaptor(newPage, 10, {
-      schema_id: selectedSchemaDetail?.id || '',
+      schema_id: selectedSchemaId,
       sent: false,
     });
     data && setSchemaCredentialList(data);
@@ -64,7 +80,7 @@ export const useCreate = () => {
 
   const onSendCredential = async (message?: string) => {
     const payload = {
-      schema_id: selectedSchemaDetail?.id || '',
+      schema_id: selectedSchemaId,
       message,
     };
     const { error } = await sendCredentialsAdaptors(payload);
@@ -85,7 +101,7 @@ export const useCreate = () => {
       totalPage,
       page,
       schemaRadioItems,
-      selectedSchema,
+      selectedSchemaId,
       selectedSchemaDetail,
       schemaCredentialList,
       formRef,
@@ -93,10 +109,10 @@ export const useCreate = () => {
       disabledButton,
     },
     operations: {
-      onCancelCreate,
+      onBackCreate,
       handleContinue,
       onChangePage,
-      setSelectedSchema,
+      setSelectedSchemaId,
       onUpdateSchemaCredentialList,
       onSendCredential,
     },
