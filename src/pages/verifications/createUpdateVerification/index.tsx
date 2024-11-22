@@ -2,8 +2,9 @@ import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
-import Attribute from 'src/modules/Verifications/components/Atribute';
-import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
+import TypeRadioGroup from 'src/modules/Verifications/components/TypeRadioGroup';
+import Attribute from 'src/modules/Verifications/containers/Atribute';
+import { ProofRequestModal } from 'src/modules/Verifications/containers/ProofRequestModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -21,6 +22,7 @@ export const CreateUpdateVerification = () => {
       description,
       attributes,
       verificationAttributes,
+      type,
     },
     operation: {
       register,
@@ -33,6 +35,7 @@ export const CreateUpdateVerification = () => {
       onChangeAttribute,
       onDeleteAttribute,
       handleClickAddAttribute,
+      selectType,
     },
   } = useCreateUpdateVerification();
 
@@ -73,6 +76,17 @@ export const CreateUpdateVerification = () => {
           {actionButtons}
         </div>
         <div className={css['section']}>
+          <div className={css['title']}>
+            <div className={css['title__text']}>{translate('ver-create-type-title')}</div>
+            <div className={css['title__desc']}>{translate('ver-create-type-subtitle')}</div>
+          </div>
+          <div className="mb-6">
+            <TypeRadioGroup selected={type} setSelected={selectType} error={errors['type']?.message} />
+          </div>
+          <div className={css['title']}>
+            <div className={css['title__text']}>{translate('ver-create-detail-title')}</div>
+            <div className={css['title__desc']}>{translate('ver-create-detail-subtitle')}</div>
+          </div>
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-name'), translate('ver-create-name-desc'))}
             <Input
@@ -100,6 +114,21 @@ export const CreateUpdateVerification = () => {
               containerClassName="w-full"
             />
           </div>
+          {/* <div className={css['section__row']}>
+            {renderRowTitle(translate('ver-create-message'), translate('ver-create-message-desc'))}
+            <Input
+              id="message"
+              label=""
+              name="message"
+              register={register}
+              placeholder={translate('ver-create-message-placeholder')}
+              errors={errors['message']?.message ? [errors['message']?.message.toString()] : undefined}
+              multiline
+              customHeight="180px"
+              maxRows={7}
+              containerClassName="w-full"
+            />
+          </div> */}
           <div className={css['section__row']}>
             {renderRowTitle(translate('ver-create-credential'), translate('ver-create-credential-desc'))}
             <div className={css['section__schema']}>
@@ -120,7 +149,7 @@ export const CreateUpdateVerification = () => {
                 <Attribute
                   key={index}
                   index={index}
-                  options={attributes}
+                  attributeOptions={attributes}
                   onChangeAttribute={onChangeAttribute}
                   onDeleteAttribute={onDeleteAttribute}
                   errors={errors['attributes']?.[index]}
@@ -129,7 +158,7 @@ export const CreateUpdateVerification = () => {
               ))}
               <button className={css['section__attribute']} disabled={!schema} onClick={handleClickAddAttribute}>
                 <Icon name="plus" fontSize={20} color={variables.color_grey_600} />
-                Add an attribute
+                {translate('ver-create-add-attribute')}
               </button>
               <p className={css['section__error']}>{errors['attributes']?.message}</p>
             </div>

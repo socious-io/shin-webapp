@@ -9,6 +9,7 @@ export interface CardRadioButtonProps {
 }
 
 export type CardRadioButtonItem = {
+  id: string;
   value: string;
   title: string;
   disabled: boolean;

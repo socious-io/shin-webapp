@@ -5,9 +5,9 @@ import { config } from 'src/config';
 import {
   CredentialsRes,
   CredentialStatus,
-  deleteCredentialAdaptor,
+  deleteCredentialsAdaptor,
   getCredentialsAdaptor,
-  revokeCredentialAdaptor,
+  revokeCredentialsAdaptor,
 } from 'src/core/adaptors';
 import { StatusProps } from 'src/modules/General/components/Status/index.types';
 
@@ -17,7 +17,8 @@ export const useIssuedList = () => {
   const { credentialList } = (useLoaderData() as { credentialList: CredentialsRes }) || {};
   const [currentCredentialList, setCurrentCredentialList] = useState(credentialList);
   const currentList = currentCredentialList?.items || [];
-  const [selectedCredential, setSelectedCredential] = useState('');
+  const [selectedAll, setSelectedAll] = useState(false);
+  const [selectedCredentials, setSelectedCredentials] = useState<string[]>([]);
   const [openModal, setOpenModal] = useState<{ name: 'revoke' | 'delete' | 'copy' | ''; open: boolean }>({
     name: '',
     open: false,
@@ -25,6 +26,10 @@ export const useIssuedList = () => {
   const [url, setUrl] = useState('');
   const [page, setPage] = useState(1);
   const totalPage = Math.ceil((currentCredentialList?.total || 1) / (currentCredentialList?.limit || 10));
+  const selectedStatuses = currentList.filter(item => selectedCredentials.includes(item.id));
+  const disableRevoke =
+    !selectedStatuses.length ||
+    !!selectedStatuses.filter(status => !['ISSUED', 'CLAIMED'].includes(status.status)).length;
 
   const status: Record<CredentialStatus, StatusProps> = {
     ISSUED: { label: translate('credential-status.issued'), theme: 'warning' },
@@ -32,21 +37,29 @@ export const useIssuedList = () => {
     ACTIVE: { label: translate('credential-status.active'), theme: 'success' },
     REVOKED: { label: translate('credential-status.revoked'), theme: 'error' },
     CREATED: { label: translate('credential-status.created'), theme: 'warning' },
+    CLAIMED: { label: translate('credential-status.claimed'), theme: 'success' },
   };
 
   const onChangePage = async (newPage: number) => {
     setPage(newPage);
+    setSelectedAll(false);
     const { data } = await getCredentialsAdaptor(newPage);
     data && setCurrentCredentialList(data);
   };
 
   const onSelectCredential = (id: string) => {
-    //FIXME: for now because bulk action is out of scope of this PR
-    if (selectedCredential === id) {
-      setSelectedCredential('');
-    } else {
-      setSelectedCredential(id);
-    }
+    setSelectedCredentials(selected =>
+      selected.includes(id) ? selected.filter(credential => credential !== id) : [...selected, id],
+    );
+  };
+
+  const onSelectAllCredentials = (checked: boolean) => {
+    setSelectedAll(checked);
+    if (checked) {
+      const ids = currentList.map(list => list.id);
+      const allSelected = [...new Set([...selectedCredentials, ...ids])];
+      setSelectedCredentials(allSelected);
+    } else setSelectedCredentials([]);
   };
 
   const handleCloseModal = () => setOpenModal({ name: '', open: false });
@@ -54,14 +67,14 @@ export const useIssuedList = () => {
   const onRevokeClick = () => setOpenModal({ name: 'revoke', open: true });
 
   const onRevokeCredential = async () => {
-    if (selectedCredential) {
-      const { error } = await revokeCredentialAdaptor(selectedCredential);
+    if (selectedCredentials.length) {
+      const { error } = await revokeCredentialsAdaptor(selectedCredentials);
       if (error) return;
       const revokedList = currentList.map(list =>
-        list.id === selectedCredential ? { ...list, status: 'REVOKED' as CredentialStatus } : list,
+        selectedCredentials.includes(list.id) ? { ...list, status: 'REVOKED' as CredentialStatus } : list,
       );
       setCurrentCredentialList({ ...currentCredentialList, items: revokedList });
-      setSelectedCredential('');
+      setSelectedCredentials([]);
       handleCloseModal();
     }
   };
@@ -69,12 +82,12 @@ export const useIssuedList = () => {
   const onDeleteClick = () => setOpenModal({ name: 'delete', open: true });
 
   const onDeleteCredential = async () => {
-    if (selectedCredential) {
-      const { error } = await deleteCredentialAdaptor(selectedCredential);
+    if (selectedCredentials.length) {
+      const { error } = await deleteCredentialsAdaptor(selectedCredentials);
       if (error) return;
-      const filteredList = currentList.filter(list => list.id !== selectedCredential);
+      const filteredList = currentList.filter(list => !selectedCredentials.includes(list.id));
       onChangePage(filteredList.length === 0 && page > 1 ? page - 1 : page);
-      setSelectedCredential('');
+      setSelectedCredentials([]);
       handleCloseModal();
     }
   };
@@ -91,14 +104,23 @@ export const useIssuedList = () => {
 
   const onCreateCredential = () => navigate('../create');
 
-  const selectedStatus = currentList.find(item => item.id === selectedCredential)?.status;
-  const disableRevoke = !selectedStatus || !['ISSUED', 'CLAIMED'].includes(selectedStatus);
-
   return {
-    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal, url, disableRevoke },
+    data: {
+      translate,
+      currentList,
+      page,
+      totalPage,
+      selectedAll,
+      selectedCredentials,
+      status,
+      openModal,
+      url,
+      disableRevoke,
+    },
     operations: {
       onChangePage,
       onSelectCredential,
+      onSelectAllCredentials,
       handleCloseModal,
       onRevokeClick,
       onRevokeCredential,

@@ -1,5 +1,5 @@
 import { Organization } from '../organizations/organizations.types';
-import { RecipientRes } from '../recipients/recipients.types';
+import { RecipientReq, RecipientRes } from '../recipients/recipients.types';
 import { SchemaRes } from '../schemas/schemas.types';
 import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
@@ -35,4 +35,29 @@ export interface CredentialRes extends CredentialReq {
 
 export interface CredentialListRes extends PaginateRes {
   results: CredentialRes[];
+}
+
+export interface CredentialRecipientReq {
+  credential: Omit<CredentialReq, 'recipient_id'>;
+  recipient: RecipientReq;
+}
+
+export interface CredentialIds {
+  credentials: string[];
+}
+
+export interface SendCredentialsReq {
+  schema_id: string;
+  message?: string;
+}
+
+export interface ImportFileReq {
+  file: File;
+  schema_id: string;
+}
+
+export interface ImportFileRes {
+  id: string;
+  total_count: number;
+  status: 'INITIATED' | 'COMPLETED';
 }

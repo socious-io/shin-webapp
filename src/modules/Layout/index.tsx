@@ -9,7 +9,7 @@ const Layout = () => {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <div className={css['container']}>
+    <div className={`${css['container']} ${openMenu && css['container--open']}`}>
       <div className="hidden md:block">
         <HamburgerMenu />
       </div>

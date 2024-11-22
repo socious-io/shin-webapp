@@ -1,16 +1,19 @@
-import { useTranslation } from 'react-i18next';
 import Button from 'src/modules/General/components/Button';
+import HorizontalTabs from 'src/modules/General/components/HorizontalTabs';
 import Icon from 'src/modules/General/components/Icon';
 import Notification from 'src/modules/General/components/Notification';
-import EmptyVerifications from 'src/modules/Verifications/components/EmptyVerfications.tsx';
-import VerificationList from 'src/modules/Verifications/components/VerificationList.tsx';
+import CopyLinkModal from 'src/modules/General/containers/CopyLinkModal';
+import EmptyVerifications from 'src/modules/Verifications/containers/EmptyVerfications.tsx';
+import HistorySlider from 'src/modules/Verifications/containers/HistorySlider';
 
 import css from './index.module.scss';
 import { useVerifications } from './useVerifications';
 
 export const Verifications = () => {
-  const { t: translate } = useTranslation();
-  const { list, setList, handleCreate, totalCount, notification, onCloseNotification } = useVerifications();
+  const {
+    data: { notification, emptyList, tabs, url, openModal, selectedId },
+    operations: { handleCreate, onCloseNotification, translate, setOpenModal, handleCopy },
+  } = useVerifications();
   return (
     <>
       <div className={css['container']}>
@@ -21,14 +24,32 @@ export const Verifications = () => {
           </div>
           <Button color="primary" onClick={handleCreate}>
             <Icon fontSize={20} name="plus" className="text-Base-White" />
-
             {translate('ver_create_btn')}
           </Button>
         </div>
-        {list?.length ? (
-          <VerificationList list={list} setList={setList} totalItems={totalCount || 0} />
-        ) : (
+        {emptyList ? (
           <EmptyVerifications handleCreate={handleCreate} />
+        ) : (
+          <>
+            <HorizontalTabs tabs={tabs} />
+            {url && (
+              <CopyLinkModal
+                open={openModal?.name === 'copy' && openModal.open}
+                handleClose={() => setOpenModal({ name: 'copy', open: false })}
+                title={translate('ver-copy-modal-title')}
+                subtitle={translate('ver-copy-modal-subtitle')}
+                link={url}
+                onCopy={handleCopy}
+              />
+            )}
+            {openModal?.name === 'history' && openModal.open && (
+              <HistorySlider
+                verificationId={selectedId}
+                open={openModal?.name === 'history' && openModal.open}
+                handleClose={() => setOpenModal({ name: 'history', open: false })}
+              />
+            )}
+          </>
         )}
       </div>
       {notification.display && (

@@ -9,10 +9,10 @@ export const forgetPasswordAdaptor = async (email: string): Promise<AdaptorRes<S
       data: { message: 'succeed' },
       error: null,
     };
-  } catch {
+  } catch (e: any) {
     return {
       data: null,
-      error: 'Error in forget password API call',
+      error: e.response?.status === 404 ? 'There is no account with this email' : 'Error in forget password API call',
     };
   }
 };

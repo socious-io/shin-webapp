@@ -1,4 +1,6 @@
-import { SchemaRes, VerificationOperatorType } from 'src/core/api';
+import { PaginateRes, SchemaAttributeType, SchemaRes, StatusValue, VerificationOperatorType } from 'src/core/api';
+
+export type verificationType = 'reusable' | 'singleUse';
 
 export interface Verification {
   id: string;
@@ -9,12 +11,28 @@ export interface Verification {
   description?: string;
   schema: SchemaRes;
   attributes: VerificationAttribute[];
+  type: verificationType;
 }
 
+export interface ReusableVerification extends Verification {
+  usage?: number;
+}
+
+export interface SingleUseVerification extends Verification {
+  activeLinks?: number;
+  completed?: number;
+}
 export interface VerificationsRes {
-  items: Verification[];
   page: number;
   totalCount: number;
+}
+
+export interface SingleUseVerificationsRes extends VerificationsRes {
+  items: SingleUseVerification[];
+}
+
+export interface ReusableVerificationsRes extends VerificationsRes {
+  items: ReusableVerification[];
 }
 
 export interface VerificationReqAdaptor {
@@ -22,6 +40,8 @@ export interface VerificationReqAdaptor {
   description?: string;
   schemaId: string;
   attributes: VerificationAttribute[];
+  type: verificationType;
+  message?: string;
 }
 
 export interface UpdateVerificationReq extends VerificationReqAdaptor {
@@ -33,4 +53,17 @@ export interface VerificationAttribute {
   name?: string;
   operator: VerificationOperatorType;
   value: string;
+  type: SchemaAttributeType;
+}
+
+export interface VerificationIndividualAdaptor {
+  id: string;
+  individualId: string;
+  connectionUrl?: string;
+  status: StatusValue;
+  createDate: Date;
+}
+
+export interface VerificationIndividualAdaptorList extends PaginateRes {
+  results: VerificationIndividualAdaptor[];
 }

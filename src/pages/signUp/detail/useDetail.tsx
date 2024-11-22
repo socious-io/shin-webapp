@@ -50,9 +50,10 @@ export const useDetail = () => {
         message: res.error,
       });
       return;
+    } else {
+      localStorage.removeItem('password');
+      navigate(`/sign-up/profile`);
     }
-
-    navigate(`/sign-up/profile`);
   };
   return {
     email,

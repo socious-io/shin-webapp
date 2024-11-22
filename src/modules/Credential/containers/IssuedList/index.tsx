@@ -19,10 +19,22 @@ import { useIssuedList } from './useIssuedList';
 
 const IssuedList = () => {
   const {
-    data: { translate, currentList, page, totalPage, selectedCredential, status, openModal, url, disableRevoke },
+    data: {
+      translate,
+      currentList,
+      page,
+      totalPage,
+      selectedAll,
+      selectedCredentials,
+      status,
+      openModal,
+      url,
+      disableRevoke,
+    },
     operations: {
       onChangePage,
       onSelectCredential,
+      onSelectAllCredentials,
       handleCloseModal,
       onRevokeClick,
       onRevokeCredential,
@@ -116,8 +128,8 @@ const IssuedList = () => {
           </Button>
           <Button
             variant="outlined"
-            color={!selectedCredential ? 'inherit' : 'secondary'}
-            disabled={!selectedCredential}
+            color={!selectedCredentials.length ? 'inherit' : 'secondary'}
+            disabled={!selectedCredentials.length}
             onClick={onDeleteClick}
           >
             {translate('credential-delete-button')}
@@ -132,7 +144,19 @@ const IssuedList = () => {
                     {headerGroup.headers.map(header =>
                       header.isPlaceholder ? null : (
                         <th id={header.id} key={header.id} className={css['header__item']}>
-                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {header.id === 'recipient_name' ? (
+                            <div className="flex justify-start items-center gap-3 text-Gray-light-mode-600">
+                              <Checkbox
+                                id="select-all"
+                                disabled={!currentList.length}
+                                checked={selectedAll}
+                                onChange={e => onSelectAllCredentials(e.target.checked)}
+                              />
+                              {flexRender(header.column.columnDef.header, header.getContext())}
+                            </div>
+                          ) : (
+                            flexRender(header.column.columnDef.header, header.getContext())
+                          )}
                         </th>
                       ),
                     )}
@@ -152,7 +176,7 @@ const IssuedList = () => {
                                 {item && (
                                   <Checkbox
                                     id={item.id}
-                                    checked={selectedCredential === item.id}
+                                    checked={selectedCredentials.includes(item.id)}
                                     onChange={() => onSelectCredential(item.id)}
                                   />
                                 )}

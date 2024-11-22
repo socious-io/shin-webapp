@@ -1,0 +1,50 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    width: 32.5rem;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1200;
+    @include flex(normal, normal, column);
+    box-shadow: $shadow-xl;
+    border: 1px solid $color-grey-200;
+    background-color: $color-white;
+
+    @media (max-width: $md) {
+        width: 100%;
+    }
+
+    .header {
+        padding: 1.5rem;
+        @include flex(space-between, flex-start);
+
+        @media (max-width: $md) {
+            padding: 1.5rem 1rem;
+        }
+
+        &__title {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 24px;
+            color: $color-grey-900;
+        }
+
+        &__close {
+            margin: 0 !important;
+        }
+    }
+
+    .content {
+        height: 100%;
+        padding: 0 1.5rem;
+        overflow-y: auto;
+
+        @media (max-width: $md) {
+            padding: 0;
+        }
+    }
+}

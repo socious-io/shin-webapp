@@ -53,10 +53,18 @@ export const useSchemaAttributesForm = (
         name: key,
         value: formData[key],
       })) || [];
+
     onSubmitClaims(claims);
   };
 
+  const areEqual = (str1: string, str2: string) => {
+    return (
+      str1.replaceAll('_', '').replaceAll(' ', '').toUpperCase() ===
+      str2.replaceAll('_', '').replaceAll(' ', '').toUpperCase()
+    );
+  };
   return {
     data: { register, control, errors, formRef },
+    operations: { areEqual },
   };
 };

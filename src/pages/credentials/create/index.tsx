@@ -1,9 +1,10 @@
 import { Divider } from '@mui/material';
-import RecipientList from 'src/modules/Credential/containers/RecipientList';
-import SchemaAttributesForm from 'src/modules/Credential/containers/SchemaAttributesForm';
+import PreviewCredential from 'src/modules/Credential/containers/PreviewCredential';
+import SchemaCredentialList from 'src/modules/Credential/containers/SchemaCredentialList';
 import SelectSchema from 'src/modules/Credential/containers/SelectSchema';
 import Button from 'src/modules/General/components/Button';
 import PaginationDotGroup from 'src/modules/General/components/PaginationDotGroup';
+import PaginationNumbers from 'src/modules/General/components/PaginationNumbers';
 
 import css from './index.module.scss';
 import { useCreate } from './useCreate';
@@ -13,34 +14,44 @@ export const Create = () => {
     data: {
       translate,
       step,
+      totalPage,
+      page,
       schemaRadioItems,
-      selectedSchema,
-      schemaAttributes,
-      schemaInfo,
-      formRef,
-      selectedRecipient,
+      selectedSchemaId,
+      selectedSchemaDetail,
+      schemaCredentialList,
       disabledButton,
+      formRef,
+      schemaCredentialDetail,
     },
-    operations: { onCancelCreate, setSelectedSchema, handleContinue, onSubmitClaims, onSelectRecipient },
+    operations: {
+      onBackCreate,
+      handleContinue,
+      onChangePage,
+      setSelectedSchemaId,
+      onUpdateSchemaCredentialList,
+      onSendCredential,
+    },
   } = useCreate();
 
   const content = {
-    0: (
+    1: (
       <SelectSchema
         schemaRadioItems={schemaRadioItems}
-        selectedSchema={selectedSchema}
-        onSelectSchema={setSelectedSchema}
+        selectedSchema={selectedSchemaId}
+        onSelectSchema={setSelectedSchemaId}
       />
     ),
-    1: selectedSchema && (
-      <SchemaAttributesForm
-        ref={formRef}
-        schemaAttributes={schemaAttributes}
-        schemaInfo={schemaInfo}
-        onSubmitClaims={onSubmitClaims}
+    2: selectedSchemaDetail && (
+      <SchemaCredentialList
+        selectedSchema={selectedSchemaDetail}
+        schemaCredentialList={schemaCredentialList}
+        onUpdateSchemaCredentialList={onUpdateSchemaCredentialList}
       />
     ),
-    2: <RecipientList selectedRecipient={selectedRecipient} onSelectRecipient={onSelectRecipient} />,
+    3: (
+      <PreviewCredential ref={formRef} credentialDetail={schemaCredentialDetail} onSendCredential={onSendCredential} />
+    ),
   };
 
   return (
@@ -53,19 +64,22 @@ export const Create = () => {
           translate('credential-step3-title'),
         ]}
         count={3}
-        active={step}
+        active={step - 1}
         size="xs"
         transparent
+        highlightPrevSteps
+        containerClassName="flex-col md:flex-row"
         customStyle={css['pagination']}
       />
       <div className={css['content']}>{content[step]}</div>
+      {step === 1 && <PaginationNumbers count={totalPage} page={page} onChange={(_, p) => onChangePage(p)} />}
       <Divider />
       <div className={css['buttons']}>
-        <Button color="primary" variant="outlined" onClick={onCancelCreate}>
-          {translate('credential-cancel-button')}
+        <Button color="primary" variant="outlined" onClick={onBackCreate}>
+          {translate('credential-back-button')}
         </Button>
         <Button color="primary" onClick={handleContinue} disabled={disabledButton}>
-          {step !== 2 ? translate('credential-continue-button') : translate('credential-send-button')}
+          {step === 1 ? translate('credential-continue-button') : translate('credential-send-button')}
         </Button>
       </div>
     </div>

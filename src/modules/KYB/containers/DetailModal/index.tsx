@@ -16,7 +16,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ open, handleClose, handleSucc
   const footerJSX = (
     <div className={css['footer']}>
       <Button variant="contained" color="primary" fullWidth onClick={handleContinue} disabled={!files.length}>
-        {translate('kyb-continue')}
+        {translate('kyb-send-button')}
       </Button>
       <Button variant="outlined" color="primary" fullWidth onClick={handleClose}>
         {translate('kyb-cancel')}

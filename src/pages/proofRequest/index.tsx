@@ -1,13 +1,13 @@
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Link from 'src/modules/General/components/Link';
 import Modal from 'src/modules/General/components/Modal';
-import { ProofRequestModal } from 'src/modules/Verifications/components/ProofRequestModal';
+import { ProofRequestModal } from 'src/modules/Verifications/containers/ProofRequestModal';
 
 import { useProofRequest } from './useProofRequest';
 
 export const ProofRequest = () => {
   const {
-    data: { translate, data, dataStatus },
+    data: { translate, data, dataStatus, returnURL },
     operations: { setDataStatus, navigate },
   } = useProofRequest();
 
@@ -15,7 +15,7 @@ export const ProofRequest = () => {
     <>
       <ProofRequestModal
         open={!dataStatus}
-        handleClose={() => navigate('/verifications')}
+        handleClose={() => navigate(returnURL)}
         title={data?.name || ''}
         subtitle={data?.description || ''}
         shortLink={data?.connection_url}

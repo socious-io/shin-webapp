@@ -1,0 +1,106 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 28px;
+        color: $color-grey-900;
+    }
+}
+
+.table {
+    @include flex(normal, normal, column);
+    border: 1px solid $color-grey-200;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
+    min-width: fit-content;
+
+    .header {
+        border-bottom: 1px solid $color-grey-200;
+        border-radius: $radius-xl;
+        background-color: $color-grey-50;
+        height: 2.75rem;
+
+        &__item {
+            color: $color-grey-600;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            vertical-align: middle;
+        }
+    }
+
+    .col {
+        color: $color-grey-600;
+        font-size: 0.875rem;
+        font-weight: 400;
+        padding: 0.75rem 1.5rem;
+        vertical-align: middle;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 14.375rem;
+
+        &--gray {
+            color: $color-grey-600;
+        }
+
+        &--bold {
+            font-weight: 500;
+        }
+
+        &__actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: fit-content;
+        }
+
+        &__btn {
+            font-size: 0.875rem;
+            font-weight: 500;
+            height: 2.5rem !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            display: flex;
+            gap: 0.25rem;
+            min-width: fit-content;
+        }
+    }
+
+    &__pagination {
+        border-top: 1px solid $color-grey-200;
+        border-radius: 0;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+.snackbar {
+    background-color: $color-primary-100;
+
+    &__content {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+        font-weight: 500;
+        color: $color-primary-700;
+    }
+}
+
+.copy {
+    &__container {
+        padding: 1.25rem 1.5rem 2rem;
+    }
+
+    &__btn {
+        width: fit-content;
+        display: flex;
+        gap: 0.25rem;
+        cursor: pointer;
+    }
+}

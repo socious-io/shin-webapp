@@ -14,6 +14,7 @@ const SchemaAttributesForm = forwardRef<FormHandles, SchemaAttributesFormProps>(
   ({ schemaAttributes, schemaInfo, onSubmitClaims }, ref) => {
     const {
       data: { register, control, errors, formRef },
+      operations: { areEqual },
     } = useSchemaAttributesForm(schemaAttributes, onSubmitClaims, ref);
 
     const generateOptionJSX = (attribute: Attribute) => ({
@@ -62,7 +63,11 @@ const SchemaAttributesForm = forwardRef<FormHandles, SchemaAttributesFormProps>(
                 register={register}
                 label={beautifyText(attribute.name)}
                 placeholder={beautifyText(attribute.name)}
-                hints={attribute?.description ? [{ hint: attribute.description, hide: false }] : undefined}
+                hints={
+                  attribute?.description && !areEqual(attribute.description, attribute.name)
+                    ? [{ hint: attribute.description, hide: false }]
+                    : undefined
+                }
                 errors={
                   errors[attribute.name]?.message ? [errors[attribute.name]?.message?.toString() || ''] : undefined
                 }

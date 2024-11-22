@@ -1,6 +1,5 @@
 import { Divider } from '@mui/material';
 import { forwardRef } from 'react';
-import { SCHEMA_ATTRIBUTES } from 'src/constants/SCHEMA';
 import { AttributeOption } from 'src/core/adaptors';
 import Button from 'src/modules/General/components/Button';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
@@ -16,7 +15,7 @@ import { useCreateSchema } from './useCreateSchema';
 
 const CreateSchema = forwardRef((_, ref) => {
   const {
-    data: { translate, register, errors, fields, attributes, openPublishModal },
+    data: { translate, register, errors, fields, attributes, openPublishModal, schemaAttributeOptions },
     operations: {
       handleSubmit,
       onPublish,
@@ -93,7 +92,7 @@ const CreateSchema = forwardRef((_, ref) => {
                         containerClassName={`flex min-w-[152px] ${css['attribute__input']}`}
                         placeholder={translate('schema-form.attribute-option')}
                         className="w-full"
-                        options={SCHEMA_ATTRIBUTES}
+                        options={schemaAttributeOptions}
                         value={attributes[index].option.value && attributes[index].option}
                         onChange={newOption => onSelectAttributeOption(index, newOption as AttributeOption)}
                       />

@@ -1,29 +1,48 @@
 import {
   connectCredential,
   createCredential,
+  createCredentialWithRecipient,
   createRecipient,
+  CredentialRes,
   deleteCredential,
+  deleteCredentials,
   deleteRecipient,
+  downloadSample,
   getCredentials,
+  getImportStatus,
   getRecipients,
+  importCSVFile,
   revokeCredential,
+  revokeCredentials,
+  sendCredentials,
   updateRecipient,
 } from 'src/core/api';
 import { requestKYB } from 'src/core/api/kyb/kyb.api';
+import store from 'src/store';
 
 import {
   AdaptorRes,
+  CredentialRecipientReq,
   CredentialReq,
   CredentialsRes,
   CredentialStatus,
+  ImportStatus,
+  ImportFileReq,
+  ImportFileRes,
   RecipientReq,
   RecipientRes,
+  SendCredentialReq,
   SuccessRes,
 } from '..';
 
-export const getCredentialsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<CredentialsRes>> => {
+export const getCredentialsAdaptor = async (
+  page = 1,
+  limit = 10,
+  filters?: { schema_id: string; sent: boolean },
+): Promise<AdaptorRes<CredentialsRes>> => {
+  const { email } = store.getState().user.userProfile;
   try {
-    const { results, total = 0 } = await getCredentials({ page, limit });
+    const { results, total = 0 } = await getCredentials({ page, limit }, filters);
     const items = results?.length
       ? results.map(credential => ({
           id: credential.id,
@@ -31,7 +50,7 @@ export const getCredentialsAdaptor = async (page = 1, limit = 10): Promise<Adapt
             credential.recipient?.first_name || credential.recipient?.last_name
               ? `${credential.recipient.first_name} ${credential.recipient.last_name}`
               : '',
-          issuer: credential?.organization?.did || '',
+          issuer: credential?.organization?.name || email || '',
           type: credential.name,
           issuance_date: new Date(credential.created_at),
           expiration_date: credential?.expired_at ? new Date(credential.expired_at) : null,
@@ -81,6 +100,16 @@ export const revokeCredentialAdaptor = async (credentialId: string): Promise<Ada
   }
 };
 
+export const revokeCredentialsAdaptor = async (credentialIds: string[]): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    await revokeCredentials({ credentials: credentialIds });
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in revoking credentials', error);
+    return { data: null, error: 'Error in revoking credentials' };
+  }
+};
+
 export const deleteCredentialAdaptor = async (credentialId: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
     await deleteCredential(credentialId);
@@ -88,6 +117,16 @@ export const deleteCredentialAdaptor = async (credentialId: string): Promise<Ada
   } catch (error) {
     console.error('Error in deleting credential', error);
     return { data: null, error: 'Error in deleting credential' };
+  }
+};
+
+export const deleteCredentialsAdaptor = async (credentialIds: string[]): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    await deleteCredentials({ credentials: credentialIds });
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in deleting credentials', error);
+    return { data: null, error: 'Error in deleting credentials' };
   }
 };
 
@@ -153,8 +192,7 @@ export const deleteRecipientAdaptor = async (recipientId: string): Promise<Adapt
   }
 };
 
-//FIXME: any replace with Credential res (name, description, id, connection_url, status)
-export const connectCredentialAdaptor = async (credentialId: string): Promise<AdaptorRes<any>> => {
+export const connectCredentialAdaptor = async (credentialId: string): Promise<AdaptorRes<CredentialRes>> => {
   try {
     const res = await connectCredential(credentialId);
     return {
@@ -177,6 +215,90 @@ export const verifyOrganization = async (orgId: string, documents: string[]): Pr
     return {
       data: null,
       error: 'Error in verify organization API call',
+    };
+  }
+};
+
+export const addCredentialRecipientAdaptor = async (
+  payload: CredentialRecipientReq,
+): Promise<AdaptorRes<SuccessRes>> => {
+  try {
+    const newPayload = {
+      credential: {
+        name: payload.name,
+        description: payload.description,
+        schema_id: payload.selectedSchema,
+        claims: payload.claims,
+      },
+      recipient: {
+        email: payload.email,
+        first_name: payload.firstName,
+        last_name: payload.lastName,
+      },
+    };
+    await createCredentialWithRecipient(newPayload);
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in creating a credential with recipient', error);
+    return { data: null, error: 'Error in creating a credential with recipient' };
+  }
+};
+
+export const sendCredentialsAdaptors = async (payload: SendCredentialReq) => {
+  try {
+    await sendCredentials(payload);
+    return { data: { message: 'succeed' }, error: null };
+  } catch (error) {
+    console.error('Error in sending the credentials to recipients', error);
+    return { data: null, error: 'Error in sending the credentials to recipients' };
+  }
+};
+
+export const importCSVFileAdaptor = async (payload: ImportFileReq): Promise<AdaptorRes<ImportFileRes>> => {
+  try {
+    const res = await importCSVFile(payload);
+    const data = {
+      id: res.id,
+      total: res.total_count,
+    };
+    return {
+      data,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in importing CSV files',
+    };
+  }
+};
+
+export const getImportStatusAdaptor = async (importId: string): Promise<AdaptorRes<ImportStatus>> => {
+  try {
+    const res = await getImportStatus(importId);
+    return {
+      data: res.status,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in downloading sample CSV',
+    };
+  }
+};
+
+export const downloadSampleAdaptor = async (schemaId: string): Promise<AdaptorRes<string>> => {
+  try {
+    const res = await downloadSample(schemaId);
+    return {
+      data: res,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in downloading sample CSV',
     };
   }
 };

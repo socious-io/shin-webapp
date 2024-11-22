@@ -19,5 +19,14 @@
     "add-field": "フィールドを追加"
   },
   "schema-confirm-title": "確認",
-  "schema-confirm-subtitle": "公開する前にスキーマを確認してください。公開後は編集できませんが、スキーマを複製してコピーを変更することができます。"
+  "schema-confirm-subtitle": "公開する前にスキーマを確認してください。公開後は編集できませんが、スキーマを複製してコピーを変更することができます。",
+  "schema-attribute": {
+    "TEXT": "テキスト",
+    "NUMBER": "数値",
+    "BOOLEAN": "ブール値",
+    "URL": "URL",
+    "DATETIME": "日付",
+    "EMAIL": "メール"
+  },
+  "schema-required-error": "このフィールドは必須です"
 }

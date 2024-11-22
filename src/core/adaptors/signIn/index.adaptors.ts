@@ -1,7 +1,7 @@
-import { GoogleAuthRes, login } from 'src/core/api';
+import { login, loginSocious } from 'src/core/api';
 
-import { authAdaptorRes } from './index.types';
 import { AdaptorRes } from '..';
+import { authAdaptorRes, GoogleAuthRes, SociousAuthRes } from './index.types';
 
 export const signIn = async (email: string, password: string): Promise<AdaptorRes<authAdaptorRes>> => {
   try {
@@ -18,7 +18,7 @@ export const signIn = async (email: string, password: string): Promise<AdaptorRe
   }
 };
 
-export const googleOauth = async (code: string): Promise<AdaptorRes<GoogleAuthRes>> => {
+export const googleOauthAdaptor = async (code: string): Promise<AdaptorRes<GoogleAuthRes>> => {
   try {
     // TODO: call auth/google API
     const res = {
@@ -36,5 +36,17 @@ export const googleOauth = async (code: string): Promise<AdaptorRes<GoogleAuthRe
       error: 'Error in google auth API call',
     };
     return res;
+  }
+};
+
+export const sociousOauthAdaptor = async (access_token: string): Promise<AdaptorRes<SociousAuthRes>> => {
+  try {
+    const res = await loginSocious(access_token);
+    return { data: res, error: null };
+  } catch {
+    return {
+      data: null,
+      error: 'Error in Socious auth API call',
+    };
   }
 };

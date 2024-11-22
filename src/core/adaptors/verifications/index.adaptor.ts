@@ -5,16 +5,32 @@ import {
   updateVerification,
   VerificationReq,
   deleteVerification,
-  VerificationRes,
   connectVerification,
+  VerificationIndividualRes,
+  getVerificationIndividuals,
+  createVerificationIndividuals,
+  VerificationIndividualReq,
 } from 'src/core/api';
 
 import { AdaptorRes, SuccessRes } from '..';
-import { UpdateVerificationReq, Verification, VerificationReqAdaptor, VerificationsRes } from './index.type';
+import {
+  ReusableVerification,
+  ReusableVerificationsRes,
+  SingleUseVerification,
+  SingleUseVerificationsRes,
+  UpdateVerificationReq,
+  Verification,
+  VerificationIndividualAdaptor,
+  VerificationIndividualAdaptorList,
+  VerificationReqAdaptor,
+} from './index.type';
 
-export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<AdaptorRes<VerificationsRes>> => {
+export const getReusableVerificationsAdaptor = async (
+  page = 1,
+  limit = 10,
+): Promise<AdaptorRes<ReusableVerificationsRes>> => {
   try {
-    const res = await getVerificationsAPI({ page, limit });
+    const res = await getVerificationsAPI({ page, limit }, { type: 'MULTI' });
     const items: Verification[] = res.results.map(item => {
       return {
         id: item.id,
@@ -25,9 +41,51 @@ export const getVerificationsAdaptor = async (page = 1, limit = 10): Promise<Ada
         creationDate: item.created_at,
         schema: item.schema,
         attributes: [],
+        type: 'reusable',
+        // FIXME: Ask BE to add this in API result
+        // usage: 0
       };
     });
-    const data: VerificationsRes = {
+    const data: ReusableVerificationsRes = {
+      items,
+      page,
+      totalCount: res.total,
+    };
+    return {
+      data,
+      error: null,
+    };
+  } catch {
+    return {
+      data: null,
+      error: 'error in get verifications API call',
+    };
+  }
+};
+
+export const getSingleUseVerificationsAdaptor = async (
+  page = 1,
+  limit = 10,
+): Promise<AdaptorRes<SingleUseVerificationsRes>> => {
+  try {
+    const res = await getVerificationsAPI({ page, limit }, { type: 'SINGLE' });
+    const items: SingleUseVerification[] = res.results.map(item => {
+      return {
+        id: item.id,
+        name: item.name,
+        status: item.status,
+        proofId: item.present_id,
+        createdBy: `${item.user.first_name} ${item.user.last_name}`,
+        creationDate: item.created_at,
+        schema: item.schema,
+        attributes: [],
+        type: 'singleUse',
+        // FIXME: Ask BE team to add these attributes in result
+        // activeLinks:0,
+        // completed:0
+      };
+    });
+    const data: SingleUseVerificationsRes = {
       items,
       page,
       totalCount: res.total,
@@ -56,11 +114,11 @@ export const getVerificationByIdAdaptor = async (id: string): Promise<AdaptorRes
       schema: res.schema,
       attributes: res.attributes?.map(item => {
         return {
+          ...item,
           id: item.attribute_id,
-          operator: item.operator,
-          value: item.value,
         };
       }),
+      type: res.type === 'SINGLE' ? 'singleUse' : 'reusable',
     };
 
     return {
@@ -82,9 +140,10 @@ export const createVerificationAdaptor = async (param: VerificationReqAdaptor): 
       description: param.description || '',
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
-        const { id, operator, value } = atr;
-        return { attribute_id: id, operator, value };
+        const { id, operator, value, type } = atr;
+        return { attribute_id: id, operator, value: value || '', type };
       }),
+      type: param.type === 'reusable' ? 'MULTI' : 'SINGLE',
     });
     return {
       data: { message: 'succeed' },
@@ -102,9 +161,10 @@ export const updateVerificationAdaptor = async (param: UpdateVerificationReq): P
       description: param.description || '',
       schema_id: param.schemaId,
       attributes: param.attributes.map(atr => {
-        const { id, operator, value } = atr;
-        return { attribute_id: id, operator, value };
+        const { id, operator, value, type } = atr;
+        return { attribute_id: id, operator, value: value || '', type };
       }),
+      type: param.type === 'reusable' ? 'MULTI' : 'SINGLE',
     };
     await updateVerification(param.id, payload);
     return {
@@ -129,14 +189,61 @@ export const deleteVerificationAdaptor = async (id: string): Promise<AdaptorRes<
   }
 };
 
-export const connectVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationRes>> => {
+export const connectVerificationAdaptor = async (
+  individualId: string,
+): Promise<AdaptorRes<VerificationIndividualRes>> => {
   try {
-    const res = await connectVerification(id);
+    const res = await connectVerification(individualId);
     return {
       data: res,
       error: null,
     };
   } catch {
     return { data: null, error: 'Error in connect verification API call' };
+  }
+};
+
+export const getVerificationHistory = async (
+  id: string,
+  page: number,
+): Promise<AdaptorRes<VerificationIndividualAdaptorList>> => {
+  try {
+    const apiRes = await getVerificationIndividuals(id, { page, limit: 10 });
+    const data = apiRes.results.map(item => {
+      return {
+        id: item.id,
+        individualId: item.user_id,
+        connectionUrl: item.connection_url,
+        status: item.status,
+        createDate: item.created_at,
+      };
+    });
+
+    const res: VerificationIndividualAdaptorList = {
+      ...apiRes,
+      results: data,
+    };
+
+    return {
+      data: res,
+      error: null,
+    };
+  } catch {
+    return { data: null, error: 'Error in getVerificationIndividuals API call' };
+  }
+};
+
+export const createVerificationIndividualAdaptor = async (
+  verificationId: string,
+): Promise<AdaptorRes<VerificationIndividualRes>> => {
+  try {
+    const payload: VerificationIndividualReq = {
+      customer_id: '111-111-11',
+      verification_id: verificationId,
+    };
+    const res = await createVerificationIndividuals(payload);
+    return { data: res, error: null };
+  } catch {
+    return { data: null, error: 'Error in createVerificationIndividuals API call' };
   }
 };
