@@ -38,7 +38,7 @@ import {
 export const getCredentialsAdaptor = async (
   page = 1,
   limit = 10,
-  filters?: { schema_id: string; sent: boolean },
+  filters?: { schema_id: string },
 ): Promise<AdaptorRes<CredentialsRes>> => {
   const { email } = store.getState().user.userProfile;
   try {
