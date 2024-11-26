@@ -238,7 +238,7 @@ export const createVerificationIndividualAdaptor = async (
 ): Promise<AdaptorRes<VerificationIndividualRes>> => {
   try {
     const payload: VerificationIndividualReq = {
-      customer_id: '111-111-11',
+      customer_id: Array.from({ length: 3 }, () => Math.floor(1000 + Math.random() * 9000)).join('-'),
       verification_id: verificationId,
     };
     const res = await createVerificationIndividuals(payload);
