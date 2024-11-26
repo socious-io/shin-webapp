@@ -73,7 +73,6 @@ export const useCreate = () => {
   const onUpdateSchemaCredentialList = async (newPage: number) => {
     const { data } = await getCredentialsAdaptor(newPage, 10, {
       schema_id: selectedSchemaId,
-      sent: false,
     });
     data && setSchemaCredentialList(data);
   };

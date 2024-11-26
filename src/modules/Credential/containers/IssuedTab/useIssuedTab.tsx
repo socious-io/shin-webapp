@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { VerificationStatus } from 'src/core/api';
 
 export const useIssuedTab = (
   setOpenModal: (val: { name: 'verify' | 'detail' | 'success' | 'pending' | 'rejected'; open: boolean }) => void,
+  verificationStatus: VerificationStatus | null,
 ) => {
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const [dismissed, setDismissed] = useState(Boolean(localStorage.getItem('dismissed-alert')));
+  const status = verificationStatus || 'UNDEFINED';
+  const showBanner = status !== 'APPROVED' || !dismissed;
 
   const onCreateCredential = () => navigate('../create');
 
@@ -63,11 +67,11 @@ export const useIssuedTab = (
       secondaryBtnLabel: translate('kyb-success-dismiss'),
       secondaryBtnAction: () => {
         localStorage.setItem('dismissed-alert', 'true');
-        setDismissed(false);
+        setDismissed(true);
       },
       theme: 'success',
     },
   };
 
-  return { bannerData };
+  return { bannerData, status, showBanner };
 };
