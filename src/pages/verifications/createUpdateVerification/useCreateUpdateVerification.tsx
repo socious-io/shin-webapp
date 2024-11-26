@@ -16,6 +16,7 @@ import {
   Verification,
   VerificationReqAdaptor,
   verificationType,
+  VerificationAttribute,
 } from 'src/core/adaptors';
 import { SchemaAttributeType, VerificationOperatorType } from 'src/core/api';
 import { emailPattern, urlPattern } from 'src/core/helpers/regexs';
@@ -168,6 +169,17 @@ export const useCreateUpdateVerification = () => {
     navigate('/verifications');
   };
 
+  const fixAttrsValueType = (attrs: VerificationAttribute[]): VerificationAttribute[] => {
+    return attrs.map(item => {
+      let value = (item.value || '').toString();
+      if (item.type === 'DATETIME') {
+        const date = new Date(item.value);
+        if (date) value = date.toISOString();
+      }
+      return { ...item, value };
+    });
+  };
+
   const onSubmit = async () => {
     const { name, description, schema, attributes, type } = getValues();
     let res: AdaptorRes<SuccessRes> | null = null;
@@ -178,9 +190,7 @@ export const useCreateUpdateVerification = () => {
         description,
         schemaId: schema.value,
         type,
-        attributes: attributes.map(item => {
-          return { ...item, value: (item.value || '').toString() };
-        }),
+        attributes: fixAttrsValueType(attributes as VerificationAttribute[]),
       };
       res = await updateVerificationAdaptor(param);
     } else {
@@ -189,9 +199,7 @@ export const useCreateUpdateVerification = () => {
         description,
         schemaId: schema.value,
         type,
-        attributes: attributes.map(item => {
-          return { ...item, value: (item.value || '').toString() };
-        }),
+        attributes: fixAttrsValueType(attributes as VerificationAttribute[]),
       };
 
       res = await createVerificationAdaptor(param);
