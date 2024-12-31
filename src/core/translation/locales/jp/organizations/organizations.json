@@ -9,5 +9,6 @@
   "org-profile-description-placeholder": "説明を入力してください...",
   "org-profile-optional": "任意",
   "org-profile-save-button": "変更を保存",
-  "org-profile-create-button": "組織を作る"
+  "org-profile-create-button": "組織を作る",
+  "org-profile-create-error": "組織の作成中にエラーが発生しました"
 }

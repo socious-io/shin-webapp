@@ -12,16 +12,8 @@ import { useManageOrg } from './useManageOrg';
 
 const ManageOrg = () => {
   const {
-    data: { translate, letterCount, register, errors, avatarImg, did, orgId, openSnackbar, errorMessage },
-    operations: {
-      handleSubmit,
-      onSubmit,
-      onChangeDescription,
-      setAttachment,
-      setAttachmentUrl,
-      onCopy,
-      setOpenSnackbar,
-    },
+    data: { translate, letterCount, register, errors, attachments, avatarImg, did, orgId, openSnackbar, errorMessage },
+    operations: { handleSubmit, onSubmit, onDropFiles, onChangeDescription, onCopy, setOpenSnackbar },
   } = useManageOrg();
 
   return (
@@ -30,12 +22,11 @@ const ManageOrg = () => {
         <div className={css['upload']}>
           <Avatar img={avatarImg} type="organizations" size="4rem" />
           <FileUploader
+            files={attachments}
+            onDropFiles={onDropFiles}
             fileTypes={['PNG', 'JPG', 'GIF']}
-            maxFileNumbers={1}
-            maxFileSize={2}
+            maxSize={2}
             showFileName={false}
-            setAttachments={setAttachment}
-            setAttachmentsUrl={setAttachmentUrl}
           />
         </div>
         <Input
