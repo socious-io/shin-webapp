@@ -1,77 +1,78 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
-import { uploadMediaAdaptor } from 'src/core/adaptors';
+
+import { Files } from './index.types';
 
 export const useFileUploader = (
+  files: Files[],
+  onDropFiles: (files: File[]) => void,
   fileTypes: string[],
-  maxFileNumbers: number,
   maxSize: number,
-  setAttachments: (newVal: string[]) => void,
-  setAttachmentsUrl?: (newVal: string[]) => void,
+  maxFiles: number,
+  multiple: boolean,
+  error: string,
+  limitUploading?: boolean,
 ) => {
   const { t: translate } = useTranslation();
-  const [error, setError] = useState('');
-  const [fileName, setFileName] = useState('');
-  const getAcceptedFileTypes = () => {
-    const types = [
-      { key: 'doc', doc: 'application/msword', extention: ['.doc'] },
-      {
-        key: 'docx',
-        doc: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        extention: ['.docx'],
-      },
-      { key: 'pdf', doc: 'application/pdf', extention: ['.pdf'] },
-      { key: 'svg', doc: 'image/svg+xml', extention: ['.svg'] },
-      { key: 'png', doc: 'image/png', extention: ['.png'] },
-      { key: 'jpg', doc: 'image/jpeg', extention: ['.jpg'] },
-      { key: 'gif', doc: 'image/gif', extention: ['.gif'] },
-    ];
-    const lowercaseFileTypes = fileTypes.map(t => {
-      return t.toLowerCase();
-    });
-
-    const acceptedTypes = {};
-    types.forEach(item => {
-      if (lowercaseFileTypes.includes(item.key)) acceptedTypes[item.doc] = item.extention;
-    });
-    return acceptedTypes;
+  const [errorMessage, setErrorMessage] = useState('');
+  const joinedFileTypes = fileTypes.slice(0, fileTypes.length - 1).join(', ');
+  const subtitle = `${joinedFileTypes} ${translate('file-uploader-or')} ${fileTypes[fileTypes.length - 1]} (${translate('file-uploader-max')}. ${maxSize}MB)`;
+  const KB = 1024;
+  const types = {
+    DOC: { doc: 'application/msword', extension: ['.doc'], icon: '' },
+    DOCX: {
+      doc: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      extension: ['.docx'],
+      icon: '',
+    },
+    PDF: { doc: 'application/pdf', extension: ['.pdf'], icon: '/icons/file-pdf.svg' },
+    SVG: { doc: 'image/svg+xml', extension: ['.svg'], icon: '' },
+    PNG: { doc: 'image/png', extension: ['.png'], icon: '/icons/file-png.svg' },
+    JPG: { doc: 'image/jpeg', extension: ['.jpg'], icon: '/icons/file-jpg.svg' },
+    GIF: { doc: 'image/gif', extension: ['.gif'], icon: '' },
+    CSV: { doc: 'text/csv', extension: ['.csv'], icon: '/icons/file-csv.svg' },
   };
+  const acceptedFileTypes = fileTypes.reduce((acc, value) => {
+    if (types[value]) {
+      const { doc, extension } = types[value];
+      acc[doc] = extension;
+    }
+    return acc;
+  }, {});
 
-  const getSubtitle = () => {
-    let text = fileTypes.slice(0, fileTypes.length - 1).join();
-    text = `${text} or ${fileTypes[fileTypes.length - 1]} (${translate('max')} ${maxSize}mb)`;
-    return text;
-  };
+  useEffect(() => {
+    setErrorMessage(error || '');
+  }, [error]);
 
-  const onDrop = useCallback(acceptedFiles => {
-    let attachmentIds: string[] = [];
-    let attachmentUrls: string[] = [];
-    setError('');
-    acceptedFiles.forEach(async (file: File) => {
-      if (file.size / 1000000 > maxSize) {
-        setError(`Max file size is ${maxSize}mb`);
-        return;
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      setErrorMessage('');
+      const validFiles: File[] = [];
+      const totalUploadedFiles = files.length + acceptedFiles.length;
+      if (limitUploading && totalUploadedFiles > maxFiles) {
+        setErrorMessage(translate('file-uploader-limit-error', { limit: maxFiles }));
+      } else {
+        for (const file of acceptedFiles) {
+          if (file.size > maxSize * KB * KB) {
+            setErrorMessage(translate('file-uploader-max-error', { name: file.name, max: maxSize }));
+          } else {
+            validFiles.push(file);
+          }
+        }
+        onDropFiles(validFiles);
       }
-      const res = await uploadMediaAdaptor(file);
-      if (res.error) {
-        setError(res.error);
-        return;
-      } else if (res.data) {
-        setFileName(res.data.filename);
-        attachmentIds = attachmentIds.concat(res.data.id);
-        attachmentUrls = attachmentUrls.concat(res.data.url);
-        setAttachments(attachmentIds);
-        setAttachmentsUrl?.(attachmentUrls);
-      }
-    });
-  }, []);
+    },
+    [files],
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: getAcceptedFileTypes(),
-    maxFiles: maxFileNumbers,
+    accept: acceptedFileTypes,
+    maxFiles,
+    multiple,
+    disabled: limitUploading && files.length + 1 > maxFiles,
   });
 
-  return { getRootProps, getInputProps, getSubtitle, error, fileName };
+  return { translate, getRootProps, getInputProps, subtitle, errorMessage };
 };
