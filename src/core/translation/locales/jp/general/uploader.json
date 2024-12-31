@@ -1,0 +1,8 @@
+{
+  "file-uploader-click": "クリックしてアップロード",
+  "file-uploader-drag": "またはドラッグ＆ドロップ",
+  "file-uploader-or": "または",
+  "file-uploader-max": "最大",
+  "file-uploader-max-error": "{{name}} は最大サイズ {{max}}MB を超えています。",
+  "file-uploader-limit-error": "アップロードできるファイル数は最大で {{limit}} 件です。より少ないファイルを選択してください。"
+}
