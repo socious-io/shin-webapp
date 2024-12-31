@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUserProfileAdaptor, profile, ProfileReq } from 'src/core/adaptors';
+import { getUserProfileAdaptor, profileAdaptor, ProfileReq, uploadMediaAdaptor } from 'src/core/adaptors';
 import { isTouchDevice } from 'src/core/helpers/device-type-detector';
+import { Files } from 'src/modules/General/components/FileUploader/index.types';
 import { setOrgProfile } from 'src/store/reducers/org.reducer';
 import { setUserProfile } from 'src/store/reducers/user.reducer';
 import * as yup from 'yup';
@@ -20,8 +21,7 @@ const schema = yup
 export const useProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [attachment, setAttachment] = useState<string[]>([]);
-  const [attachmentUrl, setAttachmentUrl] = useState<string[]>([]);
+  const [attachments, setAttachments] = useState<Files[]>([]);
   const {
     register,
     handleSubmit,
@@ -32,15 +32,25 @@ export const useProfile = () => {
     mode: 'all',
     resolver: yupResolver(schema),
   });
+  const descInputHeight = isTouchDevice() ? '188px' : '128px';
+  const length = (watch('description') || '').length;
+
+  const onDropFiles = async (newFiles: File[]) => {
+    newFiles.forEach(async (file: File) => {
+      const { error, data } = await uploadMediaAdaptor(file);
+      if (error) return;
+      data && setAttachments([{ id: data.id, url: data.url }]);
+    });
+  };
 
   const onSubmit = async () => {
     const { orgName, description } = getValues();
     const params: ProfileReq = {
-      imageUrl: attachment[0],
+      logoId: attachments[0]?.id || '',
       name: orgName,
       description,
     };
-    const res = await profile(params);
+    const res = await profileAdaptor(params);
     if (res.data) {
       const userRes = await getUserProfileAdaptor();
       dispatch(setUserProfile(userRes.data));
@@ -51,17 +61,15 @@ export const useProfile = () => {
     }
   };
 
-  const descInputHeight = isTouchDevice() ? '188px' : '128px';
-  const length = (watch('description') || '').length;
   return {
     register,
     handleSubmit,
     errors,
     isValid,
     getValues,
-    img: attachmentUrl[0],
-    setAttachment,
-    setAttachmentUrl,
+    attachments,
+    img: attachments[0]?.url || '',
+    onDropFiles,
     descInputHeight,
     onSubmit,
     length,
