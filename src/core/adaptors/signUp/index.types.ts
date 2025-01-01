@@ -22,7 +22,7 @@ export interface DetailsReq {
 }
 
 export interface ProfileReq {
-  imageUrl?: string;
+  logoId?: string;
   name: string;
   description?: string;
 }

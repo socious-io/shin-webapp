@@ -9,5 +9,6 @@
   "org-profile-description-placeholder": "Enter a description...",
   "org-profile-optional": "optional",
   "org-profile-save-button": "Save changes",
-  "org-profile-create-button": "Create organization"
+  "org-profile-create-button": "Create organization",
+  "org-profile-create-error": "An error occurred in creating your organization"
 }

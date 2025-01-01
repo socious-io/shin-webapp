@@ -47,10 +47,10 @@ const FileUploaderMultiple: React.FC<FileUploaderMultipleProps> = ({
             <Icon name="upload-cloud-02" fontSize={20} color={variables.color_grey_600} />
             <div className="flex">
               <Typography variant="subtitle2" color={variables.color_primary_700} className="700 mr-1">
-                {translate('upload')}
+                {translate('file-uploader-click')}
               </Typography>
               <Typography variant="caption" color={variables.color_grey_600}>
-                {translate('drag-and-drop')}
+                {translate('file-uploader-drag')}
               </Typography>
             </div>
             <p className={css['upload__subtitle']}>{getSubtitle()}</p>

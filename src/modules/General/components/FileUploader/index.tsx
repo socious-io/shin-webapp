@@ -1,57 +1,92 @@
 import { Typography } from '@mui/material';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
-import css from './index.module.scss';
+import styles from './index.module.scss';
 import { FileUploaderProps } from './index.types';
 import { useFileUploader } from './useFileUploader';
+import FeaturedIcon from '../FeaturedIcon';
+import Icon from '../Icon';
 
 const FileUploader: React.FC<FileUploaderProps> = ({
-  customStyle,
+  files,
+  onDropFiles,
   fileTypes,
-  maxFileSize = 10,
-  maxFileNumbers = 1,
+  showPreviewImages = false,
   showFileName = true,
-  setAttachments,
-  setAttachmentsUrl,
+  deleteOnFileName = false,
+  onDeleteFiles,
+  maxSize = 10,
+  maxFiles = 1,
+  limitUploading = false,
+  multiple = true,
+  error = '',
+  containerClassName = '',
+  customStyle = '',
 }) => {
-  const { t: translate } = useTranslation();
-  const { getRootProps, getInputProps, getSubtitle, error, fileName } = useFileUploader(
+  const { translate, getRootProps, getInputProps, subtitle, errorMessage } = useFileUploader(
+    files,
+    onDropFiles,
     fileTypes,
-    maxFileNumbers,
-    maxFileSize,
-    setAttachments,
-    setAttachmentsUrl,
+    maxSize,
+    maxFiles,
+    multiple,
+    error,
+    limitUploading,
   );
 
   return (
-    <>
-      <div {...getRootProps()} className={`${css.container} ${customStyle}`}>
+    <div className={`${styles['container']} ${containerClassName}`}>
+      <div {...getRootProps()} className={`${styles['input']} ${customStyle}`}>
         <input {...getInputProps()} />
-        <Icon name="upload-cloud-02" fontSize={20} color={variables.color_grey_600} />
-        <div className="flex">
+        <FeaturedIcon iconName="upload-cloud-02" size="md" type="modern" theme="gray" />
+        <div className="flex mt-2">
           <Typography variant="subtitle2" color={variables.color_primary_700} className="700 mr-1">
-            {translate('upload')}
+            {translate('file-uploader-click')}
           </Typography>
           <Typography variant="caption" color={variables.color_grey_600}>
-            {translate('drag-and-drop')}
+            {translate('file-uploader-drag')}
           </Typography>
         </div>
-        <p className={css.subtitle}>{getSubtitle()}</p>
+        <p className={styles['input__description']}>{subtitle}</p>
       </div>
-      {error && (
+      {errorMessage && (
         <Typography variant="caption" color={variables.color_error_600}>
-          {error}
+          {errorMessage}
         </Typography>
       )}
-      {showFileName && fileName && (
-        <Typography variant="caption" color={variables.color_grey_600}>
-          {fileName}
-        </Typography>
+      {showFileName && files.some(file => file.name) && (
+        <div className={styles['filename']}>
+          {files.map(file => (
+            <div key={file.id} className={styles['filename__name']}>
+              <Typography variant="caption" color={variables.color_grey_600}>
+                {file.name}
+              </Typography>
+              {deleteOnFileName && (
+                <Icon
+                  name="x-close"
+                  color={variables.color_grey_700}
+                  fontSize={16}
+                  cursor="pointer"
+                  onClick={() => onDeleteFiles?.(file.id)}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       )}
-    </>
+      {showPreviewImages && files.some(file => file.url) && (
+        <div className={styles['preview']}>
+          {files.map(file => (
+            <div key={file.id} className={styles['preview__item']}>
+              <img src={file.url} className={styles['preview__image']} />
+              <div className={styles['preview__delete']} onClick={() => onDeleteFiles?.(file.id)}>
+                <Icon name="x-close" color={variables.color_grey_700} fontSize={16} cursor="pointer" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

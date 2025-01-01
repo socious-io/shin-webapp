@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLoaderData } from 'react-router-dom';
-import { changeUserProfileAdaptor, UserProfileReq, UserProfileRes } from 'src/core/adaptors';
+import { changeUserProfileAdaptor, uploadMediaAdaptor, UserProfileReq, UserProfileRes } from 'src/core/adaptors';
+import { Files } from 'src/modules/General/components/FileUploader/index.types';
 import { setUserProfile } from 'src/store/reducers/user.reducer';
 import * as yup from 'yup';
 
@@ -21,9 +22,10 @@ export const useInfoForm = () => {
   const { t: translate } = useTranslation();
   const dispatch = useDispatch();
   const { userProfile } = (useLoaderData() as { userProfile: UserProfileRes }) || {};
-  const { id: avatarId = '', url: avatarImage = '' } = userProfile?.avatar || {};
-  const [attachment, setAttachment] = useState<string[]>([avatarId]);
-  const [attachmentUrl, setAttachmentUrl] = useState<string[]>([avatarImage]);
+  const defaultUserProfile = userProfile?.avatar?.id
+    ? [{ id: userProfile.avatar.id || '', url: userProfile.avatar.url || '' }]
+    : [];
+  const [attachments, setAttachments] = useState<Files[]>(defaultUserProfile);
   const {
     register,
     handleSubmit,
@@ -41,24 +43,38 @@ export const useInfoForm = () => {
       lastName: userProfile?.lastName || '',
       jobTitle: userProfile?.jobTitle || '',
     };
-    setAttachment([avatarId]);
-    setAttachmentUrl([avatarImage]);
+    setAttachments(defaultUserProfile);
     reset(initialVal);
   };
 
   useEffect(() => initializeValues(), []);
 
+  const onDropFiles = async (newFiles: File[]) => {
+    newFiles.forEach(async (file: File) => {
+      const { error, data } = await uploadMediaAdaptor(file);
+      if (error) return;
+      data && setAttachments([{ id: data.id, url: data.url }]);
+    });
+  };
+
   const onSubmit = async formData => {
     const payload = {
       ...formData,
-      avatarId: attachment[0],
+      avatarId: attachments[0]?.id || '',
     };
     const { data } = await changeUserProfileAdaptor(payload);
     data && dispatch(setUserProfile(data));
   };
 
   return {
-    data: { translate, register, avatarImg: attachmentUrl[0], nameErrors, email: userProfile?.email || '' },
-    operations: { handleSubmit, onSubmit, setAttachment, setAttachmentUrl },
+    data: {
+      translate,
+      register,
+      attachments,
+      avatarImg: attachments[0]?.url || '',
+      nameErrors,
+      email: userProfile?.email || '',
+    },
+    operations: { handleSubmit, onSubmit, onDropFiles },
   };
 };
