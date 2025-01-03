@@ -207,8 +207,15 @@ export const useCreateUpdateVerification = () => {
 
     const notification = {
       display: true,
-      title: verification?.id ? 'Changes saved' : 'New verification created',
-      icon: <FeaturedIconOutlined iconName="check-circle" size="md" theme="success" />,
+      title: verification?.id ? translate('ver-edited-notif') : translate('ver-created-notif'),
+      icon: (
+        <FeaturedIconOutlined
+          iconName="check-circle"
+          size="md"
+          theme="success"
+          customStyle="ml-[-8px] mt-[-8px] md:m-0"
+        />
+      ),
     };
     dispatch(setNotificationState(notification));
     if (!res?.error) {

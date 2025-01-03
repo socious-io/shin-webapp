@@ -1,0 +1,42 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    min-width: 20rem;
+    @include flex(normal, center);
+    padding: 0.5rem;
+    background-color: $color-white;
+    box-shadow: $shadow-lg;
+    border: 1px solid $color-grey-300;
+    border-radius: $radius-xl;
+
+    @media (max-width: $md) {
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    :global(.MuiSnackbarContent-message) {
+        padding: 0;
+    }
+}
+
+.content {
+    @include flex(normal, center);
+    gap: 0.5rem;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: $color-grey-900;
+
+    @media (max-width: $md) {
+        @include flex(normal, flex-start, column);
+    }
+}
+
+.close {
+    margin-right: 0;
+
+    &:hover {
+        background-color: transparent;
+    }
+}

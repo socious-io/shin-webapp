@@ -40,5 +40,7 @@
   "ver-create-add-attribute": "属性を追加",
   "ver-create-message": "メッセージ",
   "ver-create-message-desc": "資格情報リクエストの目的をリクエスターと資格情報保持者の両方に説明してください。",
-  "ver-create-message-placeholder": "メッセージを入力..."
+  "ver-create-message-placeholder": "メッセージを入力...",
+  "ver-created-notif": "新しい認証が作成されました",
+  "ver-edited=-notif": "変更が保存されました"
 }

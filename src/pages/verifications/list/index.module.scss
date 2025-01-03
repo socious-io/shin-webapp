@@ -1,3 +1,4 @@
+@import 'src/styles/utilities/_mixins.scss';
 @import 'src/styles/constants/_primitives.scss';
 
 .container {
@@ -39,6 +40,21 @@
                 line-height: 1.5rem;
                 color: $color-grey-600;
             }
+        }
+    }
+}
+
+.snackbar {
+    @media (max-width: $md) {
+        top: 5rem;
+    }
+
+    &__content {
+        @include flex(normal, center);
+        gap: 0.5rem;
+
+        @media (max-width: $md) {
+            @include flex(normal, flex-start, column);
         }
     }
 }
