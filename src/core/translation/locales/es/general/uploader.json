@@ -1,0 +1,8 @@
+{
+  "file-uploader-click": "Haz clic para subir",
+  "file-uploader-drag": "o arrastra y suelta",
+  "file-uploader-or": "o",
+  "file-uploader-max": "máx.",
+  "file-uploader-max-error": "{{name}} excede el tamaño máximo de {{max}}MB",
+  "file-uploader-limit-error": "Puedes subir un máximo de {{limit}} archivos. Por favor, selecciona menos archivos."
+}

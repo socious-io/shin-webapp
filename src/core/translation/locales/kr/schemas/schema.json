@@ -1,0 +1,22 @@
+{
+  "schema-header": "자격 증명 스키마",
+  "schema-subheader": "여기에서 자격 증명 스키마를 관리하세요",
+  "schema-create-button": "스키마 생성",
+  "schema-table": {
+    "name": "스키마 이름",
+    "description": "스키마 설명",
+    "created": "생성됨",
+    "created-at": "생성 날짜"
+  },
+  "schema-delete-title": "스키마 삭제?",
+  "schema-delete-subtitle": "스키마를 삭제하면 영구적으로 제거되며 되돌릴 수 없습니다. 이 스키마로 발급된 자격 증명은 여전히 유효합니다.",
+  "schema-delete-button": "삭제",
+  "schema-copy-snackbar": "복사 완료!",
+  "schema-empty-header": "스키마 생성",
+  "schema-empty-subheader": "스키마를 수동으로 생성하고 속성을 추가하세요.",
+  "schema-detail": {
+    "id": "스키마 ID",
+    "type": "자격 증명 유형",
+    "attributes": "속성"
+  }
+}

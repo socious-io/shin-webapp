@@ -1,0 +1,32 @@
+{
+  "schema-create-header": "Crear un esquema de credencial",
+  "schema-create-subheader": "Un esquema es como una plantilla para la credencial que usan los emisores y verificadores. Incluye atributos específicos como nombre, número de licencia, fecha de emisión, etc.",
+  "schema-publish-button": "Publicar",
+  "schema-cancel-button": "Cancelar",
+  "schema-form": {
+    "name": "Nombre del esquema",
+    "name-explanation": "El nombre del esquema define el ‘tipo’ de tu credencial. Es visible para todos los que vean la credencial.",
+    "name-placeholder": "Ej.: Título universitario, Licencia de conducir, etc...",
+    "description": "Descripción del esquema",
+    "description-optional": "opcional",
+    "description-explanation": "Describe el propósito del esquema. Esto es opcional, pero recomendado.",
+    "description-placeholder": "Introduce una descripción...",
+    "attribute": "Atributos de la credencial",
+    "attribute-explanation": "Define los atributos que deseas en la credencial.",
+    "attribute-name": "Nombre del atributo",
+    "attribute-option": "Seleccionar...",
+    "attribute-description": "Descripción del atributo...",
+    "add-field": "Añadir campo"
+  },
+  "schema-confirm-title": "Confirmación",
+  "schema-confirm-subtitle": "Por favor, revisa tu esquema antes de publicarlo. Una vez publicado, no podrá editarse. Sin embargo, podrás duplicarlo para hacer cambios en una copia.",
+  "schema-attribute": {
+    "TEXT": "Texto",
+    "NUMBER": "Número",
+    "BOOLEAN": "Booleano",
+    "URL": "URL",
+    "DATETIME": "Fecha",
+    "EMAIL": "Correo electrónico"
+  },
+  "schema-required-error": "Este campo es obligatorio"
+}

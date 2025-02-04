@@ -1,0 +1,38 @@
+{
+  "settings-header": "설정",
+  "settings-info": {
+    "section1-title": "내 계정 프로필",
+    "section1-subtitle": "계정 정보는 이메일 및 socious.id에서 표시되지만, 공개되지 않습니다.",
+    "section2-title": "계정 이름",
+    "section2-subtitle": "이름은 이메일 및 socious.id에서 표시되지만, 공개되지 않습니다.",
+    "first-name": "이름",
+    "last-name": "성",
+    "email-address": "이메일 주소",
+    "job-title": "직책",
+    "optional": "선택 사항",
+    "save-button": "변경 사항 저장"
+  },
+  "settings-password": {
+    "title": "비밀번호 변경",
+    "current": "현재 비밀번호",
+    "current-placeholder": "현재 비밀번호",
+    "create": "새 비밀번호 생성",
+    "create-placeholder": "새 비밀번호",
+    "create-alert": "비밀번호는 최소 8자 이상이어야 하며, 소문자, 대문자 및 특수 문자를 포함해야 합니다.",
+    "confirm": "비밀번호 확인",
+    "save-button": "비밀번호 저장"
+  },
+  "settings-language": {
+    "title": "언어",
+    "dropdown-title": "언어 선택",
+    "dropdown-subtitle": "기본 언어를 선택하세요.",
+    "save-button": "변경 사항 저장",
+    "english": "영어",
+    "japanese": "일본어",
+    "korean": "한국어",
+    "spanish": "스페인어"
+  },
+  "settings-remove": {
+    "title": "계정 삭제"
+  }
+}

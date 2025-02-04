@@ -1,0 +1,15 @@
+{
+  "det-h1": "내 정보",
+  "det-h2": "맞춤형 경험을 제공하기 위해 정보를 입력해주세요. 귀하의 데이터는 안전하게 보호됩니다.",
+  "det-name-label": "이름*",
+  "det-name-placeholder": "이름을 입력하세요",
+  "det-last-name-label": "성*",
+  "det-last-name-placeholder": "성을 입력하세요",
+  "det-email-label": "이메일*",
+  "det-job-label": "직책",
+  "det-job-placeholder": "직책을 입력하세요",
+  "det-password": "비밀번호*",
+  "det-password-placeholder": "비밀번호 입력",
+  "det-password-hint": "비밀번호는 최소 8자 이상이어야 하며, 소문자, 대문자 및 특수 문자를 포함해야 합니다.",
+  "det-btn-label": "계속"
+}

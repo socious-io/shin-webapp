@@ -1,0 +1,29 @@
+{
+  "integration-header": "Integraciones",
+  "integration-subheader": "Administra tus integraciones aquí.",
+  "integration-add-button": "Añadir",
+  "integration-cancel-button": "Cancelar",
+  "integration-save-button": "Guardar",
+  "integration-empty-subheader": "Aún no hay integraciones configuradas.",
+  "integration-add": {
+    "title": "Añadir integración",
+    "title-edit": "Editar integración",
+    "input-label": "Nombre",
+    "input-hint": "Introduce un nombre para diferenciar tus integraciones."
+  },
+  "integration-table": {
+    "name": "Nombre",
+    "base-url": "URL base",
+    "api-key": "Clave API",
+    "secret-key": "Clave secreta",
+    "click-copy": "Haz clic para copiar"
+  },
+  "integration-menu": {
+    "rename": "Renombrar",
+    "delete": "Eliminar"
+  },
+  "integration-delete": {
+    "title": "Eliminar",
+    "subtitle": "¿Estás seguro de que deseas eliminar esta integración? Esta acción no se puede deshacer."
+  }
+}
