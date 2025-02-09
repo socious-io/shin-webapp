@@ -1,0 +1,29 @@
+{
+  "integration-header": "통합",
+  "integration-subheader": "여기에서 통합을 관리하세요.",
+  "integration-add-button": "추가",
+  "integration-cancel-button": "취소",
+  "integration-save-button": "저장",
+  "integration-empty-subheader": "아직 설정된 통합이 없습니다.",
+  "integration-add": {
+    "title": "통합 추가",
+    "title-edit": "통합 편집",
+    "input-label": "이름",
+    "input-hint": "통합을 구분할 수 있도록 이름을 입력하세요."
+  },
+  "integration-table": {
+    "name": "이름",
+    "base-url": "기본 URL",
+    "api-key": "API 키",
+    "secret-key": "비밀 키",
+    "click-copy": "클릭하여 복사"
+  },
+  "integration-menu": {
+    "rename": "이름 변경",
+    "delete": "삭제"
+  },
+  "integration-delete": {
+    "title": "삭제",
+    "subtitle": "이 통합을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+  }
+}

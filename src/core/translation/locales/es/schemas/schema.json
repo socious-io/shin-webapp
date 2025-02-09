@@ -1,0 +1,22 @@
+{
+  "schema-header": "Esquemas de credenciales",
+  "schema-subheader": "Administra tus esquemas de credenciales aquí",
+  "schema-create-button": "Crear esquema",
+  "schema-table": {
+    "name": "Nombre del esquema",
+    "description": "Descripción del esquema",
+    "created": "Creado",
+    "created-at": "Fecha de creación"
+  },
+  "schema-delete-title": "¿Eliminar esquema?",
+  "schema-delete-subtitle": "Eliminar el esquema es una acción permanente y no se puede deshacer. Las credenciales emitidas con este esquema seguirán siendo válidas.",
+  "schema-delete-button": "Eliminar",
+  "schema-copy-snackbar": "¡Copiado!",
+  "schema-empty-header": "Crear un esquema",
+  "schema-empty-subheader": "Crea un esquema manualmente y añade atributos.",
+  "schema-detail": {
+    "id": "ID del esquema",
+    "type": "Tipo de credencial",
+    "attributes": "Atributos"
+  }
+}

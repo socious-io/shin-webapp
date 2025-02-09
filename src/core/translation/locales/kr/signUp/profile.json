@@ -1,0 +1,9 @@
+{
+  "prof-h1": "조직 프로필",
+  "prof-h2": "조직 프로필에는 고유한 암호화 키가 포함됩니다. 이 키는 발급하는 모든 자격 증명을 디지털 서명합니다.",
+  "prof-name": "조직 이름*",
+  "prof-name-placeholder": "조직 이름 입력",
+  "prof-desc": "공개 설명 (선택 사항)",
+  "prof-desc-placeholder": "설명을 입력하세요...",
+  "prof-btn-label": "시작하기"
+}
