@@ -1,0 +1,14 @@
+{
+  "proof-title": "Escanea el código QR con tu Socious Wallet",
+  "proof-btn": "Abrir en Socious Wallet",
+  "proof-download-app": "Descargar la aplicación",
+  "proof-download-app-desc": "Aprovecha al máximo Socious Wallet instalando nuestra nueva aplicación móvil.",
+  "proof-succeed": "Verificación exitosa",
+  "proof-succeed-desc": "¡Gracias! Tus credenciales han sido verificadas correctamente.",
+  "proof-continue": "Continuar",
+  "proof-error": "Error de verificación",
+  "proof-error-desc": "Ocurrió un error durante el proceso de verificación. Por favor, inténtalo de nuevo más tarde o contacta con soporte si el problema persiste.",
+  "proof-try-again": "Intentar de nuevo",
+  "proof-failed": "Verificación fallida",
+  "proof-failed-desc": "Lo sentimos, pero no pudimos verificar tus credenciales."
+}

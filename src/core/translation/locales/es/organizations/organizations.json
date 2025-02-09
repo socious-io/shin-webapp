@@ -1,0 +1,14 @@
+{
+  "org-profile-header": "Perfil de la organización",
+  "org-profile-subheader": "Actualiza tu logotipo y los detalles de tu organización aquí.",
+  "org-profile-did": "DID de tu organización",
+  "org-profile-copy": "Copiar",
+  "org-profile-name": "Nombre público",
+  "org-profile-name-placeholder": "Nombre",
+  "org-profile-description": "Descripción pública",
+  "org-profile-description-placeholder": "Introduce una descripción...",
+  "org-profile-optional": "opcional",
+  "org-profile-save-button": "Guardar cambios",
+  "org-profile-create-button": "Crear organización",
+  "org-profile-create-error": "Ocurrió un error al crear tu organización"
+}

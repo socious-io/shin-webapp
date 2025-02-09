@@ -1,0 +1,32 @@
+{
+  "schema-create-header": "자격 증명 스키마 생성",
+  "schema-create-subheader": "스키마는 발급자와 검증자가 사용하는 자격 증명의 템플릿과 같습니다. 이름, 라이선스 번호, 발급 날짜 등의 특정 속성이 포함됩니다.",
+  "schema-publish-button": "발행",
+  "schema-cancel-button": "취소",
+  "schema-form": {
+    "name": "스키마 이름",
+    "name-explanation": "스키마 이름은 자격 증명의 ‘유형’을 정의합니다. 자격 증명을 보는 모든 사람이 확인할 수 있습니다.",
+    "name-placeholder": "예: 대학 학위, 운전 면허증 등...",
+    "description": "스키마 설명",
+    "description-optional": "선택 사항",
+    "description-explanation": "스키마의 목적을 설명하세요. 선택 사항이지만 권장됩니다.",
+    "description-placeholder": "설명을 입력하세요...",
+    "attribute": "자격 증명 속성",
+    "attribute-explanation": "자격 증명에 포함할 속성을 정의하세요.",
+    "attribute-name": "속성 이름",
+    "attribute-option": "선택...",
+    "attribute-description": "속성 설명...",
+    "add-field": "필드 추가"
+  },
+  "schema-confirm-title": "확인",
+  "schema-confirm-subtitle": "발행 전에 스키마를 검토하세요. 한 번 발행하면 수정할 수 없습니다. 하지만 스키마를 복제하여 사본을 수정할 수 있습니다.",
+  "schema-attribute": {
+    "TEXT": "텍스트",
+    "NUMBER": "숫자",
+    "BOOLEAN": "불리언",
+    "URL": "URL",
+    "DATETIME": "날짜",
+    "EMAIL": "이메일"
+  },
+  "schema-required-error": "이 필드는 필수 입력 사항입니다"
+}

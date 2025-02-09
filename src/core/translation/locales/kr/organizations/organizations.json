@@ -1,0 +1,14 @@
+{
+  "org-profile-header": "조직 프로필",
+  "org-profile-subheader": "여기에서 로고와 조직 정보를 업데이트하세요.",
+  "org-profile-did": "조직 DID",
+  "org-profile-copy": "복사",
+  "org-profile-name": "공개 이름",
+  "org-profile-name-placeholder": "이름",
+  "org-profile-description": "공개 설명",
+  "org-profile-description-placeholder": "설명을 입력하세요...",
+  "org-profile-optional": "선택 사항",
+  "org-profile-save-button": "변경 사항 저장",
+  "org-profile-create-button": "조직 생성",
+  "org-profile-create-error": "조직을 생성하는 동안 오류가 발생했습니다"
+}
