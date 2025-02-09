@@ -2,6 +2,7 @@ import { IconButton, Snackbar, SnackbarContent } from '@mui/material';
 import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 
+import styles from './index.module.scss';
 import { CustomSnackbarProps } from './index.types';
 
 const CustomSnackbar: React.FC<CustomSnackbarProps> = ({
@@ -17,16 +18,16 @@ const CustomSnackbar: React.FC<CustomSnackbarProps> = ({
   return (
     <Snackbar open={open} onClose={onClose} anchorOrigin={anchorOrigin} {...props}>
       <SnackbarContent
-        className={`bg-Base-White flex items-start md:items-center py-0 px-2 rounded-xl min-w-[320px] ${containerClassName}`}
+        className={`${styles['container']} ${containerClassName}`}
         message={
-          <div className={`flex flex-col items-start gap-2 md:flex-row md:items-center ${contentClassName}`}>
+          <div className={`${styles['content']} ${contentClassName}`}>
             {icon}
             {children}
           </div>
         }
         action={[
-          <IconButton key="close" sx={{ mr: 0 }} onClick={e => onClose?.(e, 'clickaway')}>
-            <Icon name="x-close" fontSize={20} className="text-Gray-light-mode-500" />
+          <IconButton key="close" className={styles['close']} onClick={e => onClose?.(e, 'clickaway')}>
+            <Icon name="x-close" fontSize={20} className="text-Gray-light-mode-500" cursor="pointer" />
           </IconButton>,
         ]}
       />
