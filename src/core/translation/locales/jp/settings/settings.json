@@ -28,7 +28,9 @@
     "dropdown-subtitle": "デフォルトの言語を選択してください。",
     "save-button": "変更を保存",
     "english": "英語",
-    "japanese": "日本語"
+    "japanese": "日本語",
+    "korean": "韓国語",
+    "spanish": "スペイン語"
   },
   "settings-remove": {
     "title": "アカウントを削除"

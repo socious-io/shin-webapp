@@ -18,12 +18,22 @@ const LanguageSwitcher = () => {
     {
       value: 'en',
       label: translate('settings-language.english'),
-      icon: <FlagGenerator value="en" />,
+      // icon: <FlagGenerator value="en" />,
     },
     {
       value: 'jp',
       label: translate('settings-language.japanese'),
-      icon: <FlagGenerator value="jp" />,
+      // icon: <FlagGenerator value="jp" />,
+    },
+    {
+      value: 'es',
+      label: translate('settings-language.spanish'),
+      // icon: <FlagGenerator value="jp" />,
+    },
+    {
+      value: 'kr',
+      label: translate('settings-language.korean'),
+      // icon: <FlagGenerator value="jp" />,
     },
   ];
 
