@@ -11,8 +11,8 @@ import { useInfoForm } from './useInfoForm';
 
 const InfoForm = () => {
   const {
-    data: { translate, register, avatarImg, nameErrors, email },
-    operations: { handleSubmit, onSubmit, setAttachment, setAttachmentUrl },
+    data: { translate, register, attachments, avatarImg, nameErrors, email },
+    operations: { handleSubmit, onSubmit, onDropFiles },
   } = useInfoForm();
 
   return (
@@ -24,12 +24,11 @@ const InfoForm = () => {
       <div className={css['upload']}>
         <Avatar img={avatarImg} type="users" size="4rem" />
         <FileUploader
+          files={attachments}
+          onDropFiles={onDropFiles}
           fileTypes={['PNG', 'JPG', 'GIF']}
-          maxFileNumbers={1}
-          maxFileSize={2}
+          maxSize={2}
           showFileName={false}
-          setAttachments={setAttachment}
-          setAttachmentsUrl={setAttachmentUrl}
         />
       </div>
       <div className={css['section2']}>

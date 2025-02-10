@@ -1,0 +1,9 @@
+{
+  "prof-h1": "Perfil de tu organización",
+  "prof-h2": "El perfil de tu organización contiene tus claves criptográficas únicas. Estas claves firman digitalmente cada credencial que emitas.",
+  "prof-name": "Nombre de la organización*",
+  "prof-name-placeholder": "Nombre de tu organización",
+  "prof-desc": "Descripción pública (opcional)",
+  "prof-desc-placeholder": "Introduce una descripción...",
+  "prof-btn-label": "Empezar"
+}

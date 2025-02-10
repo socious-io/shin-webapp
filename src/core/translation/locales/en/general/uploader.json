@@ -1,0 +1,8 @@
+{
+  "file-uploader-click": "Click to upload",
+  "file-uploader-drag": "or drag and drop",
+  "file-uploader-or": "or",
+  "file-uploader-max": "max",
+  "file-uploader-max-error": "{{name}} exceeds the maximum size of {{max}}MB",
+  "file-uploader-limit-error": "You can upload a maximum of {{limit}} files. Please select fewer files."
+}

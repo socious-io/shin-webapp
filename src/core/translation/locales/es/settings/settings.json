@@ -1,0 +1,38 @@
+{
+  "settings-header": "Configuración",
+  "settings-info": {
+    "section1-title": "Perfil de tu cuenta",
+    "section1-subtitle": "La información de tu cuenta se usa en correos electrónicos y en socious.id, pero no es pública.",
+    "section2-title": "Nombre de la cuenta",
+    "section2-subtitle": "Tu nombre se usa en correos electrónicos y en socious.id, pero no es público.",
+    "first-name": "Nombre",
+    "last-name": "Apellido",
+    "email-address": "Correo electrónico",
+    "job-title": "Cargo",
+    "optional": "opcional",
+    "save-button": "Guardar cambios"
+  },
+  "settings-password": {
+    "title": "Cambiar contraseña",
+    "current": "Tu contraseña actual",
+    "current-placeholder": "Contraseña actual",
+    "create": "Crear contraseña",
+    "create-placeholder": "Nueva contraseña",
+    "create-alert": "Tu contraseña debe tener al menos 8 caracteres e incluir minúsculas, mayúsculas y un carácter especial.",
+    "confirm": "Confirmar contraseña",
+    "save-button": "Guardar contraseña"
+  },
+  "settings-language": {
+    "title": "Idioma",
+    "dropdown-title": "Elegir idioma",
+    "dropdown-subtitle": "Selecciona tu idioma predeterminado.",
+    "save-button": "Guardar cambios",
+    "english": "Inglés",
+    "japanese": "Japonés",
+    "korean": "Coreano",
+    "spanish": "Español"
+  },
+  "settings-remove": {
+    "title": "Eliminar cuenta"
+  }
+}

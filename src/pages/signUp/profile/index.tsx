@@ -1,5 +1,4 @@
 import { Button } from '@mui/material';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Avatar from 'src/modules/General/components/Avatar';
 import FileUploader from 'src/modules/General/components/FileUploader';
@@ -12,7 +11,7 @@ import css from './index.module.scss';
 
 export const Profile = () => {
   const { t: translate } = useTranslation();
-  const { register, errors, img, setAttachment, descInputHeight, handleSubmit, onSubmit, length, setAttachmentUrl } =
+  const { register, errors, attachments, img, onDropFiles, descInputHeight, handleSubmit, onSubmit, length } =
     useProfile();
   return (
     <StepperLayout activeStep={1}>
@@ -21,11 +20,10 @@ export const Profile = () => {
         <div className={css['container__uploader']}>
           <Avatar type="organizations" size="4rem" img={img} iconName="image-up" iconSize={32} />
           <FileUploader
+            files={attachments}
+            onDropFiles={onDropFiles}
             fileTypes={['SVG', 'PNG', 'JPG', 'JPEG', 'GIF']}
-            maxFileNumbers={1}
-            maxFileSize={2}
-            setAttachments={setAttachment}
-            setAttachmentsUrl={setAttachmentUrl}
+            maxSize={2}
             showFileName={false}
           />
         </div>

@@ -1,7 +1,7 @@
 import Button from 'src/modules/General/components/Button';
 import HorizontalTabs from 'src/modules/General/components/HorizontalTabs';
 import Icon from 'src/modules/General/components/Icon';
-import Notification from 'src/modules/General/components/Notification';
+import CustomSnackbar from 'src/modules/General/components/Snackbar';
 import CopyLinkModal from 'src/modules/General/containers/CopyLinkModal';
 import EmptyVerifications from 'src/modules/Verifications/containers/EmptyVerfications.tsx';
 import HistorySlider from 'src/modules/Verifications/containers/HistorySlider';
@@ -52,9 +52,18 @@ export const Verifications = () => {
           </>
         )}
       </div>
-      {notification.display && (
-        <Notification title={notification.title} icon={notification.icon} onClose={onCloseNotification} />
-      )}
+      <CustomSnackbar
+        open={notification.display}
+        onClose={onCloseNotification}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        className={css['snackbar']}
+        autoHideDuration={5000}
+      >
+        <div className={css['snackbar__content']}>
+          {notification.icon}
+          {notification.title}
+        </div>
+      </CustomSnackbar>
     </>
   );
 };

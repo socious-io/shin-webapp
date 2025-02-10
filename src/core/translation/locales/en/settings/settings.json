@@ -28,7 +28,9 @@
     "dropdown-subtitle": "Select your default language.",
     "save-button": "Save changes",
     "english": "English",
-    "japanese": "Japanese"
+    "japanese": "Japanese",
+    "korean": "Korean",
+    "spanish": "Spanish"
   },
   "settings-remove": {
     "title": "Remove account"

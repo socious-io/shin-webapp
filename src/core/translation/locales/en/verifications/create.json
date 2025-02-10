@@ -40,5 +40,7 @@
   "ver-create-add-attribute": "Add an attribute",
   "ver-create-message": "Message",
   "ver-create-message-desc": "Describe the purpose of the credential request for both the requester and the credential holder.",
-  "ver-create-message-placeholder": "Enter a message..."
+  "ver-create-message-placeholder": "Enter a message...",
+  "ver-created-notif": "New verification created",
+  "ver-edited-notif": "Changes saved"
 }
