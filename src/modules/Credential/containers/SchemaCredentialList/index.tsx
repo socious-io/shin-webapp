@@ -4,10 +4,10 @@ import { useMemo } from 'react';
 import { Credential } from 'src/core/adaptors';
 import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
+import ConfirmModal from 'src/modules/General/components/ConfirmModal';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
-import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';

@@ -5,7 +5,7 @@ import { dialog } from 'src/core/dialog/dialog';
 import { nonPermanentStorage } from 'src/core/storage/non-permanent';
 import { hideSpinner, showSpinner } from 'src/store/reducers/spinner.reducer';
 
-import { refreshToken } from './auth/auth.service';
+import { logout, refreshToken } from './auth/auth.service';
 import { removedEmptyProps } from '../helpers/objects-arrays';
 
 export const http = axios.create({
@@ -73,8 +73,6 @@ export type ErrorHandlerParams = {
   section?: string;
 };
 
-const errorSections: ErrorSection[] = ['AUTH', 'FORGET_PASSWORD'];
-
 export function handleError(params?: ErrorHandlerParams) {
   return (err?: AxiosError<{ error: string }>) => {
     const errMessage = params?.message || err?.response?.data.error || 'An error accrued';
@@ -121,8 +119,11 @@ export function setupInterceptors(store: Store) {
       store.dispatch(hideSpinner());
       if (error?.response?.status === 401 && !error.config.url.includes('auth')) {
         try {
-          await refreshToken();
-          return http.request(error.config);
+          const refresh = await nonPermanentStorage.get('refresh_token');
+          if (refresh) {
+            await refreshToken();
+            return http.request(error.config);
+          } else logout();
         } catch {
           return Promise.reject(error);
         }

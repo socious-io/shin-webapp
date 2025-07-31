@@ -2,11 +2,11 @@ import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@
 import { useMemo } from 'react';
 import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
+import ConfirmModal from 'src/modules/General/components/ConfirmModal';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
 import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
-import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 
 import css from './index.module.scss';
 import { SingleUseListProps } from './index.types';

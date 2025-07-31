@@ -1,13 +1,13 @@
-import { checkVerification, VerificationRes } from 'src/core/api';
+import { checkVerification } from 'src/core/api';
 
-import { AdaptorRes, ProofRequestStatus } from '..';
+import { AdaptorRes, CheckVerificationRes, ProofRequestStatus } from '..';
 
-const checkVerificationAdaptor = async (id: string): Promise<AdaptorRes<VerificationRes>> => {
+const checkVerificationAdaptor = async (id: string): Promise<AdaptorRes<CheckVerificationRes>> => {
   try {
     const res = await checkVerification(id);
     return {
       error: null,
-      data: res,
+      data: { id: res.id, connectURL: res.connection_url || '', status: res.status },
     };
   } catch {
     return {

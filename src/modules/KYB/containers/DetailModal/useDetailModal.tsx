@@ -20,7 +20,8 @@ export const useDetailModal = (handleSuccess: () => void) => {
     acc[id] = error;
     return acc;
   }, {});
-  const orgId = useSelector<RootState, string>((state: RootState) => state.org.id);
+  const accounts = useSelector((state: RootState) => state.organizations.entities);
+  const orgId = accounts.find(account => account.current)?.id || '';
 
   const updateFileState = (file: File, updates: Partial<Omit<FileState, 'file'>>) => {
     setFileStates(prev => prev.map(f => (f.file === file ? { ...f, ...updates } : f)));
@@ -62,6 +63,7 @@ export const useDetailModal = (handleSuccess: () => void) => {
     setError('');
     setLoading(true);
     const fileIds = fileStates.map(file => file.id).filter(Boolean);
+    if (!orgId) return;
     const { error } = await verifyOrganization(orgId, fileIds);
     if (error) setError(error);
     else handleSuccess();

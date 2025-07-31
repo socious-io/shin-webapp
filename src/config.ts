@@ -4,6 +4,7 @@ export const config = {
   accessExpire: import.meta.env.VITE_ACCESS_EXPIRE,
   refreshExpire: import.meta.env.VITE_REFRESH_EXPIRE,
   appBaseURL: import.meta.env.VITE_APP_URL,
+  logDiscordWebHook: import.meta.env.VITE_LOG_DISCORD_WEBHOOK,
 };
 
 export const isTestingEnvironment = config.env === 'test';

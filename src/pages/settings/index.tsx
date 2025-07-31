@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import DeleteAccount from 'src/modules/Settings/containers/DeleteAccount';
 import InfoForm from 'src/modules/Settings/containers/InfoForm';
-import LanguageSwitcher from 'src/modules/Settings/containers/LanguageSwitcher';
+import LanguageSwitcher from 'src/modules/Settings/containers/LanguageForm';
 import PasswordForm from 'src/modules/Settings/containers/PasswordForm';
 
 import css from './index.module.scss';

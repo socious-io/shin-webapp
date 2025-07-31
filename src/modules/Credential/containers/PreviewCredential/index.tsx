@@ -43,7 +43,7 @@ const PreviewCredential = forwardRef<FormHandles, PreviewCredentialProps>(
           <div className={`${css['row__right']} ${css['preview']}`}>
             <div className={css['preview__content']}>
               <div className={css['preview__logo']}>
-                <img src={logo} alt="Shin-Logo" />
+                <img src={logo} alt="Socious-Verify-Logo" width={175} height={36} />
               </div>
               <span className={css['preview__header']}>
                 {translate('credential-step3.preview-header', { name, issuer })}

@@ -19,8 +19,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["cypress", "src", "**/*.ts", "**/*.tsx", "tailwind.config.js", "postcss.config.js"],
-  "typesOnlyInclude": ["**/*.d.ts", "tailwind.config.js", "postcss.config.js"],
-  "exclude": ["node_modules"],
+  "include": ["src", "cypress", "tailwind.config.js", "postcss.config.js"],
+  "exclude": ["node_modules", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

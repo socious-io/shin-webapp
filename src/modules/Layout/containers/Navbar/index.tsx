@@ -1,4 +1,4 @@
-import logo from 'src/assets/logo/logo.svg';
+import logo from 'src/assets/logo/new-logo.svg';
 import Icon from 'src/modules/General/components/Icon';
 import IconButton from 'src/modules/General/components/IconButton';
 import variables from 'src/styles/constants/_exports.module.scss';
@@ -11,7 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ menuIsOpened, onOpenMenu }) => {
   return (
     <>
       <div className={css['container']}>
-        <img src={logo} alt="Shin-Logo" />
+        <img src={logo} alt="Socious-Verify-Logo" width={175} height={36} />
         <IconButton
           iconName="menu-02"
           iconSize={24}

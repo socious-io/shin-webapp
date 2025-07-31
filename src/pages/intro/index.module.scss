@@ -1,0 +1,110 @@
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+
+    .left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+
+        @media (max-width: $md) {
+            width: 100%;
+        }
+
+        .intro {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &__content {
+                max-width: 22.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+
+                @media (max-width: $md) {
+                    max-width: 100%;
+                }
+            }
+
+            &__header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5rem;
+                color: $color-grey-600;
+
+                &--bold {
+                    font-size: 1.875rem;
+                    font-weight: 600;
+                    line-height: 2rem;
+                    color: $color-grey-900;
+
+                    @media (max-width: $md) {
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+
+            &__terms {
+                text-align: center;
+                font-size: 0.875rem;
+                font-weight: 400;
+                line-height: 1.25rem;
+                color: $color-grey-600;
+            }
+        }
+
+        &__footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.25rem;
+            color: $color-grey-600;
+        }
+    }
+
+    .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6rem;
+        padding-top: 6rem;
+        padding-left: 5rem;
+        background-color: $color-grey-100;
+
+        @media (max-width: $md) {
+            display: none;
+        }
+
+        &__title {
+            font-weight: 500;
+            font-size: 1.875rem;
+            line-height: 2.375rem;
+            color: $color-grey-900;
+        }
+
+        &__stars {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.125rem;
+        }
+
+        &__image {
+            width: 100%;
+            flex: 1;
+            background-image: url('/images/credentials.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
+}

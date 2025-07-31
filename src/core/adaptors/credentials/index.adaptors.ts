@@ -18,7 +18,6 @@ import {
   updateRecipient,
 } from 'src/core/api';
 import { requestKYB } from 'src/core/api/kyb/kyb.api';
-import store from 'src/store';
 
 import {
   AdaptorRes,
@@ -40,7 +39,6 @@ export const getCredentialsAdaptor = async (
   limit = 10,
   filters?: { schema_id: string },
 ): Promise<AdaptorRes<CredentialsRes>> => {
-  const { email } = store.getState().user.userProfile;
   try {
     const { results, total = 0 } = await getCredentials({ page, limit }, filters);
     const items = results?.length
@@ -50,7 +48,7 @@ export const getCredentialsAdaptor = async (
             credential.recipient?.first_name || credential.recipient?.last_name
               ? `${credential.recipient.first_name} ${credential.recipient.last_name}`
               : '',
-          issuer: credential?.organization?.name || email || '',
+          issuer: credential?.organization?.name || '',
           type: credential.name,
           issuance_date: new Date(credential.created_at),
           expiration_date: credential?.expired_at ? new Date(credential.expired_at) : null,

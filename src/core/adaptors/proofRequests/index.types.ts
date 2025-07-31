@@ -1,9 +1,9 @@
-export interface RequestVerificationRes {
-  shortURL: string;
-}
+import { StatusValue } from 'src/core/api';
 
 export interface CheckVerificationRes {
-  verified: boolean;
+  id: string;
+  connectURL: string;
+  status: StatusValue;
 }
 
 export type ProofRequestStatus = '' | 'succeed' | 'failed' | 'error';

@@ -14,13 +14,11 @@ import {
 
 import { AdaptorRes, SuccessRes } from '..';
 import {
-  ReusableVerification,
   ReusableVerificationsRes,
   SingleUseVerification,
   SingleUseVerificationsRes,
   UpdateVerificationReq,
   Verification,
-  VerificationIndividualAdaptor,
   VerificationIndividualAdaptorList,
   VerificationReqAdaptor,
 } from './index.type';

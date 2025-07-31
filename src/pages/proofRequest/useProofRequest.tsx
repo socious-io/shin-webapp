@@ -10,7 +10,6 @@ import {
 } from 'src/core/adaptors';
 import { CredentialRes, VerificationIndividualRes } from 'src/core/api';
 import { RootState } from 'src/store';
-import { OrgState } from 'src/store/reducers/org.reducer';
 
 export const useProofRequest = () => {
   const { t: translate } = useTranslation();
@@ -19,7 +18,8 @@ export const useProofRequest = () => {
   const { id: connectId } = useParams();
   const [data, setData] = useState<CredentialRes | VerificationIndividualRes>();
   const [dataStatus, setDataStatus] = useState<ProofRequestStatus | ''>('');
-  const orgProfileId = useSelector<RootState, OrgState>(state => state.org).id || '';
+  const accounts = useSelector((state: RootState) => state.organizations.entities);
+  const orgProfileId = accounts.find(account => account.current)?.id || '';
   const EXPIRED_QR_CODE = 120_000;
   const isVerification = pathname.includes('verification');
   const returnURL = isVerification ? '/verifications' : `/credentials/${orgProfileId}`;

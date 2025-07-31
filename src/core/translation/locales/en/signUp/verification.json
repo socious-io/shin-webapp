@@ -1,9 +1,0 @@
-{
-  "ver-h1": "Check your email",
-  "ver-h2": "We sent a verification code to",
-  "ver-btn-label": "Verify email",
-  "ver-not-receive": "Didn’t receive the email?",
-  "ver-resend": "Click to resend",
-  "ver-back": "Back to sign in",
-  "ver-error-incorrect": "Incorrect verification code entered"
-}

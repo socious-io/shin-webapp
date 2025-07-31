@@ -2,12 +2,12 @@ import { Divider } from '@mui/material';
 import { forwardRef } from 'react';
 import { AttributeOption } from 'src/core/adaptors';
 import Button from 'src/modules/General/components/Button';
+import ConfirmModal from 'src/modules/General/components/ConfirmModal';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import IconButton from 'src/modules/General/components/IconButton';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
-import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';

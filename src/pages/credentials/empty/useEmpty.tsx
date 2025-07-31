@@ -6,7 +6,8 @@ import { RootState } from 'src/store';
 export const useEmpty = () => {
   const { t: translate } = useTranslation();
   const navigate = useNavigate();
-  const orgId = useSelector<RootState, string>((state: RootState) => state.org.id);
+  const accounts = useSelector((state: RootState) => state.organizations.entities);
+  const orgId = accounts.find(account => account.current)?.id;
 
   const navigateToOrgProfile = () => navigate('/organization');
 

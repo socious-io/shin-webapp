@@ -44,7 +44,7 @@ export const useCreateSchema = ref => {
     control,
     setValue,
     watch,
-  } = useForm<SchemaReq>({
+  } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
     defaultValues: defaultSchema

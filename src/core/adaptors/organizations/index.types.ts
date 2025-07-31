@@ -8,6 +8,7 @@ export interface OrgProfileRes {
   description?: string;
   isVerified?: boolean;
   verificationStatus: VerificationStatus | null;
+  current?: boolean;
 }
 
 export interface OrgProfileReq {

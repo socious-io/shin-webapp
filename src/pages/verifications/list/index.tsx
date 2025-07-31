@@ -1,9 +1,9 @@
 import Button from 'src/modules/General/components/Button';
+import CopyLinkModal from 'src/modules/General/components/CopyLinkModal';
 import HorizontalTabs from 'src/modules/General/components/HorizontalTabs';
 import Icon from 'src/modules/General/components/Icon';
 import CustomSnackbar from 'src/modules/General/components/Snackbar';
-import CopyLinkModal from 'src/modules/General/containers/CopyLinkModal';
-import EmptyVerifications from 'src/modules/Verifications/containers/EmptyVerfications.tsx';
+import EmptyVerifications from 'src/modules/Verifications/containers/EmptyVerifications';
 import HistorySlider from 'src/modules/Verifications/containers/HistorySlider';
 
 import css from './index.module.scss';

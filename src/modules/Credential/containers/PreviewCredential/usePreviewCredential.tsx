@@ -9,15 +9,18 @@ import { Form } from './index.types';
 const schema = yup
   .object()
   .shape({
-    message: yup.string(),
+    message: yup.string().optional(),
   })
   .required();
 
 export const usePreviewCredential = (onSendCredential: (message: string) => void, ref) => {
   const { t: translate } = useTranslation();
-  const { register, watch, handleSubmit } = useForm<Form>({
+  const { register, watch, handleSubmit } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
+    defaultValues: {
+      message: '',
+    },
   });
   const formRef = useRef<HTMLFormElement>(null);
   useImperativeHandle(ref, () => ({

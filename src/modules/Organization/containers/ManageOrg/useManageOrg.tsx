@@ -1,18 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
-import {
-  changeOrgProfileAdaptor,
-  profileAdaptor,
-  OrgProfileReq,
-  OrgProfileRes,
-  uploadMediaAdaptor,
-} from 'src/core/adaptors';
+import { createOrUpdateOrgProfileAdaptor, OrgProfileReq, OrgProfileRes, uploadMediaAdaptor } from 'src/core/adaptors';
 import { Files } from 'src/modules/General/components/FileUploader/index.types';
-import { setOrgProfile } from 'src/store/reducers/org.reducer';
+import { setOrgProfile } from 'src/store/reducers/organizations.reducer';
 import * as yup from 'yup';
 
 const schema = yup
@@ -39,25 +33,29 @@ export const useManageOrg = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
     setError,
     clearErrors,
-  } = useForm<OrgProfileReq>({
+  } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
-  });
-
-  const initializeValues = () => {
-    const initialVal = {
+    defaultValues: {
       name: profile?.name || '',
       description: profile?.description || '',
-    };
-    setAttachments(defaultProfile);
-    reset(initialVal);
-  };
+    },
+  });
 
-  useEffect(() => initializeValues(), []);
+  // FIXME: check to remove or not
+  // const initializeValues = () => {
+  //   const initialVal = {
+  //     name: profile?.name || '',
+  //     description: profile?.description || '',
+  //   };
+  //   setAttachments(defaultProfile);
+  //   reset(initialVal);
+  // };
+
+  // useEffect(() => initializeValues(), []);
 
   const onDropFiles = async (newFiles: File[]) => {
     newFiles.forEach(async (file: File) => {
@@ -86,17 +84,14 @@ export const useManageOrg = () => {
       ...formData,
       logoId: attachments[0]?.id || '',
     };
-    if (orgId) {
-      await changeOrgProfileAdaptor(orgId, payload);
-    } else {
-      const { data: createdOrgId, error } = await profileAdaptor(payload);
-      if (error) {
-        setErrorMessage(translate('org-profile-create-error'));
-        return;
-      } else if (createdOrgId) {
-        dispatch(setOrgProfile(createdOrgId));
-        navigate(createdOrgId);
-      }
+    const { error, data: createdOrgId } = await createOrUpdateOrgProfileAdaptor(payload, orgId);
+    if (error) {
+      setErrorMessage(translate('org-profile-create-error'));
+      return;
+    }
+    if (!orgId && createdOrgId) {
+      dispatch(setOrgProfile(createdOrgId));
+      navigate(createdOrgId);
     }
   };
 
