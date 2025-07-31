@@ -2,13 +2,14 @@ import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Integration } from 'src/core/adaptors/integrations/index.types';
+import { translate } from 'src/core/helpers/utils';
+import ConfirmModal from 'src/modules/General/components/ConfirmModal';
+import EmptyBox from 'src/modules/General/components/EmptyBox';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
 import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
 import Tooltip from 'src/modules/General/components/Tooltip';
-import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
-import EmptyBox from 'src/modules/General/containers/EmptyBox';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -18,7 +19,7 @@ import { IntegrationListProps } from './index.types';
 
 const IntegrationList: React.FC<IntegrationListProps> = ({ openAddModal, onOpenAddModal }) => {
   const {
-    data: { translate, currentList, page, totalPage, openModal, copied },
+    data: { currentList, page, totalPage, openModal, copied },
     operations: {
       onChangePage,
       handleCloseModal,

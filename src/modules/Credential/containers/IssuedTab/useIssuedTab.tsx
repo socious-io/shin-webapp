@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { VerificationStatus } from 'src/core/api';
+import { translate } from 'src/core/helpers/utils';
 
 export const useIssuedTab = (
   setOpenModal: (val: { name: 'verify' | 'detail' | 'success' | 'pending' | 'rejected'; open: boolean }) => void,
   verificationStatus: VerificationStatus | null,
 ) => {
-  const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const [dismissed, setDismissed] = useState(Boolean(localStorage.getItem('dismissed-alert')));
   const status = verificationStatus || 'UNDEFINED';

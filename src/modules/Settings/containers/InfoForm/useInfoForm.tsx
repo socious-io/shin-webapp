@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLoaderData } from 'react-router-dom';
 import { changeUserProfileAdaptor, uploadMediaAdaptor, UserProfileReq, UserProfileRes } from 'src/core/adaptors';
@@ -19,7 +18,6 @@ const schema = yup
   .required();
 
 export const useInfoForm = () => {
-  const { t: translate } = useTranslation();
   const dispatch = useDispatch();
   const { userProfile } = (useLoaderData() as { userProfile: UserProfileRes }) || {};
   const defaultUserProfile = userProfile?.avatar?.id
@@ -30,24 +28,16 @@ export const useInfoForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm<UserProfileReq>({
+  } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
-  });
-  const nameErrors = errors['firstName']?.message || errors['lastName']?.message;
-
-  const initializeValues = () => {
-    const initialVal = {
+    defaultValues: {
       firstName: userProfile?.firstName || '',
       lastName: userProfile?.lastName || '',
       jobTitle: userProfile?.jobTitle || '',
-    };
-    setAttachments(defaultUserProfile);
-    reset(initialVal);
-  };
-
-  useEffect(() => initializeValues(), []);
+    },
+  });
+  const nameErrors = errors['firstName']?.message || errors['lastName']?.message;
 
   const onDropFiles = async (newFiles: File[]) => {
     newFiles.forEach(async (file: File) => {
@@ -57,7 +47,7 @@ export const useInfoForm = () => {
     });
   };
 
-  const onSubmit = async formData => {
+  const onSubmit = async (formData: UserProfileReq) => {
     const payload = {
       ...formData,
       avatarId: attachments[0]?.id || '',
@@ -68,7 +58,6 @@ export const useInfoForm = () => {
 
   return {
     data: {
-      translate,
       register,
       attachments,
       avatarImg: attachments[0]?.url || '',

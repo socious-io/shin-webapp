@@ -1,12 +1,10 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Modal from 'src/modules/General/components/Modal';
 
 import { RejectedModalProps } from './index.types';
 
 const RejectedModal: React.FC<RejectedModalProps> = ({ open, handleClose }) => {
-  const { t: translate } = useTranslation();
   return (
     <Modal
       open={open}

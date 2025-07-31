@@ -1,4 +1,5 @@
 import { CircularProgress, Typography } from '@mui/material';
+import { translate } from 'src/core/helpers/utils';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
@@ -22,7 +23,7 @@ const NewFileUploader: React.FC<FileUploaderProps> = ({
   customStyle = '',
 }) => {
   const {
-    data: { translate, subtitle },
+    data: { subtitle },
     operations: { generateFileSize, getIconByType, getRootProps, getInputProps },
   } = useFileUploader(files, fileTypes, onDropFiles, maxSize, maxFiles);
 
@@ -45,7 +46,7 @@ const NewFileUploader: React.FC<FileUploaderProps> = ({
     <>
       <FeaturedIcon iconName="alert-circle" theme="error" size="md" type="light-circle" />
       <div className={css['error']}>
-        <span className={css['error--bold']}>Error: </span>
+        <span className={css['error--bold']}>{translate('file-uploader-error')} </span>
         {error}
       </div>
     </>

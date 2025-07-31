@@ -1,3 +1,4 @@
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import SchemasList from 'src/modules/Schema/containers/SchemasList';
@@ -8,7 +9,6 @@ import { useSchemas } from './useSchemas';
 
 export const Schemas = () => {
   const {
-    data: { translate },
     operations: { onCreateSchema },
   } = useSchemas();
 

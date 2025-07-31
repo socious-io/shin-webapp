@@ -2,11 +2,12 @@ import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@
 import React, { useMemo } from 'react';
 import { StatusValue } from 'src/core/api';
 import { formatDate } from 'src/core/helpers/relative-time';
-import Button from 'src/modules/General/components/Button';
-import Icon from 'src/modules/General/components/Icon';
+// import Button from 'src/modules/General/components/Button';
+// import Icon from 'src/modules/General/components/Icon';
+import { translate } from 'src/core/helpers/utils';
+import CopyLinkModal from 'src/modules/General/components/CopyLinkModal';
 import Pagination from 'src/modules/General/components/Pagination';
 import { Slider } from 'src/modules/General/components/Slider';
-import CopyLinkModal from 'src/modules/General/containers/CopyLinkModal';
 import Status from 'src/modules/Verifications/components/Status';
 
 import css from './index.module.scss';
@@ -16,7 +17,7 @@ import { useHistorySlider } from './useHistorySlider';
 const HistorySlider: React.FC<HistorySliderProps> = ({ open, handleClose, verificationId }) => {
   const {
     data: { history, url, openModal, page, total },
-    operations: { translate, handleCopy, handleOpenCopy, setOpenModal, setPage },
+    operations: { handleCopy, setOpenModal, setPage },
   } = useHistorySlider(verificationId);
 
   const columns = useMemo<ColumnDef<any>[]>(

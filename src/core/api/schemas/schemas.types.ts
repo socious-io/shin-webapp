@@ -1,5 +1,4 @@
-import { User } from '..';
-import { PaginateRes } from '../types';
+import { User, PaginateRes } from '..';
 
 export type SchemaAttributeType = 'TEXT' | 'NUMBER' | 'BOOLEAN' | 'URL' | 'EMAIL' | 'DATETIME';
 

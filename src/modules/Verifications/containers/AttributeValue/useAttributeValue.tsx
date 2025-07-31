@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export const useAttributeValue = (value: string, onChange: (value: string) => void) => {
   const booleanOptions = [
     { label: 'Yes', value: 'true' },

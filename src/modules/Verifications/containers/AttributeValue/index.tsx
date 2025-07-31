@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import React from 'react';
 import DateTimePicker from 'src/modules/General/components/DateTimePicker';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
@@ -19,7 +18,9 @@ const AttributeValue: React.FC<AttributeValueProps> = ({ type, value, onChange, 
         value={selectedBooleanOption}
       />
     ),
-    DATETIME: <DateTimePicker value={dayjs(value)} onChange={onChange} errorMessage={error} />,
+    DATETIME: (
+      <DateTimePicker value={dayjs(value)} onChange={value => onChange(value as string)} errorMessage={error} />
+    ),
   };
   return (
     <div className={containerClassName}>

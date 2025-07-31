@@ -1,4 +1,3 @@
-import React from 'react';
 import Chip from 'src/modules/General/components/Chip';
 import { ChipTheme } from 'src/modules/General/components/Chip/index.types';
 

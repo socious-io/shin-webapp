@@ -1,5 +1,4 @@
 import { useDropzone } from 'react-dropzone';
-import { useTranslation } from 'react-i18next';
 
 export const useFileUploader = (
   files: File[],
@@ -8,7 +7,6 @@ export const useFileUploader = (
   maxSize: number,
   maxFiles: number,
 ) => {
-  const { t: translate } = useTranslation();
   const KB = 1024;
   const types = {
     DOC: { doc: 'application/msword', extension: ['.doc'], icon: '' },
@@ -56,7 +54,7 @@ export const useFileUploader = (
   });
 
   return {
-    data: { translate, subtitle },
+    data: { subtitle },
     operations: { generateFileSize, getIconByType, getRootProps, getInputProps },
   };
 };

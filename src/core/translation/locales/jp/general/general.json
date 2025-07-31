@@ -1,0 +1,22 @@
+{
+  "layout-credentials": "資格",
+  "layout-schemas": "スキーマ",
+  "layout-verifications": "検証",
+  "layout-integrations": "連携",
+  "layout-org-profile": "組織プロフィール",
+  "layout-settings": "設定",
+  "layout-logout": "ログアウト",
+  "layout-create-org": "組織を作る",
+  "pagination-next": "次へ",
+  "pagination-previous": "前へ",
+  "pagination-page": "ページ",
+  "pagination-of": "の",
+  "file-uploader-click": "クリックしてアップロード",
+  "file-uploader-drag": "またはドラッグ＆ドロップ",
+  "file-uploader-or": "または",
+  "file-uploader-max": "最大",
+  "file-uploader-max-error": "{{name}} は最大サイズ {{max}}MB を超えています。",
+  "file-uploader-limit-error": "アップロードできるファイル数は最大で {{limit}} 件です。より少ないファイルを選択してください。",
+  "file-uploader-error": "エラー:",
+  "multi-select-popular": "人気"
+}

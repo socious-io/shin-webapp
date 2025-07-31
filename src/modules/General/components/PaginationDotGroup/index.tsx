@@ -1,5 +1,3 @@
-import React from 'react';
-
 import css from './index.module.scss';
 import { PaginationDotGroupProps } from './index.types';
 

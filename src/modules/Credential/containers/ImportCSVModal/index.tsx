@@ -1,3 +1,4 @@
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import LoadingSpinner from 'src/modules/General/components/LoadingSpinner';
 import Modal from 'src/modules/General/components/Modal';
@@ -9,7 +10,7 @@ import { useImportCSVModal } from './useImportCSVModal';
 
 const ImportCSVModal: React.FC<ImportCSVModalProps> = ({ open, handleClose, selectedSchema, onImportFiles }) => {
   const {
-    data: { translate, file, disabledButton, loading, showError, totalImportedRecipients, downloadSampleURL },
+    data: { file, disabledButton, loading, showError, totalImportedRecipients, downloadSampleURL },
     operations: { onUploadFile, onDeleteFile, onImport },
   } = useImportCSVModal(onImportFiles, selectedSchema.id || '', open);
 

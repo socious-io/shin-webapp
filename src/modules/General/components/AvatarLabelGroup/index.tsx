@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import React from 'react';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -14,12 +13,12 @@ const AvatarLabelGroup: React.FC<AvatarLabelGroupProps> = props => {
       className={`${css['container']} ${!removeFull && css['container--full']} ${customStyle} ${handleClick && 'cursor-pointer'}`}
       onClick={handleClick}
     >
-      <Avatar img={account.img} type={account.type} size={avatarSize || '40px'} />
+      <Avatar img={account?.img || ''} type={account.type} size={avatarSize || '40px'} />
       <div className={css['info']}>
-        <Typography variant="subtitle2" color={variables.color_grey_900}>
+        <Typography variant="subtitle2" color={variables.color_grey_900} className={css['info__name']}>
           {account.name}
         </Typography>
-        <div className={css['subtitle']}>{account.email}</div>
+        <div className={css['info__subtitle']}>{account.username}</div>
       </div>
     </div>
   );

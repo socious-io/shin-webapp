@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { config } from 'src/config';
 import { importCSVFileAdaptor } from 'src/core/adaptors';
 
@@ -8,7 +7,6 @@ export const useImportCSVModal = (
   selectedSchemaId: string,
   open: boolean,
 ) => {
-  const { t: translate } = useTranslation();
   const [file, setFile] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -53,7 +51,7 @@ export const useImportCSVModal = (
   };
 
   return {
-    data: { translate, file, disabledButton, loading, showError, totalImportedRecipients, downloadSampleURL },
+    data: { file, disabledButton, loading, showError, totalImportedRecipients, downloadSampleURL },
     operations: { onUploadFile, onDeleteFile, onImport },
   };
 };

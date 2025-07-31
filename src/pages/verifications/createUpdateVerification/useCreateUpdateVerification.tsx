@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import {
@@ -20,13 +19,13 @@ import {
 } from 'src/core/adaptors';
 import { SchemaAttributeType, VerificationOperatorType } from 'src/core/api';
 import { emailPattern, urlPattern } from 'src/core/helpers/regexs';
+import { translate } from 'src/core/helpers/utils';
 import FeaturedIconOutlined from 'src/modules/General/components/FeaturedIconOutlined';
-import { AttributeOption } from 'src/modules/Verifications/containers/Atribute/index.types';
+import { AttributeOption } from 'src/modules/Verifications/containers/Attribute/index.types';
 import { setNotificationState } from 'src/store/reducers/notification.reducer';
 import * as yup from 'yup';
 
 export const useCreateUpdateVerification = () => {
-  const { t: translate } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loaderData = useLoaderData() as AdaptorRes<Verification>;

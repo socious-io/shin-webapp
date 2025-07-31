@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import { translate } from 'src/core/helpers/utils';
 import Avatar from 'src/modules/General/components/Avatar';
 import Button from 'src/modules/General/components/Button';
 import FileUploader from 'src/modules/General/components/FileUploader';
@@ -11,7 +12,7 @@ import { useInfoForm } from './useInfoForm';
 
 const InfoForm = () => {
   const {
-    data: { translate, register, attachments, avatarImg, nameErrors, email },
+    data: { register, attachments, avatarImg, nameErrors, email },
     operations: { handleSubmit, onSubmit, onDropFiles },
   } = useInfoForm();
 

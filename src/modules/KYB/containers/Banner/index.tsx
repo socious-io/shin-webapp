@@ -1,4 +1,3 @@
-import React from 'react';
 import FeaturedIconOutlined from 'src/modules/General/components/FeaturedIconOutlined';
 
 import css from './index.module.scss';

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 
 import { Files } from './index.types';
 
@@ -13,7 +13,6 @@ export const useProgressFileUploader = (
   error?: string,
   multiple?: boolean,
 ) => {
-  const { t: translate } = useTranslation();
   const [errorMessage, setErrorMessage] = useState('');
   const KB = 1024;
   const types = {

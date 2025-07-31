@@ -4,3 +4,9 @@
     justify-content: $justifyContent;
     align-items: $alignItems;
 }
+
+@mixin ellipse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

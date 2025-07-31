@@ -1,6 +1,7 @@
 import { Divider } from '@mui/material';
 import { forwardRef } from 'react';
 import logo from 'src/assets/logo/logo.svg';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import Input from 'src/modules/General/components/Input';
 
@@ -11,7 +12,7 @@ import { usePreviewCredential } from './usePreviewCredential';
 const PreviewCredential = forwardRef<FormHandles, PreviewCredentialProps>(
   ({ credentialDetail, onSendCredential }, ref) => {
     const {
-      data: { translate, register, formRef, message },
+      data: { register, formRef, message },
     } = usePreviewCredential(onSendCredential, ref);
     const { name = '', issuer = '' } = credentialDetail || {};
 
@@ -43,7 +44,7 @@ const PreviewCredential = forwardRef<FormHandles, PreviewCredentialProps>(
           <div className={`${css['row__right']} ${css['preview']}`}>
             <div className={css['preview__content']}>
               <div className={css['preview__logo']}>
-                <img src={logo} alt="Shin-Logo" />
+                <img src={logo} alt="Socious-Verify-Logo" width={175} height={36} />
               </div>
               <span className={css['preview__header']}>
                 {translate('credential-step3.preview-header', { name, issuer })}

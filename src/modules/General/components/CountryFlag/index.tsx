@@ -1,5 +1,4 @@
 import * as Flags from 'country-flag-icons/react/1x1';
-import React from 'react';
 
 import css from './index.module.scss';
 import { CountryFlagProps } from './index.types';

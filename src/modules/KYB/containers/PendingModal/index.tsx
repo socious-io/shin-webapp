@@ -1,12 +1,10 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Modal from 'src/modules/General/components/Modal';
 
 import { PendingModalProps } from './idex.types';
 
 const PendingModal: React.FC<PendingModalProps> = ({ open, handleClose }) => {
-  const { t: translate } = useTranslation();
   return (
     <Modal
       open={open}

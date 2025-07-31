@@ -1,3 +1,4 @@
+import { FilterReq, PaginateReq, SuccessRes } from '..';
 import {
   VerificationReq,
   VerificationRes,
@@ -7,7 +8,6 @@ import {
   VerificationIndividualRes,
 } from './verifications.types';
 import { post, del, get, put } from '../http';
-import { FilterReq, PaginateReq, SuccessRes } from '../types';
 
 export async function createVerification(payload: VerificationReq): Promise<VerificationRes> {
   return (await post<VerificationRes>('verifications', payload)).data;

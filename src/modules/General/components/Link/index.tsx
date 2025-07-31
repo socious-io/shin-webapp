@@ -1,5 +1,4 @@
 import { Link as MuiLink } from '@mui/material';
-import React from 'react';
 
 import css from './index.module.scss';
 import { LinkProps } from './index.types';

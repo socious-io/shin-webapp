@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { addOrUpdateIntegrationAdaptor, Integration, IntegrationReq } from 'src/core/adaptors';
 import * as yup from 'yup';
 
@@ -13,7 +12,6 @@ const schema = yup
   .required();
 
 export const useAddIntegrationModal = (onAddIntegration: () => void, integration?: Integration) => {
-  const { t: translate } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -41,7 +39,7 @@ export const useAddIntegrationModal = (onAddIntegration: () => void, integration
   };
 
   return {
-    data: { translate, register, errors },
+    data: { register, errors },
     operations: { handleSubmit, onSubmit },
   };
 };

@@ -1,5 +1,4 @@
 import Markdown from 'markdown-to-jsx';
-import PropTypes from 'prop-types';
 import { ReactNode } from 'react';
 
 interface CustomLinkProps {
@@ -12,11 +11,6 @@ const CustomLink: React.FC<CustomLinkProps> = ({ children, href }) => (
   </a>
 );
 
-CustomLink.propTypes = {
-  children: PropTypes.node.isRequired,
-  href: PropTypes.string.isRequired,
-};
-
 const options = {
   overrides: {
     a: {
@@ -24,6 +18,7 @@ const options = {
     },
   },
 };
+
 export function convertMarkdownToJSX(value: string): JSX.Element {
   if (!value) return <></>;
   const modifiedVal = value.replaceAll('<br/>', '  \n');

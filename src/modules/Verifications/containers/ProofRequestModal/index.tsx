@@ -1,11 +1,10 @@
 import { CircularProgress } from '@mui/material';
 import { QRCodeSVG } from 'qrcode.react';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import appStore from 'src/assets/images/download-appstore.svg';
 import googlePlay from 'src/assets/images/download-googleplay.svg';
 import qrCode from 'src/assets/images/qrcode.png';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import Modal from 'src/modules/General/components/Modal';
 import variables from 'src/styles/constants/_exports.module.scss';
@@ -22,7 +21,6 @@ export const ProofRequestModal: React.FC<ProofRequestProps> = ({
   loading,
   disableButton = false,
 }) => {
-  const { t: translate } = useTranslation();
   return (
     <Modal
       open={open}

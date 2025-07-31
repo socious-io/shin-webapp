@@ -1,7 +1,6 @@
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 
 export const useVerifyModal = () => {
-  const { t: translate } = useTranslation();
   const steps = [
     {
       title: translate('kyb-verify-step-1-title'),
@@ -23,5 +22,12 @@ export const useVerifyModal = () => {
     },
   ];
 
-  return { data: { steps }, operations: { translate } };
+  return {
+    data: {
+      steps,
+    },
+    operations: {
+      translate,
+    },
+  };
 };

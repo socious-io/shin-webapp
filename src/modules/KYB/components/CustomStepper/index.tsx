@@ -1,4 +1,3 @@
-import React from 'react';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 
 import css from './index.module.scss';
