@@ -230,9 +230,11 @@ export const blueprint: RouteObject[] = [
           },
           {
             path: 'redirect/:id',
-            loader: async ({ params }) => {
+            loader: async ({ params, request }) => {
               if (params.id) {
-                const { data } = await createVerificationIndividualAdaptor(params.id);
+                const url = new URL(request.url);
+                const customerId = url.searchParams.get('customer') || '';
+                const { data } = await createVerificationIndividualAdaptor(params.id, customerId);
                 return { data };
               }
             },
