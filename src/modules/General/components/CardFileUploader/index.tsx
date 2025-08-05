@@ -5,11 +5,10 @@ import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
-import { FileUploaderProps } from './index.types';
-import { useFileUploader } from './useFileUploader';
+import { CardFileUploaderProps } from './index.types';
+import { useCardFileUploader } from './useCardFileUploader';
 
-//TODO: replace it with FileUploader
-const NewFileUploader: React.FC<FileUploaderProps> = ({
+const CardFileUploader: React.FC<CardFileUploaderProps> = ({
   files = [],
   fileTypes,
   onDropFiles,
@@ -25,7 +24,7 @@ const NewFileUploader: React.FC<FileUploaderProps> = ({
   const {
     data: { subtitle },
     operations: { generateFileSize, getIconByType, getRootProps, getInputProps },
-  } = useFileUploader(files, fileTypes, onDropFiles, maxSize, maxFiles);
+  } = useCardFileUploader(files, fileTypes, onDropFiles, maxSize, maxFiles);
 
   const dragDropJSX = (
     <>
@@ -98,4 +97,4 @@ const NewFileUploader: React.FC<FileUploaderProps> = ({
   );
 };
 
-export default NewFileUploader;
+export default CardFileUploader;

@@ -1,6 +1,6 @@
 import { useDropzone } from 'react-dropzone';
 
-export const useFileUploader = (
+export const useCardFileUploader = (
   files: File[],
   fileTypes: string[],
   onDropFiles: (files: File[]) => void,

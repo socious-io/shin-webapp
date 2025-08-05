@@ -1,4 +1,4 @@
-export interface FileUploaderProps {
+export interface CardFileUploaderProps {
   files: File[];
   fileTypes: string[];
   onDropFiles: (files: File[]) => void;
