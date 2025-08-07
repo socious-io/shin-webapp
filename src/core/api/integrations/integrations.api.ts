@@ -1,5 +1,5 @@
+import { PaginateReq, SuccessRes } from '..';
 import { del, get, post, put } from '../http';
-import { PaginateReq, SuccessRes } from '../types';
 import { IntegrationListRes, IntegrationReq, IntegrationRes } from './integrations.types';
 
 export async function createIntegration(payload: IntegrationReq): Promise<IntegrationRes> {

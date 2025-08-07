@@ -1,11 +1,12 @@
 import { Navigate } from 'react-router-dom';
+import { translate } from 'src/core/helpers/utils';
 import Banner from 'src/modules/KYB/containers/Banner';
 
 import { useEmpty } from './useEmpty';
 
 export const Empty = () => {
   const {
-    data: { translate, navigateToOrgProfile, orgId },
+    data: { navigateToOrgProfile, orgId },
   } = useEmpty();
 
   if (orgId) {

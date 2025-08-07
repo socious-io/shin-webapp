@@ -1,14 +1,15 @@
-export interface AccountItem {
+import { IdentityType } from 'src/core/adaptors';
+
+export type Account = {
   id: string;
-  img?: string;
-  type: 'organizations' | 'users';
   name: string;
-  email: string;
-  selected?: boolean;
-}
+  username: string;
+  img?: string;
+  type: IdentityType;
+};
 
 export interface AvatarLabelGroupProps {
-  account: AccountItem;
+  account: Account;
   customStyle?: string;
   handleClick?: () => void;
   avatarSize?: string;

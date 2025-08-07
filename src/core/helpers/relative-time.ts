@@ -6,7 +6,7 @@ export const toRelativeTime = (date: string | Date) => {
   const timestamp = newDate.getTime();
   const difference = new Date().getTime() - new Date(timestamp).getTime();
   const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-  const hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+  // const hoursDifference = Math.floor(difference / 1000 / 60 / 60);
   const minutesDifference = Math.floor(difference / 1000 / 60);
   const secondsDifference = Math.floor(difference / 1000);
 

@@ -1,5 +1,4 @@
 import { CircularProgress, LinearProgress, Typography } from '@mui/material';
-import React from 'react';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';

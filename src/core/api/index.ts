@@ -1,5 +1,4 @@
 export * from './http';
-export * from './types';
 export * from './auth/auth.types';
 export * from './auth/auth.api';
 export * from './users/users.types';
@@ -18,3 +17,22 @@ export * from './media/media.types';
 export * from './media/media.api';
 export * from './integrations/integrations.types';
 export * from './integrations/integrations.api';
+
+export interface SuccessRes {
+  message: string;
+}
+
+export interface PaginateReq {
+  page?: number;
+  limit?: number;
+}
+
+export interface PaginateRes {
+  page: number;
+  total: number;
+  limit: number;
+}
+
+export interface FilterReq extends PaginateReq {
+  [key: string]: any;
+}

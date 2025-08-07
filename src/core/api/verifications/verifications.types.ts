@@ -1,7 +1,6 @@
-import { VerificationStatus } from '../organizations/organizations.types';
+import { PaginateRes } from '..';
 import { RecipientRes } from '../recipients/recipients.types';
 import { SchemaAttributeType, SchemaRes } from '../schemas/schemas.types';
-import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
 
 export type VerificationOperatorType = 'EQUAL' | 'NOT' | 'BIGGER' | 'SMALLER';
@@ -63,7 +62,7 @@ export interface VerificationRes extends VerificationReq {
   connection_id?: string;
   connection_url?: string;
   attributes: VerificationAttributeRes[];
-  status: VerificationStatus;
+  status: StatusValue;
   validation_error?: string;
   connection_at?: Date;
   verified_at?: Date;

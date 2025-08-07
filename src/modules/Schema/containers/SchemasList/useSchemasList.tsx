@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { deleteSchemaAdaptor, getSchemasAdaptor, SchemaRes } from 'src/core/adaptors';
 
 export const useSchemasList = () => {
-  const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const { schemaList } = (useLoaderData() as { schemaList: SchemaRes }) || {};
   const [page, setPage] = useState(1);
@@ -61,7 +59,6 @@ export const useSchemasList = () => {
 
   return {
     data: {
-      translate,
       currentList,
       page,
       totalPage,

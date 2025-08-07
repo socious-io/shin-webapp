@@ -1,13 +1,11 @@
 import { Pagination as MUIPagination, PaginationItem, PaginationProps } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
 import Icon from '../Icon';
 
 const PaginationNumbers: React.FC<PaginationProps> = props => {
-  const { t: translate } = useTranslation();
-
   return (
     <div className={css['container']}>
       <MUIPagination

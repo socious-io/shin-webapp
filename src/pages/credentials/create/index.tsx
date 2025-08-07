@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import { translate } from 'src/core/helpers/utils';
 import PreviewCredential from 'src/modules/Credential/containers/PreviewCredential';
 import SchemaCredentialList from 'src/modules/Credential/containers/SchemaCredentialList';
 import SelectSchema from 'src/modules/Credential/containers/SelectSchema';
@@ -12,7 +13,6 @@ import { useCreate } from './useCreate';
 export const Create = () => {
   const {
     data: {
-      translate,
       step,
       totalPage,
       page,

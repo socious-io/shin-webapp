@@ -1,0 +1,12 @@
+{
+  "error-not-found": {
+    "header": "404 - Page Not Found",
+    "subheader": "Oops! The page you're looking for doesn't exist on",
+    "go-to-home-btn": "Go to Home"
+  },
+  "error-internal": {
+    "header": "Internal Server Error",
+    "subheader": "We apologize for the inconvenience. Please try again later",
+    "home-btn": " Home Page"
+  }
+}

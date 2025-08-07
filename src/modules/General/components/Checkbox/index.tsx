@@ -1,5 +1,4 @@
 import { FormControlLabel, Checkbox as MUICheckbox } from '@mui/material';
-import React from 'react';
 import { Controller } from 'react-hook-form';
 import variables from 'src/styles/constants/_exports.module.scss';
 

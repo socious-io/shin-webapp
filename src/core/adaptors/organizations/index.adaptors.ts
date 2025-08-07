@@ -1,53 +1,68 @@
-import { getOrg, getOrgs, updateOrg } from 'src/core/api';
+import { getOrg, getOrgs, Organization, updateOrg } from 'src/core/api';
+import { nonPermanentStorage } from 'src/core/storage/non-permanent';
 
-import { AdaptorRes, OrgProfileReq, OrgProfileRes, SuccessRes } from '..';
+import { AdaptorRes, IdentityType, OrgProfileReq, OrgProfileRes, OrgsRes } from '..';
+
+export const getCurrentOrgProfileAdaptor = (org: Organization, current = false): OrgProfileRes => ({
+  id: org.id,
+  logo: { url: org.logo?.url || '', id: org.logo_id || '' },
+  did: org?.did || '',
+  name: org.name,
+  username: '', // FIXME: check if username/email will be provided
+  type: 'organization' as IdentityType,
+  description: org?.description || '',
+  isVerified: org?.is_verified,
+  verificationStatus: org.verification_status || null,
+  current,
+});
+
+export const getOrganizationsAdaptor = async (orgId?: string): Promise<AdaptorRes<OrgsRes>> => {
+  try {
+    const storageIdentityId = await nonPermanentStorage.get('identity');
+    const currentIdentityId = orgId || storageIdentityId;
+
+    const { results: organizations = [] } = await getOrgs();
+    //FIXME: remove when user force to choose organization and remove overwritten cookie identity
+    const isValidIdentityId = organizations.some(org => org.id === currentIdentityId);
+    await nonPermanentStorage.set({
+      key: 'identity',
+      value: (isValidIdentityId ? currentIdentityId : organizations[0]?.id) || '',
+    });
+    const data = organizations.map((org, index) =>
+      getCurrentOrgProfileAdaptor(org, isValidIdentityId ? org.id === currentIdentityId : index === 0),
+    );
+
+    return {
+      data: { entities: data, currentId: (isValidIdentityId ? currentIdentityId : organizations[0]?.id) || '' },
+      error: null,
+    };
+  } catch (error) {
+    console.error('Error in getting Organizations List', error);
+    return { data: null, error: 'Error in getting Organizations List' };
+  }
+};
 
 export const getOrgProfileAdaptor = async (orgId: string): Promise<AdaptorRes<OrgProfileRes>> => {
   try {
     const org = await getOrg(orgId);
-    const res: OrgProfileRes = {
-      id: orgId,
-      verificationStatus: org.verification_status,
-      logo: { url: org.logo?.url || '', id: org.logo_id || '' },
-      did: org?.did || '',
-      name: org.name,
-      description: org?.description || '',
-      isVerified: org?.is_verified,
-    };
-    return { data: res, error: null };
+
+    return { data: getCurrentOrgProfileAdaptor(org), error: null };
   } catch (error) {
     console.error('Error in getting Organization Profile', error);
     return { data: null, error: 'Error in getting Organization Profile' };
   }
 };
 
-export const changeOrgProfileAdaptor = async (
+export const updateOrgProfileAdaptor = async (
+  params: OrgProfileReq,
   orgId: string,
-  payload: OrgProfileReq,
-): Promise<AdaptorRes<SuccessRes>> => {
+): Promise<AdaptorRes<OrgProfileRes>> => {
   try {
-    const newPayload = {
-      name: payload.name,
-      description: payload?.description || '',
-      logo_id: payload?.logoId || '',
-    };
-    await updateOrg(orgId, newPayload);
-    return { data: { message: 'succeed' }, error: null };
-  } catch (error) {
-    console.error('Error in changing Organization Profile', error);
-    return { data: null, error: 'Error in changing Organization Profile' };
-  }
-};
+    const payload = { name: params.name, description: params.description || '', logo_id: params.logoId };
+    const org = await updateOrg(orgId, payload);
 
-export const getOrgIdAdaptor = async (): Promise<AdaptorRes<string>> => {
-  try {
-    const { results = [] } = await getOrgs();
-    return {
-      data: results && results.length ? results[0]?.id || '' : '',
-      error: null,
-    };
-  } catch (error) {
-    console.error('Error in getting Organization ID', error);
-    return { data: null, error: 'Error in getting Organization ID' };
+    return { data: getCurrentOrgProfileAdaptor(org, true), error: null };
+  } catch {
+    return { error: 'Error in updating Organization Profile', data: null };
   }
 };

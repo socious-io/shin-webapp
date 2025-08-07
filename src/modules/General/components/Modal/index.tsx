@@ -1,5 +1,4 @@
 import { Backdrop, Divider, IconButton } from '@mui/material';
-import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 

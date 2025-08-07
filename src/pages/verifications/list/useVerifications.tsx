@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { config } from 'src/config';
 import { ReusableVerificationsRes, SingleUseVerificationsRes } from 'src/core/adaptors';
+import { translate } from 'src/core/helpers/utils';
 import { MenuItem } from 'src/modules/General/components/ThreeDotButton/index.type';
 import ReusableList from 'src/modules/Verifications/containers/ReusableList';
 import SingleUseList from 'src/modules/Verifications/containers/SingleUseList';
@@ -13,7 +13,6 @@ import { NotificationState, setNotificationState } from 'src/store/reducers/noti
 export const useVerifications = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { t: translate } = useTranslation();
   const { singleUseList: loaderSingleUseList, reusableList: loaderReusableList } = useLoaderData() as {
     reusableList?: ReusableVerificationsRes;
     singleUseList?: SingleUseVerificationsRes;

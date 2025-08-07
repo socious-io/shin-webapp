@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import CardRadioButton from 'src/modules/General/components/CardRadioButton';
 
@@ -8,7 +9,6 @@ import { useSelectSchema } from './useSelectSchema';
 
 const SelectSchema: React.FC<SelectSchemaProps> = ({ schemaRadioItems, selectedSchema, onSelectSchema }) => {
   const {
-    data: { translate },
     operations: { onCreateSchema },
   } = useSelectSchema();
 

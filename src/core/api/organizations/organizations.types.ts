@@ -1,5 +1,5 @@
+import { PaginateRes } from '..';
 import { Media } from '../media/media.types';
-import { PaginateRes } from '../types';
 
 export interface OrganizationReq {
   name: string;
@@ -8,6 +8,7 @@ export interface OrganizationReq {
 }
 
 export type VerificationStatus = 'PENDING' | 'APPROVED' | 'REJECTED' | 'CREATED';
+
 export interface Organization extends OrganizationReq {
   id: string;
   did?: string;

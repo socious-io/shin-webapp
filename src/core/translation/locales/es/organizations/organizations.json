@@ -10,5 +10,7 @@
   "org-profile-optional": "opcional",
   "org-profile-save-button": "Guardar cambios",
   "org-profile-create-button": "Crear organización",
-  "org-profile-create-error": "Ocurrió un error al crear tu organización"
+  "org-profile-create-error": "Ocurrió un error al crear tu organización",
+  "org-profile-success-message": "¡Tu organización se actualizó correctamente!",
+  "org-profile-error-message": "La actualización de tu organización falló. Por favor, inténtalo de nuevo."
 }

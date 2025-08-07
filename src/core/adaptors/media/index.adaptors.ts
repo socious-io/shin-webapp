@@ -1,7 +1,7 @@
 import { uploadMedia, uploadMediaWithProgress } from 'src/core/api';
 
-import { UploadMediaRes } from './index.types';
 import { AdaptorRes } from '..';
+import { UploadMediaRes } from './index.types';
 
 export const uploadMediaAdaptor = async (file: File): Promise<AdaptorRes<UploadMediaRes>> => {
   try {

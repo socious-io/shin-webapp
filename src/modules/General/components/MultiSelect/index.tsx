@@ -1,5 +1,6 @@
 import { Autocomplete, TextField, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
+import { translate } from 'src/core/helpers/utils';
 import Icon from 'src/modules/General/components/Icon';
 
 import Chip from './chip';
@@ -128,7 +129,7 @@ const MultiSelect: React.FC<MultiSelectProps> = props => {
       {displayDefaultBadges && (
         <div className={css.popularDiv}>
           <Typography variant="caption" className={css.popularLabel}>
-            Popular
+            {translate('multi-select-popular')}
           </Typography>
         </div>
       )}

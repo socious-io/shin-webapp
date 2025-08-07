@@ -1,4 +1,3 @@
-import React from 'react';
 import Banner from 'src/modules/KYB/containers/Banner';
 
 import { IssuedTabProps } from './index.types';

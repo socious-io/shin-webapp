@@ -1,5 +1,4 @@
 import { Radio, RadioGroup } from '@mui/material';
-import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 import variables from 'src/styles/constants/_exports.module.scss';
 
@@ -21,7 +20,7 @@ const TypeRadioGroup: React.FC<TypeRadioGroupProps> = ({ selected, setSelected, 
             >
               <Radio
                 id={`verification-${item.value}`}
-                size={'medium'}
+                size="medium"
                 onChange={() => setSelected(item.value)}
                 value={item.value}
                 checked={selected === item.value}

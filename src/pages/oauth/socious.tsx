@@ -1,43 +1,52 @@
+import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { config } from 'src/config';
-import { getUserProfileAdaptor, SociousAuthRes, sociousOauthAdaptor } from 'src/core/adaptors';
-import { setAuthParams } from 'src/core/api/auth/auth.service';
-import store from 'src/store';
-import { setUserProfile } from 'src/store/reducers/user.reducer';
+import { AuthRes, getAuthUrlAdaptor, sociousOauthAdaptor } from 'src/core/adaptors';
+import { setAuthParams, switchAccount } from 'src/core/api/auth/auth.service';
 
-export const SociousOauth = () => {
+export const SociousID = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const access_token = searchParams.get('access_token');
-  const sociousLoginURL = `https://${config.env === 'development' ? 'dev.' : ''}socious.io/api/v3/sso/login?redirect_url=${config.appBaseURL}/oauth/socious`;
+  const code = searchParams.get('code');
+  const identityId = searchParams.get('identity_id');
 
-  const onLoginSucceed = async (loginResp: SociousAuthRes) => {
-    const { registered, ...rest } = loginResp;
-    await setAuthParams(rest, true);
-    const { data: userProfile } = await getUserProfileAdaptor();
-    store.dispatch(setUserProfile(userProfile));
-    if (registered) {
-      localStorage.setItem('password', 'PASSWORD_NOT_SET');
-      navigate(`/sign-up/detail?email=${userProfile?.email}`);
-    } else {
-      navigate('/');
-    }
+  const fetchAuthURL = async () => {
+    const { error, data } = await getAuthUrlAdaptor(config.appBaseURL + '/oauth/socious');
+    if (error) return;
+    else if (data) return data.url;
   };
 
+  async function onLoginSucceed(loginRes: AuthRes) {
+    await setAuthParams(loginRes, true);
+    if (typeof identityId === 'string') switchAccount(identityId);
+    const lastPath = Cookies.get('lastPath');
+    if (lastPath) navigate(lastPath);
+    else navigate('/');
+    return loginRes;
+  }
+
   useEffect(() => {
-    const signInWithSocious = async () => {
-      if (!access_token) {
-        window.location.href = sociousLoginURL;
-        return;
-      } else {
-        const { data, error } = await sociousOauthAdaptor(access_token);
-        if (error) navigate('/sign-in');
-        data && onLoginSucceed(data);
+    const handleSociousOauth = async (authCode: string) => {
+      const { error, data } = await sociousOauthAdaptor(authCode);
+      if (error) navigate('/intro');
+      else if (data) onLoginSucceed(data);
+    };
+
+    const redirectToAuthURL = async () => {
+      const authURL = await fetchAuthURL();
+      if (authURL) {
+        window.location.href = authURL;
       }
     };
-    signInWithSocious();
-  }, [access_token]);
 
-  return <></>;
+    if (!code) {
+      redirectToAuthURL();
+      return;
+    }
+
+    handleSociousOauth(code);
+  }, [code]);
+
+  return null;
 };

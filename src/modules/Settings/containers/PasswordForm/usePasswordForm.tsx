@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { changePasswordAdaptor, PasswordReq } from 'src/core/adaptors';
 import { passwordPattern } from 'src/core/helpers/regexs';
 import * as yup from 'yup';
@@ -24,7 +23,6 @@ const schema = yup
   .required();
 
 export const usePasswordForm = () => {
-  const { t: translate } = useTranslation();
   const [errorMessage, setErrorMessage] = useState('');
   const {
     register,
@@ -40,5 +38,5 @@ export const usePasswordForm = () => {
     error && setErrorMessage(error);
   };
 
-  return { data: { translate, register, errors, errorMessage }, operations: { handleSubmit, onSubmit } };
+  return { data: { register, errors, errorMessage }, operations: { handleSubmit, onSubmit } };
 };

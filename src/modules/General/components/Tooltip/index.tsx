@@ -1,5 +1,4 @@
 import { Tooltip as MUITooltip } from '@mui/material';
-import React from 'react';
 
 import css from './index.module.scss';
 import { TooltipProps } from './index.types';

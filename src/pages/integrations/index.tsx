@@ -1,3 +1,4 @@
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import Icon from 'src/modules/General/components/Icon';
 import IntegrationList from 'src/modules/Integration/containers/IntegrationList';
@@ -8,7 +9,7 @@ import { useIntegrations } from './useIntegrations';
 
 export const Integrations = () => {
   const {
-    data: { translate, openAddModal },
+    data: { openAddModal },
     operations: { onAddIntegrationClick, setOpenAddModal },
   } = useIntegrations();
 

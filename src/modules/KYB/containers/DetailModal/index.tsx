@@ -1,4 +1,4 @@
-import React from 'react';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Modal from 'src/modules/General/components/Modal';
@@ -10,7 +10,7 @@ import { useDetailModal } from './useDetailModal';
 
 const DetailModal: React.FC<DetailModalProps> = ({ open, handleClose, handleSuccess }) => {
   const {
-    data: { translate, files, progressValues, uploadedErrors, error, loading },
+    data: { files, progressValues, uploadedErrors, error, loading },
     operations: { handleContinue, onDropFiles, onDeleteFiles },
   } = useDetailModal(handleSuccess);
   const footerJSX = (

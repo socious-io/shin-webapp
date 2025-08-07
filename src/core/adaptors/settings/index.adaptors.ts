@@ -1,7 +1,7 @@
 import { getUser, updatePassword, updateProfile } from 'src/core/api';
 
-import { PasswordReq, UserProfileReq, UserProfileRes } from './index.types';
 import { AdaptorRes, SuccessRes, CustomError } from '..';
+import { PasswordReq, UserProfileReq, UserProfileRes } from './index.types';
 
 export const getUserProfileAdaptor = async (): Promise<AdaptorRes<UserProfileRes>> => {
   try {
@@ -62,6 +62,7 @@ export const changePasswordAdaptor = async (payload: PasswordReq): Promise<Adapt
 export const removeAccountAdaptor = async (userId: string): Promise<AdaptorRes<SuccessRes>> => {
   try {
     //TODO: API call with userId
+    console.log('userId:', userId);
     return { data: { message: 'succeed' }, error: null };
   } catch (error) {
     console.error('Error in removing Account', error);

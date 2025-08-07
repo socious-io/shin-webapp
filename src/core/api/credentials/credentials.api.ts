@@ -1,5 +1,6 @@
 import { createFormData } from 'src/core/helpers/create-form-data';
 
+import { FilterReq, PaginateReq, SuccessRes } from '..';
 import {
   CredentialReq,
   CredentialRes,
@@ -11,7 +12,6 @@ import {
   ImportFileRes,
 } from './credentials.types';
 import { post, del, get, put, patch } from '../http';
-import { FilterReq, PaginateReq, SuccessRes } from '../types';
 
 export async function createCredential(payload: CredentialReq): Promise<CredentialRes> {
   return (await post<CredentialRes>('credentials', payload)).data;
