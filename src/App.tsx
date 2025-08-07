@@ -1,32 +1,38 @@
 import { ThemeProvider } from '@emotion/react';
 import { StyledEngineProvider } from '@mui/material';
-import i18next from 'i18next';
 import { theme } from 'material.theme';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RouterProvider } from 'react-router-dom';
 import router from 'src/core/router';
 
+import { RTL_LANGUAGES } from './constants/LANGUAGES';
 import { setupInterceptors } from './core/api';
-import store, { RootState } from './store';
-
+import RequestLoading from './modules/General/components/RequestLoading';
+import store from './store';
 import 'src/core/translation/i18n';
+import { currentIdentities } from './store/thunks/identity.thunks';
 
 function App() {
-  const { language } = useSelector((state: RootState) => state.language);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
-    i18next.changeLanguage(language);
-  }, [language]);
+    const currentLang = i18n.language;
+    const direction = RTL_LANGUAGES.includes(currentLang) ? 'rtl' : 'ltr';
+    document.documentElement.dir = direction;
+    document.documentElement.lang = currentLang;
+  }, [i18n.language]);
 
   useEffect(() => {
     setupInterceptors(store);
+    store.dispatch(currentIdentities());
   }, []);
 
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <RouterProvider router={router.routes} />
+        <RequestLoading />
       </ThemeProvider>
     </StyledEngineProvider>
   );

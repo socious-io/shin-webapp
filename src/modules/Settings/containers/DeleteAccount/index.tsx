@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 
 import css from './index.module.scss';
@@ -6,8 +7,7 @@ import { useDeleteAccount } from './useDeleteAccount';
 
 const DeleteAccount = () => {
   const {
-    data: { translate },
-    operations: onDeleteAccount,
+    operations: { onDeleteAccount },
   } = useDeleteAccount();
 
   return (

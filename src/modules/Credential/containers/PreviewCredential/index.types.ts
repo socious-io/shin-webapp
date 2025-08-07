@@ -3,7 +3,7 @@ export interface FormHandles {
 }
 
 export type Form = {
-  message?: string;
+  message?: string | undefined;
 };
 
 export type CredentialDetail = {

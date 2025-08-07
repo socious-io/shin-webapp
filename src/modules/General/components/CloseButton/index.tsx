@@ -1,4 +1,3 @@
-import React from 'react';
 import Icon from 'src/modules/General/components/Icon';
 
 import css from './index.module.scss';

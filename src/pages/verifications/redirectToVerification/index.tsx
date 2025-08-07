@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AdaptorRes } from 'src/core/adaptors';
 import { VerificationIndividualRes } from 'src/core/api';

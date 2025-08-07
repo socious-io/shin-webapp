@@ -1,12 +1,13 @@
 import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { formatDate } from 'src/core/helpers/relative-time';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
+import ConfirmModal from 'src/modules/General/components/ConfirmModal';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
 import ThreeDotButton from 'src/modules/General/components/ThreeDotButton';
-import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
 
 import css from './index.module.scss';
 import { ReusableListProps } from './index.types';
@@ -21,7 +22,7 @@ const ReusableList: React.FC<ReusableListProps> = ({
 }) => {
   const {
     data: { page, total, list },
-    operations: { fetchMore, handleDelete, translate },
+    operations: { fetchMore, handleDelete },
   } = useReusableList(setOpenModal, selectedId);
 
   const columns = useMemo<ColumnDef<any>[]>(

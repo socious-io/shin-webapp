@@ -1,5 +1,5 @@
 import { Divider } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Modal from 'src/modules/General/components/Modal';
 
@@ -7,7 +7,6 @@ import css from './index.module.scss';
 import { SchemaDetailModalProps } from './index.types';
 
 const SchemaDetailModal: React.FC<SchemaDetailModalProps> = ({ open, handleClose, data }) => {
-  const { t: translate } = useTranslation();
   const { name, description = '', id, attributes = [] } = data || {};
 
   return (

@@ -4,6 +4,7 @@
 .container {
     min-width: 20rem;
     @include flex(normal, center);
+    flex-wrap: nowrap;
     padding: 0.5rem;
     background-color: $color-white;
     box-shadow: $shadow-lg;
@@ -11,12 +12,36 @@
     border-radius: $radius-xl;
 
     @media (max-width: $md) {
-        align-items: flex-start;
         padding: 1rem;
     }
 
     :global(.MuiSnackbarContent-message) {
         padding: 0;
+    }
+
+    &--primary {
+        background-color: $color-primary-25;
+        border-color: $color-primary-300;
+    }
+
+    &--gray {
+        background-color: $color-grey-25;
+        border-color: $color-grey-300;
+    }
+
+    &--error {
+        background-color: $color-error-25;
+        border-color: $color-error-300;
+    }
+
+    &--warning {
+        background-color: $color-warning-25;
+        border-color: $color-warning-300;
+    }
+
+    &--success {
+        background-color: $color-success-25;
+        border-color: $color-success-300;
     }
 }
 
@@ -24,12 +49,28 @@
     @include flex(normal, center);
     gap: 0.5rem;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 20px;
     color: $color-grey-900;
 
-    @media (max-width: $md) {
-        @include flex(normal, flex-start, column);
+    &--primary {
+        color: $color-primary-700;
+    }
+
+    &--gray {
+        color: $color-grey-700;
+    }
+
+    &--error {
+        color: $color-error-700;
+    }
+
+    &--warning {
+        color: $color-warning-700;
+    }
+
+    &--success {
+        color: $color-success-700;
     }
 }
 

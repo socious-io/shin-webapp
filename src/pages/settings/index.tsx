@@ -1,14 +1,9 @@
-import { useTranslation } from 'react-i18next';
-import DeleteAccount from 'src/modules/Settings/containers/DeleteAccount';
-import InfoForm from 'src/modules/Settings/containers/InfoForm';
-import LanguageSwitcher from 'src/modules/Settings/containers/LanguageSwitcher';
-import PasswordForm from 'src/modules/Settings/containers/PasswordForm';
+import { translate } from 'src/core/helpers/utils';
+import LanguageSwitcher from 'src/modules/Settings/containers/LanguageForm';
 
 import css from './index.module.scss';
 
 export const Settings = () => {
-  const { t: translate } = useTranslation();
-
   return (
     <div className={css['container']}>
       <div className={css['top']}>
@@ -17,10 +12,10 @@ export const Settings = () => {
         </div>
       </div>
       <div className={css['content']}>
-        <InfoForm />
-        <PasswordForm />
+        {/* <InfoForm /> */}
+        {/* <PasswordForm /> */}
         <LanguageSwitcher />
-        <DeleteAccount />
+        {/* <DeleteAccount /> */}
       </div>
     </div>
   );

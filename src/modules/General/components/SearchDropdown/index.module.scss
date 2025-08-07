@@ -28,10 +28,6 @@
     background-color: $color-grey-50;
 }
 
-.selecetdOption {
-    background-color: $color-grey-50;
-}
-
 .dropdown {
     height: 100%;
     display: flex;
@@ -70,11 +66,4 @@
     height: 44px;
     display: flex;
     align-items: center;
-}
-
-.singleValueLable {
-    display: flex;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }

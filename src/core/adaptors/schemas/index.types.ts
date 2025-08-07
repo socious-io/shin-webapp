@@ -31,5 +31,5 @@ export interface SchemaRes extends PaginateRes {
 export type SchemaReq = {
   name: string;
   description?: string;
-  attributes: Attribute[];
+  attributes: Omit<Attribute, 'id' | 'type'>[];
 };

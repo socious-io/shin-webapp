@@ -1,0 +1,22 @@
+{
+  "layout-credentials": "Credenciales",
+  "layout-schemas": "Esquemas",
+  "layout-verifications": "Verificaciones",
+  "layout-integrations": "Integraciones",
+  "layout-org-profile": "Perfil de la organización",
+  "layout-settings": "Configuración",
+  "layout-logout": "Cerrar sesión",
+  "layout-create-org": "crear una organización",
+  "pagination-next": "Siguiente",
+  "pagination-previous": "Anterior",
+  "pagination-page": "Página",
+  "pagination-of": "de",
+  "file-uploader-click": "Haz clic para subir",
+  "file-uploader-drag": "o arrastra y suelta",
+  "file-uploader-or": "o",
+  "file-uploader-max": "máx.",
+  "file-uploader-max-error": "{{name}} excede el tamaño máximo de {{max}}MB",
+  "file-uploader-limit-error": "Puedes subir un máximo de {{limit}} archivos. Por favor, selecciona menos archivos.",
+  "file-uploader-error": "Error:",
+  "multi-select-popular": "Popular"
+}

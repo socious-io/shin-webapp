@@ -18,3 +18,8 @@ export interface User extends ProfileReq {
   created_at: Date;
   updated_at: Date;
 }
+
+export interface PasswordReq {
+  current_password?: string;
+  password: string;
+}

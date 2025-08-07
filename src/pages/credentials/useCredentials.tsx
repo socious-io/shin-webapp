@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { getOrgProfileAdaptor, OrgProfileRes } from 'src/core/adaptors';
 import { VerificationStatus } from 'src/core/api';
+import { translate } from 'src/core/helpers/utils';
 import IssuedTab from 'src/modules/Credential/containers/IssuedTab';
 
 export const useCredentials = () => {
@@ -11,7 +11,6 @@ export const useCredentials = () => {
   const [verificationStatus, setVerificationStatus] = useState<VerificationStatus | null>(
     orgProfile.verificationStatus,
   );
-  const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState<{
     name: 'verify' | 'detail' | 'success' | 'pending' | 'rejected';

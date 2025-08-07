@@ -1,0 +1,15 @@
+.container {
+    width: 100vw;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 300ms 0s;
+
+    &--visible {
+        opacity: 1;
+        visibility: visible;
+    }
+}

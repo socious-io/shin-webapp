@@ -1,5 +1,4 @@
 // Use docs/icons-reference.html for icons reference
-import React from 'react';
 
 import css from './index.module.scss';
 import { IconProps } from './index.types';

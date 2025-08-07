@@ -14,13 +14,11 @@ import {
 
 import { AdaptorRes, SuccessRes } from '..';
 import {
-  ReusableVerification,
   ReusableVerificationsRes,
   SingleUseVerification,
   SingleUseVerificationsRes,
   UpdateVerificationReq,
   Verification,
-  VerificationIndividualAdaptor,
   VerificationIndividualAdaptorList,
   VerificationReqAdaptor,
 } from './index.type';
@@ -235,10 +233,11 @@ export const getVerificationHistory = async (
 
 export const createVerificationIndividualAdaptor = async (
   verificationId: string,
+  customerId?: string,
 ): Promise<AdaptorRes<VerificationIndividualRes>> => {
   try {
     const payload: VerificationIndividualReq = {
-      customer_id: Array.from({ length: 3 }, () => Math.floor(1000 + Math.random() * 9000)).join('-'),
+      customer_id: customerId || Array.from({ length: 3 }, () => Math.floor(1000 + Math.random() * 9000)).join('-'),
       verification_id: verificationId,
     };
     const res = await createVerificationIndividuals(payload);

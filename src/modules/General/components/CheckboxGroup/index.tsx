@@ -2,7 +2,6 @@ import { Checkbox, FormGroup } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import React from 'react';
 
 import css from './index.module.scss';
 import { CheckboxGroupProps, Item } from './index.types';

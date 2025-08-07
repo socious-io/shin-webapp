@@ -1,8 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import { verificationType } from 'src/core/adaptors';
+import { translate } from 'src/core/helpers/utils';
 
 export const useTypeRadioGroup = () => {
-  const { t: translate } = useTranslation();
   const cardItems = [
     {
       value: 'reusable' as verificationType,

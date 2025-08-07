@@ -1,4 +1,4 @@
-import { ButtonProps as DefaultProps, LinkProps } from '@mui/material';
+import { ButtonProps as DefaultProps } from '@mui/material';
 
 export interface ButtonProps extends DefaultProps {
   customStyle?: string;

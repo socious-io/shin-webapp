@@ -1,8 +1,0 @@
-{
-    "file-uploader-click": "클릭하여 업로드",
-    "file-uploader-drag": "또는 드래그 앤 드롭",
-    "file-uploader-or": "또는",
-    "file-uploader-max": "최대",
-    "file-uploader-max-error": "{{name}}은(는) 최대 크기 {{max}}MB를 초과합니다",
-    "file-uploader-limit-error": "최대 {{limit}}개의 파일만 업로드할 수 있습니다. 더 적은 파일을 선택해주세요."
-  }  

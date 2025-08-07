@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import Input from 'src/modules/General/components/Input';
 
@@ -7,7 +8,7 @@ import { usePasswordForm } from './usePasswordForm';
 
 const PasswordForm = () => {
   const {
-    data: { translate, register, errors, errorMessage },
+    data: { register, errors, errorMessage },
     operations: { handleSubmit, onSubmit },
   } = usePasswordForm();
 

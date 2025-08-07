@@ -3,7 +3,7 @@ import Icon from 'src/modules/General/components/Icon';
 import Input from 'src/modules/General/components/Input';
 import SearchDropdown from 'src/modules/General/components/SearchDropdown';
 import TypeRadioGroup from 'src/modules/Verifications/components/TypeRadioGroup';
-import Attribute from 'src/modules/Verifications/containers/Atribute';
+import Attribute from 'src/modules/Verifications/containers/Attribute';
 import { ProofRequestModal } from 'src/modules/Verifications/containers/ProofRequestModal';
 import variables from 'src/styles/constants/_exports.module.scss';
 
@@ -144,7 +144,7 @@ export const CreateUpdateVerification = () => {
                 errors={errors['schema']?.value?.message ? [errors['schema']?.value?.message.toString()] : undefined}
                 containerClassName="w-full md:w-[20rem]"
               />
-              <div className={css['section__subtitle']}>Attributes</div>
+              <div className={css['section__subtitle']}>{translate('schema-detail.attributes')}</div>
               {verificationAttributes?.map((item, index) => (
                 <Attribute
                   key={index}

@@ -1,7 +1,8 @@
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
+import CardFileUploader from 'src/modules/General/components/CardFileUploader';
 import LoadingSpinner from 'src/modules/General/components/LoadingSpinner';
 import Modal from 'src/modules/General/components/Modal';
-import NewFileUploader from 'src/modules/General/components/NewFileUploader';
 
 import css from './index.module.scss';
 import { ImportCSVModalProps } from './index.types';
@@ -9,7 +10,7 @@ import { useImportCSVModal } from './useImportCSVModal';
 
 const ImportCSVModal: React.FC<ImportCSVModalProps> = ({ open, handleClose, selectedSchema, onImportFiles }) => {
   const {
-    data: { translate, file, disabledButton, loading, showError, totalImportedRecipients, downloadSampleURL },
+    data: { file, disabledButton, loading, showError, totalImportedRecipients, downloadSampleURL },
     operations: { onUploadFile, onDeleteFile, onImport },
   } = useImportCSVModal(onImportFiles, selectedSchema.id || '', open);
 
@@ -53,7 +54,7 @@ const ImportCSVModal: React.FC<ImportCSVModalProps> = ({ open, handleClose, sele
       customStyle="md:max-w-[480px]"
       contentClassName={css['content']}
     >
-      <NewFileUploader
+      <CardFileUploader
         files={file}
         fileTypes={['CSV']}
         onDropFiles={onUploadFile}
