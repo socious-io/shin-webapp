@@ -1,76 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { VerificationStatus } from 'src/core/api';
-import { translate } from 'src/core/helpers/utils';
+import { VerificationStatusType } from 'src/core/adaptors';
+import { RootState } from 'src/store';
 
-export const useIssuedTab = (
-  setOpenModal: (val: { name: 'verify' | 'detail' | 'success' | 'pending' | 'rejected'; open: boolean }) => void,
-  verificationStatus: VerificationStatus | null,
-) => {
+export const useIssuedTab = () => {
   const navigate = useNavigate();
+  const currentIdentity = useSelector((state: RootState) => {
+    return state.identity.entities.find(e => e.current);
+  });
+  const isVerified = currentIdentity?.isVerified || false;
+  const verificationStatus = currentIdentity?.verificationStatus || 'UNDEFINED';
+  const [currentStatus, setCurrentStatus] = useState<VerificationStatusType>(verificationStatus);
   const [dismissed, setDismissed] = useState(Boolean(localStorage.getItem('dismissed-alert')));
-  const status = verificationStatus || 'UNDEFINED';
-  const showBanner = status !== 'APPROVED' || !dismissed;
+  const showBanner = !isVerified || !dismissed;
+
+  useEffect(() => {
+    setCurrentStatus(isVerified ? 'APPROVED' : verificationStatus);
+  }, [isVerified, verificationStatus]);
 
   const onCreateCredential = () => navigate('../create');
 
-  const bannerData: Record<
-    'UNDEFINED' | 'REJECTED' | 'PENDING' | 'APPROVED',
-    {
-      iconName: string;
-      title: string;
-      subtitle: string;
-      primaryBtnLabel: string;
-      primaryBtnAction: () => void;
-      secondaryBtnLabel?: string;
-      secondaryBtnAction?: () => void;
-      theme: 'success' | 'warning' | 'error';
-    }
-  > = {
-    UNDEFINED: {
-      iconName: 'alert-circle',
-      title: translate('kyb-verify'),
-      subtitle: translate('kyb-verify-subtitle'),
-      primaryBtnLabel: translate('kyb-verify-btn'),
-      primaryBtnAction: () => {
-        setOpenModal({ name: 'verify', open: true });
-      },
-      theme: 'warning',
+  return {
+    data: {
+      isVerified,
+      currentStatus,
+      showBanner,
     },
-    REJECTED: {
-      iconName: 'alert-circle',
-      title: translate('kyb-failed'),
-      subtitle: translate('kyb-failed-subtitle'),
-      primaryBtnLabel: translate('kyb-failed-label'),
-      primaryBtnAction: () => {
-        setOpenModal({ name: 'rejected', open: true });
-      },
-      theme: 'error',
-    },
-    PENDING: {
-      iconName: 'alert-circle',
-      title: translate('kyb-pending'),
-      subtitle: translate('kyb-pending-subtitle'),
-      primaryBtnLabel: translate('kyb-pending-btn'),
-      primaryBtnAction: () => {
-        setOpenModal({ name: 'pending', open: true });
-      },
-      theme: 'warning',
-    },
-    APPROVED: {
-      iconName: 'check-circle',
-      title: translate('kyb-success'),
-      subtitle: translate('kyb-success-subtitle'),
-      primaryBtnLabel: translate('kyb-success-btn'),
-      primaryBtnAction: onCreateCredential,
-      secondaryBtnLabel: translate('kyb-success-dismiss'),
-      secondaryBtnAction: () => {
-        localStorage.setItem('dismissed-alert', 'true');
-        setDismissed(true);
-      },
-      theme: 'success',
+    operations: {
+      setDismissed,
+      onCreateCredential,
     },
   };
-
-  return { bannerData, status, showBanner };
 };

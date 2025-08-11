@@ -40,12 +40,9 @@ export const blueprint: RouteObject[] = [
               },
               {
                 path: ':orgId',
-                loader: async ({ params }) => {
-                  const [credentialRes, orgProfileRes] = await Promise.all([
-                    getCredentialsAdaptor(),
-                    getOrgProfileAdaptor(params.orgId || ''),
-                  ]);
-                  return { credentialList: credentialRes.data, orgProfile: orgProfileRes.data };
+                loader: async () => {
+                  const credentialRes = await getCredentialsAdaptor();
+                  return { credentialList: credentialRes.data };
                 },
                 async lazy() {
                   const { Credentials } = await import('src/pages/credentials');

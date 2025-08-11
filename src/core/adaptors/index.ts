@@ -1,5 +1,3 @@
-export * from './identity/index.adaptors';
-export * from './identity/index.types';
 export * from './media/index.adaptors';
 export * from './media/index.types';
 export * from './schemas/index.adaptors';
