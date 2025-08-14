@@ -5,13 +5,9 @@ import { UploadMediaRes } from './index.types';
 
 export const uploadMediaAdaptor = async (file: File): Promise<AdaptorRes<UploadMediaRes>> => {
   try {
-    const res = await uploadMedia(file);
+    const data = await uploadMedia(file);
     return {
-      data: {
-        ...res,
-        identity_id: '',
-        created_at: res.created_at.toString(),
-      },
+      data,
       error: null,
     };
   } catch {
@@ -27,13 +23,9 @@ export const uploadMediaWithProgressAdaptor = async (
   setProgress: (val: number) => void,
 ): Promise<AdaptorRes<UploadMediaRes>> => {
   try {
-    const res = await uploadMediaWithProgress(file, setProgress);
+    const data = await uploadMediaWithProgress(file, setProgress);
     return {
-      data: {
-        ...res,
-        identity_id: '',
-        created_at: res.created_at.toString(),
-      },
+      data,
       error: null,
     };
   } catch {

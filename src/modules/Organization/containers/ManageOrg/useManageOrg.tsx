@@ -3,9 +3,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoaderData, useParams } from 'react-router-dom';
-import { updateOrgProfileAdaptor, OrgProfileReq, OrgProfileRes, uploadMediaAdaptor } from 'src/core/adaptors';
+import {
+  updateOrgProfileAdaptor,
+  OrgProfileReq,
+  OrgProfileRes,
+  uploadMediaAdaptor,
+  UploadMediaRes,
+} from 'src/core/adaptors';
 import { translate } from 'src/core/helpers/utils';
-import { Files } from 'src/modules/General/components/FileUploader/index.types';
 import { RootState } from 'src/store';
 import { setIdentityList } from 'src/store/reducers/identity.reducer';
 import * as yup from 'yup';
@@ -23,10 +28,9 @@ export const useManageOrg = () => {
   const dispatch = useDispatch();
   const { id: orgId } = useParams() || '';
   const { profile } = (useLoaderData() as { profile: OrgProfileRes }) || {};
-  const defaultProfile = profile?.logo?.id ? [{ id: profile.logo.id || '', url: profile.logo.url || '' }] : [];
   const { entities: identities, currentId } = useSelector((state: RootState) => state.identity);
   const [letterCount, setLetterCount] = useState(profile?.description?.length || 0);
-  const [attachments, setAttachments] = useState<Files[]>(defaultProfile);
+  const [attachment, setAttachment] = useState<UploadMediaRes | null>(profile?.logo);
   const [loading, setLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState<{ open: boolean; type: 'success' | 'error'; message: string }>({
     open: false,
@@ -50,7 +54,7 @@ export const useManageOrg = () => {
     newFiles.forEach(async (file: File) => {
       const { error, data } = await uploadMediaAdaptor(file);
       if (error) return;
-      data && setAttachments([{ id: data.id, url: data.url }]);
+      data && setAttachment(data);
     });
   };
 
@@ -70,7 +74,7 @@ export const useManageOrg = () => {
 
   const onSubmit = async (formData: OrgProfileReq) => {
     setLoading(true);
-    const payload = { ...formData, logoId: attachments[0]?.id || '' };
+    const payload = { ...formData, logo: attachment || undefined };
     if (!orgId) return;
     const { error, data } = await updateOrgProfileAdaptor(payload, orgId);
     if (error) setOpenSnackbar({ open: true, type: 'error', message: translate('org-profile-error-message') });
@@ -90,8 +94,8 @@ export const useManageOrg = () => {
       letterCount,
       register,
       errors,
-      attachments,
-      avatarImg: attachments[0]?.url || '',
+      attachments: attachment ? [attachment] : [],
+      avatarImg: attachment?.url || '',
       did: profile?.did || '',
       orgId,
       loading,

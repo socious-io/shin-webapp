@@ -1,10 +1,10 @@
 import { PaginateRes } from '..';
-import { Media } from '../media/media.types';
+import { MediaRes } from '../media/media.types';
 
 export interface OrganizationReq {
   name: string;
   description: string;
-  logo_id?: string;
+  logo?: MediaRes;
 }
 
 export type VerificationStatus = 'APPROVED' | 'PENDING' | 'REJECTED';
@@ -12,8 +12,7 @@ export type VerificationStatus = 'APPROVED' | 'PENDING' | 'REJECTED';
 export interface Organization extends OrganizationReq {
   id: string;
   did?: string;
-  logo?: Media;
-  logo_id?: string;
+  logo?: MediaRes;
   verified: boolean;
   created_at: Date;
   updated_at: Date;

@@ -1,10 +1,11 @@
-import { IdentityType } from '..';
+import { IdentityType, UploadMediaRes } from '..';
 
 export type VerificationStatusType = 'APPROVED' | 'PENDING' | 'REJECTED' | 'UNDEFINED';
 
 export interface OrgProfileRes {
   id: string;
-  logo: { url?: string; id?: string };
+  logo: UploadMediaRes | null;
+  img: string;
   did: string;
   name: string;
   username: string;
@@ -16,8 +17,8 @@ export interface OrgProfileRes {
 }
 
 export interface OrgProfileReq {
-  logoId?: string;
   name: string;
+  logo?: UploadMediaRes;
   description?: string;
 }
 
