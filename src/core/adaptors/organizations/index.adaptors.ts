@@ -5,7 +5,13 @@ import { AdaptorRes, IdentityType, OrgProfileReq, OrgProfileRes, OrgsRes } from 
 
 export const getCurrentOrgProfileAdaptor = (org: Organization, current = false): OrgProfileRes => ({
   id: org.id,
-  logo: { url: org.logo?.url || '', id: org.logo_id || '' },
+  logo: {
+    url: org.logo?.url || '',
+    id: org.logo?.id || '',
+    filename: org.logo?.filename || '',
+    created_at: org.logo?.created_at || null,
+  },
+  img: org.logo?.url || '',
   did: org?.did || '',
   name: org.name,
   username: '', // FIXME: check if username/email will be provided
@@ -58,7 +64,11 @@ export const updateOrgProfileAdaptor = async (
   orgId: string,
 ): Promise<AdaptorRes<OrgProfileRes>> => {
   try {
-    const payload = { name: params.name, description: params.description || '', logo_id: params.logoId };
+    const payload = {
+      name: params.name,
+      description: params.description || '',
+      logo: params?.logo,
+    };
     const org = await updateOrg(orgId, payload);
 
     return { data: getCurrentOrgProfileAdaptor(org, true), error: null };
