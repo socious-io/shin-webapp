@@ -14,11 +14,13 @@ export const http = axios.create({
   timeout: 1000000,
 });
 
-export async function getAuthHeaders(): Promise<{ Authorization: string }> {
+export async function getAuthHeaders(): Promise<{ Authorization: string; CurrentIdentity: string }> {
   const token = (await nonPermanentStorage.get('access_token')) || '';
   const prefix = (await nonPermanentStorage.get('token_type')) || 'Bearer';
+  const currentIdentity = await nonPermanentStorage.get('identity');
   return {
     Authorization: token && prefix ? `${prefix} ${token}` : '',
+    CurrentIdentity: currentIdentity || '',
   };
 }
 
