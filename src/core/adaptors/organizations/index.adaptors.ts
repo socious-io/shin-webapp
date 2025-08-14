@@ -11,8 +11,8 @@ export const getCurrentOrgProfileAdaptor = (org: Organization, current = false):
   username: '', // FIXME: check if username/email will be provided
   type: 'organization' as IdentityType,
   description: org?.description || '',
-  isVerified: org?.is_verified,
-  verificationStatus: org.verification_status || null,
+  isVerified: org.verified,
+  verificationStatus: org.verification_status || 'UNDEFINED',
   current,
 });
 

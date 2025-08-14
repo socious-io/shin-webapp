@@ -1,47 +1,31 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
 .container {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @include flex(center, center, column);
+    gap: 1.5rem;
+    text-align: center;
 
     .error {
         &__code {
-            font-size: 5rem;
+            font-size: 80px;
             font-weight: 800;
-            color: var(--color-error-01);
+            color: $color-error-600;
         }
 
         &__msg {
-            text-align: center;
-            font-size: var(--font-size-xl);
-            color: var(--color-black-01);
+            font-size: 48px;
+            font-weight: 600;
+            color: $color-grey-900;
         }
 
         &__details {
-            text-align: center;
-            font-size: var(--font-size-l);
-            color: var(--color-black-01);
-            margin-top: 1rem;
-        }
-    }
-
-    .content {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 1rem;
-
-        &__button {
-            width: 100%;
-            margin: auto;
-        }
-
-        &__link {
-            color: var(--color-white);
+            font-size: 24px;
+            color: $color-grey-700;
+            margin-bottom: 1rem;
         }
     }
 }

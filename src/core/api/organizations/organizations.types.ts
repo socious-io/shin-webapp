@@ -7,14 +7,14 @@ export interface OrganizationReq {
   logo_id?: string;
 }
 
-export type VerificationStatus = 'PENDING' | 'APPROVED' | 'REJECTED' | 'CREATED';
+export type VerificationStatus = 'APPROVED' | 'PENDING' | 'REJECTED';
 
 export interface Organization extends OrganizationReq {
   id: string;
   did?: string;
   logo?: Media;
   logo_id?: string;
-  is_verified: boolean;
+  verified: boolean;
   created_at: Date;
   updated_at: Date;
   verification_status: VerificationStatus | null;

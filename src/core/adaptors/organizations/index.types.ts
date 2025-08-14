@@ -1,6 +1,6 @@
-import { VerificationStatus } from 'src/core/api';
-
 import { IdentityType } from '..';
+
+export type VerificationStatusType = 'APPROVED' | 'PENDING' | 'REJECTED' | 'UNDEFINED';
 
 export interface OrgProfileRes {
   id: string;
@@ -11,7 +11,7 @@ export interface OrgProfileRes {
   type: IdentityType;
   description?: string;
   isVerified?: boolean;
-  verificationStatus: VerificationStatus | null;
+  verificationStatus: VerificationStatusType;
   current?: boolean;
 }
 

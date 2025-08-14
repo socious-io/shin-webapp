@@ -1,42 +1,49 @@
 import { useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
-import { getOrgProfileAdaptor, OrgProfileRes } from 'src/core/adaptors';
-import { VerificationStatus } from 'src/core/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getOrgProfileAdaptor } from 'src/core/adaptors';
 import { translate } from 'src/core/helpers/utils';
 import IssuedTab from 'src/modules/Credential/containers/IssuedTab';
+import { RootState } from 'src/store';
+import { setIdentityList } from 'src/store/reducers/identity.reducer';
 
 export const useCredentials = () => {
-  const { orgProfile } = useLoaderData() as { orgProfile: OrgProfileRes };
-  const [isVerified, setIsVerified] = useState(orgProfile.isVerified);
-  const [verificationStatus, setVerificationStatus] = useState<VerificationStatus | null>(
-    orgProfile.verificationStatus,
-  );
+  const dispatch = useDispatch();
+  const { entities: identities, currentId } = useSelector((state: RootState) => state.identity);
+  const currentIdentity = identities.find(i => i.current);
+  const isVerified = currentIdentity?.isVerified || false;
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState<{
-    name: 'verify' | 'detail' | 'success' | 'pending' | 'rejected';
+    name: '' | 'verify' | 'detail' | 'success' | 'pending' | 'rejected';
     open: boolean;
-  }>();
+  }>({ name: '', open: false });
 
   const onCreateCredential = () => navigate('../create');
 
   const tabs = [
     {
       label: translate('credential-tab1'),
-      content: <IssuedTab setOpenModal={setOpenModal} verificationStatus={verificationStatus} />,
+      content: <IssuedTab setOpenModal={setOpenModal} />,
     },
   ];
 
+  const onCloseModal = () => setOpenModal({ ...openModal, open: false });
+
   const onComplete = async () => {
-    const res = await getOrgProfileAdaptor(orgProfile.id);
-    if (res?.data) {
-      setIsVerified(res.data.isVerified || false);
-      setVerificationStatus(res.data.verificationStatus);
+    if (!currentId) return;
+    const { data } = await getOrgProfileAdaptor(currentId);
+    if (data) {
+      const filteredIdentities = identities.map(identity => {
+        return identity.id === currentId ? { ...data, current: true } : identity;
+      });
+      dispatch(setIdentityList({ entities: filteredIdentities, currentId }));
     }
-    setOpenModal({ name: 'verify', open: false });
+
+    onCloseModal();
   };
 
   return {
     data: { translate, tabs, isVerified, openModal },
-    operations: { onCreateCredential, verificationStatus, setOpenModal, onComplete },
+    operations: { onCreateCredential, setOpenModal, onCloseModal, onComplete },
   };
 };
