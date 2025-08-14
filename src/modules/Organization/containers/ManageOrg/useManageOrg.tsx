@@ -1,18 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLoaderData, useParams } from 'react-router-dom';
 import {
-  changeOrgProfileAdaptor,
-  profileAdaptor,
+  updateOrgProfileAdaptor,
   OrgProfileReq,
   OrgProfileRes,
   uploadMediaAdaptor,
+  UploadMediaRes,
 } from 'src/core/adaptors';
-import { Files } from 'src/modules/General/components/FileUploader/index.types';
-import { setOrgProfile } from 'src/store/reducers/org.reducer';
+import { translate } from 'src/core/helpers/utils';
+import { RootState } from 'src/store';
+import { setIdentityList } from 'src/store/reducers/identity.reducer';
 import * as yup from 'yup';
 
 const schema = yup
@@ -25,52 +25,43 @@ const schema = yup
 
 export const useManageOrg = () => {
   const limitDescription = 160;
-  const { t: translate } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id: orgId } = useParams() || '';
   const { profile } = (useLoaderData() as { profile: OrgProfileRes }) || {};
-  const defaultProfile = profile?.logo?.id ? [{ id: profile.logo.id || '', url: profile.logo.url || '' }] : [];
+  const { entities: identities, currentId } = useSelector((state: RootState) => state.identity);
   const [letterCount, setLetterCount] = useState(profile?.description?.length || 0);
-  const [attachments, setAttachments] = useState<Files[]>(defaultProfile);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [attachment, setAttachment] = useState<UploadMediaRes | null>(profile?.logo);
+  const [loading, setLoading] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState<{ open: boolean; type: 'success' | 'error'; message: string }>({
+    open: false,
+    type: 'success',
+    message: '',
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     setValue,
     setError,
     clearErrors,
-  } = useForm<OrgProfileReq>({
+  } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
+    defaultValues: { name: profile?.name || '', description: profile?.description || '' },
   });
-
-  const initializeValues = () => {
-    const initialVal = {
-      name: profile?.name || '',
-      description: profile?.description || '',
-    };
-    setAttachments(defaultProfile);
-    reset(initialVal);
-  };
-
-  useEffect(() => initializeValues(), []);
 
   const onDropFiles = async (newFiles: File[]) => {
     newFiles.forEach(async (file: File) => {
       const { error, data } = await uploadMediaAdaptor(file);
       if (error) return;
-      data && setAttachments([{ id: data.id, url: data.url }]);
+      data && setAttachment(data);
     });
   };
 
   const onCopy = () => {
     if (profile?.did) {
       navigator.clipboard.writeText(profile.did);
-      setOpenSnackbar(true);
+      setOpenSnackbar({ open: true, type: 'success', message: translate('schema-copy-snackbar') });
     }
   };
 
@@ -82,22 +73,19 @@ export const useManageOrg = () => {
   };
 
   const onSubmit = async (formData: OrgProfileReq) => {
-    const payload = {
-      ...formData,
-      logoId: attachments[0]?.id || '',
-    };
-    if (orgId) {
-      await changeOrgProfileAdaptor(orgId, payload);
-    } else {
-      const { data: createdOrgId, error } = await profileAdaptor(payload);
-      if (error) {
-        setErrorMessage(translate('org-profile-create-error'));
-        return;
-      } else if (createdOrgId) {
-        dispatch(setOrgProfile(createdOrgId));
-        navigate(createdOrgId);
-      }
+    setLoading(true);
+    const payload = { ...formData, logo: attachment || undefined };
+    if (!orgId) return;
+    const { error, data } = await updateOrgProfileAdaptor(payload, orgId);
+    if (error) setOpenSnackbar({ open: true, type: 'error', message: translate('org-profile-error-message') });
+    if (data) {
+      const filteredIdentities = identities.map(identity => {
+        return identity.id === currentId ? data : identity;
+      });
+      dispatch(setIdentityList({ entities: filteredIdentities, currentId }));
+      setOpenSnackbar({ open: true, type: 'success', message: translate('org-profile-success-message') });
     }
+    setLoading(false);
   };
 
   return {
@@ -106,20 +94,13 @@ export const useManageOrg = () => {
       letterCount,
       register,
       errors,
-      attachments,
-      avatarImg: attachments[0]?.url || '',
+      attachments: attachment ? [attachment] : [],
+      avatarImg: attachment?.url || '',
       did: profile?.did || '',
       orgId,
+      loading,
       openSnackbar,
-      errorMessage,
     },
-    operations: {
-      handleSubmit,
-      onSubmit,
-      onDropFiles,
-      onChangeDescription,
-      onCopy,
-      setOpenSnackbar,
-    },
+    operations: { handleSubmit, onSubmit, onDropFiles, onChangeDescription, onCopy, setOpenSnackbar },
   };
 };

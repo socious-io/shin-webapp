@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import {
   deleteVerificationAdaptor,
@@ -12,8 +11,6 @@ export const useSingleUseList = (
   setOpenModal: (val: { name: 'delete' | 'copy' | 'history'; open: boolean }) => void,
   selectedId?: string,
 ) => {
-  const { t: translate } = useTranslation();
-
   const [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const { singleUseList } = useLoaderData() as {
@@ -50,7 +47,6 @@ export const useSingleUseList = (
     operations: {
       fetchMore,
       handleDelete,
-      translate,
     },
   };
 };

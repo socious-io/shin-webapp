@@ -1,7 +1,7 @@
+import { PaginateRes } from '..';
 import { Organization } from '../organizations/organizations.types';
 import { RecipientReq, RecipientRes } from '../recipients/recipients.types';
 import { SchemaRes } from '../schemas/schemas.types';
-import { PaginateRes } from '../types';
 import { User } from '../users/users.types';
 
 export interface CredentialClaims {

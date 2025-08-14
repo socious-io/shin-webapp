@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { config } from 'src/config';
 import {
@@ -9,10 +8,10 @@ import {
   getCredentialsAdaptor,
   revokeCredentialsAdaptor,
 } from 'src/core/adaptors';
+import { translate } from 'src/core/helpers/utils';
 import { StatusProps } from 'src/modules/General/components/Status/index.types';
 
 export const useIssuedList = () => {
-  const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const { credentialList } = (useLoaderData() as { credentialList: CredentialsRes }) || {};
   const [currentCredentialList, setCurrentCredentialList] = useState(credentialList);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Input from 'src/modules/General/components/Input';
@@ -15,7 +15,7 @@ const AddIntegrationModal: React.FC<AddIntegrationModalProps> = ({
   integration,
 }) => {
   const {
-    data: { translate, register, errors },
+    data: { register, errors },
     operations: { handleSubmit, onSubmit },
   } = useAddIntegrationModal(onAddIntegration, integration);
 

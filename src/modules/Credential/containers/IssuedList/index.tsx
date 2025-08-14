@@ -5,13 +5,13 @@ import { Credential } from 'src/core/adaptors';
 import { formatDate } from 'src/core/helpers/relative-time';
 import Button from 'src/modules/General/components/Button';
 import Checkbox from 'src/modules/General/components/Checkbox';
+import ConfirmModal from 'src/modules/General/components/ConfirmModal';
+import CopyLinkModal from 'src/modules/General/components/CopyLinkModal';
+import EmptyBox from 'src/modules/General/components/EmptyBox';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
 import Status from 'src/modules/General/components/Status';
-import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
-import CopyLinkModal from 'src/modules/General/containers/CopyLinkModal';
-import EmptyBox from 'src/modules/General/containers/EmptyBox';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';

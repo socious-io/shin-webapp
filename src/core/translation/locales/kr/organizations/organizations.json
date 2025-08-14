@@ -10,5 +10,7 @@
   "org-profile-optional": "선택 사항",
   "org-profile-save-button": "변경 사항 저장",
   "org-profile-create-button": "조직 생성",
-  "org-profile-create-error": "조직을 생성하는 동안 오류가 발생했습니다"
+  "org-profile-create-error": "조직을 생성하는 동안 오류가 발생했습니다",
+  "org-profile-success-message": "조직이 성공적으로 업데이트되었습니다!",
+  "org-profile-error-message": "조직 업데이트에 실패했습니다. 다시 시도해주세요."
 }

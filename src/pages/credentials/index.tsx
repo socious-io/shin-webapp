@@ -14,7 +14,7 @@ import { useCredentials } from './useCredentials';
 export const Credentials = () => {
   const {
     data: { translate, tabs, isVerified, openModal },
-    operations: { onCreateCredential, setOpenModal, onComplete },
+    operations: { onCreateCredential, setOpenModal, onCloseModal, onComplete },
   } = useCredentials();
 
   return (
@@ -39,27 +39,17 @@ export const Credentials = () => {
       </div>
       <VerifyModal
         open={openModal?.name === 'verify' && openModal.open}
-        handleClose={() => setOpenModal({ name: 'verify', open: false })}
+        handleClose={onCloseModal}
         handleContinue={() => setOpenModal({ name: 'detail', open: true })}
       />
       <DetailModal
         open={openModal?.name === 'detail' && openModal.open}
-        handleClose={() => setOpenModal({ name: 'detail', open: false })}
+        handleClose={onCloseModal}
         handleSuccess={() => setOpenModal({ name: 'success', open: true })}
       />
       <SuccessModal open={openModal?.name === 'success' && openModal.open} handleClose={onComplete} />
-      <PendingModal
-        open={openModal?.name === 'pending' && openModal?.open}
-        handleClose={() => {
-          setOpenModal({ name: 'pending', open: false });
-        }}
-      />
-      <RejectedModal
-        open={openModal?.name === 'rejected' && openModal?.open}
-        handleClose={() => {
-          setOpenModal({ name: 'rejected', open: false });
-        }}
-      />
+      <PendingModal open={openModal?.name === 'pending' && openModal?.open} handleClose={onCloseModal} />
+      <RejectedModal open={openModal?.name === 'rejected' && openModal?.open} handleClose={onCloseModal} />
     </>
   );
 };

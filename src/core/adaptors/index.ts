@@ -1,16 +1,9 @@
-export * from './signIn/index.adaptors';
-export * from './signIn/index.types';
-export * from './identity/index.adaptors';
-export * from './identity/index.types';
 export * from './media/index.adaptors';
 export * from './media/index.types';
-export * from './signUp/index.adaptors';
-export * from './signUp/index.types';
 export * from './schemas/index.adaptors';
 export * from './schemas/index.types';
 export * from './organizations/index.adaptors';
 export * from './organizations/index.types';
-export * from './forgetPassword/index.adaptors';
 export * from './settings/index.adaptors';
 export * from './settings/index.types';
 export * from './verifications/index.adaptor';
@@ -21,9 +14,14 @@ export * from './credentials/index.adaptors';
 export * from './credentials/index.types';
 export * from './integrations/index.adaptors';
 export * from './integrations/index.types';
+export * from './auth/index.adaptors';
+export * from './auth/index.types';
+
+export type IdentityType = 'organizations' | 'users';
 
 export interface CustomError {
   response: { data: { error: string } };
+  message?: string;
 }
 
 export interface SuccessRes {
@@ -38,4 +36,11 @@ export type AdaptorRes<T = null> = {
 export interface OptionType {
   label: string;
   value: string;
+}
+
+export interface PaginateRes<T> {
+  page: number;
+  limit: number;
+  total: number;
+  results: T[];
 }

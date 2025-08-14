@@ -1,9 +1,0 @@
-{
-  "prof-h1": "Your organization profile",
-  "prof-h2": "Your organization profile contains your unique cryptographic keys. These keys digitally sign every credential you issue.",
-  "prof-name": "Organization name*",
-  "prof-name-placeholder": "Your organization name",
-  "prof-desc": "Public description (optional)",
-  "prof-desc-placeholder": "Enter a description...",
-  "prof-btn-label": "Get started"
-}

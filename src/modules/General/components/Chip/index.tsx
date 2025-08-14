@@ -1,6 +1,4 @@
-import React from 'react';
-
-import styles from './index.module.scss';
+import css from './index.module.scss';
 import { ChipProps } from './index.types';
 
 const Chip: React.FC<ChipProps> = ({
@@ -14,9 +12,9 @@ const Chip: React.FC<ChipProps> = ({
   size = 'md',
   transparent = false,
 }) => {
-  const chipClasses = `${styles[`chip-${size}`]} ${styles[`${theme}-theme`]} ${
-    shape === 'round' ? styles.round : styles.sharp
-  } ${transparent ? styles[`${theme}-transparent`] : ''}`;
+  const chipClasses = `${css[`chip-${size}`]} ${css[`${theme}-theme`]} ${
+    shape === 'round' ? css.round : css.sharp
+  } ${transparent ? css[`${theme}-transparent`] : ''}`;
 
   return (
     <div className={chipClasses}>

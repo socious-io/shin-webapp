@@ -1,3 +1,4 @@
+import { translate } from 'src/core/helpers/utils';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Link from 'src/modules/General/components/Link';
 import Modal from 'src/modules/General/components/Modal';
@@ -7,7 +8,7 @@ import { useProofRequest } from './useProofRequest';
 
 export const ProofRequest = () => {
   const {
-    data: { translate, data, dataStatus, returnURL },
+    data: { data, dataStatus, returnURL },
     operations: { setDataStatus, navigate },
   } = useProofRequest();
 

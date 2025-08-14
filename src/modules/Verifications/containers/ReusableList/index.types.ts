@@ -1,4 +1,3 @@
-import { ReusableVerification, SingleUseVerification } from 'src/core/adaptors';
 import { MenuItem } from 'src/modules/General/components/ThreeDotButton/index.type';
 
 export interface ReusableListProps {

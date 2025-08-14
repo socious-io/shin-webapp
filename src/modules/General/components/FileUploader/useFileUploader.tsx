@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 
 import { Files } from './index.types';
 
@@ -14,7 +14,6 @@ export const useFileUploader = (
   error: string,
   limitUploading?: boolean,
 ) => {
-  const { t: translate } = useTranslation();
   const [errorMessage, setErrorMessage] = useState('');
   const joinedFileTypes = fileTypes.slice(0, fileTypes.length - 1).join(', ');
   const subtitle = `${joinedFileTypes} ${translate('file-uploader-or')} ${fileTypes[fileTypes.length - 1]} (${translate('file-uploader-max')}. ${maxSize}MB)`;

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   CredentialsRes,
@@ -12,7 +11,6 @@ import {
 } from 'src/core/adaptors';
 
 export const useCreate = () => {
-  const { t: translate } = useTranslation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { schemaList } = (useLoaderData() as { schemaList: SchemaRes }) || {};
@@ -95,7 +93,6 @@ export const useCreate = () => {
 
   return {
     data: {
-      translate,
       step,
       totalPage,
       page,

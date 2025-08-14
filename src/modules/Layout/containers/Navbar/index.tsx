@@ -11,7 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ menuIsOpened, onOpenMenu }) => {
   return (
     <>
       <div className={css['container']}>
-        <img src={logo} alt="Shin-Logo" />
+        <img src={logo} alt="Socious-Verify-Logo" width={175} height={36} />
         <IconButton
           iconName="menu-02"
           iconSize={24}

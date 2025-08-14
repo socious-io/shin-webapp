@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@mui/material';
+import { CircularProgress, Divider, Typography } from '@mui/material';
 import Avatar from 'src/modules/General/components/Avatar';
 import Button from 'src/modules/General/components/Button';
 import FileUploader from 'src/modules/General/components/FileUploader';
@@ -12,7 +12,7 @@ import { useManageOrg } from './useManageOrg';
 
 const ManageOrg = () => {
   const {
-    data: { translate, letterCount, register, errors, attachments, avatarImg, did, orgId, openSnackbar, errorMessage },
+    data: { translate, letterCount, register, errors, attachments, avatarImg, did, orgId, loading, openSnackbar },
     operations: { handleSubmit, onSubmit, onDropFiles, onChangeDescription, onCopy, setOpenSnackbar },
   } = useManageOrg();
 
@@ -65,23 +65,27 @@ const ManageOrg = () => {
             {`${letterCount}/160`}
           </Typography>
         </div>
-        {errorMessage && <div className="text-Error-500 text-sm mt-[-12px]">{errorMessage}</div>}
         <Divider className="mx-[-1.5rem]" />
-        <Button color="primary" type="submit" customStyle="self-end">
+        <Button color="primary" type="submit" customStyle="self-end" disabled={loading}>
+          {loading && <CircularProgress size="16px" sx={{ color: variables.color_white }} />}
           {orgId ? translate('org-profile-save-button') : translate('org-profile-create-button')}
         </Button>
       </form>
       <CustomSnackbar
-        open={openSnackbar}
-        onClose={() => setOpenSnackbar(false)}
+        open={openSnackbar.open}
+        onClose={() => setOpenSnackbar({ ...openSnackbar, open: false })}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        containerClassName={css['snackbar']}
+        theme={openSnackbar.type}
         autoHideDuration={5000}
       >
-        <div className={css['snackbar__content']}>
-          <Icon name="tick" color={variables.color_primary_700} />
-          {translate('schema-copy-snackbar')}
-        </div>
+        <>
+          <Icon
+            name={openSnackbar.type === 'error' ? 'alert-circle' : 'tick'}
+            fontSize={18}
+            color={variables[`color_${openSnackbar.type}_700`]}
+          />
+          {openSnackbar.message}
+        </>
       </CustomSnackbar>
     </>
   );

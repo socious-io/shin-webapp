@@ -1,4 +1,4 @@
-import { PaginateRes } from '../types';
+import { PaginateRes } from '..';
 
 export interface IntegrationReq {
   name: string;

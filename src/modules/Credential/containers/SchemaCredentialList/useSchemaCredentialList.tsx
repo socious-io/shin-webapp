@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { CredentialsRes, deleteCredentialAdaptor, getImportStatusAdaptor } from 'src/core/adaptors';
 
 export const useSchemaCredentialList = (
   schemaCredentialList: CredentialsRes | null,
   onUpdateSchemaCredentialList: (page: number) => void,
 ) => {
-  const { t: translate } = useTranslation();
   const currentList = schemaCredentialList?.items || [];
   const importId = localStorage.getItem('import_id') || '';
   const [importingLoading, setImportingLoading] = useState(!!importId);
@@ -76,7 +74,7 @@ export const useSchemaCredentialList = (
   };
 
   return {
-    data: { translate, currentList, importingLoading, page, totalPage, openModal },
+    data: { currentList, importingLoading, page, totalPage, openModal },
     operations: {
       onChangePage,
       onImportCSVClick,

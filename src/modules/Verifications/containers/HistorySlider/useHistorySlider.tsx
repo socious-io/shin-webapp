@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { config } from 'src/config';
 import { getVerificationHistory, VerificationIndividualAdaptor } from 'src/core/adaptors';
 
 export const useHistorySlider = (verificationId: string) => {
-  const { t: translate } = useTranslation();
   const [history, setHistory] = useState<VerificationIndividualAdaptor[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -36,6 +34,6 @@ export const useHistorySlider = (verificationId: string) => {
 
   return {
     data: { history, url, openModal, page, total },
-    operations: { translate, handleCopy, handleOpenCopy, setOpenModal, setPage },
+    operations: { handleCopy, handleOpenCopy, setOpenModal, setPage },
   };
 };

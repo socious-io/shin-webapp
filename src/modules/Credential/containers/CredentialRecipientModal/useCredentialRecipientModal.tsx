@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { addCredentialRecipientAdaptor, Schema, Attribute } from 'src/core/adaptors';
 import { CredentialClaims } from 'src/core/api';
 import { emailPattern, urlPattern } from 'src/core/helpers/regexs';
+import { translate } from 'src/core/helpers/utils';
 import * as yup from 'yup';
 
 const createValidationSchema = (schemaAttributes: Attribute[], translate: any) => {
@@ -47,7 +47,6 @@ const createValidationSchema = (schemaAttributes: Attribute[], translate: any) =
 };
 
 export const useCredentialRecipientModal = (selectedSchema: Schema, onAddCredentialRecipient: () => void) => {
-  const { t: translate } = useTranslation();
   const schemaAttributes = selectedSchema?.attributes || [];
 
   const validationSchema = createValidationSchema(schemaAttributes, translate);

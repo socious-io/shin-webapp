@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useLoaderData } from 'react-router-dom';
 import { deleteIntegrationAdaptor, getIntegrationsAdaptor, IntegrationsRes } from 'src/core/adaptors';
 
 export const useIntegrationList = (onOpenAddModal: (open: boolean) => void) => {
-  const { t: translate } = useTranslation();
   const integrationList = (useLoaderData() as IntegrationsRes) || {};
   const [openModal, setOpenModal] = useState<{ name: 'edit' | 'delete' | ''; open: boolean; integrationId: string }>({
     name: '',
@@ -52,7 +50,7 @@ export const useIntegrationList = (onOpenAddModal: (open: boolean) => void) => {
   };
 
   return {
-    data: { translate, currentList, page, totalPage, openModal, copied },
+    data: { currentList, page, totalPage, openModal, copied },
     operations: {
       onChangePage,
       handleCloseModal,

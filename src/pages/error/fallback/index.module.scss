@@ -1,0 +1,31 @@
+@import 'src/styles/utilities/_mixins.scss';
+@import 'src/styles/constants/_primitives.scss';
+
+.container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    @include flex(center, center, column);
+    gap: 1.5rem;
+    text-align: center;
+
+    .error {
+        &__code {
+            font-size: 80px;
+            font-weight: 800;
+            color: $color-error-600;
+        }
+
+        &__msg {
+            font-size: 48px;
+            font-weight: 600;
+            color: $color-grey-900;
+        }
+
+        &__details {
+            font-size: 24px;
+            color: $color-grey-700;
+            margin-bottom: 1rem;
+        }
+    }
+}

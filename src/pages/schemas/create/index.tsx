@@ -1,3 +1,4 @@
+import { translate } from 'src/core/helpers/utils';
 import Button from 'src/modules/General/components/Button';
 import CreateSchema from 'src/modules/Schema/containers/CreateSchema';
 
@@ -6,7 +7,7 @@ import { useCreate } from './useCreate';
 
 export const Create = () => {
   const {
-    data: { translate, createSchemaRef },
+    data: { createSchemaRef },
     operations: { onCancelCreateSchema, handlePublish },
   } = useCreate();
 

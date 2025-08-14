@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { uploadMediaWithProgressAdaptor, verifyOrganization } from 'src/core/adaptors';
 import { RootState } from 'src/store';
@@ -7,7 +6,6 @@ import { RootState } from 'src/store';
 import { FileState } from './index.types';
 
 export const useDetailModal = (handleSuccess: () => void) => {
-  const { t: translate } = useTranslation();
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,7 +18,7 @@ export const useDetailModal = (handleSuccess: () => void) => {
     acc[id] = error;
     return acc;
   }, {});
-  const orgId = useSelector<RootState, string>((state: RootState) => state.org.id);
+  const orgId = useSelector((state: RootState) => state.identity.currentId);
 
   const updateFileState = (file: File, updates: Partial<Omit<FileState, 'file'>>) => {
     setFileStates(prev => prev.map(f => (f.file === file ? { ...f, ...updates } : f)));
@@ -62,6 +60,7 @@ export const useDetailModal = (handleSuccess: () => void) => {
     setError('');
     setLoading(true);
     const fileIds = fileStates.map(file => file.id).filter(Boolean);
+    if (!orgId) return;
     const { error } = await verifyOrganization(orgId, fileIds);
     if (error) setError(error);
     else handleSuccess();
@@ -70,7 +69,6 @@ export const useDetailModal = (handleSuccess: () => void) => {
 
   return {
     data: {
-      translate,
       files,
       progressValues,
       uploadedErrors,

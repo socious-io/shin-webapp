@@ -1,6 +1,6 @@
+import { PaginateReq, SuccessRes } from '..';
 import { RecipientReq, RecipientRes, RecipientListRes } from './recipients.types';
 import { post, del, get, put } from '../http';
-import { PaginateReq, SuccessRes } from '../types';
 
 export async function createRecipient(payload: RecipientReq): Promise<RecipientRes> {
   return (await post<RecipientRes>('recipients', payload)).data;

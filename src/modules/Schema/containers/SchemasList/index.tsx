@@ -2,12 +2,13 @@ import { ColumnDef, flexRender, getCoreRowModel, Getter, useReactTable } from '@
 import { useMemo } from 'react';
 import { Schema } from 'src/core/adaptors';
 import { formatDate } from 'src/core/helpers/relative-time';
+import { translate } from 'src/core/helpers/utils';
+import ConfirmModal from 'src/modules/General/components/ConfirmModal';
+import EmptyBox from 'src/modules/General/components/EmptyBox';
 import FeaturedIcon from 'src/modules/General/components/FeaturedIcon';
 import Icon from 'src/modules/General/components/Icon';
 import Pagination from 'src/modules/General/components/Pagination';
 // import CustomSnackbar from 'src/modules/General/components/Snackbar';
-import ConfirmModal from 'src/modules/General/containers/ConfirmModal';
-import EmptyBox from 'src/modules/General/containers/EmptyBox';
 import variables from 'src/styles/constants/_exports.module.scss';
 
 import css from './index.module.scss';
@@ -16,7 +17,7 @@ import SchemaDetailModal from '../SchemaDetailModal';
 
 const SchemasList: React.FC = () => {
   const {
-    data: { translate, currentList, page, totalPage, openModal, viewData },
+    data: { currentList, page, totalPage, openModal, viewData },
     operations: { onView, onDelete, onChangePage, handleCloseModal, onDeleteSchema, onCreateSchema, onCopy },
   } = useSchemasList();
 
@@ -99,11 +100,7 @@ const SchemasList: React.FC = () => {
     [currentList],
   );
 
-  const table = useReactTable({
-    data: currentList,
-    columns: columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  const table = useReactTable({ data: currentList, columns: columns, getCoreRowModel: getCoreRowModel() });
 
   return currentList.length ? (
     <>
@@ -181,13 +178,17 @@ const SchemasList: React.FC = () => {
         open={openSnackbar}
         onClose={() => setOpenSnackbar(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        containerClassName={css['snackbar']}
+        theme="success"
         autoHideDuration={5000}
       >
-        <div className={css['snackbar__content']}>
-          <Icon name="tick" color={variables.color_primary_700} />
+        <>
+          <Icon
+            name="tick"
+            fontSize={18}
+            color={variables.color_success_700}
+          />
           {translate('schema-copy-snackbar')}
-        </div>
+        </>
       </CustomSnackbar> */}
     </>
   ) : (

@@ -14,15 +14,17 @@
         @include flex(normal, normal, column);
         flex-grow: 1;
         overflow: hidden;
-    }
 
-    .subtitle {
-        color: $color-grey-600;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        &__name {
+            @include ellipse;
+        }
+
+        &__subtitle {
+            color: $color-grey-600;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 18px;
+            @include ellipse;
+        }
     }
 }

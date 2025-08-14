@@ -1,11 +1,9 @@
-import { useTranslation } from 'react-i18next';
+import { translate } from 'src/core/helpers/utils';
 import ManageOrg from 'src/modules/Organization/containers/ManageOrg';
 
 import css from './index.module.scss';
 
 export const OrgProfile = () => {
-  const { t: translate } = useTranslation();
-
   return (
     <div className={css['container']}>
       <div className={css['top']}>
