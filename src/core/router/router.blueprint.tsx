@@ -214,46 +214,6 @@ export const blueprint: RouteObject[] = [
         ],
       },
       {
-        path: 'connect',
-        children: [
-          {
-            path: 'credential/:id',
-            async lazy() {
-              const { ProofRequest } = await import('src/pages/proofRequest');
-              return {
-                Component: ProofRequest,
-              };
-            },
-          },
-          {
-            path: 'redirect/:id',
-            loader: async ({ params, request }) => {
-              if (params.id) {
-                const url = new URL(request.url);
-                const customerId = url.searchParams.get('customer') || '';
-                const { data } = await createVerificationIndividualAdaptor(params.id, customerId);
-                return { data };
-              }
-            },
-            async lazy() {
-              const { RedirectToVerification } = await import('src/pages/verifications/redirectToVerification');
-              return {
-                Component: RedirectToVerification,
-              };
-            },
-          },
-          {
-            path: 'verification/:id',
-            async lazy() {
-              const { ProofRequest } = await import('src/pages/proofRequest');
-              return {
-                Component: ProofRequest,
-              };
-            },
-          },
-        ],
-      },
-      {
         path: 'intro',
         async lazy() {
           const { Intro } = await import('src/pages/intro');
@@ -276,6 +236,48 @@ export const blueprint: RouteObject[] = [
         },
       },
     ],
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: 'connect',
+    children: [
+      {
+        path: 'credential/:id',
+        async lazy() {
+          const { ProofRequest } = await import('src/pages/proofRequest');
+          return {
+            Component: ProofRequest,
+          };
+        },
+      },
+      {
+        path: 'redirect/:id',
+        loader: async ({ params, request }) => {
+          if (params.id) {
+            const url = new URL(request.url);
+            const customerId = url.searchParams.get('customer') || '';
+            const { data } = await createVerificationIndividualAdaptor(params.id, customerId);
+            return { data };
+          }
+        },
+        async lazy() {
+          const { RedirectToVerification } = await import('src/pages/verifications/redirectToVerification');
+          return {
+            Component: RedirectToVerification,
+          };
+        },
+      },
+      {
+        path: 'verification/:id',
+        async lazy() {
+          const { ProofRequest } = await import('src/pages/proofRequest');
+          return {
+            Component: ProofRequest,
+          };
+        },
+      },
+    ],
+    errorElement: <ErrorBoundary />,
   },
   {
     path: '*',
