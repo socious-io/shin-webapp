@@ -19,7 +19,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "cypress", "tailwind.config.js", "postcss.config.js"],
+  "include": ["src", "cypress", "tailwind.config.js", "postcss.config.js", "generate-languages.js"],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
