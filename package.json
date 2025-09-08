@@ -19,6 +19,7 @@
     "eslint:fix": "eslint --fix",
     "typecheck": "tsc",
     "typecheck:staged": "tsc-files",
+    "generate:translations": "node src/core/helpers/generate-languages.js",
     "lint": "lint-staged",
     "prepare": "husky"
   },
@@ -47,6 +48,7 @@
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.11.0",
     "country-flag-icons": "^1.5.19",
+    "dotenv": "^17.2.1",
     "firebase": "^10.12.3",
     "i18next-browser-languagedetector": "^8.2.0",
     "iso-country-currency": "^0.7.2",
@@ -130,6 +132,9 @@
       "npm run eslint:fix",
       "npm run prettier:fix"
     ],
-    "*.{css,scss,md}": "npm run prettier:fix"
+    "*.{css,scss,md}": "npm run prettier:fix",
+    "src/core/translation/locales/en/**/*.json": [
+      "npm run generate:translations"
+    ]
   }
 }
